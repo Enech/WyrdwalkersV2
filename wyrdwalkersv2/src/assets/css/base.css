@@ -1,0 +1,18 @@
+.v-list-item--active {
+    background-color: #b71c1c !important;
+    color: #ffffff !important;
+}
+
+.v-list-item--active:not(.v-list-group__header) {
+    background-color: #4e4e4e !important;
+    color: #ffffff !important;
+}
+
+.theme--dark.v-btn--active:hover::before, .theme--dark.v-btn--active::before,
+.theme--dark.v-list-item--active:hover::before, .theme--dark.v-list-item--active::before {
+    opacity: 0;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
