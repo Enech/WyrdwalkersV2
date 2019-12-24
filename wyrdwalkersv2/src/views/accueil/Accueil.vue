@@ -31,7 +31,7 @@
           <v-list-item :to="{name:'presentation'}">
             <v-list-item-title>Accueil</v-list-item-title>
             <v-list-item-action>
-              <v-icon small>fa-lightbulb</v-icon>
+              <v-icon small>fa-key</v-icon>
             </v-list-item-action>
           </v-list-item>
           <v-list-item :to="{name:'join'}">
@@ -40,7 +40,7 @@
               <v-icon small>fa-map</v-icon>
             </v-list-item-action>
           </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'activites'}">
             <v-list-item-title>Activités</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-rss</v-icon>
@@ -52,7 +52,7 @@
               <v-icon small>fa-cog</v-icon>
             </v-list-item-action>
           </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'assoHistory'}">
             <v-list-item-title>Historique</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-book</v-icon>
@@ -69,27 +69,24 @@
               <v-icon small>fa-search</v-icon>
             </v-list-item-action>
           </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'ateliers'}">
             <v-list-item-title>Ateliers</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-gamepad</v-icon>
             </v-list-item-action>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title>Historique</v-list-item-title>
-            <v-list-item-action>
-              <v-icon small>fa-book</v-icon>
-            </v-list-item-action>
-          </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'historiqueJdr'}">
             <v-list-item-title>Historique JDR</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-scroll</v-icon>
             </v-list-item-action>
           </v-list-item>
         </v-list-group>
-        <v-list-item>
+        <v-list-item :to="{name:'personalityTest'}">
           <v-list-item-title>Test de personnalité</v-list-item-title>
+          <v-list-item-action>
+              <v-icon small>fa-lightbulb</v-icon>
+            </v-list-item-action>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>

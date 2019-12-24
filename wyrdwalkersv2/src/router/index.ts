@@ -11,6 +11,7 @@ const routes = [
   {
     path: '/home',
     name: 'home',
+    redirect: "/home/presentation",
     component: () => import('../views/accueil/Accueil.vue'),
     children: [
       {
@@ -32,6 +33,31 @@ const routes = [
         path: 'murder-parties',
         name: 'murderParties',
         component: () => import('../views/accueil/menus/MurderParties.vue')
+      },
+      {
+        path: 'rpg-history',
+        name: 'historiqueJdr',
+        component: () => import('../views/accueil/menus/HistoriqueJdr.vue')
+      },
+      {
+        path: 'activities',
+        name: 'activites',
+        component: () => import('../views/accueil/menus/Activites.vue')
+      },
+      {
+        path: 'workshops',
+        name: 'ateliers',
+        component: () => import('../views/accueil/menus/Ateliers.vue')
+      },
+      {
+        path: 'association-history',
+        name: 'assoHistory',
+        component: () => import('../views/accueil/menus/AssoHistorique.vue')
+      },
+      {
+        path: 'personality-test',
+        name: 'personalityTest',
+        component: () => import('../views/accueil/menus/PersonalityTest.vue')
       }
     ]
   }
