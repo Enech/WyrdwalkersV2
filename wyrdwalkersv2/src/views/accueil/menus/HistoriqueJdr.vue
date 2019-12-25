@@ -51,7 +51,7 @@
                 <iframe
                   width="100%"
                   height="100"
-                  :src="selectedEvent.music"
+                  :src="getEmbedUrl(selectedEvent.music)"
                   frameborder="0"
                   allow="autoplay; encrypted-media"
                   allowfullscreen
@@ -95,6 +95,11 @@ export default Vue.extend({
       } else {
         return `${Math.abs(intYear)} ap. J-C`;
       }
+    },
+    getEmbedUrl: function(url: string){
+        var urlTab = url.split("watch?v=");
+        var videoId = urlTab[urlTab.length-1];
+        return `https://www.youtube.com/embed/${videoId}`;
     }
   },
   computed: {

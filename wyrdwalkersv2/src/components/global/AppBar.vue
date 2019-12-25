@@ -3,19 +3,19 @@
     <v-app-bar color="black" dark app clipped-left dense clipped-right hide-on-scroll>
       <v-toolbar-items>
         <v-btn small text :to="{name:'home'}">
-          <v-icon small>home</v-icon>
+          <v-icon small :left="enableLeft">home</v-icon>
           <span class="hidden-xs-only">Accueil</span>
         </v-btn>
         <v-btn small text>
-          <v-icon small>games</v-icon>
+          <v-icon small :left="enableLeft">games</v-icon>
           <span class="hidden-xs-only">Espace Joueur</span>
         </v-btn>
         <v-btn small text>
-          <v-icon small>amp_stories</v-icon>
+          <v-icon small :left="enableLeft">amp_stories</v-icon>
           <span class="hidden-xs-only">Espace MJ</span>
         </v-btn>
-        <v-btn small text>
-          <v-icon small>menu_book</v-icon>
+        <v-btn small text :to="{name:'wiki'}">
+          <v-icon small :left="enableLeft">menu_book</v-icon>
           <span class="hidden-xs-only">Wiki</span>
         </v-btn>
         <v-btn small text>
@@ -23,7 +23,7 @@
           <span class="hidden-xs-only">Philosophie</span>
         </v-btn>
         <v-btn small text>
-          <v-icon small>settings_applications</v-icon>
+          <v-icon small :left="enableLeft">settings_applications</v-icon>
           <span class="hidden-xs-only">Administration</span>
         </v-btn>
       </v-toolbar-items>
@@ -88,6 +88,7 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../store";
+import vuetify from "../../plugins/vuetify";
 
 export default Vue.extend({
   name: "AppBar",
@@ -105,6 +106,9 @@ export default Vue.extend({
       get: function() {
         return store.getters.contextDrawer;
       }
+    },
+    enableLeft: function(){
+      return !(this.$vuetify.breakpoint.xs);
     }
   },
   watch: {

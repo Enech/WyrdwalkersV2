@@ -1,0 +1,135 @@
+<template>
+  <div class="pa-3">
+    <v-card class="pa-3">
+      <v-card-title class="headline">{{page.title.titleVF}}</v-card-title>
+      <v-tabs grow show-arrows>
+        <v-tab v-if="page.generalInfos != undefined" href="#tab-general">Général</v-tab>
+        <v-tab v-if="page.myth != undefined" href="#tab-myth">Mythe</v-tab>
+        <v-tab
+          v-for="(content,index) in page.content"
+          :key="index"
+          :href="'#tab-' + content.timeline"
+        >{{content.timeline}}</v-tab>
+        <v-tab-item value="tab-general" v-if="page.generalInfos != undefined">
+          <v-card class="pa-3" flat tile>
+            <v-row dense>
+              <v-col cols="12" md="9" v-html="page.generalInfos.vf"></v-col>
+              <v-col cols="12" md="3">
+                <v-img :src="page.content[0].picture" eager></v-img>
+                <v-list-item class="blue mb-1" dark>
+                  <v-list-item-icon>
+                    <v-icon small>edit</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <span v-if="page.content[0].picAuthor != ''">{{page.content[0].picAuthor}}</span>
+                    <span v-else>Auteur inconnu</span>
+                  </v-list-item-content>
+                </v-list-item>
+                <div v-if="page.content[0].music != ''">
+                  <iframe
+                    width="100%"
+                    height="100"
+                    :src="getEmbedUrl(page.content[0].music)"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item value="tab-myth" v-if="page.myth != undefined">
+          <v-card class="pa-3" tile flat>
+            <v-row dense>
+              <v-col cols="12" md="9" v-html="page.myth.vf"></v-col>
+              <v-col cols="12" md="3">
+                <v-img :src="page.content[0].picture" eager></v-img>
+                <v-list-item class="blue mb-1" dark>
+                  <v-list-item-icon>
+                    <v-icon small>edit</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <span v-if="page.content[0].picAuthor != ''">{{page.content[0].picAuthor}}</span>
+                    <span v-else>Auteur inconnu</span>
+                  </v-list-item-content>
+                </v-list-item>
+                <div v-if="page.content[0].music != ''">
+                  <iframe
+                    width="100%"
+                    height="100"
+                    :src="getEmbedUrl(page.content[0].music)"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item
+          v-for="(content,index) in page.content"
+          :key="index"
+          :value="'tab-' + content.timeline"
+        >
+          <v-card class="pa-3" tile flat>
+            <v-row dense>
+              <v-col cols="12" md="9" v-html="content.textVF"></v-col>
+              <v-col cols="12" md="3">
+                <v-img :src="content.picture" eager></v-img>
+                <v-list-item class="blue mb-1" dark>
+                  <v-list-item-icon>
+                    <v-icon small>edit</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <span v-if="content.picAuthor != ''">{{content.picAuthor}}</span>
+                    <span v-else>Auteur inconnu</span>
+                  </v-list-item-content>
+                </v-list-item>
+                <div v-if="content.music != ''">
+                  <iframe
+                    width="100%"
+                    height="100"
+                    :src="getEmbedUrl(content.music)"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from "vue";
+import store from "../../../store";
+
+export default Vue.extend({
+  name: "WikiLore",
+  created: function() {
+    this.fetchWikiPage(this.$route.params.pagename);
+  },
+  methods: {
+    fetchWikiPage: function(name: string) {
+      store.dispatch("fetchWikiPage", name);
+    },
+    getEmbedUrl: function(url: string) {
+      var urlTab = url.split("watch?v=");
+      var videoId = urlTab[urlTab.length - 1];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+  },
+  data: () => ({}),
+  computed: {
+    page: function() {
+      return store.getters.wikipage;
+    }
+  }
+});
+</script>

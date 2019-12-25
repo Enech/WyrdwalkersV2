@@ -16,3 +16,57 @@
 .uppercase{
     text-transform: uppercase;
 }
+
+/* width */
+.scroll-thin::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.scroll-thin::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+.scroll-thin::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+.scroll-thin::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+/* width */
+.v-navigation-drawer__content::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.v-navigation-drawer__content::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+.v-navigation-drawer__content::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+.v-navigation-drawer__content::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.article-look-3{
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+@media (max-width: 450px) {
+    .article-look-3{
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}

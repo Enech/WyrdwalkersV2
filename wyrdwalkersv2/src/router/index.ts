@@ -60,6 +60,24 @@ const routes = [
         component: () => import('../views/accueil/menus/PersonalityTest.vue')
       }
     ]
+  },
+  {
+    path: '/wiki',
+    name: 'wiki',
+    redirect: "/wiki/home",
+    component: () => import('../views/wiki/Wiki.vue'),
+    children: [
+      {
+        path: ':pagename',
+        name: 'wikiLore',
+        component: () => import('../views/wiki/menus/WikiLore.vue')
+      },
+      {
+        path: 'home',
+        name: 'wikiHome',
+        component: () => import('../views/wiki/menus/Home.vue')
+      }      
+    ]
   }
 ];
 
