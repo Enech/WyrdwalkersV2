@@ -44,7 +44,7 @@
           <template v-slot:activator>
             <v-list-item-title>Système de jeu</v-list-item-title>
           </template>
-          <v-list-item >
+          <v-list-item :to="{name:'rules'}">
             <v-list-item-title>Lignes directrices</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-book</v-icon>

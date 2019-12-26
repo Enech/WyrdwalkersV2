@@ -16,7 +16,7 @@
               <v-col cols="12" md="9" v-html="page.generalInfos.vf"></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
-                <v-list-item class="blue mb-1" dark>
+                <v-list-item class="blue mb-1" dark v-if="page.content[0].picture != ''">
                   <v-list-item-icon>
                     <v-icon small>edit</v-icon>
                   </v-list-item-icon>
@@ -45,7 +45,7 @@
               <v-col cols="12" md="9" v-html="page.myth.vf"></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
-                <v-list-item class="blue mb-1" dark>
+                <v-list-item class="blue mb-1" dark v-if="page.content[0].picture != ''">
                   <v-list-item-icon>
                     <v-icon small>edit</v-icon>
                   </v-list-item-icon>
@@ -78,7 +78,7 @@
               <v-col cols="12" md="9" v-html="content.textVF"></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="content.picture" eager></v-img>
-                <v-list-item class="blue mb-1" dark>
+                <v-list-item class="blue mb-1" dark v-if="content.picture != ''">
                   <v-list-item-icon>
                     <v-icon small>edit</v-icon>
                   </v-list-item-icon>

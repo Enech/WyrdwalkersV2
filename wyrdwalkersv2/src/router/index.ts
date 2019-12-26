@@ -68,14 +68,19 @@ const routes = [
     component: () => import('../views/wiki/Wiki.vue'),
     children: [
       {
+        path: 'home',
+        name: 'wikiHome',
+        component: () => import('../views/wiki/menus/Home.vue')
+      },
+      {
         path: ':pagename',
         name: 'wikiLore',
         component: () => import('../views/wiki/menus/WikiLore.vue')
       },
       {
-        path: 'home',
-        name: 'wikiHome',
-        component: () => import('../views/wiki/menus/Home.vue')
+        path: 'gameplay/rules',
+        name: 'rules',
+        component: () => import('../views/wiki/menus/Regles.vue')
       }      
     ]
   }
