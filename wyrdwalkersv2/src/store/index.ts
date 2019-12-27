@@ -137,10 +137,13 @@ export default new Vuex.Store({
         });
     },
     fetchWikiPage(context, pagename: string){
-      return axios.get(`${process.env.VUE_APP_APIURL}wiki/${pagename}`)
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}wiki/${pagename}`)
         .then((response: any) => {
           context.commit("setWikiPage", response.data);
+          resolve(response);
         });
+      });
     }
   },
   modules: {

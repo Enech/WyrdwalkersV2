@@ -13,6 +13,14 @@
         <v-tab-item value="tab-general" v-if="page.generalInfos != undefined">
           <v-card class="pa-3" flat tile>
             <v-row dense>
+              <v-col cols="12">
+                <v-breadcrumbs
+                  v-if="page._id.length > 0"
+                  :items="computeBreadcrumbs(page.content[0])"
+                ></v-breadcrumbs>
+              </v-col>
+            </v-row>
+            <v-row dense>
               <v-col cols="12" md="9" v-html="page.generalInfos.vf"></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
@@ -41,6 +49,14 @@
         </v-tab-item>
         <v-tab-item value="tab-myth" v-if="page.myth != undefined">
           <v-card class="pa-3" tile flat>
+            <v-row dense>
+              <v-col cols="12">
+                <v-breadcrumbs
+                  v-if="page._id.length > 0"
+                  :items="computeBreadcrumbs(page.content[0])"
+                ></v-breadcrumbs>
+              </v-col>
+            </v-row>
             <v-row dense>
               <v-col cols="12" md="9" v-html="page.myth.vf"></v-col>
               <v-col cols="12" md="3">
@@ -74,6 +90,14 @@
           :value="'tab-' + content.timeline"
         >
           <v-card class="pa-3" tile flat>
+            <v-row dense>
+              <v-col cols="12">
+                <v-breadcrumbs
+                  v-if="page._id.length > 0"
+                  :items="computeBreadcrumbs(content)"
+                ></v-breadcrumbs>
+              </v-col>
+            </v-row>
             <v-row dense>
               <v-col cols="12" md="9" v-html="content.textVF"></v-col>
               <v-col cols="12" md="3">
@@ -123,6 +147,58 @@ export default Vue.extend({
       var urlTab = url.split("watch?v=");
       var videoId = urlTab[urlTab.length - 1];
       return `https://www.youtube.com/embed/${videoId}`;
+    },
+    computeBreadcrumbs: function(content: any) {
+      var result = new Array<any>();
+      var factionCrumb = {};
+      var teamCrumb = {};
+      var nameCrumb = {
+        text: this.page.title.titleVF,
+        disabled: true
+      };
+      result.push({
+        text: "Accueil",
+        href: "/wiki/home"
+      });
+      // Le cas "empty" induit de ne pas mettre le breadcrumb correspondant danas la liste
+      if (content.faction !== "empty") {
+        switch (content.faction) {
+          case "dieux":
+            result.push({
+              text: "Panthéons",
+              href: "/wiki/lore/panthéons"
+            });
+            break;
+          case "society":
+            result.push({
+              text: "Sociétés Secrètes",
+              href: "/wiki/lore/sociétés-secrètes"
+            });
+            break;
+          case "otherworld":
+            result.push({
+              text: "Outres-Mondes",
+              href: "/wiki/lore/outres-mondes"
+            });
+            break;
+          case "titans":
+            result.push({
+              text: "Royaumes Titaniques",
+              href: "/wiki/lore/titans"
+            });
+            break;
+        }
+
+        if (content.team !== "empty") {
+          result.push({
+            text: "",
+            href: `/wiki/lore/${content.team}`
+          });
+        }
+      }
+      result.push(nameCrumb);
+
+      return result;
     }
   },
   data: () => ({}),
