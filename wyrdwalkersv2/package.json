@@ -14,6 +14,7 @@
     "express": "^4.17.1",
     "material-design-icons-iconfont": "^5.0.1",
     "register-service-worker": "^1.6.2",
+    "tiptap": "^1.26.6",
     "vue": "^2.6.11",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
