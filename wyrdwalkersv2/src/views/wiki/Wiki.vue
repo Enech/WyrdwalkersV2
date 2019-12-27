@@ -173,7 +173,7 @@
             <v-list-item-title>L'Ordre du Poing de Jade</v-list-item-title>
           </v-list-item>
         </v-list-group>
-        <v-list-item >
+        <v-list-item :to="{path:'/wiki/music-library'}" target="_blank">
           <v-list-item-title>Bibliothèque musicale</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-music</v-icon>

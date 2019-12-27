@@ -2,14 +2,14 @@ import WikiPageContent from './WikiPageContent.model';
 
 export default class WikiPage {
     public _id: string;
-    public title: Object;
+    public title: any;
     public author: string;
     public tags: string;
     public searchable: boolean;
     public isEditionLocked: boolean;
     public content: WikiPageContent[];
-    public generalInfos: Object;
-    public myth: Object;
+    public generalInfos: any;
+    public myth: any;
 
     constructor (){
         this._id = '';

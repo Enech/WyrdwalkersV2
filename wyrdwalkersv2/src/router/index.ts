@@ -91,6 +91,11 @@ const routes = [
         path: 'timelines',
         name: 'timelines',
         component: () => import('../views/wiki/menus/Chronologies.vue')
+      },
+      {
+        path: 'music-library',
+        name: 'musics',
+        component: () => import('../views/wiki/menus/MusicLibrary.vue')
       }
     ]
   },

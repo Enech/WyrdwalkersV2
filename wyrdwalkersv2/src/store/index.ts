@@ -25,7 +25,8 @@ export default new Vuex.Store({
     approaches: new Array<TriangleParameter>(),
     personalities: new Array<TriangleParameter>(),
     pantheons: new Array<TriangleParameter>(),
-    wikipage: new WikiPage()
+    wikipage: new WikiPage(),
+    allWikiPages: new Array<WikiPage>()
   },
   mutations: {
     setSelectedPersonalTab(state, tabIndex: number) {
@@ -66,6 +67,9 @@ export default new Vuex.Store({
     },
     setWikiPage(state, page: WikiPage){
       state.wikipage = page;
+    },
+    setAllWikiPages(state, pages: WikiPage[]){
+      state.allWikiPages = pages;
     }
   },
   getters: {
@@ -79,7 +83,8 @@ export default new Vuex.Store({
     domains: state => state.domains,
     personalities: state => state.personalities,
     pantheons: state => state.pantheons,
-    wikipage: state => state.wikipage
+    wikipage: state => state.wikipage,
+    allWikiPages: state => state.allWikiPages
   },
   actions: {
     fetchEvents(context) {
@@ -141,6 +146,15 @@ export default new Vuex.Store({
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/${pagename}`)
         .then((response: any) => {
           context.commit("setWikiPage", response.data);
+          resolve(response);
+        });
+      });
+    },
+    fetchAllWikiPages(context){
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`)
+        .then((response: any) => {
+          context.commit("setAllWikiPages", response.data);
           resolve(response);
         });
       });
