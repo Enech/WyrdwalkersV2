@@ -91,7 +91,7 @@
               <p>
                 Le système Wyrdwalkers est basé sur le système de FATE Core, que vous pouvez trouver en français à
                 <a
-                  href="https://fate-srd.fr/wikifate/"
+                  href="httpss://fate-srd.fr/wikifate/"
                   target="_blank"
                 >cette adresse</a>. Il n’est pas primordial de visiter
                 le site car nous en avons modifié le fonctionnement sur plusieurs notions. Cependant, cela peut être utile pour avoir une référence en tête.
@@ -2186,19 +2186,19 @@ export default Vue.extend({
   data: () => ({
     showDrawer: false,
     sheets: [
-      "http://localhost:8080/ressources/regles/Diapositive1.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive2.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive3.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive4.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive5.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive6.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive7.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive8.PNG"
+      "https://wyrdwalkers.com/ressources/regles/Diapositive1.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive2.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive3.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive4.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive5.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive6.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive7.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive8.PNG"
     ],
     sheetsSkills: [
-      "http://localhost:8080/ressources/regles/Diapositive9.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive10.PNG",
-      "http://localhost:8080/ressources/regles/Diapositive11.PNG"
+      "https://wyrdwalkers.com/ressources/regles/Diapositive9.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive10.PNG",
+      "https://wyrdwalkers.com/ressources/regles/Diapositive11.PNG"
     ]
   })
 });
