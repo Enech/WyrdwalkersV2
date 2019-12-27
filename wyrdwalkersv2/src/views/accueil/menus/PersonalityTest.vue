@@ -268,7 +268,8 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
-import TriangleDrawing from "@/components/personality-test/TriangleDrawing.vue";
+// @ts-ignore
+import TriangleDrawing from '../../../components/personality-test/TriangleDrawing.vue'
 
 export default Vue.extend({
   name: "PersonalityTest",
