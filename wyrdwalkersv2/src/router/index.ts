@@ -73,7 +73,7 @@ const routes = [
         component: () => import('../views/wiki/menus/Home.vue')
       },
       {
-        path: ':pagename',
+        path: 'lore/:pagename',
         name: 'wikiLore',
         component: () => import('../views/wiki/menus/WikiLore.vue')
       },
@@ -81,7 +81,17 @@ const routes = [
         path: 'gameplay/rules',
         name: 'rules',
         component: () => import('../views/wiki/menus/Regles.vue')
-      }      
+      },
+      {
+        path: 'gameplay/legendary-abilities',
+        name: 'abilities',
+        component: () => import('../views/wiki/menus/Pouvoirs.vue')
+      },
+      {
+        path: 'timelines',
+        name: 'timelines',
+        component: () => import('../views/wiki/menus/Chronologies.vue')
+      }
     ]
   }
 ];

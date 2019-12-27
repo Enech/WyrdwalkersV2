@@ -191,3 +191,7 @@ bloc-5>titre {
         right: 0;
     }
 }
+
+.v-card__title {
+    word-break: break-word;
+}

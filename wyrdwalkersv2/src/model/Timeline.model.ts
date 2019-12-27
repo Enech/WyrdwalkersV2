@@ -12,6 +12,6 @@ export default class Timeline {
         this.name = '';
         this.description = '';
         this.firstEvent = new TimelineEvent();
-        this.events = new Array<TimelineEvent>();;
+        this.events = new Array<TimelineEvent>();
     }
 }

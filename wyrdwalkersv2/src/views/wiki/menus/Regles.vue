@@ -808,7 +808,7 @@
                   <v-alert outlined type="info" border="left">
                     Pour avoir accès à la liste complète des Capacités Légendaires, c'est
                     <a
-                      href="/wiki/legendary-abilities "
+                      href="/wiki/gameplay/legendary-abilities "
                       target="_blank "
                     >par ici</a> !
                   </v-alert>
@@ -825,9 +825,8 @@
                     amour-haine s’instaurera entre vous et cette mécanique.
                   </p>
                   <p>
-                    Chaque domaine de magie (
-                    <a
-                      href="/wiki/legendary-abilities"
+                    Chaque domaine de magie (<a
+                      href="/wiki/gameplay/legendary-abilities"
                       target="_blank "
                     >ici</a>) est associé à un nombre de liens du Wyrd. Vous trouverez ci-dessous la table associée. Rappelez-vous que
                     ces valeurs ne sont données qu'à titre indicatif, en tant que MJ vous êtes libre de les adapter comme bon vous semble.
@@ -994,81 +993,81 @@
                     semble et les exemples cités ci-dessous sont à prendre comme tels : de simples exemples.
                   </p>
                   <v-row dense class="mb-3">
-                      <v-col cols="12" md="4">
-                          <v-card>
-                              <v-card-title>Feu - Destruction</v-card-title>
-                              <v-divider></v-divider>
-                              <v-card-text>Conséquence :</v-card-text>
-                               <v-list dense>
-                                    <v-list-item>
-                                        <v-list-item-content>Légère :</v-list-item-content>
-                                        <v-list-item-content>Tendances pyromanes</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Moyenne :</v-list-item-content>
-                                        <v-list-item-content>Rage bouillante</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Grave :</v-list-item-content>
-                                        <v-list-item-content>Cheveux de feu</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Extrême :</v-list-item-content>
-                                        <v-list-item-content>Demi-Salamandre</v-list-item-content>
-                                    </v-list-item>
-                               </v-list>
-                          </v-card>
-                      </v-col>
-                      <v-col cols="12" md="4">
-                          <v-card>
-                              <v-card-title>Druidisme Vert</v-card-title>
-                              <v-divider></v-divider>
-                              <v-card-text>Conséquence :</v-card-text>
-                               <v-list dense>
-                                    <v-list-item>
-                                        <v-list-item-content>Légère :</v-list-item-content>
-                                        <v-list-item-content>Proche de la Terre</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Moyenne :</v-list-item-content>
-                                        <v-list-item-content>Allergique à la pollution</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Grave :</v-list-item-content>
-                                        <v-list-item-content>Peau d’écorce</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Extrême :</v-list-item-content>
-                                        <v-list-item-content>Homme-Arbre</v-list-item-content>
-                                    </v-list-item>
-                               </v-list>
-                          </v-card>
-                      </v-col>
-                      <v-col cols="12" md="4">
-                          <v-card>
-                              <v-card-title>Force Epique</v-card-title>
-                              <v-divider></v-divider>
-                              <v-card-text>Conséquence :</v-card-text>
-                               <v-list dense>
-                                    <v-list-item>
-                                        <v-list-item-content>Légère :</v-list-item-content>
-                                        <v-list-item-content>Le gras c’est pour les faibles</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Moyenne :</v-list-item-content>
-                                        <v-list-item-content>Accro au sport</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Grave :</v-list-item-content>
-                                        <v-list-item-content>Brise-fer</v-list-item-content>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-list-item-content>Extrême :</v-list-item-content>
-                                        <v-list-item-content>Quatre-Bras</v-list-item-content>
-                                    </v-list-item>
-                               </v-list>
-                          </v-card>
-                      </v-col>
+                    <v-col cols="12" md="4">
+                      <v-card>
+                        <v-card-title>Feu - Destruction</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text>Conséquence :</v-card-text>
+                        <v-list dense>
+                          <v-list-item>
+                            <v-list-item-content>Légère :</v-list-item-content>
+                            <v-list-item-content>Tendances pyromanes</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Moyenne :</v-list-item-content>
+                            <v-list-item-content>Rage bouillante</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Grave :</v-list-item-content>
+                            <v-list-item-content>Cheveux de feu</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Extrême :</v-list-item-content>
+                            <v-list-item-content>Demi-Salamandre</v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" md="4">
+                      <v-card>
+                        <v-card-title>Druidisme Vert</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text>Conséquence :</v-card-text>
+                        <v-list dense>
+                          <v-list-item>
+                            <v-list-item-content>Légère :</v-list-item-content>
+                            <v-list-item-content>Proche de la Terre</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Moyenne :</v-list-item-content>
+                            <v-list-item-content>Allergique à la pollution</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Grave :</v-list-item-content>
+                            <v-list-item-content>Peau d’écorce</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Extrême :</v-list-item-content>
+                            <v-list-item-content>Homme-Arbre</v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" md="4">
+                      <v-card>
+                        <v-card-title>Force Epique</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text>Conséquence :</v-card-text>
+                        <v-list dense>
+                          <v-list-item>
+                            <v-list-item-content>Légère :</v-list-item-content>
+                            <v-list-item-content>Le gras c’est pour les faibles</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Moyenne :</v-list-item-content>
+                            <v-list-item-content>Accro au sport</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Grave :</v-list-item-content>
+                            <v-list-item-content>Brise-fer</v-list-item-content>
+                          </v-list-item>
+                          <v-list-item>
+                            <v-list-item-content>Extrême :</v-list-item-content>
+                            <v-list-item-content>Quatre-Bras</v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                      </v-card>
+                    </v-col>
                   </v-row>
                 </content>
               </bloc-2>
@@ -1581,21 +1580,24 @@
                     <titre>Le mot des créateurs</titre>
                     <content>
                       <blockquote class="blockquote">
-                          <i>Notre monde est composé de mythes et de narratives - nos egos, nos principes, nos espoirs et nos histoires. Etre MJ est une capacité que tout le monde possède, car la première chose que les humains ont appris est comment raconter des histoires. Laisser les joueurs créer leurs histoires, suivre le flot sans trop s’attacher au chemin voulu, est toujours important. En somme, trop de préparation et de structure est plus dangereux que pas assez ! Asseyez-vous, et faites ce que nos ancêtres font depuis que le langage existe: racontez une histoire !</i><br>
-                          <span class="subtitle-1">- Emile</span>
+                        <i>Notre monde est composé de mythes et de narratives - nos egos, nos principes, nos espoirs et nos histoires. Etre MJ est une capacité que tout le monde possède, car la première chose que les humains ont appris est comment raconter des histoires. Laisser les joueurs créer leurs histoires, suivre le flot sans trop s’attacher au chemin voulu, est toujours important. En somme, trop de préparation et de structure est plus dangereux que pas assez ! Asseyez-vous, et faites ce que nos ancêtres font depuis que le langage existe: racontez une histoire !</i>
+                        <br />
+                        <span class="subtitle-1">- Emile</span>
                       </blockquote>
                       <blockquote class="blockquote">
-                          <i>
-                            Je fais du jeu de rôle depuis longtemps. J’ai MJ-sé et joué dans des univers variés, avec des systèmes de règles plus ou moins complexes. Être MJ, ça s’apprend. Cela demande beaucoup de qualités humaines (que vous pourrez mettre en pratique ailleurs)
-                            comme savoir focaliser un groupe sur un objectif, s’adapter, prévoir mais surtout écouter. C’est par le dialogue avec vos joueurs que vous saurez ce que ensemble, vous allez créer. J’ai
-                            gagné beaucoup de temps de préparation en observant mes joueurs et les meilleurs moments de session. J’ai appris que c’était finalement cette compétence qui était la plus importante :
-                            être capable de revenir sur sa dernière session, se rendre compte de ce qui marche avec ce groupe de joueur ou non et s’adapter.
-                          </i><br>
-                          <span class="subtitle-1">- Sébastien</span>
+                        <i>
+                          Je fais du jeu de rôle depuis longtemps. J’ai MJ-sé et joué dans des univers variés, avec des systèmes de règles plus ou moins complexes. Être MJ, ça s’apprend. Cela demande beaucoup de qualités humaines (que vous pourrez mettre en pratique ailleurs)
+                          comme savoir focaliser un groupe sur un objectif, s’adapter, prévoir mais surtout écouter. C’est par le dialogue avec vos joueurs que vous saurez ce que ensemble, vous allez créer. J’ai
+                          gagné beaucoup de temps de préparation en observant mes joueurs et les meilleurs moments de session. J’ai appris que c’était finalement cette compétence qui était la plus importante :
+                          être capable de revenir sur sa dernière session, se rendre compte de ce qui marche avec ce groupe de joueur ou non et s’adapter.
+                        </i>
+                        <br />
+                        <span class="subtitle-1">- Sébastien</span>
                       </blockquote>
                       <blockquote class="blockquote">
-                          <i>Ma première campagne en tant que MJ était écrite comme un jeu vidéo. J’avais tenté d’anticiper tous les chemins en restreignant les choix, à la manière d’un livre dont vous êtes le héros. Mais au bout de 5 minutes, tout l'enchaînement de la campagne était tombé à l’eau à cause d’un choix non-anticipé. Depuis je ne fonctionne quasiment qu’à l’improvisation. Je construis un cadre assez libre avec des checkpoints pour mes joueurs, ce qui donne un monde à la fois construit et qui continue de se construire à mesure que l’aventure avance. Une fois le cadre posé, ce sont les joueurs qui le peuplent.</i><br>
-                          <span class="subtitle-1">- Thomas</span>
+                        <i>Ma première campagne en tant que MJ était écrite comme un jeu vidéo. J’avais tenté d’anticiper tous les chemins en restreignant les choix, à la manière d’un livre dont vous êtes le héros. Mais au bout de 5 minutes, tout l'enchaînement de la campagne était tombé à l’eau à cause d’un choix non-anticipé. Depuis je ne fonctionne quasiment qu’à l’improvisation. Je construis un cadre assez libre avec des checkpoints pour mes joueurs, ce qui donne un monde à la fois construit et qui continue de se construire à mesure que l’aventure avance. Une fois le cadre posé, ce sont les joueurs qui le peuplent.</i>
+                        <br />
+                        <span class="subtitle-1">- Thomas</span>
                       </blockquote>
                     </content>
                   </bloc-3>

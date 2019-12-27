@@ -53,7 +53,7 @@
         un Géant de Feu ? Parce-que si on a de la chance, ça pourrait bien arriver ce soir. En attendant, profite bien de ton temps de demi-dieu sur Terre et essaie de pas trop causer de ruine et de dévastation. La paperasse
         est un véritable enfer."
       </p>
-      <v-btn outlined color="red" block class="mb-3">
+      <v-btn outlined color="red" block class="mb-3" :to="{path:'/wiki/panthéons'}">
           <v-icon left>fa-dungeon</v-icon>Découvrir l'univers Wyrdwalkers
         </v-btn>
     </v-card>
