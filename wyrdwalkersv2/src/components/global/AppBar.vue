@@ -59,6 +59,7 @@
       dark
       right
       bottom
+      :width="400"
     >
       <v-tabs v-model="personalTabIndex" show-arrows>
         <v-tabs-slider></v-tabs-slider>
