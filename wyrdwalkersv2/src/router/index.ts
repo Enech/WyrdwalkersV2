@@ -93,6 +93,21 @@ const routes = [
         component: () => import('../views/wiki/menus/Chronologies.vue')
       }
     ]
+  },
+  {
+    path: '/player',
+    name: 'playerArea',
+    component: () => import('../views/espace-joueur/PlayerArea.vue')
+  },
+  {
+    path: '/game-master',
+    name: 'GMArea',
+    component: () => import('../views/espace-mj/GameMasterArea.vue')
+  },
+  {
+    path: '/philosophy',
+    name: 'philo',
+    component: () => import('../views/philosophie/Philosophie.vue')
   }
 ];
 

@@ -6,11 +6,11 @@
           <v-icon small :left="enableLeft">home</v-icon>
           <span class="hidden-xs-only">Accueil</span>
         </v-btn>
-        <v-btn small text>
+        <v-btn small text :to="{name:'playerArea'}">
           <v-icon small :left="enableLeft">games</v-icon>
           <span class="hidden-xs-only">Espace Joueur</span>
         </v-btn>
-        <v-btn small text>
+        <v-btn small text :to="{name:'GMArea'}">
           <v-icon small :left="enableLeft">amp_stories</v-icon>
           <span class="hidden-xs-only">Espace MJ</span>
         </v-btn>
@@ -18,7 +18,7 @@
           <v-icon small :left="enableLeft">menu_book</v-icon>
           <span class="hidden-xs-only">Wiki</span>
         </v-btn>
-        <v-btn small text>
+        <v-btn small text :to="{name:'philo'}">
           &Phi;
           <span class="hidden-xs-only">Philosophie</span>
         </v-btn>
