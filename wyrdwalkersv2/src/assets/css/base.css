@@ -195,3 +195,11 @@ bloc-5>titre {
 .v-card__title {
     word-break: break-word;
 }
+
+.full-height{
+    height: 100%;
+}
+
+.no-margin{
+    margin: 0;
+}
