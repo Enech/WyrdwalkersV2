@@ -27,7 +27,9 @@ export default new Vuex.Store({
     pantheons: new Array<TriangleParameter>(),
     wikipage: new WikiPage(),
     allWikiPages: new Array<WikiPage>(),
-    randomWikiPages: new Array<WikiPage>()
+    randomWikiPages: new Array<WikiPage>(),
+    wikiSearchResults: new Array<WikiPage>(),
+    siteSection: -1
   },
   mutations: {
     setSelectedPersonalTab(state, tabIndex: number) {
@@ -74,6 +76,12 @@ export default new Vuex.Store({
     },
     setRandomWikiPages(state, pages: WikiPage[]){
       state.randomWikiPages = pages;
+    },
+    setWikiSearchResults(state, pages: WikiPage[]){
+      state.wikiSearchResults = pages;
+    },
+    setSiteSection(state, section: number){
+      state.siteSection = section;
     }
   },
   getters: {
@@ -89,7 +97,9 @@ export default new Vuex.Store({
     pantheons: state => state.pantheons,
     wikipage: state => state.wikipage,
     allWikiPages: state => state.allWikiPages,
-    randomWikiPages: state => state.randomWikiPages
+    randomWikiPages: state => state.randomWikiPages,
+    wikiSearchResults: state => state.wikiSearchResults,
+    siteSection: state => state.siteSection
   },
   actions: {
     fetchEvents(context) {
@@ -169,6 +179,15 @@ export default new Vuex.Store({
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/random`)
         .then((response: any) => {
           context.commit("setRandomWikiPages", response.data);
+          resolve(response);
+        });
+      });
+    },
+    fetchWikiSearchResults(context, searchQuery: string){
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}wiki/search/${searchQuery}`)
+        .then((response: any) => {
+          context.commit("setWikiSearchResults", response.data);
           resolve(response);
         });
       });

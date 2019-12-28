@@ -101,6 +101,11 @@ const routes = [
         path: 'random',
         name: 'randomPages',
         component: () => import('../views/wiki/menus/PagesAleatoires.vue')
+      },
+      {
+        path: 'search/:searchquery',
+        name: 'search',
+        component: () => import('../views/wiki/menus/SearchResults.vue')
       }
     ]
   },

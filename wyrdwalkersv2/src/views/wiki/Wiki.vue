@@ -187,9 +187,13 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../store";
+import SiteSection from "../../model/enums/SiteSection.enum"
 
 export default Vue.extend({
   name: "Wiki",
+  created: function(){
+    store.commit("setSiteSection", SiteSection.WIKI)
+  },
   computed: {
     contextDrawer: {
       get: function() {

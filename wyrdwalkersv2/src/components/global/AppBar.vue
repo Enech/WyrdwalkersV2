@@ -30,6 +30,7 @@
       <template v-slot:extension>
         <v-app-bar-nav-icon @click.stop="contextDrawer = !contextDrawer"></v-app-bar-nav-icon>
         <v-spacer></v-spacer>
+        <wyrd-search />
         <v-menu>
           <template v-slot:activator="{ on }">
             <v-btn small text v-on="on">
@@ -44,7 +45,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        
+
         <v-btn small text @click.stop="personalDrawer = true">
           <v-icon>folder</v-icon>
         </v-btn>
@@ -90,9 +91,13 @@
 import Vue from "vue";
 import store from "../../store";
 import vuetify from "../../plugins/vuetify";
+import SearchBarVue from "./SearchBar.vue";
 
 export default Vue.extend({
   name: "AppBar",
+  components: {
+    "wyrd-search": SearchBarVue
+  },
   computed: {
     storePersonalTabIndex: function() {
       return store.getters.selectedPersonalTab;
@@ -108,8 +113,8 @@ export default Vue.extend({
         return store.getters.contextDrawer;
       }
     },
-    enableLeft: function(){
-      return !(this.$vuetify.breakpoint.xs);
+    enableLeft: function() {
+      return !this.$vuetify.breakpoint.xs;
     }
   },
   watch: {
