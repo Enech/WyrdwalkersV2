@@ -191,7 +191,7 @@ export default Vue.extend({
 
         if (content.team !== "empty") {
           result.push({
-            text: "",
+            text: content.team,
             href: `/wiki/lore/${content.team}`
           });
         }
