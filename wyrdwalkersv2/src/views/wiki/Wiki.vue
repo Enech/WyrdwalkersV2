@@ -28,7 +28,7 @@
             <v-icon small>fa-book-reader</v-icon>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item>
+        <v-list-item :to="{name:'randomPages'}">
           <v-list-item-title>Pages aléatoires</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-random</v-icon>

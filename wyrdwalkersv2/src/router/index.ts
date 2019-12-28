@@ -96,6 +96,11 @@ const routes = [
         path: 'music-library',
         name: 'musics',
         component: () => import('../views/wiki/menus/MusicLibrary.vue')
+      },
+      {
+        path: 'random',
+        name: 'randomPages',
+        component: () => import('../views/wiki/menus/PagesAleatoires.vue')
       }
     ]
   },
