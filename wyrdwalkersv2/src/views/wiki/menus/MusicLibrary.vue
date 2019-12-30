@@ -35,19 +35,6 @@
           </div>
         </v-col>
         <v-col cols="12" md="2" class="full-height" v-if="!mobileDevice">
-          <v-list dense v-if="loading" class="full-height">
-            <v-list-item>
-              <v-skeleton-loader type="list-item" transition="scale-transition"></v-skeleton-loader>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item>
-              <v-skeleton-loader type="list-item" transition="scale-transition"></v-skeleton-loader>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item>
-              <v-skeleton-loader type="list-item" transition="scale-transition"></v-skeleton-loader>
-            </v-list-item>
-          </v-list>
           <v-navigation-drawer
             right
             permanent
@@ -121,6 +108,14 @@ export default Vue.extend({
     },
     mobileDevice: function() {
       return this.$vuetify.breakpoint.xs;
+    },
+    musics: {
+      get: function(){
+        return store.getters.allMusics;
+      },
+      set: function(array : Music[]){
+        store.commit("setAllMusics", array);
+      }
     }
   },
   created: function() {
@@ -130,7 +125,6 @@ export default Vue.extend({
   methods: {
     fetchAllWikiPages: function() {
       store.dispatch("fetchAllWikiPages").then((response: any) => {
-        this.computeMusics(response.data);
         this.musics = this.musics.sort(function(a: Music, b: Music) {
           if (a.pageName > b.pageName) {
             return 1;
@@ -142,34 +136,11 @@ export default Vue.extend({
         this.loading = false;
       });
     },
-    getEmbedUrl: function(url: string) {
-      var urlTab = url.split("watch?v=");
-      var videoId = urlTab[urlTab.length - 1];
-      return `https://www.youtube.com/embed/${videoId}`;
-    },
-    computeMusics(pages: WikiPage[]) {
-      for (var i = 0; i < pages.length; i++) {
-        var page = pages[i];
-        var index = i;
-        for (var j = 0; j < page.content.length; j++) {
-          var content = page.content[j];
-          if (content.music.length > 0) {
-            var music = new Music();
-            music.pageName = page.title.titleVF;
-            music.link = `${this.getEmbedUrl(content.music)}?autoplay=1`;
-            music.timeline = content.timeline;
-            music.id = `${index}${j}`;
-            this.musics.push(music);
-          }
-        }
-      }
-    },
     isPlaying: function(music: Music) {
       return music.id === this.selectedMusic.id;
     }
   },
   data: () => ({
-    musics: new Array<Music>(),
     loading: false,
     openMobilePlaylist: false,
     selectedMusic: new Music()

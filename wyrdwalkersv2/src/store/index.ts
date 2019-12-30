@@ -10,7 +10,8 @@ import TriangleParameter from '@/model/TriangleParameter.model';
 import WikiPage from '@/model/WikiPage.model';
 import ErrorMessage from '@/model/ErrorMessage.model';
 import User from '@/model/User.model';
-import Flatted, {parse, stringify} from '../../node_modules/flatted'
+import Flatted, { parse, stringify } from '../../node_modules/flatted'
+import Music from '@/model/Music.model';
 
 Vue.use(Vuex)
 
@@ -29,7 +30,7 @@ const store = new Vuex.Store({
     personalities: new Array<TriangleParameter>(),
     pantheons: new Array<TriangleParameter>(),
     wikipage: new WikiPage(),
-    allWikiPages: new Array<WikiPage>(),
+    allMusics: new Array<Music>(),
     randomWikiPages: new Array<WikiPage>(),
     wikiSearchResults: new Array<WikiPage>(),
     siteSection: -1,
@@ -45,13 +46,13 @@ const store = new Vuex.Store({
     initialiseStore(state) {
       var storedState = localStorage.getItem('store');
       // Check if the ID exists
-			if(storedState) {
-				// Replace the state object with the stored item
-				this.replaceState(
-					Object.assign(state, Flatted.parse(storedState))
-				);
-			}
-		},
+      if (storedState) {
+        // Replace the state object with the stored item
+        this.replaceState(
+          Object.assign(state, Flatted.parse(storedState))
+        );
+      }
+    },
     setSelectedPersonalTab(state, tabIndex: number) {
       state.selectedPersonalTab = tabIndex;
     },
@@ -91,8 +92,8 @@ const store = new Vuex.Store({
     setWikiPage(state, page: WikiPage) {
       state.wikipage = page;
     },
-    setAllWikiPages(state, pages: WikiPage[]) {
-      state.allWikiPages = pages;
+    setAllMusics(state, musics: Music[]) {
+      state.allMusics = musics;
     },
     setRandomWikiPages(state, pages: WikiPage[]) {
       state.randomWikiPages = pages;
@@ -108,17 +109,17 @@ const store = new Vuex.Store({
     },
     setCurrentUser(state, user: User) {
       state.currentUser = user;
-    }, 
-    setOpenLoginDialog(state, open: boolean){
+    },
+    setOpenLoginDialog(state, open: boolean) {
       state.openLoginDialog = open;
-    }, 
-    setOpenSigninDialog(state, open: boolean){
+    },
+    setOpenSigninDialog(state, open: boolean) {
       state.openSigninDialog = open;
     },
-    setOpenProfileDialog(state, open: boolean){
+    setOpenProfileDialog(state, open: boolean) {
       state.openProfileDialog = open;
     },
-    setActivationSuccessful(state, success: boolean){
+    setActivationSuccessful(state, success: boolean) {
       state.activationSuccessful = success;
     }
   },
@@ -134,7 +135,7 @@ const store = new Vuex.Store({
     personalities: state => state.personalities,
     pantheons: state => state.pantheons,
     wikipage: state => state.wikipage,
-    allWikiPages: state => state.allWikiPages,
+    allMusics: state => state.allMusics,
     randomWikiPages: state => state.randomWikiPages,
     wikiSearchResults: state => state.wikiSearchResults,
     siteSection: state => state.siteSection,
@@ -214,10 +215,31 @@ const store = new Vuex.Store({
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`)
           .then((response: any) => {
-            context.commit("setAllWikiPages", response.data);
+            context.dispatch("computeMusics", response.data);
             resolve(response);
           });
       });
+    },
+    computeMusics(context, pages: WikiPage[]) {
+      var tempMusics = new Array<Music>();
+      for (var i = 0; i < pages.length; i++) {
+        var page = pages[i];
+        var index = i;
+        for (var j = 0; j < page.content.length; j++) {
+          var content = page.content[j];
+          if (content.music.length > 0) {
+            var music = new Music();
+            var urlTab = content.music.split("watch?v=");
+            var videoId = urlTab[urlTab.length - 1];
+            music.pageName = page.title.titleVF;
+            music.link = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            music.timeline = content.timeline;
+            music.id = `${index}${j}`;
+            tempMusics.push(music);
+          }
+        }
+      }
+      context.commit("setAllMusics", tempMusics);
     },
     fetchRandomWikiPages(context) {
       return new Promise((resolve) => {
@@ -256,7 +278,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    registerUser(context, newUser: User){
+    registerUser(context, newUser: User) {
       return new Promise((resolve) => {
         return axios.post(`${process.env.VUE_APP_APIURL}users/`, newUser)
           .then((response: any) => {
@@ -274,7 +296,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    activateUser(context, userId: string){
+    activateUser(context, userId: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}users/activate/${userId}`)
           .then((response: any) => {
@@ -293,7 +315,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    updateUser(context, updatedUser: User){
+    updateUser(context, updatedUser: User) {
       return new Promise((resolve) => {
         return axios.put(`${process.env.VUE_APP_APIURL}users/${updatedUser._id}`, updatedUser)
           .then((response: any) => {
@@ -319,10 +341,10 @@ const store = new Vuex.Store({
 
 // Subscribe to store updates
 store.subscribe((mutation, state) => {
-	// Store the state object as a JSON string
-	try{
+  // Store the state object as a JSON string
+  try {
     localStorage.setItem('store', Flatted.stringify(state));
-  } catch(e) {
+  } catch (e) {
     localStorage.clear();
     localStorage.setItem('store', Flatted.stringify(state));
   }
