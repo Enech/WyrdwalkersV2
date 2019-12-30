@@ -92,6 +92,18 @@ export default Vue.extend({
   data: () => ({
       showDialog: false,
       selectedWorkshop: new Workshop()
-  })
+  }),
+  metaInfo: {
+    title: "Wyrdwalkers - Nos ateliers",
+    meta:[
+      {name: "description", content: "Les ateliers storytelling Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,atelier,storytelling,narration,histoire,mythes"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/workshops"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "L'association Wyrdwalkers vous propose différents ateliers de storytelling, pour vous apprendre à construire une histoire sous un format ou un autre. Le tout à partir d'un mythe existant que vous pourrez remettre au goût du jour"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

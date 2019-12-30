@@ -203,6 +203,18 @@ import store from "../../../store";
 
 export default Vue.extend({
   name: "Status",
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Statuts",
+    meta:[
+      {name: "description", content: "Les statuts de l'association Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,statuses,statuts"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/status"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Les statuts de l'association Wyrdwalkers, tout simplement"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

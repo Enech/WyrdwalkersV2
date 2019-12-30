@@ -144,6 +144,18 @@ export default Vue.extend({
     loading: false,
     openMobilePlaylist: false,
     selectedMusic: new Music()
-  })
+  }),
+  metaInfo: {
+    title: "Wyrdwalkers - Playlist",
+    meta:[
+      {name: "description", content: "La playlist Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,playlist"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/wiki/music-library"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "La playlist Wyrdwalkers. Chaque personnage a sa musique, venez la découvrir"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

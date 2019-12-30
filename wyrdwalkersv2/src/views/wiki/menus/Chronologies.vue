@@ -117,6 +117,18 @@ export default Vue.extend({
   data: () => ({
     showCards: true,
     selectedTimeline: new Timeline()
-  })
+  }),
+  metaInfo: {
+    title: "Wyrdwalkers - Chronologies",
+    meta:[
+      {name: "description", content: "Le multivers Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,timelines"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/wiki/timelines"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Découvrez les évènements du multivers Wyrdwalkers"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

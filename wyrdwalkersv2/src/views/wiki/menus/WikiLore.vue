@@ -92,10 +92,7 @@
           <v-card class="pa-3" tile flat>
             <v-row dense>
               <v-col cols="12">
-                <v-breadcrumbs
-                  v-if="page._id.length > 0"
-                  :items="computeBreadcrumbs(content)"
-                ></v-breadcrumbs>
+                <v-breadcrumbs v-if="page._id.length > 0" :items="computeBreadcrumbs(content)"></v-breadcrumbs>
               </v-col>
             </v-row>
             <v-row dense>
@@ -206,6 +203,32 @@ export default Vue.extend({
     page: function() {
       return store.getters.wikipage;
     }
+  },
+  metaInfo() {
+    return {
+      title: `Wyrdwalkers - ${this.$route.params.pagename}`,
+      meta: [
+        {
+          name: "description",
+          content: `Page codex de ${this.$route.params.pagename}`
+        },
+        {
+          name: "keywords",
+          content: `philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,${this.$route.params.pagename}`
+        },
+        { name: "author", content: "Thomas Gely" },
+        {
+          property: "og:url",
+          content: `https://wyrdwalkers.com/wiki/lore/${this.$route.params.pagename}`
+        },
+        { property: "og:type", content: "website" },
+        {
+          property: "og:description",
+          content: `Page codex de ${this.$route.params.pagename}`
+        },
+        { property: "og:image", content: "https://i.imgur.com/xSW0VL0.png" }
+      ]
+    };
   }
 });
 </script>

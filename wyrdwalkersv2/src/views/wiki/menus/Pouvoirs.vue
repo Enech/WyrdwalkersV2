@@ -1537,6 +1537,18 @@ export default Vue.extend({
         EnlightenedAbility: true
       }
     ]
-  })
+  }),
+  metaInfo: {
+    title: "Wyrdwalkers - Capacités légendaires",
+    meta:[
+      {name: "description", content: "Le système de magie Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,wiki,magic,legend,légende,magie,pouvoirs,powers"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/wiki/legendary-abilities"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Les demi-dieux modèlent la réalité selon leur volonté. Découvrez leurs pouvoirs !"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

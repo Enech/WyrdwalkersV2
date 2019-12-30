@@ -66,7 +66,19 @@ import store from "../../../store";
 
 export default Vue.extend({
   name: "WikiHome",
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Wiki",
+    meta:[
+      {name: "description", content: "Le codex officiel de l'univers Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/wiki/home"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Découvrez le wiki officiel de Wyrdwalkers"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>
 

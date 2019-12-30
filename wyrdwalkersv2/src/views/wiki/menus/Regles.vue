@@ -2200,6 +2200,18 @@ export default Vue.extend({
       "https://wyrdwalkers.com/ressources/regles/Diapositive10.PNG",
       "https://wyrdwalkers.com/ressources/regles/Diapositive11.PNG"
     ]
-  })
+  }),
+  metaInfo: {
+    title: "Wyrdwalkers - Règles du jeu",
+    meta:[
+      {name: "description", content: "Les règles du jeu Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,rpg,jdr,dice,rules,gameplay"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/wiki/rules"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Vous voulez faire une partie dans l'univers de Wyrdwalkers ? Voici les règles ! Wyrdwalkers est doté d'un système de jeu privilégiant la narrative avant tout"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

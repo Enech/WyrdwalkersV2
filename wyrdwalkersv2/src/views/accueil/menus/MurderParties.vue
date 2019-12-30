@@ -200,6 +200,18 @@ import store from "../../../store";
 
 export default Vue.extend({
   name: "MurderParties",
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Soirées enquêtes",
+    meta:[
+      {name: "description", content: "Nos soirées enquêtes"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,murder party,soirée enquête"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/murder-parties"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Pour votre plus grand divertissement, l'association Wyrdwalkers vous propose des soirées enquête (murder party) dans notre univers mythologique. Incarnez des dieux ou des personnages de légende et trouvez le traitre qui se cache parmis vous."},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

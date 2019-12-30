@@ -333,6 +333,18 @@ export default Vue.extend({
         this.kosmosScore = 0;
       }
     }
+  },
+  metaInfo: {
+    title: "Wyrdwalkers - Test de personnalité",
+    meta:[
+      {name: "description", content: "Test de personnalité Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,personality,test,personnalité"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/personality-test"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Découvrez quelle est votre Légende. Avez-vous plus l'étoffe d'un Thor ou d'un Odin ? Ou alors le charisme d'un Zeus ? Découvrez-le en passant notre test de personnalité !"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
   }
 });
 </script>

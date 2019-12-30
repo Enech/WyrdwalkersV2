@@ -100,6 +100,14 @@ export default Vue.extend({
   },
   data: () => ({
     loading: true
-  })
+  }),
+  metaInfo: {
+    title: "Wyrdwalkers - Recherches",
+    meta:[
+      {name: "description", content: "Pages de résultats des recherches"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"},
+      {name: "author", content: "Thomas Gely"}
+    ]
+  }
 });
 </script>

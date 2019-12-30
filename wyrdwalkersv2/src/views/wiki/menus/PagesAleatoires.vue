@@ -64,6 +64,18 @@ export default Vue.extend({
       store.dispatch("fetchRandomWikiPages");
     }
   },
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Pages aléatoires",
+    meta:[
+      {name: "description", content: "Des fiches Wyrdwalkers tirées aléatoirement"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,aléatoire,random,wiki"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/wiki/random"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Six fiches Wyrdwalkers tirées au hasard"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

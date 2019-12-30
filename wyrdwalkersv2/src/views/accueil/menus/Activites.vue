@@ -66,6 +66,18 @@ export default Vue.extend({
       store.dispatch("fetchActivities");
     }
   },
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Nos activités",
+    meta:[
+      {name: "description", content: "Les activités auxquelles participe Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,activities,activités"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/activities"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Toutes les activités auxquelles Wyrdwalkers participe. Si vous voulez nous rencontrer, vous savez où nous attraper !"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

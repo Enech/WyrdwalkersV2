@@ -129,6 +129,18 @@ export default Vue.extend({
   data: () => ({
     showDialog: false,
     selectedEvent: new EventJdr()
-  })
+  }),
+  metaInfo: {
+    title: "Wyrdwalkers - Evènements",
+    meta:[
+      {name: "description", content: "Historique des évènements JDR de l'association Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,rpg,jdr,évènements"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/rpg-history"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Wyrdwalkers, c'est beaucoup de parties de jeu de rôle organisées au fil des ans. Retrouvez ici toutes les murder parties et les campagnes de JDR qui ont façonné le multivers."},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

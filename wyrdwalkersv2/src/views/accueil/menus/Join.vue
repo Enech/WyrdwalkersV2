@@ -29,6 +29,18 @@ import store from "../../../store";
 
 export default Vue.extend({
   name: "Join",
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Nous rejoindre",
+    meta:[
+      {name: "description", content: "Rejoindre l'association Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,join,rejoindre"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/join"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Rejoindre l'association Wyrdwalkers"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

@@ -64,6 +64,18 @@ import store from "../../../store";
 
 export default Vue.extend({
   name: "Presentation",
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Présentation",
+    meta:[
+      {name: "description", content: "Présentation de l'association Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/presentation"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Présentation de l'association Wyrdwalkers"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>

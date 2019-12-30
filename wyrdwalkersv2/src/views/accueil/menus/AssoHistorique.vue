@@ -47,6 +47,18 @@ export default Vue.extend({
       store.dispatch("fetchAssoHistory");
     }
   },
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: {
+    title: "Wyrdwalkers - Historique",
+    meta:[
+      {name: "description", content: "<historique de la vie de l'association Wyrdwalkers"},
+      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,historique,vie associative"},
+      {name: "author", content: "Thomas Gely"},
+      {property: "og:url", content: "https://wyrdwalkers.com/home/association-history"},
+      {property: "og:type", content: "website"},
+      {property: "og:description", content: "Ce qu'il s'est passé dans l'association Wyrdwalkers"},
+      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    ]
+  }
 });
 </script>
