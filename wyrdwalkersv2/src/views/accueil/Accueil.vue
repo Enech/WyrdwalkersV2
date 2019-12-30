@@ -6,16 +6,29 @@
         <v-divider color="white"></v-divider>
         <v-list-item three-line>
           <v-list-item-content>
-            <v-list-item-title></v-list-item-title>
+            <v-list-item-title v-if="currentUser._id != ''">
+              <span class="mr-3">{{currentUser.login}} / {{currentUser.name}}</span>
+              <v-btn small icon @click.stop="openProfileDialog = true;">
+                <v-icon small>edit</v-icon>
+              </v-btn>
+            </v-list-item-title>
             <v-list-item-subtitle>
-              <v-btn small text>
-                <v-icon small left>fa-user-plus</v-icon>
-                <span class="hidden-xs-only">S'inscrire</span>
-              </v-btn>
-              <v-btn small text>
-                <v-icon left small>fa-sign-in-alt</v-icon>
-                <span class="hidden-xs-only">Connexion</span>
-              </v-btn>
+              <div v-if="currentUser._id == ''">
+                <v-btn small text @click.stop="triggerSignup()">
+                  <v-icon small left>fa-user-plus</v-icon>
+                  <span class="hidden-xs-only">S'enregistrer</span>
+                </v-btn>
+                <v-btn small text @click.stop="triggerLogin()">
+                  <v-icon left small>fa-sign-in-alt</v-icon>
+                  <span class="hidden-xs-only">Connexion</span>
+                </v-btn>
+              </div>
+              <div v-else>
+                <v-btn small text @click.stop="triggerSignout()">
+                  <v-icon left small>fa-sign-out-alt</v-icon>
+                  <span class="hidden-xs-only">Déconnexion</span>
+                </v-btn>
+              </div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -96,9 +109,14 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../store";
+import User from "../../model/User.model";
+import SiteSection from "../../model/enums/SiteSection.enum";
 
 export default Vue.extend({
   name: "Accueil",
+  created: function() {
+    store.commit("setSiteSection", SiteSection.HOME);
+  },
   computed: {
     contextDrawer: {
       get: function() {
@@ -107,6 +125,47 @@ export default Vue.extend({
       set: function(open: boolean) {
         store.commit("setContextDrawer", open);
       }
+    },
+    eventBus: function() {
+      return store.getters.centralBus;
+    },
+    openLoginDialog: {
+      get: function() {
+        return store.getters.openLoginDialog;
+      },
+      set: function(open: boolean) {
+        store.commit("setOpenLoginDialog", open);
+      }
+    },
+    openSigninDialog: {
+      get: function() {
+        return store.getters.openSigninDialog;
+      },
+      set: function(open: boolean) {
+        store.commit("setOpenSigninDialog", open);
+      }
+    },
+    openProfileDialog: {
+      get: function() {
+        return store.getters.openProfileDialog;
+      },
+      set: function(open: boolean) {
+        store.commit("setOpenProfileDialog", open);
+      }
+    },
+    currentUser: function() {
+      return store.getters.currentUser;
+    }
+  },
+  methods: {
+    triggerLogin: function() {
+      this.openLoginDialog = true;
+    },
+    triggerSignup: function() {
+      this.openSigninDialog = true;
+    },
+    triggerSignout: function(){
+      store.commit("setCurrentUser", new User())
     }
   },
   data: () => ({})

@@ -8,10 +8,13 @@ import Workshop from '@/model/Workshop.model';
 import AssoHistory from '@/model/AssoHistory.model';
 import TriangleParameter from '@/model/TriangleParameter.model';
 import WikiPage from '@/model/WikiPage.model';
+import ErrorMessage from '@/model/ErrorMessage.model';
+import User from '@/model/User.model';
+import Flatted, {parse, stringify} from '../../node_modules/flatted'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     selectedPersonalTab: 0,
     personalDrawer: false,
@@ -29,9 +32,26 @@ export default new Vuex.Store({
     allWikiPages: new Array<WikiPage>(),
     randomWikiPages: new Array<WikiPage>(),
     wikiSearchResults: new Array<WikiPage>(),
-    siteSection: -1
+    siteSection: -1,
+    errorMessage: new ErrorMessage(),
+    currentUser: new User(),
+    centralEventBus: new Vue(),
+    openLoginDialog: false,
+    openSigninDialog: false,
+    openProfileDialog: false,
+    activationSuccessful: true
   },
   mutations: {
+    initialiseStore(state) {
+      var storedState = localStorage.getItem('store');
+      // Check if the ID exists
+			if(storedState) {
+				// Replace the state object with the stored item
+				this.replaceState(
+					Object.assign(state, Flatted.parse(storedState))
+				);
+			}
+		},
     setSelectedPersonalTab(state, tabIndex: number) {
       state.selectedPersonalTab = tabIndex;
     },
@@ -50,38 +70,56 @@ export default new Vuex.Store({
     setActivities(state, newActivities: Activity[]) {
       state.activities = newActivities;
     },
-    setWorkshops(state, newWorks: Workshop[]){
+    setWorkshops(state, newWorks: Workshop[]) {
       state.workshops = newWorks;
     },
-    setAssoHistory(state, newEntries: AssoHistory[]){
+    setAssoHistory(state, newEntries: AssoHistory[]) {
       state.assoHistory = newEntries;
     },
-    setApproaches(state, newEntries: TriangleParameter[]){
+    setApproaches(state, newEntries: TriangleParameter[]) {
       state.approaches = newEntries;
     },
-    setDomains(state, newEntries: TriangleParameter[]){
+    setDomains(state, newEntries: TriangleParameter[]) {
       state.domains = newEntries;
     },
-    setPersonalities(state, newEntries: TriangleParameter[]){
+    setPersonalities(state, newEntries: TriangleParameter[]) {
       state.personalities = newEntries;
     },
-    setPantheons(state, newEntries: TriangleParameter[]){
+    setPantheons(state, newEntries: TriangleParameter[]) {
       state.pantheons = newEntries;
     },
-    setWikiPage(state, page: WikiPage){
+    setWikiPage(state, page: WikiPage) {
       state.wikipage = page;
     },
-    setAllWikiPages(state, pages: WikiPage[]){
+    setAllWikiPages(state, pages: WikiPage[]) {
       state.allWikiPages = pages;
     },
-    setRandomWikiPages(state, pages: WikiPage[]){
+    setRandomWikiPages(state, pages: WikiPage[]) {
       state.randomWikiPages = pages;
     },
-    setWikiSearchResults(state, pages: WikiPage[]){
+    setWikiSearchResults(state, pages: WikiPage[]) {
       state.wikiSearchResults = pages;
     },
-    setSiteSection(state, section: number){
+    setSiteSection(state, section: number) {
       state.siteSection = section;
+    },
+    setErrorMessage(state, error: ErrorMessage) {
+      state.errorMessage = error;
+    },
+    setCurrentUser(state, user: User) {
+      state.currentUser = user;
+    }, 
+    setOpenLoginDialog(state, open: boolean){
+      state.openLoginDialog = open;
+    }, 
+    setOpenSigninDialog(state, open: boolean){
+      state.openSigninDialog = open;
+    },
+    setOpenProfileDialog(state, open: boolean){
+      state.openProfileDialog = open;
+    },
+    setActivationSuccessful(state, success: boolean){
+      state.activationSuccessful = success;
     }
   },
   getters: {
@@ -99,7 +137,14 @@ export default new Vuex.Store({
     allWikiPages: state => state.allWikiPages,
     randomWikiPages: state => state.randomWikiPages,
     wikiSearchResults: state => state.wikiSearchResults,
-    siteSection: state => state.siteSection
+    siteSection: state => state.siteSection,
+    errorMessage: state => state.errorMessage,
+    currentUser: state => state.currentUser,
+    centralBus: state => state.centralEventBus,
+    openLoginDialog: state => state.openLoginDialog,
+    openSigninDialog: state => state.openSigninDialog,
+    openProfileDialog: state => state.openProfileDialog,
+    activationSuccessful: state => state.activationSuccessful
   },
   actions: {
     fetchEvents(context) {
@@ -120,79 +165,167 @@ export default new Vuex.Store({
           context.commit("setActivities", response.data);
         });
     },
-    fetchWorkshops(context){
+    fetchWorkshops(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}workshops/all`)
         .then((response: any) => {
           context.commit("setWorkshops", response.data);
         });
     },
-    fetchAssoHistory(context){
+    fetchAssoHistory(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}assoHistory/all`)
         .then((response: any) => {
           context.commit("setAssoHistory", response.data);
         });
     },
-    fetchApproaches(context){
+    fetchApproaches(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}approaches/all`)
         .then((response: any) => {
           context.commit("setApproaches", response.data);
         });
     },
-    fetchDomains(context){
+    fetchDomains(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}domains/all`)
         .then((response: any) => {
           context.commit("setDomains", response.data);
         });
     },
-    fetchPersonalities(context){
+    fetchPersonalities(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}personalities/all`)
         .then((response: any) => {
           context.commit("setPersonalities", response.data);
         });
     },
-    fetchPantheons(context){
+    fetchPantheons(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}pantheons/all`)
         .then((response: any) => {
           context.commit("setPantheons", response.data);
         });
     },
-    fetchWikiPage(context, pagename: string){
+    fetchWikiPage(context, pagename: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/${pagename}`)
-        .then((response: any) => {
-          context.commit("setWikiPage", response.data);
-          resolve(response);
-        });
+          .then((response: any) => {
+            context.commit("setWikiPage", response.data);
+            resolve(response);
+          });
       });
     },
-    fetchAllWikiPages(context){
+    fetchAllWikiPages(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`)
-        .then((response: any) => {
-          context.commit("setAllWikiPages", response.data);
-          resolve(response);
-        });
+          .then((response: any) => {
+            context.commit("setAllWikiPages", response.data);
+            resolve(response);
+          });
       });
     },
-    fetchRandomWikiPages(context){
+    fetchRandomWikiPages(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/random`)
-        .then((response: any) => {
-          context.commit("setRandomWikiPages", response.data);
-          resolve(response);
-        });
+          .then((response: any) => {
+            context.commit("setRandomWikiPages", response.data);
+            resolve(response);
+          });
       });
     },
-    fetchWikiSearchResults(context, searchQuery: string){
+    fetchWikiSearchResults(context, searchQuery: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/search/${searchQuery}`)
-        .then((response: any) => {
-          context.commit("setWikiSearchResults", response.data);
-          resolve(response);
-        });
+          .then((response: any) => {
+            context.commit("setWikiSearchResults", response.data);
+            resolve(response);
+          });
+      });
+    },
+    logUser(context, logObject: any) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}users/login`, logObject)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data._id === undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Bon retour parmis nous !";
+              newError.type = "green";
+              context.commit("setCurrentUser", response.data);
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    registerUser(context, newUser: User){
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}users/`, newUser)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Votre compte a bien été créé ! Un lien d'activation vous a été envoyé à l'adresse renseignée lors de votre inscription";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    activateUser(context, userId: string){
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}users/activate/${userId}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Votre compte est désormais activé";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+              context.commit("setActivationSuccessful", true);
+            }
+            resolve(response);
+          });
+      });
+    },
+    updateUser(context, updatedUser: User){
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}users/${updatedUser._id}`, updatedUser)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Vos informations ont été mises à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+              context.commit("setActivationSuccessful", true);
+            }
+            resolve(response);
+          });
       });
     }
   },
   modules: {
   }
-})
+});
+
+// Subscribe to store updates
+store.subscribe((mutation, state) => {
+	// Store the state object as a JSON string
+	try{
+    localStorage.setItem('store', Flatted.stringify(state));
+  } catch(e) {
+    localStorage.clear();
+    localStorage.setItem('store', Flatted.stringify(state));
+  }
+});
+
+export default store;

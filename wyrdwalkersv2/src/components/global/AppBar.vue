@@ -6,11 +6,11 @@
           <v-icon small :left="enableLeft">home</v-icon>
           <span class="hidden-xs-only">Accueil</span>
         </v-btn>
-        <v-btn small text :to="{name:'playerArea'}">
+        <v-btn small text :to="{name:'playerArea'}" v-if="currentUser._id != ''">
           <v-icon small :left="enableLeft">games</v-icon>
           <span class="hidden-xs-only">Espace Joueur</span>
         </v-btn>
-        <v-btn small text :to="{name:'GMArea'}">
+        <v-btn small text :to="{name:'GMArea'}" v-if="currentUser._id != ''">
           <v-icon small :left="enableLeft">amp_stories</v-icon>
           <span class="hidden-xs-only">Espace MJ</span>
         </v-btn>
@@ -22,7 +22,7 @@
           &Phi;
           <span class="hidden-xs-only">Philosophie</span>
         </v-btn>
-        <v-btn small text>
+        <v-btn small text v-if="currentUser.rights.isAdmin">
           <v-icon small :left="enableLeft">settings_applications</v-icon>
           <span class="hidden-xs-only">Administration</span>
         </v-btn>
@@ -31,7 +31,7 @@
         <v-app-bar-nav-icon @click.stop="contextDrawer = !contextDrawer"></v-app-bar-nav-icon>
         <v-spacer></v-spacer>
         <wyrd-search />
-        <v-menu>
+        <v-menu v-if="false">
           <template v-slot:activator="{ on }">
             <v-btn small text v-on="on">
               <v-img src="@/assets/fr.png"></v-img>
@@ -45,8 +45,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-
-        <v-btn small text @click.stop="personalDrawer = true">
+        <v-btn small text @click.stop="personalDrawer = true" v-if="currentUser._id != ''">
           <v-icon>folder</v-icon>
         </v-btn>
       </template>
@@ -62,26 +61,34 @@
       bottom
       :width="400"
     >
-      <v-tabs v-model="personalTabIndex" show-arrows>
+      <v-tabs v-model="storePersonalTabIndex" show-arrows>
         <v-tabs-slider></v-tabs-slider>
         <v-tab href="#tab0">
           <v-badge>
-            <template v-slot:badge>0</template>Personnages
+            <template v-slot:badge>{{currentUser.characters.length}}</template>Personnages
           </v-badge>
         </v-tab>
         <v-tab href="#tab1">
           <v-badge>
-            <template v-slot:badge>0</template>PNJ
+            <template v-slot:badge>{{currentUser.looseNPC.length}}</template>PNJ
           </v-badge>
         </v-tab>
         <v-tab href="#tab2">
           <v-badge>
-            <template v-slot:badge>0</template>Campagnes
+            <template
+              v-slot:badge
+            >{{currentUser.playerCampaigns.length + currentUser.masterCampaigns.length}}</template>Campagnes
           </v-badge>
         </v-tab>
-        <v-tab-item value="tab0">Onglet des personnages</v-tab-item>
-        <v-tab-item value="tab1">Onglet des PNJ</v-tab-item>
-        <v-tab-item value="tab2">Onglet des campagnes</v-tab-item>
+        <v-tab-item value="tab0">
+          <v-card tile flat class="pa-3" color="black" dark></v-card>
+        </v-tab-item>
+        <v-tab-item value="tab1">
+          <v-card tile flat class="pa-3" color="black" dark></v-card>
+        </v-tab-item>
+        <v-tab-item value="tab2">
+          <v-card tile flat class="pa-3" color="black" dark></v-card>
+        </v-tab-item>
       </v-tabs>
     </v-navigation-drawer>
   </div>
@@ -99,11 +106,21 @@ export default Vue.extend({
     "wyrd-search": SearchBarVue
   },
   computed: {
-    storePersonalTabIndex: function() {
-      return store.getters.selectedPersonalTab;
+    storePersonalTabIndex: {
+      get: function() {
+        return store.getters.selectedPersonalTab;
+      },
+      set: function(value: number) {
+        store.commit("setSelectedPersonalTab", value);
+      }
     },
-    storePersonalDrawer: function() {
-      return store.getters.personalDrawer;
+    storePersonalDrawer: {
+      get: function() {
+        return store.getters.personalDrawer;
+      },
+      set: function(value: boolean) {
+        store.commit("setPersonalDrawer", value);
+      }
     },
     contextDrawer: {
       set: function(open: boolean) {
@@ -115,6 +132,9 @@ export default Vue.extend({
     },
     enableLeft: function() {
       return !this.$vuetify.breakpoint.xs;
+    },
+    currentUser: function() {
+      return store.getters.currentUser;
     }
   },
   watch: {

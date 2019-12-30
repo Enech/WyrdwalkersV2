@@ -6,6 +6,7 @@ export default class User {
     public city: string;
     public campaignTypes: string[];
     public login: string;
+    public mdp: string;
     public email: string;
     public rights: UserRights;
     public characters: string[];
@@ -19,6 +20,7 @@ export default class User {
         this.city = '';
         this.name = '';
         this.login = '';
+        this.mdp = '';
         this.email = '';
         this.isActivated = false;
         this.campaignTypes = new Array<string>();

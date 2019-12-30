@@ -13,6 +13,8 @@
     "core-js": "^3.4.3",
     "dotenv-webpack": "^1.7.0",
     "express": "^4.17.1",
+    "flatted": "^2.0.1",
+    "js-cookie": "^2.2.1",
     "material-design-icons-iconfont": "^5.0.1",
     "register-service-worker": "^1.6.2",
     "tiptap": "^1.26.6",
