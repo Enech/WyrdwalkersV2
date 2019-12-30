@@ -9,6 +9,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/css/base.css'
 
 Vue.config.productionTip = false;
+/*Vue.config.devtools = false;
+Vue.config.silent = true;*/
 
 Vue.use(VueMeta);
 
