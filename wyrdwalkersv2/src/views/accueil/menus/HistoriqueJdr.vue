@@ -131,7 +131,7 @@ export default Vue.extend({
     selectedEvent: new EventJdr()
   }),
   metaInfo: {
-    title: "Wyrdwalkers - Evènements",
+    title: "Evènements",
     meta:[
       {name: "description", content: "Historique des évènements JDR de l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,rpg,jdr,évènements"},

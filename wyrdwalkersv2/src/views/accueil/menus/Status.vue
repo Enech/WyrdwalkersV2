@@ -205,7 +205,7 @@ export default Vue.extend({
   name: "Status",
   data: () => ({}),
   metaInfo: {
-    title: "Wyrdwalkers - Statuts",
+    title: "Statuts",
     meta:[
       {name: "description", content: "Les statuts de l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,statuses,statuts"},

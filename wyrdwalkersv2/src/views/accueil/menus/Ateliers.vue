@@ -94,7 +94,7 @@ export default Vue.extend({
       selectedWorkshop: new Workshop()
   }),
   metaInfo: {
-    title: "Wyrdwalkers - Nos ateliers",
+    title: "Nos ateliers",
     meta:[
       {name: "description", content: "Les ateliers storytelling Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,atelier,storytelling,narration,histoire,mythes"},

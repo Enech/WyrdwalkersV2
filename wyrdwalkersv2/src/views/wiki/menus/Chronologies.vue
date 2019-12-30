@@ -119,7 +119,7 @@ export default Vue.extend({
     selectedTimeline: new Timeline()
   }),
   metaInfo: {
-    title: "Wyrdwalkers - Chronologies",
+    title: "Chronologies",
     meta:[
       {name: "description", content: "Le multivers Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,timelines"},

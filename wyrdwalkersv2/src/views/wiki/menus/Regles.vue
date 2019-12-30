@@ -2202,7 +2202,7 @@ export default Vue.extend({
     ]
   }),
   metaInfo: {
-    title: "Wyrdwalkers - Règles du jeu",
+    title: "Règles du jeu",
     meta:[
       {name: "description", content: "Les règles du jeu Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,rpg,jdr,dice,rules,gameplay"},

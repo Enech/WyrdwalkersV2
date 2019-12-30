@@ -146,7 +146,7 @@ export default Vue.extend({
     selectedMusic: new Music()
   }),
   metaInfo: {
-    title: "Wyrdwalkers - Playlist",
+    title: "Playlist",
     meta:[
       {name: "description", content: "La playlist Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,playlist"},

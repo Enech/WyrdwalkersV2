@@ -206,7 +206,7 @@ export default Vue.extend({
   },
   metaInfo() {
     return {
-      title: `Wyrdwalkers - ${this.$route.params.pagename}`,
+      title: `${this.$route.params.pagename}`,
       meta: [
         {
           name: "description",

@@ -66,7 +66,7 @@ export default Vue.extend({
   },
   data: () => ({}),
   metaInfo: {
-    title: "Wyrdwalkers - Pages aléatoires",
+    title: "Pages aléatoires",
     meta:[
       {name: "description", content: "Des fiches Wyrdwalkers tirées aléatoirement"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,aléatoire,random,wiki"},

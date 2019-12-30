@@ -102,7 +102,7 @@ export default Vue.extend({
     loading: true
   }),
   metaInfo: {
-    title: "Wyrdwalkers - Recherches",
+    title: "Recherches",
     meta:[
       {name: "description", content: "Pages de résultats des recherches"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"},

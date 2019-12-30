@@ -49,7 +49,7 @@ export default Vue.extend({
   },
   data: () => ({}),
   metaInfo: {
-    title: "Wyrdwalkers - Historique",
+    title: "Historique",
     meta:[
       {name: "description", content: "<historique de la vie de l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,historique,vie associative"},

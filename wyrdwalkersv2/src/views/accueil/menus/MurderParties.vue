@@ -202,7 +202,7 @@ export default Vue.extend({
   name: "MurderParties",
   data: () => ({}),
   metaInfo: {
-    title: "Wyrdwalkers - Soirées enquêtes",
+    title: "Soirées enquêtes",
     meta:[
       {name: "description", content: "Nos soirées enquêtes"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,murder party,soirée enquête"},

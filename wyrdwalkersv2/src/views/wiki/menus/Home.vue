@@ -68,7 +68,7 @@ export default Vue.extend({
   name: "WikiHome",
   data: () => ({}),
   metaInfo: {
-    title: "Wyrdwalkers - Wiki",
+    title: "Wiki",
     meta:[
       {name: "description", content: "Le codex officiel de l'univers Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"},

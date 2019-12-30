@@ -31,7 +31,7 @@ export default Vue.extend({
   name: "Join",
   data: () => ({}),
   metaInfo: {
-    title: "Wyrdwalkers - Nous rejoindre",
+    title: "Nous rejoindre",
     meta:[
       {name: "description", content: "Rejoindre l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,join,rejoindre"},

@@ -335,7 +335,7 @@ export default Vue.extend({
     }
   },
   metaInfo: {
-    title: "Wyrdwalkers - Test de personnalité",
+    title: "Test de personnalité",
     meta:[
       {name: "description", content: "Test de personnalité Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,personality,test,personnalité"},
