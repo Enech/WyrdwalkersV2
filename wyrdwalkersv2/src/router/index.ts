@@ -128,6 +128,19 @@ const routes = [
     path: '/philosophy',
     name: 'philo',
     component: () => import('../views/philosophie/Philosophie.vue')
+  },
+  {
+    path: '/backoffice',
+    name: 'backOffice',
+    redirect: "/backoffice/home",
+    component: () => import('../views/administration/Administration.vue'),
+    children: [
+      {
+        path: '/backoffice/home',
+        name: 'backOfficeHome',
+        component: () => import('../views/administration/menus/Home.vue')
+      },
+    ]
   }
 ];
 
