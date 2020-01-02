@@ -140,6 +140,11 @@ const routes = [
         name: 'backOfficeHome',
         component: () => import('../views/administration/menus/Home.vue')
       },
+      {
+        path: '/backoffice/wiki-redirections',
+        name: 'wikiRedirections',
+        component: () => import('../views/administration/menus/wiki/Redirections.vue')
+      }
     ]
   }
 ];

@@ -12,6 +12,7 @@ import ErrorMessage from '@/model/ErrorMessage.model';
 import User from '@/model/User.model';
 import Flatted, { parse, stringify } from '../../node_modules/flatted'
 import Music from '@/model/Music.model';
+import WikiRedirection from '@/model/WikiRedirection.model';
 
 Vue.use(Vuex)
 
@@ -40,7 +41,8 @@ const store = new Vuex.Store({
     openLoginDialog: false,
     openSigninDialog: false,
     openProfileDialog: false,
-    activationSuccessful: true
+    activationSuccessful: true,
+    wikiRedirections: new Array<WikiRedirection>()
   },
   mutations: {
     initialiseStore(state) {
@@ -121,6 +123,9 @@ const store = new Vuex.Store({
     },
     setActivationSuccessful(state, success: boolean) {
       state.activationSuccessful = success;
+    },
+    setWikiRedirections(state, redirections: WikiRedirection[]){
+      state.wikiRedirections = redirections;
     }
   },
   getters: {
@@ -145,7 +150,8 @@ const store = new Vuex.Store({
     openLoginDialog: state => state.openLoginDialog,
     openSigninDialog: state => state.openSigninDialog,
     openProfileDialog: state => state.openProfileDialog,
-    activationSuccessful: state => state.activationSuccessful
+    activationSuccessful: state => state.activationSuccessful,
+    wikiRedirections: state => state.wikiRedirections
   },
   actions: {
     fetchEvents(context) {
@@ -329,6 +335,76 @@ const store = new Vuex.Store({
               newError.type = "green";
               context.commit("setErrorMessage", newError);
               context.commit("setActivationSuccessful", true);
+            }
+            resolve(response);
+          });
+      });
+    },
+    fetchAllWikiRedirections(context){
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}wiki-redirections/all`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setWikiRedirections", response.data)
+            }
+            resolve(response);
+          });
+      });
+    },
+    addWikiRedirection(context, newRedirection: WikiRedirection){
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}wiki-redirections/`, newRedirection)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Nouvelle redirection ajoutée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    updateWikiRedirection(context, editedRedirection: WikiRedirection){
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}wiki-redirections/${editedRedirection._id}`, editedRedirection)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Redirection mise à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    deleteWikiRedirection(context, redirectionId: string){
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_APIURL}wiki-redirections/${redirectionId}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Redirection supprimée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
             }
             resolve(response);
           });

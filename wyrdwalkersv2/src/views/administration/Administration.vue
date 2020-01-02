@@ -2,29 +2,16 @@
   <div>
     <router-view />
     <v-navigation-drawer v-model="contextDrawer" app clipped color="black" dark bottom>
-      <template v-slot:prepend>
-        <v-divider color="white"></v-divider>
-        <v-list-item three-line>
-          <v-list-item-content>
-            <v-list-item-title v-if="currentUser._id != ''">
-              <span class="mr-3">{{currentUser.login}} / {{currentUser.name}}</span>
-              <v-btn small icon @click.stop="openProfileDialog = true;">
-                <v-icon small>edit</v-icon>
-              </v-btn>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
       <v-divider color="white"></v-divider>
       <v-list>
-         <v-list-group no-action>
+         <v-list-group>
           <template v-slot:activator>
             <v-list-item-title>Wiki</v-list-item-title>
           </template>
           <v-list-item>
             <v-list-item-title>Gestion du contenu</v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'wikiRedirections'}">
             <v-list-item-title>Gestion des redirections</v-list-item-title>
           </v-list-item>
          </v-list-group>
@@ -46,9 +33,9 @@
         <v-list-item>
           <v-list-item-title>Test de personnalité</v-list-item-title>
         </v-list-item>
-        <v-list-group no-action>
+        <v-list-group>
           <template v-slot:activator>
-            <v-list-item-title>Création de personnages</v-list-item-title>
+            <v-list-item-title>Character Makers</v-list-item-title>
           </template>
           <v-list-item>
             <v-list-item-title>Approches</v-list-item-title>

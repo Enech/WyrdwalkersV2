@@ -125,13 +125,13 @@
       </v-tabs>
     </v-card>
     <v-dialog v-model="loading" hide-overlay persistent width="300">
-        <v-card color="primary" dark>
-          <v-card-text>
-            Chargement...
-            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
+      <v-card color="primary" dark>
+        <v-card-text>
+          Chargement...
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -221,21 +221,29 @@ export default Vue.extend({
       meta: [
         {
           name: "description",
-          content: tempPage ? `Page codex de ${tempPage.title.titleVF}` : "Page de codex"
+          content: tempPage
+            ? `Page codex de ${tempPage.title.titleVF}`
+            : "Page de codex"
         },
         {
           name: "keywords",
-          content: tempPage ? `philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,${tempPage.title.titleVF}` : "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"
+          content: tempPage
+            ? `philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,${tempPage.title.titleVF}`
+            : "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"
         },
         { name: "author", content: "Thomas Gely" },
         {
           property: "og:url",
-          content: tempPage ? `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF}` : ""
+          content: tempPage
+            ? `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF}`
+            : ""
         },
         { property: "og:type", content: "website" },
         {
           property: "og:description",
-          content: tempPage ? `Page codex de ${tempPage.title.titleVF}` : "Page de codex"
+          content: tempPage
+            ? `Page codex de ${tempPage.title.titleVF}`
+            : "Page de codex"
         },
         { property: "og:image", content: "https://i.imgur.com/xSW0VL0.png" }
       ]
