@@ -144,6 +144,11 @@ const routes = [
         path: '/backoffice/wiki-redirections',
         name: 'wikiRedirections',
         component: () => import('../views/administration/menus/wiki/Redirections.vue')
+      },
+      {
+        path: '/backoffice/wiki-pages',
+        name: 'wikiPages',
+        component: () => import('../views/administration/menus/wiki/ContenuWiki.vue')
       }
     ]
   }

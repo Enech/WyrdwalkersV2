@@ -8,7 +8,7 @@
           <template v-slot:activator>
             <v-list-item-title>Wiki</v-list-item-title>
           </template>
-          <v-list-item>
+          <v-list-item :to="{name:'wikiPages'}">
             <v-list-item-title>Gestion du contenu</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{name:'wikiRedirections'}">
