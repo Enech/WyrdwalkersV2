@@ -15,7 +15,7 @@
             <v-list-item-title>Gestion des redirections</v-list-item-title>
           </v-list-item>
          </v-list-group>
-         <v-list-item>
+         <v-list-item :to="{name:'wikiTimelines'}">
             <v-list-item-title>Timelines</v-list-item-title>
           </v-list-item>
         <v-list-item>

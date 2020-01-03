@@ -159,6 +159,12 @@ const routes = [
         name: 'wikiPages',
         component: () => import('../views/administration/menus/wiki/ContenuWiki.vue')
       }
+      ,
+      {
+        path: '/backoffice/wiki-timelines',
+        name: 'wikiTimelines',
+        component: () => import('../views/administration/menus/Timelines.vue')
+      }
     ]
   }
 ];
