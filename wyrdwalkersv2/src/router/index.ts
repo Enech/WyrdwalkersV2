@@ -117,12 +117,18 @@ const routes = [
   {
     path: '/player',
     name: 'playerArea',
-    component: () => import('../views/espace-joueur/PlayerArea.vue')
+    component: () => import('../views/espace-joueur/PlayerArea.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/game-master',
     name: 'GMArea',
-    component: () => import('../views/espace-mj/GameMasterArea.vue')
+    component: () => import('../views/espace-mj/GameMasterArea.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/philosophy',
@@ -134,6 +140,9 @@ const routes = [
     name: 'backOffice',
     redirect: "/backoffice/home",
     component: () => import('../views/administration/Administration.vue'),
+    meta: {
+      requiresAuth: true
+    },
     children: [
       {
         path: '/backoffice/home',
@@ -160,5 +169,22 @@ const router = new VueRouter({
   routes,
   mode
 })
+
+/*router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (store.getters.currentUser.length == 0) {
+      next({
+        path: '/home/presentation',
+        query: { redirect: '/home/redirection' }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});*/
 
 export default router
