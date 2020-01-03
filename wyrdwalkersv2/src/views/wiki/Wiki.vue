@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wiki">
     <router-view />
     <v-navigation-drawer v-model="contextDrawer" app clipped color="black" dark bottom>
       <template v-slot:prepend>

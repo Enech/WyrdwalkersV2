@@ -1,0 +1,48 @@
+﻿/*
+*   Ajustements css pour éviter de retaper le contenu des 580 pages du wiki
+*/
+
+.wiki {
+    *{
+        text-align: justify;
+    }
+
+    h1{
+        font-size: 1.25rem !important;
+        font-weight: 500;
+        line-height: 2rem;
+        letter-spacing: 0.0125em !important;
+        font-family: "Roboto", sans-serif !important;
+    }
+
+    hr{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-top: 1px solid gainsboro;
+    }
+
+    table.table.table-bordered {
+        border: 1px solid #c3c3c3;
+        margin-bottom: 20px;
+        width: 100% !important;
+    }
+
+    table.table.table-bordered {
+        tr td{
+            border-bottom: 1px solid #c3c3c3;
+            padding: 5px;
+        }
+
+        tr:last-of-type td{
+            border-bottom: none;
+        }
+
+        tr td:not(:last-child){
+            border-right: 1px solid #c3c3c3;
+        }
+
+        br {
+            border-top: 1px solid #c3c3c3;
+        }
+    }
+}

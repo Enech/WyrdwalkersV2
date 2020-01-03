@@ -7,6 +7,7 @@ import vuetify from './plugins/vuetify';
 import VueMeta from 'vue-meta'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/css/base.css'
+import '@/assets/css/wiki.scss'
 
 Vue.config.productionTip = false;
 /*Vue.config.devtools = false;
