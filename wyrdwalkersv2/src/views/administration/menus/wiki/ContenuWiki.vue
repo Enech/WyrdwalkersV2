@@ -2,7 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3">
       <v-card-title>
-        Gestion du contenu
+        Gestion des timelines
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
@@ -12,18 +12,101 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">Nouvelle page de wiki</span>
+              <span class="headline" v-if="editedItem._id !== ''">Modifier une timeline</span>
+              <span class="headline" v-else>Nouvelle timeline</span>
             </v-card-title>
             <v-card-text>
               <v-container>
                 <v-row>
+                  <v-col cols="12" sm="6">
+                    <v-text-field v-model="editedItem.name" label="Nom"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-combobox
+                      v-model="editedItem.availableTeams"
+                      :items="allTeams"
+                      label="Camps disponibles"
+                      multiple
+                      chips
+                    >
+                      <template v-slot:selection="data">
+                        <v-chip
+                          :key="JSON.stringify(data.item)"
+                          v-bind="data.attrs"
+                          :input-value="data.selected"
+                          :disabled="data.disabled"
+                          @click:close="data.parent.selectItem(data.item)"
+                        >
+                          <v-avatar class="accent white--text" left v-text="data.item.slice(0, 2)"></v-avatar>
+                          {{ data.item }}
+                        </v-chip>
+                      </template>
+                    </v-combobox>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea v-model="editedItem.description" label="Description"></v-textarea>
+                  </v-col>
                 </v-row>
+                <v-divider></v-divider>
+                <div class="subtitle-1">Premier évènement</div>
+                <v-row>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      type="number"
+                      v-model="editedItem.firstEvent.month"
+                      label="Mois (optionnel)"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field type="number" v-model="editedItem.firstEvent.year" label="Année"></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field v-model="editedItem.firstEvent.title" label="Titre"></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea v-model="editedItem.firstEvent.content" label="Contenu"></v-textarea>
+                  </v-col>
+                </v-row>
+                <v-divider></v-divider>
+                <div class="subtitle-1">Evènements suivants</div>
+                <div v-for="(event,index) in editedItem.events" :key="index">
+                  <v-row>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                        type="number"
+                        v-model="event.month"
+                        label="Mois (optionnel)"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                        type="number"
+                        v-model="event.year"
+                        label="Année"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field v-model="event.title" label="Titre"></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-textarea v-model="event.content" label="Contenu"></v-textarea>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn color="red" @click.stop="editedItem.events.splice(index,1)">Supprimer</v-btn>
+                    </v-col>
+                  </v-row>
+                </div>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>
-              <v-btn color="blue" text>Ajouter</v-btn>
+              <v-btn
+                color="blue"
+                v-if="editedItem._id !== ''"
+                text
+              >Modifier</v-btn>
+              <v-btn color="blue" v-else text>Ajouter</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -33,33 +116,52 @@
         <v-spacer></v-spacer>
         <v-text-field append-icon="search" v-model="search"></v-text-field>
       </v-toolbar>
-      <v-data-table :items="redirections" :loading="loading" :headers="headers" must-sort>
-        <template v-slot:item.action="{ item }">
-          <v-btn text icon color="black" @click.stop="editedItem = item; editDialog = true;">
-            <v-icon small>edit</v-icon>
-          </v-btn>
-          <v-btn text icon color="red" @click.stop="editedItem = item; deleteDialog = true;">
-            <v-icon small>delete</v-icon>
-          </v-btn>
+      <v-data-table :items="timelines" :loading="loading" :headers="headers" must-sort>
+        <template v-slot:body="{ items }">
+          <tbody>
+            <tr v-for="item in items" :key="item._id">
+              <td>{{item.name}}</td>
+              <td>{{item.description}}</td>
+              <td>{{`${item.firstEvent.title} / ${item.firstEvent.year}`}}</td>
+              <td>
+                <v-menu>
+                  <template v-slot:activator="{ on }">
+                    <v-btn color="primary" dark v-on="on">Voir</v-btn>
+                  </template>
+                  <v-list two-line>
+                    <v-list-item v-for="(event,index) in item.events" :key="index">
+                      <v-list-item-title>{{event.title}}</v-list-item-title>
+                      <v-list-item-subtitle>{{event.year}}</v-list-item-subtitle>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </td>
+              <td>
+                <v-menu>
+                  <template v-slot:activator="{ on }">
+                    <v-btn color="primary" dark v-on="on">Voir</v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item v-for="(team,index) in item.availableTeams" :key="index">
+                      <v-list-item-title>{{team}}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </td>
+              <td>
+                <v-btn text icon color="black" @click.stop="editedItem = item; dialog = true;">
+                  <v-icon small>edit</v-icon>
+                </v-btn>
+                <v-btn text icon color="red" @click.stop="editedItem = item; deleteDialog = true;">
+                  <v-icon small>delete</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
         </template>
+        <template v-slot:item.action="{ item }"></template>
       </v-data-table>
     </v-card>
-    <v-dialog v-model="editDialog" max-width="500px" persistent fullscreen>
-      <v-card>
-        <v-card-title>
-          <span class="headline">Modification d'une page</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="black" text @click="editDialog = false;">Annuler</v-btn>
-          <v-btn color="blue" text>Modifier</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <v-dialog v-model="deleteDialog" max-width="500px" persistent>
       <v-card>
         <v-card-title>
@@ -69,7 +171,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
-          <v-btn color="red" text>Supprimer</v-btn>
+          <v-btn color="red" text @click="deleteTimeline()">Supprimer</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -82,30 +184,24 @@ import store from "../../../../store";
 import WikiPage from "../../../../model/WikiPage.model";
 
 export default Vue.extend({
-  name: "AdminWikiContent",
+  name: "AdminWikiPages",
   created: function() {
   },
-  computed: {
-  },
   methods: {
-  },
-  watch: {
-      search: function(newValue: string){
-          var reference =  this.search.toLowerCase();
-      }
   },
   data: () => ({
     editedItem: new WikiPage(),
     loading: true,
     dialog: false,
-    editDialog: false,
     deleteDialog: false,
-    search: '',
+    search: "",
     headers: [
-      { text: "Origine (VF)", value: "originVF" },
-      { text: "Origine (VO)", value: "originVO" },
-      { text: "Destination (VF)", value: "destinationVF" },
-      { text: "Destination (VO)", value: "destinationVO" },
+      { text: "Titre", value: "title.titleVF" },
+      { text: "Général", value: "" },
+      { text: "Mythe", value: "" },
+      { text: "Tags", value: "tags" },
+      { text: "Locked", value: "isEditionLocked" },
+      { text: "Timelines", value: "content.length" },
       { text: "Actions", value: "action" }
     ]
   })

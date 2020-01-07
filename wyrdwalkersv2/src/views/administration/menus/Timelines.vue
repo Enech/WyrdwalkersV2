@@ -168,7 +168,7 @@
         <v-card-title>
           <span class="headline">Suppression d'une timeline</span>
         </v-card-title>
-        <v-card-text>Vous êtes sur le point de supprimer une redirection. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
+        <v-card-text>Vous êtes sur le point de supprimer une timeline. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
