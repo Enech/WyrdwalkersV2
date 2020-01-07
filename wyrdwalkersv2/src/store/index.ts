@@ -42,7 +42,8 @@ const store = new Vuex.Store({
     openSigninDialog: false,
     openProfileDialog: false,
     activationSuccessful: true,
-    wikiRedirections: new Array<WikiRedirection>()
+    wikiRedirections: new Array<WikiRedirection>(),
+    appLanguage: 'FR'
   },
   mutations: {
     initialiseStore(state) {
@@ -126,6 +127,9 @@ const store = new Vuex.Store({
     },
     setWikiRedirections(state, redirections: WikiRedirection[]){
       state.wikiRedirections = redirections;
+    },
+    setAppLanguage(state, lang: string){
+      state.appLanguage = lang;
     }
   },
   getters: {
@@ -151,7 +155,8 @@ const store = new Vuex.Store({
     openSigninDialog: state => state.openSigninDialog,
     openProfileDialog: state => state.openProfileDialog,
     activationSuccessful: state => state.activationSuccessful,
-    wikiRedirections: state => state.wikiRedirections
+    wikiRedirections: state => state.wikiRedirections,
+    appLanguage: state => state.appLanguage
   },
   actions: {
     fetchEvents(context) {
