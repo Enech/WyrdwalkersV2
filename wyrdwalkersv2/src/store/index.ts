@@ -125,10 +125,10 @@ const store = new Vuex.Store({
     setActivationSuccessful(state, success: boolean) {
       state.activationSuccessful = success;
     },
-    setWikiRedirections(state, redirections: WikiRedirection[]){
+    setWikiRedirections(state, redirections: WikiRedirection[]) {
       state.wikiRedirections = redirections;
     },
-    setAppLanguage(state, lang: string){
+    setAppLanguage(state, lang: string) {
       state.appLanguage = lang;
     }
   },
@@ -170,6 +170,68 @@ const store = new Vuex.Store({
         .then((response: any) => {
           context.commit("setTimelines", response.data);
         });
+    },
+    fetchTimeline(context, timelineID: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}timelines/${timelineID}`)
+          .then((response: any) => {
+            resolve(response);
+          });
+      });
+    },
+    addTimeline(context, newTimeline: Timeline) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}timelines/`,newTimeline)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "La timeline a bien été ajoutée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    editTimeline(context, newTimeline: Timeline) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}timelines/${newTimeline._id}`,newTimeline)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "La timeline a bien été mise à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    deleteTimeline(context, timelineID: string) {
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_APIURL}timelines/${timelineID}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "La timeline a bien été supprimée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
     },
     fetchActivities(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}activities/all`)
@@ -345,7 +407,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    fetchAllWikiRedirections(context){
+    fetchAllWikiRedirections(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki-redirections/all`)
           .then((response: any) => {
@@ -361,7 +423,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    addWikiRedirection(context, newRedirection: WikiRedirection){
+    addWikiRedirection(context, newRedirection: WikiRedirection) {
       return new Promise((resolve) => {
         return axios.post(`${process.env.VUE_APP_APIURL}wiki-redirections/`, newRedirection)
           .then((response: any) => {
@@ -379,7 +441,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    updateWikiRedirection(context, editedRedirection: WikiRedirection){
+    updateWikiRedirection(context, editedRedirection: WikiRedirection) {
       return new Promise((resolve) => {
         return axios.put(`${process.env.VUE_APP_APIURL}wiki-redirections/${editedRedirection._id}`, editedRedirection)
           .then((response: any) => {
@@ -397,7 +459,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    deleteWikiRedirection(context, redirectionId: string){
+    deleteWikiRedirection(context, redirectionId: string) {
       return new Promise((resolve) => {
         return axios.delete(`${process.env.VUE_APP_APIURL}wiki-redirections/${redirectionId}`)
           .then((response: any) => {
