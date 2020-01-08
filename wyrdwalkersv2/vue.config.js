@@ -238,7 +238,6 @@ module.exports = {
         '/wiki/lore/olympe',
         '/wiki/lore/hadès-enfer',
         '/wiki/lore/teotl',
-        '/wiki/lore/les-treize-cieux',
         '/wiki/lore/mictlan',
         '/wiki/lore/tezcatlipoca',
         '/wiki/lore/quetzalcoatl',
@@ -300,7 +299,7 @@ module.exports = {
         '/wiki/lore/ikole-orun',
         '/wiki/lore/guinée'
       ],
-      useRenderEvent: false,
+      useRenderEvent: true,
       headless: true,
       onlyProduction: true,
       captureAfterTime: 5000,
