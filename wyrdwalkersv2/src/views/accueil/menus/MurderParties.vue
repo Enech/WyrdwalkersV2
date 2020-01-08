@@ -19,7 +19,7 @@
     <v-row>
       <v-col cols="12" md="4">
         <v-card>
-          <v-parallax eager dark src="@/assets/PerilCosmique.jpg" class="pa-3" height="600">
+          <v-parallax eager dark src="@/assets/PerilCosmique.webp" class="pa-3" height="600">
             <v-row>
               <v-col cols="12">
                 <h1 class="display-2 font-weight-thin mb-4 text-center">Péril Cosmique</h1>

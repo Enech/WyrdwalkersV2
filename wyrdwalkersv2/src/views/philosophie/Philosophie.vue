@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-3">
+    <div class="pa-3" id="app-content-custom">
         <v-alert type="info" prominent outlined border="left">Bientôt disponible</v-alert>
     </div>
 </template>
