@@ -31,7 +31,7 @@ module.exports = {
           '/wiki/gameplay/rules',
           '/wiki/gameplay/legendary-abilities',
           '/wiki/timelines',
-          '/philosophy',
+          //'/philosophy',
           '/wiki/lore/panthéons',
           '/wiki/lore/sociétés-secrètes',
           '/wiki/lore/titans',
