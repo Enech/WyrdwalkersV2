@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div class="pa-3" id="app-content-custom">
     <v-row>
       <v-col cols="12">
         <v-expansion-panels dark :value="0">

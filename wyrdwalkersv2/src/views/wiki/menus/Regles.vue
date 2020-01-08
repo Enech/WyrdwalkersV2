@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <v-card class="pa-3 text-justify">
+    <v-card class="pa-3 text-justify" id="app-content-custom">
       <v-card-title class="headline">Guide de jeu</v-card-title>
       <v-divider class="mb-3"></v-divider>
       <div class="panel panel-default" id="introduction">

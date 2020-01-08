@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <v-card class="pa-3">
+    <v-card class="pa-3" id="app-content-custom">
       <v-card-title class="headline">
         <v-icon left>search</v-icon>Recherche
       </v-card-title>

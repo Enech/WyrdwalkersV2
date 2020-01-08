@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div class="pa-3" id="app-content-custom">
     <v-card max-width="1000" class="mx-auto">
       <v-card-title class="title">Statuts de l'association</v-card-title>
       <v-card-text

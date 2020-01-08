@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div class="pa-3" id="app-content-custom">
     <div class="parallax-container">
       <v-parallax dark src="@/assets/WikiHome.jpg" eager>
         <v-row justify="center" align="center" class="full-height">

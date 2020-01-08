@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="pa-3">
-    <v-card class="pa-3 scroll-y" :height="customHeight">
+    <v-card class="pa-3 scroll-y" :height="customHeight" id="app-content-custom">
       <v-card-title>
         <span class="headline">Playlist</span>
         <v-spacer></v-spacer>

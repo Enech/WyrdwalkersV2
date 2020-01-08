@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div class="pa-3" id="app-content-custom">
     <v-card>
       <v-card-title>Historique des évènements JDR</v-card-title>
       <v-tabs grow>

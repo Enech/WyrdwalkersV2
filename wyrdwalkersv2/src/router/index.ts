@@ -131,11 +131,9 @@ const routes = [
   }
 ];
 
-const mode = 'history';
-
 const router = new VueRouter({
   routes,
-  mode
+  mode: 'history'
 })
 
 export default router

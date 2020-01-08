@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <v-card class="pa-3">
+    <v-card class="pa-3" id="app-content-custom">
       <v-card-title>Chronologies</v-card-title>
       <div id="TimelinesCardsContainer" v-if="showCards">
         <v-layout v-for="(timeline, index) in timelines" :key="index">

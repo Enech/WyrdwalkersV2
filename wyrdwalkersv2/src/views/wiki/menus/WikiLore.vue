@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <v-card class="pa-3" v-if="!loading">
+    <v-card class="pa-3" v-if="!loading" id="app-content-custom">
       <v-card-title class="headline">{{page.title.titleVF}}</v-card-title>
       <v-tabs grow show-arrows>
         <v-tab v-if="page.generalInfos != undefined" href="#tab-general">Général</v-tab>
@@ -144,6 +144,9 @@ export default Vue.extend({
   name: "WikiLore",
   created: function() {
     this.fetchWikiPage(this.$route.params.pagename);
+  },
+  mounted(){
+    document.dispatchEvent(new Event('custom-post-render-event'))
   },
   methods: {
     fetchWikiPage: function(name: string) {

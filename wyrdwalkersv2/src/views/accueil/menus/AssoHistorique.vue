@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div class="pa-3" id="app-content-custom">
     <v-card max-width="1000" class="mx-auto" v-if="assoHistory.length > 0">
       <v-card-title class="title">Historique de l'association</v-card-title>
       <v-divider></v-divider>

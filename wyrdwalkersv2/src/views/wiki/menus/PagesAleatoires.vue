@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <v-card class="pa-3">
+    <v-card class="pa-3" id="app-content-custom">
       <v-card-title class="headline">Pages aléatoires</v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-row dense>

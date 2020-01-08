@@ -251,7 +251,7 @@
         </v-card>
       </div>
       <div v-else>
-        <v-card class="pa-3">
+        <v-card class="pa-3" id="app-content-custom">
           <v-row align="center">
             <v-col cols="12" md="6">
               <wyrd-triangle-drawing

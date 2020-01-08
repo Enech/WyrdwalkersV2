@@ -13,7 +13,7 @@
       <v-icon>search</v-icon>
     </v-btn>
     <v-dialog v-model="openDialog" max-width="250px">
-      <v-card class="pa-3">
+      <v-card class="pa-3" id="app-content-custom">
         <v-card-title>Wiki - Recherche</v-card-title>
         <v-card-text>
           <v-text-field v-model="search" clearable @keyup.enter="goToResultPage();"></v-text-field>
