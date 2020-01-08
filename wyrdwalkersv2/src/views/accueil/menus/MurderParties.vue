@@ -77,7 +77,7 @@
       </v-col>
       <v-col cols="12" md="4">
         <v-card>
-          <v-parallax eager dark src="@/assets/HeureH2.jpg" class="pa-3" height="600">
+          <v-parallax eager dark src="@/assets/HeureH2.webp" class="pa-3" height="600">
             <v-row>
               <v-col cols="12">
                 <h1 class="display-2 font-weight-thin mb-4 text-center">Heure H</h1>
@@ -135,7 +135,7 @@
       </v-col>
       <v-col cols="12" md="4">
         <v-card>
-          <v-parallax eager dark src="@/assets/ArturusRex_2.jpg" class="pa-3" height="600">
+          <v-parallax eager dark src="@/assets/ArturusRex_2.webp" class="pa-3" height="600">
             <v-row>
               <v-col cols="12">
                 <h1 class="display-2 font-weight-thin mb-4 text-center">Arturus Rex</h1>

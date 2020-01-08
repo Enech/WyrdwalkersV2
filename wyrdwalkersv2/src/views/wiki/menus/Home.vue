@@ -1,12 +1,12 @@
 <template>
   <div class="pa-3" id="app-content-custom">
     <div class="parallax-container">
-      <v-parallax dark src="@/assets/WikiHome.jpg" eager>
+      <v-parallax dark src="@/assets/WikiHome.webp" eager>
         <v-row justify="center" align="center" class="full-height">
           <v-col cols="12" class="text-center full-height">
             <div class="logo-container">
-              <img class="main-logo" src="@/assets/Logo_NoSnake.png" />
-              <img class="spinning-logo" src="@/assets/Ouroboros.png" />
+              <img class="main-logo" src="@/assets/Logo_NoSnake.webp" />
+              <img class="spinning-logo" src="@/assets/Ouroboros.webp" />
             </div>
           </v-col>
         </v-row>

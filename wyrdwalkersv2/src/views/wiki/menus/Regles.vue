@@ -91,7 +91,7 @@
               <p>
                 Le système Wyrdwalkers est basé sur le système de FATE Core, que vous pouvez trouver en français à
                 <a
-                  href="httpss://fate-srd.fr/wikifate/"
+                  href="https://fate-srd.fr/wikifate/"
                   target="_blank"
                 >cette adresse</a>. Il n’est pas primordial de visiter
                 le site car nous en avons modifié le fonctionnement sur plusieurs notions. Cependant, cela peut être utile pour avoir une référence en tête.
@@ -1829,25 +1829,25 @@
                   </p>
                   <ul class="mb-3">
                     <li>
-                      <a href="/wiki/destin" target="_blank">Destin</a>
+                      <a href="/wiki/lore/destin" target="_blank">Destin</a>
                     </li>
                     <li>
                       <a
-                        href="/wiki/concordat-de-stonehenge"
+                        href="/wiki/lore/concordat-de-stonehenge"
                         target="_blank"
                       >Concordat de Stonehenge</a>
                     </li>
                     <li>
-                      <a href="/wiki/pantheons" target="_blank">Panthéons</a>
+                      <a href="/wiki/lore/panthéons" target="_blank">Panthéons</a>
                     </li>
                     <li>
-                      <a href="/wiki/godborn" target="_blank">Godborns</a>
+                      <a href="/wiki/lore/godborn" target="_blank">Godborns</a>
                     </li>
                     <li>
-                      <a href="/wiki/titans" target="_blank">Titans</a>
+                      <a href="/wiki/lore/titans" target="_blank">Titans</a>
                     </li>
                     <li>
-                      <a href="/wiki/societes-secretes" target="_blank">Sociétés Secrètes</a>
+                      <a href="/wiki/lore/sociétés-secrètes" target="_blank">Sociétés Secrètes</a>
                     </li>
                   </ul>
                 </content>
@@ -2186,19 +2186,19 @@ export default Vue.extend({
   data: () => ({
     showDrawer: false,
     sheets: [
-      "https://wyrdwalkers.com/ressources/regles/Diapositive1.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive2.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive3.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive4.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive5.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive6.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive7.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive8.PNG"
+      "/ressources/regles/Diapositive1.PNG",
+      "ressources/regles/Diapositive2.PNG",
+      "/ressources/regles/Diapositive3.PNG",
+      "/ressources/regles/Diapositive4.PNG",
+      "/ressources/regles/Diapositive5.PNG",
+      "/ressources/regles/Diapositive6.PNG",
+      "/ressources/regles/Diapositive7.PNG",
+      "/ressources/regles/Diapositive8.PNG"
     ],
     sheetsSkills: [
-      "https://wyrdwalkers.com/ressources/regles/Diapositive9.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive10.PNG",
-      "https://wyrdwalkers.com/ressources/regles/Diapositive11.PNG"
+      "/ressources/regles/Diapositive9.PNG",
+      "/ressources/regles/Diapositive10.PNG",
+      "/ressources/regles/Diapositive11.PNG"
     ]
   }),
   metaInfo: {

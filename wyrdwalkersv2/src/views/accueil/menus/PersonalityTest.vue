@@ -1,8 +1,8 @@
 <template>
-  <div class="pa-3">
-    <div v-if="false">
+  <div class="pa-3" id="app-content-custom">
+    <!--div v-if="false">
       <div v-if="!showResults">
-        <v-parallax dark src="@/assets/fractal-969516.jpg" eager>
+        <v-parallax dark src="@/assets/fractal-969516.webp" eager>
           <v-row align="center" justify="center">
             <v-col class="text-center" cols="12">
               <h1 class="display-2 font-weight-thin mb-4">WYRDWALKERS</h1>
@@ -263,7 +263,7 @@
           </v-row>
         </v-card>
       </div>
-    </div>
+    </div -->
     <v-alert type="info" prominent outlined border="left">Le test de personnalité Wyrdwalkers se refait une beauté. Il sera très vite de retour !</v-alert>
   </div>
 </template>
@@ -272,12 +272,12 @@
 import Vue from "vue";
 import store from "../../../store";
 // @ts-ignore
-import TriangleDrawing from "../../../components/personality-test/TriangleDrawing.vue";
+//import TriangleDrawing from "../../../components/personality-test/TriangleDrawing.vue";
 
 export default Vue.extend({
   name: "PersonalityTest",
   components: {
-    "wyrd-triangle-drawing": TriangleDrawing
+    //"wyrd-triangle-drawing": TriangleDrawing
   },
   created: function() {
     this.resetData();
