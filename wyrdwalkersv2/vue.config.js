@@ -306,22 +306,23 @@ module.exports = {
           '/wiki/lore/ikole-orun',
           '/wiki/lore/guinée'
         ],
-        postProcess(renderedRoute) {
+        /*postProcess(renderedRoute) {
           renderedRoute.html = renderedRoute.html
             .replace(/<script (.*?)>/g, `<script $1 defer>`)
             .replace(`id="app"`, `id="app" data-server-rendered="true"`)
 
           return renderedRoute
-        },
+        },*/
         renderer: new Renderer({
           ignoreJSErrors: true,
-          headless: true,
+          headless: false,
           inject: {},
           devtools: false,
           renderAfterElementExists: "#app-content-custom",
           navigationOptions: {
             timeout: 0
-          }
+          },
+          maxConcurrentRoutes: 5
         })
       })
     ] : []
