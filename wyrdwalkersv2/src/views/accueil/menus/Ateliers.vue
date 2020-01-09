@@ -95,6 +95,9 @@ export default Vue.extend({
   }),
   metaInfo: {
     title: "Nos ateliers",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/workshops"}
+    ],
     meta:[
       {name: "description", content: "Les ateliers storytelling Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,atelier,storytelling,narration,histoire,mythes"},

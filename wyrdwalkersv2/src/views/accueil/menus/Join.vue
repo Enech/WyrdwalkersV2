@@ -32,6 +32,9 @@ export default Vue.extend({
   data: () => ({}),
   metaInfo: {
     title: "Nous rejoindre",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/join"}
+    ],
     meta:[
       {name: "description", content: "Rejoindre l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,join,rejoindre"},

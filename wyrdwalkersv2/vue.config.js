@@ -315,7 +315,7 @@ module.exports = {
         },*/
         renderer: new Renderer({
           ignoreJSErrors: true,
-          headless: false,
+          headless: true,
           inject: {},
           devtools: false,
           renderAfterElementExists: "#app-content-custom",

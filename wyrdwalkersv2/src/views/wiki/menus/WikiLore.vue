@@ -125,13 +125,13 @@
       </v-tabs>
     </v-card>
     <v-dialog v-model="loading" hide-overlay persistent width="300">
-        <v-card color="primary" dark>
-          <v-card-text>
-            Chargement...
-            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
+      <v-card color="primary" dark>
+        <v-card-text>
+          Chargement...
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -145,8 +145,8 @@ export default Vue.extend({
   created: function() {
     this.fetchWikiPage(this.$route.params.pagename);
   },
-  mounted(){
-    document.dispatchEvent(new Event('custom-post-render-event'))
+  mounted() {
+    document.dispatchEvent(new Event("custom-post-render-event"));
   },
   methods: {
     fetchWikiPage: function(name: string) {
@@ -221,24 +221,35 @@ export default Vue.extend({
     var tempPage = this.page;
     return {
       title: tempPage ? `${tempPage.title.titleVF}` : "Wiki",
+      link: [
+        { rel: "canonical", href: `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF.toLowerCase().replace(' ', '-')}` }
+      ],
       meta: [
         {
           name: "description",
-          content: tempPage ? `Page codex de ${tempPage.title.titleVF}` : "Page de codex"
+          content: tempPage
+            ? `Page codex de ${tempPage.title.titleVF}`
+            : "Page de codex"
         },
         {
           name: "keywords",
-          content: tempPage ? `philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,${tempPage.title.titleVF}` : "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"
+          content: tempPage
+            ? `philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,${tempPage.title.titleVF}`
+            : "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"
         },
         { name: "author", content: "Thomas Gely" },
         {
           property: "og:url",
-          content: tempPage ? `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF}` : ""
+          content: tempPage
+            ? `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF.toLowerCase().replace(' ', '-')}`
+            : ""
         },
         { property: "og:type", content: "website" },
         {
           property: "og:description",
-          content: tempPage ? `Page codex de ${tempPage.title.titleVF}` : "Page de codex"
+          content: tempPage
+            ? `Page codex de ${tempPage.title.titleVF}`
+            : "Page de codex"
         },
         { property: "og:image", content: "https://i.imgur.com/xSW0VL0.png" }
       ]

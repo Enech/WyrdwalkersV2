@@ -132,6 +132,9 @@ export default Vue.extend({
   }),
   metaInfo: {
     title: "Evènements",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/rpg-history"}
+    ],
     meta:[
       {name: "description", content: "Historique des évènements JDR de l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,rpg,jdr,évènements"},

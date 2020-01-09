@@ -203,6 +203,9 @@ export default Vue.extend({
   data: () => ({}),
   metaInfo: {
     title: "Soirées enquêtes",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/murder-parties"}
+    ],
     meta:[
       {name: "description", content: "Nos soirées enquêtes"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,murder party,soirée enquête"},

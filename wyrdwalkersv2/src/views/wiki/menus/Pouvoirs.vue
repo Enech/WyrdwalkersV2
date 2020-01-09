@@ -1540,6 +1540,9 @@ export default Vue.extend({
   }),
   metaInfo: {
     title: "Capacités légendaires",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/legendary-abilities"}
+    ],
     meta:[
       {name: "description", content: "Le système de magie Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,wiki,magic,legend,légende,magie,pouvoirs,powers"},

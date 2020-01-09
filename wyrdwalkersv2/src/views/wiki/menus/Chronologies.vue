@@ -120,6 +120,9 @@ export default Vue.extend({
   }),
   metaInfo: {
     title: "Chronologies",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/timelines"}
+    ],
     meta:[
       {name: "description", content: "Le multivers Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,timelines"},

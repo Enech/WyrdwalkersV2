@@ -336,6 +336,9 @@ export default Vue.extend({
   },
   metaInfo: {
     title: "Test de personnalité",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/personality-test"}
+    ],
     meta:[
       {name: "description", content: "Test de personnalité Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,personality,test,personnalité"},

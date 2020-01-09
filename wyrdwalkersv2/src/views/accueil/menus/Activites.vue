@@ -69,6 +69,9 @@ export default Vue.extend({
   data: () => ({}),
   metaInfo: {
     title: "Nos activités",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/activities"}
+    ],
     meta:[
       {name: "description", content: "Les activités auxquelles participe Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,activities,activités"},

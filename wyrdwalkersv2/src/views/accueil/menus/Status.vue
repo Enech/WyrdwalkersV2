@@ -206,6 +206,9 @@ export default Vue.extend({
   data: () => ({}),
   metaInfo: {
     title: "Statuts",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/status"}
+    ],
     meta:[
       {name: "description", content: "Les statuts de l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,statuses,statuts"},

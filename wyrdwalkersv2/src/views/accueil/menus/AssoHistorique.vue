@@ -50,6 +50,9 @@ export default Vue.extend({
   data: () => ({}),
   metaInfo: {
     title: "Historique",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/association-history"}
+    ],
     meta:[
       {name: "description", content: "<historique de la vie de l'association Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,historique,vie associative"},
