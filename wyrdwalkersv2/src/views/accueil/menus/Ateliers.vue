@@ -96,7 +96,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Nos ateliers",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/workshops"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/workshops"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Les ateliers storytelling Wyrdwalkers"},

@@ -68,7 +68,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Wyrdwalkers - Présentation",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/presentation"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/presentation"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Présentation de l'association Wyrdwalkers"},

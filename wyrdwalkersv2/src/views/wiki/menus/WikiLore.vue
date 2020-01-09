@@ -222,7 +222,13 @@ export default Vue.extend({
     return {
       title: tempPage ? `${tempPage.title.titleVF}` : "Wiki",
       link: [
-        { rel: "canonical", href: `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF.toLowerCase().replace(' ', '-')}` }
+        {
+          rel: "canonical",
+          href: `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF
+            .toLowerCase()
+            .replace(" ", "-")}`
+        },
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
       ],
       meta: [
         {
@@ -241,7 +247,9 @@ export default Vue.extend({
         {
           property: "og:url",
           content: tempPage
-            ? `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF.toLowerCase().replace(' ', '-')}`
+            ? `https://wyrdwalkers.com/wiki/lore/${tempPage.title.titleVF
+                .toLowerCase()
+                .replace(" ", "-")}`
             : ""
         },
         { property: "og:type", content: "website" },

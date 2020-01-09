@@ -133,7 +133,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Evènements",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/rpg-history"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/rpg-history"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Historique des évènements JDR de l'association Wyrdwalkers"},

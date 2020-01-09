@@ -204,7 +204,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Soirées enquêtes",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/murder-parties"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/murder-parties"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Nos soirées enquêtes"},

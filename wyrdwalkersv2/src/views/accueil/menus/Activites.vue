@@ -70,7 +70,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Nos activités",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/activities"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/activities"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Les activités auxquelles participe Wyrdwalkers"},

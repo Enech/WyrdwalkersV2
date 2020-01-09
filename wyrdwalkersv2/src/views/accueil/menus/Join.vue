@@ -33,7 +33,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Nous rejoindre",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/join"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/join"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Rejoindre l'association Wyrdwalkers"},

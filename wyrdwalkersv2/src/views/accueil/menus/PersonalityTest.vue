@@ -337,7 +337,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Test de personnalité",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/personality-test"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/personality-test"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Test de personnalité Wyrdwalkers"},

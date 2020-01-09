@@ -121,7 +121,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Chronologies",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/timelines"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/timelines"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Le multivers Wyrdwalkers"},

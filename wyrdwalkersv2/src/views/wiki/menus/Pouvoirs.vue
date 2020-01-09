@@ -1541,7 +1541,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Capacités légendaires",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/legendary-abilities"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/legendary-abilities"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Le système de magie Wyrdwalkers"},

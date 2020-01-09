@@ -207,7 +207,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Statuts",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/status"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/status"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Les statuts de l'association Wyrdwalkers"},

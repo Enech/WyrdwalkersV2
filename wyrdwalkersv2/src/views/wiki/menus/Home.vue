@@ -70,7 +70,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Wiki",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/home"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/home"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Le codex officiel de l'univers Wyrdwalkers"},

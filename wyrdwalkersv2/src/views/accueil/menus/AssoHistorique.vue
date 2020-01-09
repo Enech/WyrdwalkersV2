@@ -51,7 +51,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Historique",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/association-history"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/home/association-history"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "<historique de la vie de l'association Wyrdwalkers"},

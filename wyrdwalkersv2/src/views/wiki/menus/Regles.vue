@@ -2204,7 +2204,8 @@ export default Vue.extend({
   metaInfo: {
     title: "Règles du jeu",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/rules"}
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/rules"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
     ],
     meta:[
       {name: "description", content: "Les règles du jeu Wyrdwalkers"},
