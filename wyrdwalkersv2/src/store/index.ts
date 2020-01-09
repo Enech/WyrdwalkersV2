@@ -152,54 +152,108 @@ const store = new Vuex.Store({
       return axios.get(`${process.env.VUE_APP_APIURL}events/all`)
         .then((response: any) => {
           context.commit("setEvents", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchTimelines(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}timelines/all`)
         .then((response: any) => {
           context.commit("setTimelines", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchActivities(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}activities/all`)
         .then((response: any) => {
           context.commit("setActivities", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchWorkshops(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}workshops/all`)
         .then((response: any) => {
           context.commit("setWorkshops", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchAssoHistory(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}assoHistory/all`)
         .then((response: any) => {
           context.commit("setAssoHistory", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchApproaches(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}approaches/all`)
         .then((response: any) => {
           context.commit("setApproaches", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchDomains(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}domains/all`)
         .then((response: any) => {
           context.commit("setDomains", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchPersonalities(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}personalities/all`)
         .then((response: any) => {
           context.commit("setPersonalities", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchPantheons(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}pantheons/all`)
         .then((response: any) => {
           context.commit("setPantheons", response.data);
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
         });
     },
     fetchWikiPage(context, pagename: string) {
@@ -208,7 +262,13 @@ const store = new Vuex.Store({
           .then((response: any) => {
             context.commit("setWikiPage", response.data);
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     },
     fetchAllWikiPages(context) {
@@ -217,7 +277,13 @@ const store = new Vuex.Store({
           .then((response: any) => {
             context.dispatch("computeMusics", response.data);
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     },
     computeMusics(context, pages: WikiPage[]) {
@@ -247,7 +313,13 @@ const store = new Vuex.Store({
           .then((response: any) => {
             context.commit("setRandomWikiPages", response.data);
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     },
     fetchWikiSearchResults(context, searchQuery: string) {
@@ -256,7 +328,13 @@ const store = new Vuex.Store({
           .then((response: any) => {
             context.commit("setWikiSearchResults", response.data);
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     },
     logUser(context, logObject: any) {
@@ -275,7 +353,13 @@ const store = new Vuex.Store({
               context.commit("setErrorMessage", newError);
             }
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     },
     registerUser(context, newUser: User) {
@@ -293,7 +377,13 @@ const store = new Vuex.Store({
               context.commit("setErrorMessage", newError);
             }
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     },
     activateUser(context, userId: string) {
@@ -312,7 +402,13 @@ const store = new Vuex.Store({
               context.commit("setActivationSuccessful", true);
             }
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     },
     updateUser(context, updatedUser: User) {
@@ -331,7 +427,13 @@ const store = new Vuex.Store({
               context.commit("setActivationSuccessful", true);
             }
             resolve(response);
-          });
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
       });
     }
   },
