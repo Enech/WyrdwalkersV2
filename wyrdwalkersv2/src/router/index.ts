@@ -68,6 +68,11 @@ const routes = [
         path: 'contact',
         name: 'contact',
         component: () => import('../views/accueil/menus/Contact.vue')
+      },
+      {
+        path: 'live-action',
+        name: 'grandeurNature',
+        component: () => import('../views/accueil/menus/GrandeurNature.vue')
       }
     ]
   },

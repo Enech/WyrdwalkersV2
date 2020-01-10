@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3" id="app-content-custom">
-    <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager>
+    <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-2 font-weight-thin mb-4">Où nous trouver</h1>
@@ -36,7 +36,7 @@
         type="info"
         elevation="2"
         width="100%"
-      >Wyrdwalkers n'a pas d'activités prévues pour le moment</v-alert>
+      >Wyrdwalkers n'a pas d'animations prévues pour le moment</v-alert>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
-import Activity from "../../../model/Activity.model";
+import Animation from "../../../model/Animation.model";
 
 export default Vue.extend({
   name: "Activites",
@@ -56,7 +56,7 @@ export default Vue.extend({
       get: function() {
         return store.getters.activities;
       },
-      set: function(newValues: Activity[]) {
+      set: function(newValues: Animation[]) {
         store.commit("setActivities", newValues);
       }
     }

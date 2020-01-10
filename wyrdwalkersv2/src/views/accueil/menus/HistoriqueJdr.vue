@@ -58,7 +58,7 @@
                 ></iframe>
               </div>
               <div v-for="(character,indexChar) in selectedEvent.characters" :key="indexChar" class="mb-1">
-                <v-btn block outlined :href="'/wiki/' + character" target="_blank" color="blue">{{character}}</v-btn>
+                <v-btn block outlined :href="'/wiki/lore/' + character" target="_blank" color="blue">{{character}}</v-btn>
               </div>
             </v-col>
           </v-row>

@@ -147,6 +147,10 @@ export default Vue.extend({
   }),
   metaInfo: {
     title: "Playlist",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/music-library"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
+    ],
     meta:[
       {name: "description", content: "La playlist Wyrdwalkers"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,playlist"},

@@ -5,35 +5,26 @@
       <v-divider></v-divider>
       <v-card-text>
         <v-row dense>
-          <v-col cols="12" md="6">
-            <div class="subtitle-1">Sur Discord</div>
-            <div class="subtitle-2">
-              <v-btn dark icon color="indigo lighten-1">
-                <v-icon>fa-discord</v-icon>
-              </v-btn>
-            </div>
-            <v-divider></v-divider>
-            <div class="subtitle-1">Sur notre page Facebook</div>
-            <div class="subtitle-2">
-              <v-btn dark icon href="https://www.facebook.com/wyrdwalkers" target="_blank" color="blue darken-3">
-                <v-icon>fa-facebook</v-icon>
-              </v-btn>
-            </div>
-            <v-divider></v-divider>
-            <div class="subtitle-1">Par email</div>
-            <div class="subtitle-2">
+          <v-col cols="12" md="3">
+            <v-btn dark color="indigo lighten-1">Sur Discord</v-btn>
+            <v-divider class="my-3"></v-divider>
+            <v-btn
+              dark
+              href="https://www.facebook.com/wyrdwalkers"
+              target="_blank"
+              color="blue darken-3"
+            >Sur notre page facebook</v-btn>
+            <v-divider class="my-3"></v-divider>
+            <div class="title font-weight-light">Par email</div>
+            <div class="subtitle-1">
               A l'adresse
-              <a href="mailto:mastersoffate@wyrdwalkers.com">mastersoffate@wyrdwalkers.com</a>
+              <a
+                href="mailto:mastersoffate@wyrdwalkers.com"
+              >mastersoffate@wyrdwalkers.com</a>
             </div>
-          </v-col>
-          <v-col cols="12" md="6">
-            <l-map :zoom="zoom" :center="center">
-              <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-              <l-marker :lat-lng="marker"></l-marker>
-            </l-map>
-            <v-divider></v-divider>
-            <div class="subtitle-1">Par courrier (comme les anciens)</div>
-            <div class="subtitle-2">
+            <v-divider class="my-3"></v-divider>
+            <div class="title font-weight-light">Par courrier (ou pigeon voyageur)</div>
+            <div class="subtitle-1">
               Chez Thomas Gely
               <br />3 rue de la Villette
               <br />69003 Lyon
@@ -48,20 +39,11 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
-import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
-import L from "leaflet";
 
 export default Vue.extend({
   name: "Contact",
   data: () => ({
-    zoom: 13,
-    center: L.latLng(45.763351, 4.86219),
-    url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png",
-    attribution:
-      '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    marker: L.latLng(45.763351, 4.86219)
   }),
-  components: { LMap, LTileLayer, LMarker },
   metaInfo: {
     title: "Contact",
     link: [

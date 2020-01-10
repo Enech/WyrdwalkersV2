@@ -67,6 +67,10 @@ export default Vue.extend({
   data: () => ({}),
   metaInfo: {
     title: "Pages aléatoires",
+    link: [
+      {rel: "canonical", href: "https://wyrdwalkers.com/wiki/random"},
+      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
+    ],
     meta:[
       {name: "description", content: "Des fiches Wyrdwalkers tirées aléatoirement"},
       {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,aléatoire,random,wiki"},

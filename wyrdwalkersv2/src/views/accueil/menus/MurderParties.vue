@@ -2,7 +2,7 @@
   <div class="pa-3" id="app-content-custom">
     <v-row>
       <v-col cols="12">
-        <v-expansion-panels dark :value="0">
+        <v-expansion-panels dark :value="1">
           <v-expansion-panel class="blue white--text">
             <v-expansion-panel-header>Qu'est-ce que c'est ?</v-expansion-panel-header>
             <v-expansion-panel-content>
