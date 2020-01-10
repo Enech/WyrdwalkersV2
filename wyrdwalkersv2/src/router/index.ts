@@ -45,8 +45,8 @@ const routes = [
         component: () => import('../views/accueil/menus/HistoriqueJdr.vue')
       },
       {
-        path: 'activities',
-        name: 'activites',
+        path: 'animations',
+        name: 'animations',
         component: () => import('../views/accueil/menus/Activites.vue')
       },
       {
