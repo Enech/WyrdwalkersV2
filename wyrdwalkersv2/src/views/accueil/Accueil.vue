@@ -82,6 +82,12 @@
             <v-icon small>fa-lightbulb</v-icon>
           </v-list-item-action>
         </v-list-item>
+        <v-list-item :to="{name:'contact'}">
+            <v-list-item-title>Nous contacter</v-list-item-title>
+            <v-list-item-action>
+              <v-icon small>fa-comments</v-icon>
+            </v-list-item-action>
+          </v-list-item>
         <v-list-group no-action>
           <template v-slot:activator>
             <v-list-item-content>

@@ -1,10 +1,11 @@
 <template>
   <div class="pa-3" id="app-content-custom">
-    <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="200">
+    <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-1 font-weight-light mb-4">WYRDWALKERS</h1>
           <h3 class="headline font-weight-thin">L'association qui mélange mythologie et jeu de rôle</h3>
+          <v-btn color="white" outlined icon><v-icon left>fa-discord</v-icon></v-btn>
         </v-col>
       </v-row>
     </v-parallax>
@@ -118,6 +119,9 @@
               <v-card color="grey lighten-3">
                 <v-card-title class="justify-center">Une analyse humaine</v-card-title>
                 <v-divider></v-divider>
+                <v-card-text class="subtitle-1 text-justify">
+                  Pour écrire l'univers de Wyrdwalkers et le rendre cohérent, ses créateurs ont étudié plus d'une dizaine de mythologies. De cette étude est née un modèle d'analyse de la condition humaine, directement inspirée des cultures et civilisations qui nous ont précédé. Ce modèle, décrivant les trois grands paradoxes auxquels tout humain fait face, nous permet de de comprendre les "fictions utiles" qui nous entourent pour mieux les maitriser et en inventer de nouvelles.
+                </v-card-text>
                 <v-card-actions class="justify-center">
                   <v-btn color="blue-grey" dark>Bientôt...</v-btn>
                 </v-card-actions>

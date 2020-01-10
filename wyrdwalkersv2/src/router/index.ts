@@ -63,6 +63,11 @@ const routes = [
         path: 'personality-test',
         name: 'personalityTest',
         component: () => import('../views/accueil/menus/PersonalityTest.vue')
+      },
+      {
+        path: 'contact',
+        name: 'contact',
+        component: () => import('../views/accueil/menus/Contact.vue')
       }
     ]
   },
