@@ -1,4 +1,4 @@
-export default class Activity{
+export default class Animation{
     public _id: string;
     public nameVF: string;
     public nameVO: string;
