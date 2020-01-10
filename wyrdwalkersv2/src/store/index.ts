@@ -13,6 +13,7 @@ import User from '@/model/User.model';
 import Flatted, { parse, stringify } from '../../node_modules/flatted'
 import Music from '@/model/Music.model';
 import WikiRedirection from '@/model/WikiRedirection.model';
+import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
 
 Vue.use(Vuex)
 
@@ -284,35 +285,24 @@ const store = new Vuex.Store({
           });
       });
     },
-    fetchAllWikiPages(context) {
+    fetchWikiPageById(context, pageID: string) {
       return new Promise((resolve) => {
-        return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`)
+        return axios.get(`${process.env.VUE_APP_APIURL}wiki/fromid/${pageID}`)
           .then((response: any) => {
-            context.dispatch("computeMusics", response.data);
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setWikiPage", response.data);
+            }
             resolve(response);
           });
       });
     },
-    computeMusics(context, pages: WikiPage[]) {
-      var tempMusics = new Array<Music>();
-      for (var i = 0; i < pages.length; i++) {
-        var page = pages[i];
-        var index = i;
-        for (var j = 0; j < page.content.length; j++) {
-          var content = page.content[j];
-          if (content.music.length > 0) {
-            var music = new Music();
-            var urlTab = content.music.split("watch?v=");
-            var videoId = urlTab[urlTab.length - 1];
-            music.pageName = page.title.titleVF;
-            music.link = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            music.timeline = content.timeline;
-            music.id = `${index}${j}`;
-            tempMusics.push(music);
-          }
-        }
-      }
-      context.commit("setAllMusics", tempMusics);
+    fetchAllWikiPages(context) {
+      return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`);
     },
     fetchRandomWikiPages(context) {
       return new Promise((resolve) => {

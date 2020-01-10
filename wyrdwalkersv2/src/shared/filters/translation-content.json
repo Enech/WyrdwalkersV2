@@ -1,7 +1,7 @@
-﻿const wwDictionary = {
+﻿{
     "Accueil": "Home",
     "Espace Joueur": "Player Area",
-    "Espace MJ": "GM Area"
+    "Espace MJ": "GM Area",
     "L'association": "The association",
     "Nous rejoindre": "Join Us",
     "Activités": "Planned Activities",
@@ -20,6 +20,4 @@
     "Les Ateliers": "Workshops",
     "Nos ateliers de storytelling": "Our storytelling workshops"
     
-};
-
-export default wwDictionary;
+}

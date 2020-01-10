@@ -108,14 +108,6 @@ export default Vue.extend({
     },
     mobileDevice: function() {
       return this.$vuetify.breakpoint.xs;
-    },
-    musics: {
-      get: function(){
-        return store.getters.allMusics;
-      },
-      set: function(array : Music[]){
-        store.commit("setAllMusics", array);
-      }
     }
   },
   created: function() {
@@ -125,6 +117,7 @@ export default Vue.extend({
   methods: {
     fetchAllWikiPages: function() {
       store.dispatch("fetchAllWikiPages").then((response: any) => {
+        this.musics = this.computeMusics(response.data);
         this.musics = this.musics.sort(function(a: Music, b: Music) {
           if (a.pageName > b.pageName) {
             return 1;
@@ -138,12 +131,34 @@ export default Vue.extend({
     },
     isPlaying: function(music: Music) {
       return music.id === this.selectedMusic.id;
-    }
+    },
+    computeMusics(pages: WikiPage[]) {
+      var tempMusics = new Array<Music>();
+      for (var i = 0; i < pages.length; i++) {
+        var page = pages[i];
+        var index = i;
+        for (var j = 0; j < page.content.length; j++) {
+          var content = page.content[j];
+          if (content.music.length > 0) {
+            var music = new Music();
+            var urlTab = content.music.split("watch?v=");
+            var videoId = urlTab[urlTab.length - 1];
+            music.pageName = page.title.titleVF;
+            music.link = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            music.timeline = content.timeline;
+            music.id = `${index}${j}`;
+            tempMusics.push(music);
+          }
+        }
+      }
+      return tempMusics;
+    },
   },
   data: () => ({
     loading: false,
     openMobilePlaylist: false,
-    selectedMusic: new Music()
+    selectedMusic: new Music(),
+    musics: new Array<Music>()
   }),
   metaInfo: {
     title: "Playlist",
