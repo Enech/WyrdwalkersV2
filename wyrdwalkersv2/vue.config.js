@@ -23,9 +23,10 @@ module.exports = {
           '/home/join',
           '/home/murder-parties',
           '/home/rpg-history',
-          '/home/activities',
+          '/home/animations',
           '/home/workshops',
           '/home/personality-test',
+          '/home/live-action',
           '/wiki',
           '/wiki/home',
           '/wiki/gameplay/rules',
@@ -315,7 +316,7 @@ module.exports = {
         },*/
         renderer: new Renderer({
           ignoreJSErrors: true,
-          headless: true,
+          headless: false,
           inject: {},
           devtools: false,
           renderAfterElementExists: "#app-content-custom",

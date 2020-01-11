@@ -2,18 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://wyrdwalkers.com/home/presentation</loc>
-        <lastmod>2020-01-09</lastmod>
+        <lastmod>2020-01-11</lastmod>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
     <url>
         <loc>https://wyrdwalkers.com/home/join</loc>
-        <lastmod>2020-01-09</lastmod>
+        <lastmod>2020-01-11</lastmod>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://wyrdwalkers.com/home/murder-parties</loc>
-        <lastmod>2020-01-09</lastmod>
+        <lastmod>2020-01-11</lastmod>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://wyrdwalkers.com/home/live-action</loc>
+        <lastmod>2020-01-11</lastmod>
         <changefreq>monthly</changefreq>
     </url>
     <url>

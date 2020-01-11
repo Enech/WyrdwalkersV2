@@ -6,7 +6,7 @@
       <v-card-text>
         <v-row dense>
           <v-col cols="12" md="3">
-            <v-btn dark color="indigo lighten-1">Sur Discord</v-btn>
+            <iframe src="https://discordapp.com/widget?id=664897836806307945&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
             <v-divider class="my-3"></v-divider>
             <v-btn
               dark
