@@ -5,7 +5,7 @@
         <v-col class="text-center" cols="12">
           <h1 class="display-1 font-weight-light mb-4">WYRDWALKERS</h1>
           <h3 class="headline font-weight-thin">L'association qui mélange mythologie et jeu de rôle</h3>
-          <v-btn color="white" class="mt-3" outlined>Rejoignez-nous sur Discord</v-btn>
+          <v-btn color="white" class="mt-3" outlined href="https://discord.gg/tjqrwJ" target="_blank">Rejoignez-nous sur Discord</v-btn>
         </v-col>
       </v-row>
     </v-parallax>

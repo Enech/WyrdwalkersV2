@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <v-card class="pa-3" v-if="!loading" id="app-content-custom">
+    <v-card class="pa-3 lore" v-if="!loading" id="app-content-custom">
       <v-card-title class="headline">{{page.title.titleVF}}</v-card-title>
       <v-tabs grow show-arrows>
         <v-tab v-if="page.generalInfos != undefined" href="#tab-general">Général</v-tab>
