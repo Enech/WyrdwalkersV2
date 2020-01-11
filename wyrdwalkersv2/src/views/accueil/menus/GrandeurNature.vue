@@ -135,7 +135,7 @@ export default Vue.extend({
       {
         name: "Acmérythros",
         caption:
-          "De retour à la stabilité politique, les dirigeants atlantes se retrouvent face à une nouvelle problématique : l'apparition de gisements d'Orichalque sur le territoire de l'Empire. Convoité par les dieux, de nouveaux intérêts émergent et l'exploitation de ce minerais devient un enjeu majeur.",
+          "L'Atlantide et ses factions influentes ont réussi à se faire une place dans l'ordre nouveau. Malgré les compétitions en interne, un conseil Atlante est né, remplaçant la tyrannie d'un Kronus défait par son fils Zeus. Les luttes d'influences sont maintenus au minimum dans l'intérêt commun tandis qu'un Axis Mundi a ouvert Atlantis sur l'univers entier. Mais tout cela s'apprête à changer : un énorme gisement d'Orichalque, le métal des dieux qui ne peut être imité par la magie, a été trouvé sous la capitale de l'Empire Atlante. Et chaque faction veut sa part du gâteau... Mais les Atlantes ne sont pas les seuls à vouloir une part de cette extraordinaire richesse souterraine. A l'apogée de sa puissance, l'Atlantide saura t'elle se prémunir des influences extérieures tout en régulant sa course au pouvoir et à la richesse en interne ?",
         date: "A définir",
         location: "Lyon",
         done: false,
