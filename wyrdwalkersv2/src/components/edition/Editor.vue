@@ -4,11 +4,11 @@
       <div class="menubar">
         <div class="toolbar">
           <button class="menubar__button" @click="commands.undo">
-            <icon name="undo" />
+            <v-icon>undo</v-icon>
           </button>
 
           <button class="menubar__button" @click="commands.redo">
-            <icon name="redo" />
+            <v-icon>redo</v-icon>
           </button>
 
           <button
@@ -16,7 +16,7 @@
             :class="{ 'is-active': isActive.bold() }"
             @click="commands.bold"
           >
-            <icon name="bold" />
+            <v-icon>format_bold</v-icon>
           </button>
 
           <button
@@ -24,7 +24,7 @@
             :class="{ 'is-active': isActive.italic() }"
             @click="commands.italic"
           >
-            <icon name="italic" />
+            <v-icon>format_italic</v-icon>
           </button>
 
           <button
@@ -32,7 +32,7 @@
             :class="{ 'is-active': isActive.strike() }"
             @click="commands.strike"
           >
-            <icon name="strike" />
+            <v-icon>format_strikethrough</v-icon>
           </button>
 
           <button
@@ -40,7 +40,7 @@
             :class="{ 'is-active': isActive.underline() }"
             @click="commands.underline"
           >
-            <icon name="underline" />
+            <v-icon>format_underline</v-icon>
           </button>
 
           <button
@@ -48,7 +48,7 @@
             :class="{ 'is-active': isActive.code() }"
             @click="commands.code"
           >
-            <icon name="code" />
+            <v-icon>code</v-icon>
           </button>
 
           <button
@@ -56,7 +56,7 @@
             :class="{ 'is-active': isActive.paragraph() }"
             @click="commands.paragraph"
           >
-            <icon name="paragraph" />
+            <v-icon>fa-paragraph</v-icon>
           </button>
 
           <button
@@ -82,7 +82,7 @@
             :class="{ 'is-active': isActive.bullet_list() }"
             @click="commands.bullet_list"
           >
-            <icon name="ul" />
+            <v-icon>format_list_bulleted</v-icon>
           </button>
 
           <button
@@ -90,7 +90,7 @@
             :class="{ 'is-active': isActive.ordered_list() }"
             @click="commands.ordered_list"
           >
-            <icon name="ol" />
+            <v-icon>format_list_numbered</v-icon>
           </button>
 
           <button
@@ -98,7 +98,7 @@
             :class="{ 'is-active': isActive.blockquote() }"
             @click="commands.blockquote"
           >
-            <icon name="quote" />
+            <v-icon>format_quote</v-icon>
           </button>
 
           <button
@@ -106,40 +106,40 @@
             :class="{ 'is-active': isActive.code_block() }"
             @click="commands.code_block"
           >
-            <icon name="code" />
+            <v-icon>code</v-icon>
           </button>
 
           <button
             class="menubar__button"
             @click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: false })"
           >
-            <icon name="table" />
+            <v-icon>table</v-icon>
           </button>
 
           <span v-if="isActive.table()">
             <button class="menubar__button" @click="commands.deleteTable">
-              <icon name="delete_table" />
+              <v-icon></v-icon>
             </button>
             <button class="menubar__button" @click="commands.addColumnBefore">
-              <icon name="add_col_before" />
+              <v-icon></v-icon>
             </button>
             <button class="menubar__button" @click="commands.addColumnAfter">
-              <icon name="add_col_after" />
+              <v-icon></v-icon>
             </button>
             <button class="menubar__button" @click="commands.deleteColumn">
-              <icon name="delete_col" />
+              <v-icon></v-icon>
             </button>
             <button class="menubar__button" @click="commands.addRowBefore">
-              <icon name="add_row_before" />
+              <v-icon></v-icon>
             </button>
             <button class="menubar__button" @click="commands.addRowAfter">
-              <icon name="add_row_after" />
+              <v-icon></v-icon>
             </button>
             <button class="menubar__button" @click="commands.deleteRow">
-              <icon name="delete_row" />
+              <v-icon></v-icon>
             </button>
             <button class="menubar__button" @click="commands.toggleCellMerge">
-              <icon name="combine_cells" />
+              <v-icon></v-icon>
             </button>
           </span>
         </div>
@@ -151,7 +151,7 @@
 </template>
 
 <script lang="ts">
-import Icon from "@bolt/components-icon";
+import Vue from 'vue';
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import {
   Blockquote,
@@ -175,49 +175,49 @@ import {
   Underline,
   History
 } from "tiptap-extensions";
-export default {
+export default Vue.extend({
   name: "Editor",
   components: {
     EditorContent,
-    EditorMenuBar,
-    Icon
+    EditorMenuBar
   },
   props: {
     editorContent: String
   },
-  data() {
-    return {
-      editor: new Editor({
-        extensions: [
-          new Blockquote(),
-          new BulletList(),
-          new CodeBlock(),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new ListItem(),
-          new OrderedList(),
-          new TodoItem(),
-          new TodoList(),
-          new Link(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Strike(),
-          new Underline(),
-          new History(),
-          new Table({
-            resizable: true
-          }),
-          new TableHeader(),
-          new TableCell(),
-          new TableRow()
-        ],
-        content: this.editorContent
-      })
-    };
+  created(){
+    this.editor.content = this.editorContent;
   },
+  data: () => ({
+    editor: new Editor({
+      extensions: [
+        new Blockquote(),
+        new BulletList(),
+        new CodeBlock(),
+        new HardBreak(),
+        new Heading({ levels: [1, 2, 3] }),
+        new ListItem(),
+        new OrderedList(),
+        new TodoItem(),
+        new TodoList(),
+        new Link(),
+        new Bold(),
+        new Code(),
+        new Italic(),
+        new Strike(),
+        new Underline(),
+        new History(),
+        new Table({
+          resizable: true
+        }),
+        new TableHeader(),
+        new TableCell(),
+        new TableRow()
+      ],
+      content: ''
+    })
+  }),
   beforeDestroy() {
     this.editor.destroy();
   }
-};
+});
 </script>

@@ -11,11 +11,13 @@
             </v-btn>
           </template>
           <v-card>
-            <v-card-title>
+            <v-card-title class="black white--text">
               <span class="headline" v-if="editedItem._id !== ''">Modifier une timeline</span>
               <span class="headline" v-else>Nouvelle timeline</span>
               <v-spacer></v-spacer>
-              <v-btn @click="dialog = false" text icon><v-icon>close</v-icon></v-btn>
+              <v-btn @click="dialog = false" text icon dark>
+                <v-icon>close</v-icon>
+              </v-btn>
             </v-card-title>
             <v-card-text>
               <v-container>
@@ -49,8 +51,8 @@
                     </v-combobox>
                   </v-col>
                 </v-row>
-                <v-divider  class="mb-3"></v-divider>
-                <div class="subtitle-1">Premier évènement</div>
+                <v-divider class="mb-3"></v-divider>
+                <div class="title">Premier évènement</div>
                 <v-row>
                   <v-col cols="12" sm="6">
                     <v-text-field
@@ -70,31 +72,56 @@
                   </v-col>
                 </v-row>
                 <v-divider class="mb-3"></v-divider>
-                <div class="subtitle-1">Evènements suivants</div>
-                <div v-for="(event,index) in editedItem.events" :key="index">
-                  <v-row>
-                    <v-col cols="12" sm="6">
-                      <v-text-field type="number" v-model="event.month" label="Mois (optionnel)"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6">
-                      <v-text-field type="number" v-model="event.year" label="Année"></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field v-model="event.title" label="Titre"></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field v-model="event.content" label="Contenu"></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-btn color="red" dark @click.stop="editedItem.events.splice(index,1)">Supprimer</v-btn>
-                    </v-col>
-                  </v-row>
-                </div>
+                <v-row>
+                  <v-col cols="2">
+                    <div class="title">Evènements suivants</div>
+                  </v-col>
+                  <v-col cols="1">
+                    <v-btn color="blue" text icon @click.stop="addEvent()">
+                      <v-icon>add</v-icon>
+                    </v-btn>
+                  </v-col>
+                </v-row>
+                <v-expansion-panels>
+                  <v-expansion-panel v-for="(event,index) in sortedEvents" :key="index">
+                    <v-expansion-panel-header>{{event.title}}</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <v-card class="mb-3 pa-3" tile flat>
+                        <v-card-title>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            color="red"
+                            dark
+                            icon
+                            text
+                            @click.stop="editedItem.events.splice(index,1)"
+                          >
+                            <v-icon>delete</v-icon>
+                          </v-btn>
+                        </v-card-title>
+                        <v-row>
+                          <v-col cols="12" sm="6">
+                            <v-text-field v-model="event.month" label="Mois (optionnel)"></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6">
+                            <v-text-field v-model="event.year" label="Année"></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-text-field v-model="event.title" label="Titre"></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-text-field v-model="event.content" label="Contenu"></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </v-card>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                </v-expansion-panels>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>
+              <v-btn color="black" text @click="closeEditDialog()">Annuler</v-btn>
               <v-btn
                 color="blue"
                 v-if="editedItem._id !== ''"
@@ -140,7 +167,7 @@
                 </v-menu>
               </td>
               <td>
-                <v-btn text icon color="black" @click.stop="editedItem = item; dialog = true;">
+                <v-btn text icon color="black" @click.stop="openEditDialog(item)">
                   <v-icon small>edit</v-icon>
                 </v-btn>
                 <v-btn text icon color="red" @click.stop="editedItem = item; deleteDialog = true;">
@@ -173,6 +200,7 @@
 import Vue from "vue";
 import store from "../../../store";
 import Timeline from "../../../model/Timeline.model";
+import TimelineEvent from "../../../model/TimelineEvent.model";
 
 export default Vue.extend({
   name: "AdminWikiTimelines",
@@ -197,18 +225,18 @@ export default Vue.extend({
       });
     },
     addTimeline: function() {
-      this.dialog = false;
+      this.editedItem.events = this.sortedEvents;
       store.dispatch("addTimeline", this.editedItem).then(() => {
         this.fetchTimelines();
       });
-      this.editedItem = new Timeline();
+      this.closeEditDialog();
     },
     editTimeline: function() {
-      this.dialog = false;
+      this.editedItem.events = this.sortedEvents;
       store.dispatch("editTimeline", this.editedItem).then(() => {
         this.fetchTimelines();
       });
-      this.editedItem = new Timeline();
+      this.closeEditDialog();
     },
     deleteTimeline: function() {
       this.deleteDialog = false;
@@ -216,6 +244,29 @@ export default Vue.extend({
         this.fetchTimelines();
       });
       this.editedItem = new Timeline();
+    },
+    eventSorting: function(a: TimelineEvent, b: TimelineEvent) {
+      var startA = a.year.split(";")[0];
+      var startB = b.year.split(";")[0];
+
+      if (startA < startB) {
+        return -1;
+      } else {
+        return 1;
+      }
+    },
+    addEvent() {
+      this.sortedEvents.push(new TimelineEvent());
+    },
+    closeEditDialog() {
+      this.dialog = false;
+      this.editedItem = new Timeline();
+      Object.assign(this.editedItem.events,this.sortedEvents.sort(this.eventSorting));
+    },
+    openEditDialog(timeline: Timeline){
+      this.editedItem = timeline;
+      this.dialog = true;
+      Object.assign(this.sortedEvents,this.editedItem.events.sort(this.eventSorting));
     }
   },
   data: () => ({
@@ -223,13 +274,14 @@ export default Vue.extend({
     loading: true,
     dialog: false,
     deleteDialog: false,
+    sortedEvents: new Array<TimelineEvent>(),
     headers: [
       { text: "Nom", value: "name" },
       { text: "Description", value: "description" },
       { text: "1° évènement", value: "firstEvent", sortable: false },
       { text: "Evènements", value: "events", sortable: false },
       { text: "Camps", value: "availableTeams", sortable: false },
-      { text: "Actions", value: "action", sortable: false, width:"110px" }
+      { text: "Actions", value: "action", sortable: false, width: "110px" }
     ],
     allTeams: [
       "Aesir",

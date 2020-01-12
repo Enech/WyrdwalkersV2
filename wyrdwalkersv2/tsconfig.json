@@ -15,7 +15,9 @@
     "types": [
       "webpack-env",
       "vuetify",
-      "vue-meta"
+      "vue-meta",
+      "tiptap",
+      "tiptap-extensions"
     ],
     "paths": {
       "@/*": [
