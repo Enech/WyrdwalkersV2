@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3" id="app-content-custom">
-    <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager>
+    <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-2 font-weight-thin mb-4">WYRDWALKERS</h1>
@@ -18,7 +18,6 @@
       allowtransparency="true"
       src="https://www.helloasso.com/associations/wyrdwalkers/adhesions/adhesion/widget"
       style="width:100%;height:660px;border:none;"
-      onload="window.scroll(0, this.offsetTop)"
     ></iframe>
   </div>
 </template>
