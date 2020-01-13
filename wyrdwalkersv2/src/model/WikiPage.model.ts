@@ -11,7 +11,7 @@ export default class WikiPage {
     public generalInfos: any;
     public myth: any;
 
-    constructor (){
+    constructor() {
         this._id = '';
         this.title = {
             titleVF: '',
