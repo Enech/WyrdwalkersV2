@@ -10,18 +10,29 @@
               <v-icon>add</v-icon>
             </v-btn>
           </template>
-          <v-card>
-            <v-card-title class="black white--text">
-              <span
-                class="headline"
-                v-if="editedItem._id !== ''"
-              >Modifier la page {{editedItem.title.titleVF}}</span>
-              <span class="headline" v-else>Nouvelle page</span>
+          <v-app-bar dark color="black">
+            <v-toolbar-title>
+              <span v-if="editedItem._id !== ''">Modifier la page {{editedItem.title.titleVF}}</span>
+              <span v-else>Nouvelle page</span>
               <v-spacer></v-spacer>
+              <v-btn
+                @click="lang = 'FR'"
+                text
+                dark
+                :class=" lang == 'FR' ? 'white black--text' : ''"
+              >FR</v-btn>
+              <v-btn
+                @click="lang = 'EN'"
+                text
+                dark
+                :class=" lang == 'EN' ? 'white black--text' : ''"
+              >EN</v-btn>
               <v-btn @click="dialog = false" text icon dark>
                 <v-icon>close</v-icon>
               </v-btn>
-            </v-card-title>
+            </v-toolbar-title>
+          </v-app-bar>
+          <v-card>
             <v-card-text>
               <v-container>
                 <v-row>
@@ -32,21 +43,29 @@
                       placeholder="A séparer par des ,"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6">
+                  <v-col cols="12" v-if="lang=='FR'">
                     <div class="subtitle-2">Version française</div>
                     <v-text-field v-model="editedItem.title.titleVF" label="Titre"></v-text-field>
                     <div class="subtitle-2 mt-3">Informations générales</div>
-                    <wyrd-editor :editorContent="editedItem.generalInfos.vf" />
+                    <wyrd-editor
+                      class="custom-editor bordered"
+                      :content="editedItem.generalInfos.vf"
+                      refName="generalVF"
+                    />
                     <div class="subtitle-2 mt-3">Mythe</div>
-                    <wyrd-editor :editorContent="editedItem.myth.vf" />
+                    <wyrd-editor class="custom-editor bordered" :content="editedItem.myth.vf" refName="mythVO" />
                   </v-col>
-                  <v-col cols="12" sm="6">
-                    <div class="subtitle-2">Version anglaise</div>
+                  <v-col cols="12" v-if="lang=='EN'">
+                    <div class="subtitle-2">English version</div>
                     <v-text-field v-model="editedItem.title.titleVO" label="Title"></v-text-field>
                     <div class="subtitle-2 mt-3">General information</div>
-                    <wyrd-editor :editorContent="editedItem.generalInfos.vo" />
+                    <wyrd-editor
+                      class="custom-editor bordered"
+                      :content="editedItem.generalInfos.vo"
+                      refName="generalVO"
+                    />
                     <div class="subtitle-2 mt-3">Myth</div>
-                    <wyrd-editor :editorContent="editedItem.myth.vo" />
+                    <wyrd-editor class="custom-editor bordered" :content="editedItem.myth.vo" refName="mythVO" />
                   </v-col>
                 </v-row>
               </v-container>
@@ -62,37 +81,34 @@
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-data-table
-        :items="pages"
+        :items="croppedPages"
         :loading="loading"
         :headers="headers"
+        :server-items-length="pages.length"
+        :options.sync="pagination"
       >
-        <template v-slot:items="props">
-          <tr>
-            <td>{{props.item.title.titleVF}}</td>
-            <td>
-              <v-icon color="green" v-if="props.item.generalInfos">check</v-icon>
-              <v-icon color="red" v-else>close</v-icon>
-            </td>
-            <td>
-              <v-icon color="green" v-if="props.item.myth">check</v-icon>
-              <v-icon color="red" v-else>close</v-icon>
-            </td>
-            <td>
-              <v-icon color="green" v-if="props.item.isEditionLocked">check</v-icon>
-              <v-icon color="red" v-else>close</v-icon>
-            </td>
-            <td>
-              <v-btn color="blue darken-2" icon dark>{{props.item.content.length}}</v-btn>
-            </td>
-            <td>
-              <v-btn text icon color="black">
-                <v-icon small>edit</v-icon>
-              </v-btn>
-              <v-btn text icon color="red">
-                <v-icon small>delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
+        <template v-slot:item.generalInfos="{ item }">
+          <v-icon color="green" v-if="item.generalInfos">check</v-icon>
+          <v-icon color="red" v-else>close</v-icon>
+        </template>
+        <template v-slot:item.myth="{ item }">
+          <v-icon color="green" v-if="item.myth">check</v-icon>
+          <v-icon color="red" v-else>close</v-icon>
+        </template>
+        <template v-slot:item.isEditionLocked="{ item }">
+          <v-icon color="green" v-if="item.isEditionLocked">check</v-icon>
+          <v-icon color="red" v-else>close</v-icon>
+        </template>
+        <template v-slot:item.timelines="{ item }">
+          <v-btn color="blue darken-2" icon dark>{{item.timelines}}</v-btn>
+        </template>
+        <template v-slot:item.action="{ item }">
+          <v-btn text icon color="black" @click="editPage(item)">
+            <v-icon small>edit</v-icon>
+          </v-btn>
+          <v-btn text icon color="red" @click="deletePage(item)">
+            <v-icon small>delete</v-icon>
+          </v-btn>
         </template>
       </v-data-table>
     </v-card>
@@ -117,15 +133,60 @@ import Vue from "vue";
 import store from "../../../../store";
 import WikiPage from "../../../../model/WikiPage.model";
 import WikiPageDense from "../../../../model/WikiPageDense.model";
-import Editor from "@/components/edition/Editor.vue";
+import Pagination from "../../../../model/Pagination.model";
+import QuillEditor from "@/components/edition/Editor.vue";
 
 export default Vue.extend({
   name: "AdminWikiPages",
   components: {
-    "wyrd-editor": Editor
+    "wyrd-editor": QuillEditor
   },
   created: function() {
     this.fetchWikipages();
+  },
+  watch: {
+    "pagination.page": function(newValue: Pagination) {
+      if (!this.firstLoad) {
+        this.loading = true;
+        this.customPaginate();
+        this.loading = false;
+      }
+    },
+    "pagination.itemsPerPage": function(newValue: Pagination) {
+      if (!this.firstLoad) {
+        this.loading = true;
+        this.customPaginate();
+        this.loading = false;
+      }
+    },
+    "pagination.sortBy": function(newValue: Pagination) {
+      if (!this.firstLoad) {
+        this.loading = true;
+        this.customPaginate();
+        this.loading = false;
+      }
+    },
+    "pagination.sortDesc": function(newValue: Pagination) {
+      if (!this.firstLoad) {
+        this.loading = true;
+        this.customPaginate();
+        this.loading = false;
+      }
+    },
+    loading: function(newValue: boolean) {
+      if (!newValue) {
+        if (this.firstLoad) {
+          var newPagination = new Pagination();
+          newPagination.mustSort = true;
+          newPagination.sortBy = ["titleVF"];
+          newPagination.sortDesc = [false];
+          Object.assign(this.pagination, newPagination);
+          this.firstLoad = false;
+        } else {
+          Object.assign(this.pagination, this.pagination);
+        }
+      }
+    }
   },
   methods: {
     fetchWikipages: function() {
@@ -142,7 +203,8 @@ export default Vue.extend({
       pages.forEach((page: WikiPage) => {
         result.push({
           _id: page._id,
-          title: page.title,
+          titleVF: page.title.titleVF,
+          titleVO: page.title.titleVO,
           author: page.author,
           searchable: page.searchable != null,
           generalInfos: page.generalInfos != undefined,
@@ -154,22 +216,57 @@ export default Vue.extend({
       });
 
       return result;
-    }
+    },
+    customPaginate: function() {
+      var tempPages = new Array<WikiPageDense>();
+      Object.assign(tempPages, this.pages);
+      var pag = this.pagination;
+      tempPages.sort(function(a: WikiPageDense, b: WikiPageDense) {
+        var sortBy = pag.sortBy[0];
+        var result = 0;
+        var A = eval("a." + sortBy);
+        var B = eval("b." + sortBy);
+        if (pag.sortDesc[0]) {
+          if (A < B) {
+            result = 1;
+          } else {
+            result = -1;
+          }
+        } else {
+          if (A < B) {
+            result = -1;
+          } else {
+            result = 1;
+          }
+        }
+        return result;
+      });
+      this.croppedPages = tempPages.slice(
+        (pag.page - 1) * pag.itemsPerPage,
+        pag.page * pag.itemsPerPage
+      );
+    },
+    editPage: function(page: WikiPageDense) {},
+    deletePage: function(page: WikiPageDense) {}
   },
   data: () => ({
     editedItem: new WikiPage(),
     pages: new Array<WikiPageDense>(),
+    croppedPages: new Array<WikiPageDense>(),
     loading: true,
     dialog: false,
     deleteDialog: false,
+    firstLoad: true,
     search: "",
+    lang: "FR",
+    pagination: new Pagination(),
     headers: [
-      { text: "Titre", value: "title.titleVF" },
-      { text: "Général", value: "", sortable: false },
-      { text: "Mythe", value: "", sortable: false },
+      { text: "Titre", value: "titleVF" },
+      { text: "Général", value: "generalInfos" },
+      { text: "Mythe", value: "myth" },
       { text: "Locked", value: "isEditionLocked" },
-      { text: "Timelines", value: "content.length" },
-      { text: "Actions", value: "", sortable: false }
+      { text: "Timelines", value: "timelines" },
+      { text: "Actions", value: "action", sortable: false }
     ]
   })
 });

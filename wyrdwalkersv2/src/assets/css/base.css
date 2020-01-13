@@ -207,3 +207,7 @@ bloc-5>titre {
 .search-card{
     height: 245px;
 }
+
+.bordered {
+    border: 1px solid #c7c7c7;
+}

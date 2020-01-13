@@ -1,6 +1,7 @@
 export default class WikiPageDense {
     public _id: string;
-    public title: any;
+    public titleVF: string;
+    public titleVO: string;
     public author: string;
     public searchable: boolean;
     public tags: string;
@@ -11,10 +12,8 @@ export default class WikiPageDense {
 
     constructor() {
         this._id = '';
-        this.title = {
-            titleVF: '',
-            titleVO: ''
-        };
+        this.titleVF = '';
+        this.titleVO = '';
         this.author = '';
         this.searchable = true;
         this.tags = '';

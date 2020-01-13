@@ -5,3 +5,4 @@ declare module '*.vue' {
 
 declare module 'tiptap';
 declare module 'tiptap-extensions';
+declare module 'vue-quill-editor';

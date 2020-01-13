@@ -17,7 +17,8 @@
       "vuetify",
       "vue-meta",
       "tiptap",
-      "tiptap-extensions"
+      "tiptap-extensions",
+      "vue-quill-editor"
     ],
     "paths": {
       "@/*": [
