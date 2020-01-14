@@ -4,7 +4,7 @@
       <v-card-title>
         Gestion des pages wiki
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" fullscreen persistent>
+        <v-dialog v-model="dialog" persistent width="500px">
           <template v-slot:activator="{ on }">
             <v-btn icon color="blue" class="mb-2" v-on="on" dark>
               <v-icon>add</v-icon>
@@ -12,19 +12,24 @@
           </template>
           <v-card>
             <v-card-title class="black white--text">
-              <span
-                class="headline"
-                v-if="editedItem._id !== ''"
-              >Modifier la page {{editedItem.title.titleVF}}</span>
-              <span class="headline" v-else>Nouvelle page</span>
+              <span class="headline">Nouvelle page</span>
               <v-spacer></v-spacer>
               <v-btn @click="dialog = false" text icon dark>
                 <v-icon>close</v-icon>
               </v-btn>
-            </v-card-title>            
+            </v-card-title>
             <v-card-text>
               <v-container>
                 <v-row>
+                  <v-col cols="12">
+                    <div class="subtitle-2">Version française</div>
+                    <v-text-field v-model="editedItem.title.titleVF" label="Titre"></v-text-field>
+                  </v-col>
+                  <v-divider></v-divider>
+                  <v-col cols="12">
+                    <div class="subtitle-2">English version</div>
+                    <v-text-field v-model="editedItem.title.titleVO" label="Title"></v-text-field>
+                  </v-col>
                   <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.tags"
@@ -32,46 +37,13 @@
                       placeholder="A séparer par des ,"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" v-if="lang=='FR'">
-                    <div class="subtitle-2">Version française</div>
-                    <v-text-field v-model="editedItem.title.titleVF" label="Titre"></v-text-field>
-                    <div class="subtitle-2 mt-3">Informations générales</div>
-                    <wyrd-editor
-                      class="custom-editor bordered"
-                      :htmlContent="editedItem.generalInfos.vf"
-                      refName="generalVF"
-                    />
-                    <div class="subtitle-2 mt-3">Mythe</div>
-                    <wyrd-editor
-                      class="custom-editor bordered"
-                      :htmlContent="editedItem.myth.vf"
-                      refName="mythVF"
-                    />
-                  </v-col>
-                  <v-col cols="12" v-if="lang=='EN'">
-                    <div class="subtitle-2">English version</div>
-                    <v-text-field v-model="editedItem.title.titleVO" label="Title"></v-text-field>
-                    <div class="subtitle-2 mt-3">General information</div>
-                    <wyrd-editor
-                      class="custom-editor bordered"
-                      :htmlContent="editedItem.generalInfos.vo"
-                      refName="generalVO"
-                    />
-                    <div class="subtitle-2 mt-3">Myth</div>
-                    <wyrd-editor
-                      class="custom-editor bordered"
-                      :htmlContent="editedItem.myth.vo"
-                      refName="mythVO"
-                    />
-                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>
-              <v-btn color="blue" v-if="editedItem._id !== ''" text>Modifier</v-btn>
-              <v-btn color="blue" v-else text>Ajouter</v-btn>
+              <v-btn color="blue" text @click="addWikiPage();">Ajouter</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -100,9 +72,21 @@
           <v-btn color="blue darken-2" icon dark>{{item.timelines}}</v-btn>
         </template>
         <template v-slot:item.action="{ item }">
-          <v-btn text icon color="black" @click="editPage(item)">
-            <v-icon small>edit</v-icon>
-          </v-btn>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn color="black" dark icon v-on="on">
+                <v-icon small>edit</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="editPageGeneral(item)">
+                <v-list-item-title>Modifier le Général</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="editPageMyth(item)">
+                <v-list-item-title>Modifier le Mythe</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
           <v-btn text icon color="red" @click="deletePage(item)">
             <v-icon small>delete</v-icon>
           </v-btn>
@@ -122,6 +106,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <edit-general :open="generalDialog" :content="editedItem" />
+    <edit-myth :open="mythDialog" :content="editedItem" />
+    <edit-content :open="contentDialog" :content="editedItem" />
   </div>
 </template>
 
@@ -131,12 +118,17 @@ import store from "../../../../store";
 import WikiPage from "../../../../model/WikiPage.model";
 import WikiPageDense from "../../../../model/WikiPageDense.model";
 import Pagination from "../../../../model/Pagination.model";
-import QuillEditor from "@/components/edition/Editor.vue";
+import EditGeneral from "../../../../components/wiki/DialogEditGeneral.vue";
+import EditMyth from "../../../../components/wiki/DialogEditMyth.vue";
+import EditContent from "../../../../components/wiki/DialogEditContent.vue";
 
 export default Vue.extend({
   name: "AdminWikiPages",
   components: {
-    "wyrd-editor": QuillEditor
+    //"wyrd-editor": QuillEditor
+    "edit-general": EditGeneral,
+    "edit-myth": EditMyth,
+    "edit-content": EditContent
   },
   created: function() {
     this.fetchWikipages();
@@ -243,8 +235,20 @@ export default Vue.extend({
         pag.page * pag.itemsPerPage
       );
     },
-    editPage: function(page: WikiPageDense) {},
-    deletePage: function(page: WikiPageDense) {}
+    editPageGeneral: function(page: WikiPageDense) {
+      store.dispatch("fetchWikiPageById", page._id)
+      .then(() => {
+        Object.assign(this.editedItem, store.getters.wikipage);
+      });
+    },
+    editPageMyth: function(page: WikiPageDense) {},
+    editPageContent: function(page: WikiPageDense, timeline: string) {},
+    deletePage: function(page: WikiPageDense) {},
+    addWikiPage: function() {
+      store.dispatch("addWikiPage", this.editedItem).then(() => {
+        this.fetchWikipages();
+      });
+    }
   },
   data: () => ({
     editedItem: new WikiPage(),
@@ -253,6 +257,9 @@ export default Vue.extend({
     loading: true,
     dialog: false,
     deleteDialog: false,
+    generalDialog: false,
+    mythDialog: false,
+    contentDialog: false,
     firstLoad: true,
     search: "",
     lang: "FR",

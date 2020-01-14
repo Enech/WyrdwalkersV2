@@ -304,6 +304,24 @@ const store = new Vuex.Store({
     fetchAllWikiPages(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`);
     },
+    addWikiPage(context, page: WikiPage) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}wiki/`, page)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = 'La page a bien été créée. Vous pouvez maintenant compléter son contenu.';
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
     fetchRandomWikiPages(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/random`)
