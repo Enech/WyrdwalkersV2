@@ -10,29 +10,18 @@
               <v-icon>add</v-icon>
             </v-btn>
           </template>
-          <v-app-bar dark color="black">
-            <v-toolbar-title>
-              <span v-if="editedItem._id !== ''">Modifier la page {{editedItem.title.titleVF}}</span>
-              <span v-else>Nouvelle page</span>
+          <v-card>
+            <v-card-title class="black white--text">
+              <span
+                class="headline"
+                v-if="editedItem._id !== ''"
+              >Modifier la page {{editedItem.title.titleVF}}</span>
+              <span class="headline" v-else>Nouvelle page</span>
               <v-spacer></v-spacer>
-              <v-btn
-                @click="lang = 'FR'"
-                text
-                dark
-                :class=" lang == 'FR' ? 'white black--text' : ''"
-              >FR</v-btn>
-              <v-btn
-                @click="lang = 'EN'"
-                text
-                dark
-                :class=" lang == 'EN' ? 'white black--text' : ''"
-              >EN</v-btn>
               <v-btn @click="dialog = false" text icon dark>
                 <v-icon>close</v-icon>
               </v-btn>
-            </v-toolbar-title>
-          </v-app-bar>
-          <v-card>
+            </v-card-title>            
             <v-card-text>
               <v-container>
                 <v-row>
@@ -49,11 +38,15 @@
                     <div class="subtitle-2 mt-3">Informations générales</div>
                     <wyrd-editor
                       class="custom-editor bordered"
-                      :content="editedItem.generalInfos.vf"
+                      :htmlContent="editedItem.generalInfos.vf"
                       refName="generalVF"
                     />
                     <div class="subtitle-2 mt-3">Mythe</div>
-                    <wyrd-editor class="custom-editor bordered" :content="editedItem.myth.vf" refName="mythVO" />
+                    <wyrd-editor
+                      class="custom-editor bordered"
+                      :htmlContent="editedItem.myth.vf"
+                      refName="mythVF"
+                    />
                   </v-col>
                   <v-col cols="12" v-if="lang=='EN'">
                     <div class="subtitle-2">English version</div>
@@ -61,11 +54,15 @@
                     <div class="subtitle-2 mt-3">General information</div>
                     <wyrd-editor
                       class="custom-editor bordered"
-                      :content="editedItem.generalInfos.vo"
+                      :htmlContent="editedItem.generalInfos.vo"
                       refName="generalVO"
                     />
                     <div class="subtitle-2 mt-3">Myth</div>
-                    <wyrd-editor class="custom-editor bordered" :content="editedItem.myth.vo" refName="mythVO" />
+                    <wyrd-editor
+                      class="custom-editor bordered"
+                      :htmlContent="editedItem.myth.vo"
+                      refName="mythVO"
+                    />
                   </v-col>
                 </v-row>
               </v-container>
