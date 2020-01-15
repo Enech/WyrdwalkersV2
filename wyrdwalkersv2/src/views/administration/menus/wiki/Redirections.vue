@@ -47,10 +47,10 @@
       </v-toolbar>
       <v-data-table :items="redirections" :loading="loading" :headers="headers" must-sort>
         <template v-slot:item.action="{ item }">
-          <v-btn text icon color="black" @click.stop="editedItem = item; editDialog = true;">
+          <v-btn fab small dark color="light-blue" @click.stop="editedItem = item; editDialog = true;">
             <v-icon small>edit</v-icon>
           </v-btn>
-          <v-btn text icon color="red" @click.stop="editedItem = item; deleteDialog = true;">
+          <v-btn fab small dark color="red" @click.stop="editedItem = item; deleteDialog = true;">
             <v-icon small>delete</v-icon>
           </v-btn>
         </template>

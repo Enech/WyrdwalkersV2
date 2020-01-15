@@ -9,6 +9,9 @@ export default class WikiPageDense {
     public generalInfos: boolean;
     public myth: boolean;    
     public timelines: number;
+    public timelinesNames: string[];
+    public factions: string[];
+    public teams: string[];
 
     constructor() {
         this._id = '';
@@ -21,5 +24,8 @@ export default class WikiPageDense {
         this.generalInfos = false;
         this.myth = false;
         this.timelines = 0;
+        this.timelinesNames = new Array<string>();
+        this.factions = new Array<string>();
+        this.teams = new Array<string>();
     }
 }

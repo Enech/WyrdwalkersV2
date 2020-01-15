@@ -1,4 +1,5 @@
 import TimelineEvent from './TimelineEvent.model';
+import TimelineTeam from './TimelineTeam.model';
 
 export default class Timeline {
     public _id: string;
@@ -6,7 +7,7 @@ export default class Timeline {
     public description: string;
     public firstEvent: TimelineEvent;
     public events: TimelineEvent[];
-    public availableTeams: string[];
+    public availableTeams: TimelineTeam[];
 
     constructor() {
         this._id = '';
@@ -15,36 +16,126 @@ export default class Timeline {
         this.firstEvent = new TimelineEvent();
         this.events = new Array<TimelineEvent>();
         this.availableTeams = [
-            'Aesir',
-            'Amatsukami',
-            'Bureaucratie Céleste',
-            'Deva',
-            "K'Asunel",
-            'Neter',
-            'Nga Tama a Rangi',
-            'Orisha',
-            'Teotl',
-            'Théoï',
-            'Tuatha Dé Danann',
-            'Aether',
-            'Amaunet',
-            'Kosmos',
-            'Muspelheim',
-            'Nyx',
-            'Océanus',
-            'Patala',
-            'Sheol',
-            'Terra',
-            'Forêt Noire',
-            'Mer de Jade',
-            'Fairie',
-            'Shambhala',
-            'Utopia',
-            'El Dorado',
-            'Illuminati',
-            'Cercle de merlin',
-            'Cabale',
-            'Ordre du Poing de Jade'
+            {
+                faction: "dieux",
+                team: "Aesir"
+            },
+            {
+                faction: "titans",
+                team: "Aether"
+            },
+            {
+                faction: "dieux",
+                team: "Amatsukami"
+            },
+            {
+                faction: "titans",
+                team: "Amaunet"
+            },
+            {
+                faction: "dieux",
+                team: "Bureaucratie Céleste"
+            },
+            {
+                faction: "society",
+                team: "Cabale"
+            },
+            {
+                faction: "society",
+                team: "Cercle de Merlin"
+            },
+            {
+                faction: "dieux",
+                team: "Deva"
+            },
+            {
+                faction: "otherworld",
+                team: "El Dorado"
+            },
+            {
+                faction: "otherworld",
+                team: "Fairie"
+            },
+            {
+                faction: "otherworld",
+                team: "Forêt Noire"
+            },
+            {
+                faction: "society",
+                team: "Illuminati"
+            },
+            {
+                faction: "dieux",
+                team: "K'Asunel"
+            },
+            {
+                faction: "titans",
+                team: "Kosmos"
+            },
+            {
+                faction: "otherworld",
+                team: "Mer de Jade"
+            },
+            {
+                faction: "titans",
+                team: "Muspelheim"
+            },
+            {
+                faction: "dieux",
+                team: "Neter"
+            },
+            {
+                faction: "dieux",
+                team: "Nga Tama a Rangi"
+            },
+            {
+                faction: "titans",
+                team: "Nyx"
+            },
+            {
+                faction: "titans",
+                team: "Océanus"
+            },
+            {
+                faction: "society",
+                team: "Ordre du Poing de Jade"
+            },
+            {
+                faction: "dieux",
+                team: "Orisha"
+            },
+            {
+                faction: "titans",
+                team: "Patala"
+            },
+            {
+                faction: "otherworld",
+                team: "Shambhala"
+            },
+            {
+                faction: "titans",
+                team: "Sheol"
+            },
+            {
+                faction: "dieux",
+                team: "Teotl"
+            },
+            {
+                faction: "titans",
+                team: "Terra"
+            },
+            {
+                faction: "dieux",
+                team: "Théoï"
+            },
+            {
+                faction: "dieux",
+                team: "Tuatha Dé Danann"
+            },
+            {
+                faction: "otherworld",
+                team: "Utopia"
+            }
         ];
     }
 }

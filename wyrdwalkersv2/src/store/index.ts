@@ -182,10 +182,13 @@ const store = new Vuex.Store({
         });
     },
     fetchTimelines(context) {
-      return axios.get(`${process.env.VUE_APP_APIURL}timelines/all`)
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}timelines/all`)
         .then((response: any) => {
           context.commit("setTimelines", response.data);
+          resolve(response);
         });
+      });
     },
     fetchTimeline(context, timelineID: string) {
       return new Promise((resolve) => {

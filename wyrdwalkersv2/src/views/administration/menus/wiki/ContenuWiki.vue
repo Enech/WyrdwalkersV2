@@ -12,7 +12,11 @@
           </template>
           <v-card>
             <v-card-title class="black white--text">
-              <span class="headline">Nouvelle page</span>
+              <span
+                class="headline"
+                v-if="editedItem._id.length > 0"
+              >Renommer - {{editedItem.title.titleVF}}</span>
+              <span class="headline" v-else>Nouvelle page</span>
               <v-spacer></v-spacer>
               <v-btn @click="dialog = false" text icon dark>
                 <v-icon>close</v-icon>
@@ -43,12 +47,22 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>
-              <v-btn color="blue" text @click="addWikiPage();">Ajouter</v-btn>
+              <v-btn
+                color="blue"
+                text
+                @click="sendUpdate();"
+                v-if="editedItem._id.length > 0"
+              >Modifier</v-btn>
+              <v-btn color="blue" text @click="addWikiPage();" v-else>Ajouter</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
+      <v-toolbar flat>
+        <v-spacer></v-spacer>
+        <v-text-field append-icon="search" v-model="search" clearable></v-text-field>
+      </v-toolbar>
       <v-data-table
         :items="croppedPages"
         :loading="loading"
@@ -69,25 +83,43 @@
           <v-icon color="red" v-else>close</v-icon>
         </template>
         <template v-slot:item.timelines="{ item }">
-          <v-btn color="blue darken-2" icon dark>{{item.timelines}}</v-btn>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn color="blue darken-2" fab small dark v-on="on">{{item.timelines}}</v-btn>
+            </template>
+            <v-list>
+              <v-list-item v-for="(timelineName, index) in item.timelinesNames" :key="index" @click="openEditPageContent(item, timelineName)">
+                <v-list-item-title>{{timelineName}}</v-list-item-title>
+              </v-list-item>
+              <v-divider></v-divider>
+              <v-list-item>
+                <v-list-item-title class="text-center" @click="openEditPageContent(item, '')">
+                  <v-icon small>add</v-icon>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </template>
         <template v-slot:item.action="{ item }">
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn color="black" dark icon v-on="on">
+              <v-btn color="light-blue" dark fab small v-on="on">
                 <v-icon small>edit</v-icon>
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="editPageGeneral(item)">
+              <v-list-item @click="openEditPageGeneral(item)">
                 <v-list-item-title>Modifier le Général</v-list-item-title>
               </v-list-item>
-              <v-list-item @click="editPageMyth(item)">
+              <v-list-item @click="openEditPageMyth(item)">
                 <v-list-item-title>Modifier le Mythe</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Renommer</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn text icon color="red" @click="deletePage(item)">
+          <v-btn dark fab small color="red" @click="deletePage(item)">
             <v-icon small>delete</v-icon>
           </v-btn>
         </template>
@@ -101,14 +133,22 @@
         <v-card-text>Vous êtes sur le point de supprimer une page. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="black" text>Annuler</v-btn>
-          <v-btn color="red" text>Supprimer</v-btn>
+          <v-btn color="black" text @click="deleteDialog = false">Annuler</v-btn>
+          <v-btn color="red" text @click="deletePage();">Supprimer</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <edit-general :content="editedItem" />
-    <edit-myth :content="editedItem" />
-    <edit-content :content="editedItem" />
+    <v-dialog v-model="pleaseWait" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Chargement...
+          <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <edit-general v-if="generalDialog" :content="editedItem" />
+    <edit-myth v-if="mythDialog" :content="editedItem" />
+    <edit-content v-if="contentDialog" :content="editedItem" :timeline="selectedTimeline" />
   </div>
 </template>
 
@@ -121,6 +161,7 @@ import Pagination from "../../../../model/Pagination.model";
 import EditGeneral from "../../../../components/wiki/DialogEditGeneral.vue";
 import EditMyth from "../../../../components/wiki/DialogEditMyth.vue";
 import EditContent from "../../../../components/wiki/DialogEditContent.vue";
+import WikiPageContent from "../../../../model/WikiPageContent.model";
 
 export default Vue.extend({
   name: "AdminWikiPages",
@@ -161,6 +202,13 @@ export default Vue.extend({
         this.loading = false;
       }
     },
+    pages: function() {
+      if (!this.firstLoad) {
+        this.loading = true;
+        this.customPaginate();
+        this.loading = false;
+      }
+    },
     loading: function(newValue: boolean) {
       if (!newValue) {
         if (this.firstLoad) {
@@ -174,6 +222,55 @@ export default Vue.extend({
           Object.assign(this.pagination, this.pagination);
         }
       }
+    },
+    search: function(newValue: string) {
+      var searchValue = newValue.toLowerCase();
+      this.pages = this.originalPages;
+
+      if (newValue.length > 0) {
+        var result = new Array<WikiPageDense>();
+
+        this.pages.forEach((element: WikiPageDense) => {
+          var isInTimelines = false;
+          var isinFactions = false;
+          var isInTeams = false;
+          var condition =
+            element.titleVF.toLowerCase().includes(searchValue) ||
+            element.titleVO.toLowerCase().includes(searchValue);
+
+          for(var i = 0; i < element.timelinesNames.length; i++){
+            var name = element.timelinesNames[i].toLowerCase();
+            if(name.includes(searchValue)){
+              isInTimelines = true;
+              break;
+            }
+          }
+
+          for(var j = 0; j < element.factions.length; j++){
+            var faction = element.factions[j].toLowerCase();
+            if(faction.includes(searchValue)){
+              isinFactions = true;
+              break;
+            }
+          }
+
+          for(var k = 0; k < element.teams.length; k++){
+            var team = element.teams[k].toLowerCase();
+            if(team.includes(searchValue)){
+              isInTeams = true;
+              break;
+            }
+          }
+
+          condition = condition || isInTimelines || isinFactions || isInTeams;
+
+          if (condition) {
+            result.push(element);
+          }
+        });
+
+        this.pages = result;
+      }
     }
   },
   methods: {
@@ -182,6 +279,7 @@ export default Vue.extend({
       store.dispatch("fetchAllWikiPages").then((response: any) => {
         var densePages = this.DensifyWikiPages(response.data);
         Object.assign(this.pages, densePages);
+        Object.assign(this.originalPages, this.pages);
         this.loading = false;
       });
     },
@@ -199,7 +297,16 @@ export default Vue.extend({
           myth: page.myth != undefined,
           timelines: page.content.length,
           tags: page.tags,
-          isEditionLocked: page.isEditionLocked
+          isEditionLocked: page.isEditionLocked,
+          timelinesNames: page.content.map((e: WikiPageContent) => {
+            return e.timeline;
+          }),
+          factions: page.content.map((e: WikiPageContent) => {
+            return e.faction;
+          }),
+          teams: page.content.map((e: WikiPageContent) => {
+            return e.team;
+          })
         });
       });
 
@@ -234,26 +341,52 @@ export default Vue.extend({
         pag.page * pag.itemsPerPage
       );
     },
-    editPageGeneral: function(page: WikiPageDense) {
-      store.dispatch("fetchWikiPageById", page._id)
-      .then(() => {
+    openEditPageGeneral: function(page: WikiPageDense) {
+      this.pleaseWait = true;
+      store.dispatch("fetchWikiPageById", page._id).then(() => {
+        this.pleaseWait = false;
         this.generalDialog = true;
         Object.assign(this.editedItem, store.getters.wikipage);
       });
     },
-    editPageMyth: function(page: WikiPageDense) {},
-    editPageContent: function(page: WikiPageDense, timeline: string) {},
+    openEditPageMyth: function(page: WikiPageDense) {
+      this.pleaseWait = true;
+      store.dispatch("fetchWikiPageById", page._id).then(() => {
+        this.pleaseWait = false;
+        this.mythDialog = true;
+        Object.assign(this.editedItem, store.getters.wikipage);
+      });
+    },
+    openRename: function (page: WikiPageDense){
+      this.pleaseWait = true;
+      store.dispatch("fetchWikiPageById", page._id).then(() => {
+        this.pleaseWait = false;
+        this.dialog = true;
+        Object.assign(this.editedItem, store.getters.wikipage);
+      });
+    },
+    openEditPageContent: function(page: WikiPageDense, timeline: string) {
+      this.selectedTimeline = timeline;
+      this.pleaseWait = true;
+      store.dispatch("fetchWikiPageById", page._id).then(() => {
+        this.pleaseWait = false;
+        this.contentDialog = true;
+        Object.assign(this.editedItem, store.getters.wikipage);
+      });
+    },
     deletePage: function(page: WikiPageDense) {},
     addWikiPage: function() {
       store.dispatch("addWikiPage", this.editedItem).then(() => {
         this.fetchWikipages();
       });
-    }
+    },
+    sendUpdate: function() {}
   },
   data: () => ({
     editedItem: new WikiPage(),
     pages: new Array<WikiPageDense>(),
     croppedPages: new Array<WikiPageDense>(),
+    originalPages: new Array<WikiPageDense>(),
     loading: true,
     dialog: false,
     deleteDialog: false,
@@ -261,6 +394,8 @@ export default Vue.extend({
     search: "",
     lang: "FR",
     pagination: new Pagination(),
+    pleaseWait: false,
+    selectedTimeline: '',
     headers: [
       { text: "Titre", value: "titleVF" },
       { text: "Général", value: "generalInfos" },
@@ -272,26 +407,26 @@ export default Vue.extend({
   }),
   computed: {
     generalDialog: {
-      get: function(){
+      get: function() {
         return store.getters.generalDialog;
       },
-      set: function(open: boolean){
+      set: function(open: boolean) {
         store.commit("setGeneralDialog", open);
       }
     },
     mythDialog: {
-      get: function(){
+      get: function() {
         return store.getters.mythDialog;
       },
-      set: function(open: boolean){
+      set: function(open: boolean) {
         store.commit("setMythDialog", open);
       }
     },
     contentDialog: {
-      get: function(){
+      get: function() {
         return store.getters.contentDialog;
       },
-      set: function(open: boolean){
+      set: function(open: boolean) {
         store.commit("setContentDialog", open);
       }
     }

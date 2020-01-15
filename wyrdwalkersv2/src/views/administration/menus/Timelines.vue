@@ -15,7 +15,7 @@
               <span class="headline" v-if="editedItem._id !== ''">Modifier une timeline</span>
               <span class="headline" v-else>Nouvelle timeline</span>
               <v-spacer></v-spacer>
-              <v-btn @click="dialog = false" text icon dark>
+              <v-btn @click="closeEditDialog()" text icon dark>
                 <v-icon>close</v-icon>
               </v-btn>
             </v-card-title>
@@ -29,9 +29,12 @@
                     <v-textarea v-model="editedItem.description" label="Description"></v-textarea>
                   </v-col>
                   <v-col cols="12">
-                    <v-combobox
+                    <v-select
                       v-model="editedItem.availableTeams"
                       :items="allTeams"
+                      return-object
+                      item-value="team"
+                      item-text="team"
                       label="Camps disponibles"
                       multiple
                       chips
@@ -44,11 +47,15 @@
                           :disabled="data.disabled"
                           @click:close="data.parent.selectItem(data.item)"
                         >
-                          <v-avatar class="accent white--text" left v-text="data.item.slice(0, 2)"></v-avatar>
-                          {{ data.item }}
+                          <v-avatar
+                            class="accent white--text"
+                            left
+                            v-text="data.item.team.slice(0, 2)"
+                          ></v-avatar>
+                          {{ data.item.team }}
                         </v-chip>
                       </template>
-                    </v-combobox>
+                    </v-select>
                   </v-col>
                 </v-row>
                 <v-divider class="mb-3"></v-divider>
@@ -89,13 +96,7 @@
                       <v-card class="mb-3 pa-3" tile flat>
                         <v-card-title>
                           <v-spacer></v-spacer>
-                          <v-btn
-                            color="red"
-                            dark
-                            icon
-                            text
-                            @click.stop="editedItem.events.splice(index,1)"
-                          >
+                          <v-btn color="red" dark icon text @click.stop="deleteEvent(index)">
                             <v-icon>delete</v-icon>
                           </v-btn>
                         </v-card-title>
@@ -161,23 +162,28 @@
                   </template>
                   <v-list>
                     <v-list-item v-for="(team,index) in item.availableTeams" :key="index">
-                      <v-list-item-title>{{team}}</v-list-item-title>
+                      <v-list-item-title>{{team.team}}</v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
               </td>
               <td>
-                <v-btn text icon color="black" @click.stop="openEditDialog(item)">
+                <v-btn fab small dark color="light-blue" @click.stop="openEditDialog(item)">
                   <v-icon small>edit</v-icon>
                 </v-btn>
-                <v-btn text icon color="red" @click.stop="editedItem = item; deleteDialog = true;">
+                <v-btn
+                  fab
+                  small
+                  dark
+                  color="red"
+                  @click.stop="editedItem = item; deleteDialog = true;"
+                >
                   <v-icon small>delete</v-icon>
                 </v-btn>
               </td>
             </tr>
           </tbody>
         </template>
-        <template v-slot:item.action="{ item }"></template>
       </v-data-table>
     </v-card>
     <v-dialog v-model="deleteDialog" max-width="500px" persistent>
@@ -243,11 +249,14 @@ export default Vue.extend({
       store.dispatch("deleteTimeline", this.editedItem._id).then(() => {
         this.fetchTimelines();
       });
-      this.editedItem = new Timeline();
+      Object.assign(this.editedItem, new Timeline());
+    },
+    deleteEvent(index: number) {
+      this.sortedEvents.splice(index, 1);
     },
     eventSorting: function(a: TimelineEvent, b: TimelineEvent) {
-      var startA = a.year.split(";")[0];
-      var startB = b.year.split(";")[0];
+      var startA = parseInt(a.year.split(";")[0]);
+      var startB = parseInt(b.year.split(";")[0]);
 
       if (startA < startB) {
         return -1;
@@ -261,12 +270,15 @@ export default Vue.extend({
     closeEditDialog() {
       this.dialog = false;
       this.editedItem = new Timeline();
-      Object.assign(this.editedItem.events,this.sortedEvents.sort(this.eventSorting));
+      this.sortedEvents = new Array<TimelineEvent>();
     },
-    openEditDialog(timeline: Timeline){
+    openEditDialog(timeline: Timeline) {
       this.editedItem = timeline;
       this.dialog = true;
-      Object.assign(this.sortedEvents,this.editedItem.events.sort(this.eventSorting));
+      Object.assign(
+        this.sortedEvents,
+        this.editedItem.events.sort(this.eventSorting)
+      );
     }
   },
   data: () => ({
@@ -276,46 +288,142 @@ export default Vue.extend({
     deleteDialog: false,
     sortedEvents: new Array<TimelineEvent>(),
     headers: [
-      { text: "Nom", value: "name" },
+      { text: "Nom", value: "name", width: "150px" },
       { text: "Description", value: "description" },
       { text: "1° évènement", value: "firstEvent", sortable: false },
       { text: "Evènements", value: "events", sortable: false },
       { text: "Camps", value: "availableTeams", sortable: false },
-      { text: "Actions", value: "action", sortable: false, width: "110px" }
+      { text: "Actions", value: "action", sortable: false, width: "120px" }
     ],
     allTeams: [
-      "Aesir",
-      "Amatsukami",
-      "Bureaucratie Céleste",
-      "Deva",
-      "K'Asunel",
-      "Neter",
-      "Nga Tama a Rangi",
-      "Orisha",
-      "Teotl",
-      "Théoï",
-      "Tuatha Dé Danann",
-      "Aether",
-      "Amaunet",
-      "Kosmos",
-      "Muspelheim",
-      "Nyx",
-      "Océanus",
-      "Patala",
-      "Sheol",
-      "Terra",
-      "Forêt Noire",
-      "Mer de Jade",
-      "Fairie",
-      "Shambhala",
-      "Utopia",
-      "El Dorado",
-      "Illuminati",
-      "Cercle de merlin",
-      "Cabale",
-      "Ordre du Poing de Jade",
-      "Veilleurs",
-      "Pharos"
+      {
+        faction: "dieux",
+        team: "Aesir"
+      },
+      {
+        faction: "titans",
+        team: "Aether"
+      },
+      {
+        faction: "dieux",
+        team: "Amatsukami"
+      },
+      {
+        faction: "titans",
+        team: "Amaunet"
+      },
+      {
+        faction: "dieux",
+        team: "Bureaucratie Céleste"
+      },
+      {
+        faction: "society",
+        team: "Cabale"
+      },
+      {
+        faction: "society",
+        team: "Cercle de Merlin"
+      },
+      {
+        faction: "dieux",
+        team: "Deva"
+      },
+      {
+        faction: "otherworld",
+        team: "El Dorado"
+      },
+      {
+        faction: "otherworld",
+        team: "Fairie"
+      },
+      {
+        faction: "otherworld",
+        team: "Forêt Noire"
+      },
+      {
+        faction: "society",
+        team: "Illuminati"
+      },
+      {
+        faction: "dieux",
+        team: "K'Asunel"
+      },
+      {
+        faction: "titans",
+        team: "Kosmos"
+      },
+      {
+        faction: "otherworld",
+        team: "Mer de Jade"
+      },
+      {
+        faction: "titans",
+        team: "Muspelheim"
+      },
+      {
+        faction: "dieux",
+        team: "Neter"
+      },
+      {
+        faction: "dieux",
+        team: "Nga Tama a Rangi"
+      },
+      {
+        faction: "titans",
+        team: "Nyx"
+      },
+      {
+        faction: "titans",
+        team: "Océanus"
+      },
+      {
+        faction: "society",
+        team: "Ordre du Poing de Jade"
+      },
+      {
+        faction: "dieux",
+        team: "Orisha"
+      },
+      {
+        faction: "titans",
+        team: "Patala"
+      },
+      {
+        faction: "society",
+        team: "Pharos"
+      },
+      {
+        faction: "otherworld",
+        team: "Shambhala"
+      },
+      {
+        faction: "titans",
+        team: "Sheol"
+      },
+      {
+        faction: "dieux",
+        team: "Teotl"
+      },
+      {
+        faction: "titans",
+        team: "Terra"
+      },
+      {
+        faction: "dieux",
+        team: "Théoï"
+      },
+      {
+        faction: "dieux",
+        team: "Tuatha Dé Danann"
+      },
+      {
+        faction: "otherworld",
+        team: "Utopia"
+      },
+      {
+        faction: "dieux",
+        team: "Veilleurs"
+      }
     ]
   })
 });
