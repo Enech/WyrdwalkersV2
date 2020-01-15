@@ -106,9 +106,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <edit-general :open="generalDialog" :content="editedItem" />
-    <edit-myth :open="mythDialog" :content="editedItem" />
-    <edit-content :open="contentDialog" :content="editedItem" />
+    <edit-general :content="editedItem" />
+    <edit-myth :content="editedItem" />
+    <edit-content :content="editedItem" />
   </div>
 </template>
 
@@ -125,7 +125,6 @@ import EditContent from "../../../../components/wiki/DialogEditContent.vue";
 export default Vue.extend({
   name: "AdminWikiPages",
   components: {
-    //"wyrd-editor": QuillEditor
     "edit-general": EditGeneral,
     "edit-myth": EditMyth,
     "edit-content": EditContent
@@ -238,6 +237,7 @@ export default Vue.extend({
     editPageGeneral: function(page: WikiPageDense) {
       store.dispatch("fetchWikiPageById", page._id)
       .then(() => {
+        this.generalDialog = true;
         Object.assign(this.editedItem, store.getters.wikipage);
       });
     },
@@ -257,9 +257,6 @@ export default Vue.extend({
     loading: true,
     dialog: false,
     deleteDialog: false,
-    generalDialog: false,
-    mythDialog: false,
-    contentDialog: false,
     firstLoad: true,
     search: "",
     lang: "FR",
@@ -272,6 +269,32 @@ export default Vue.extend({
       { text: "Timelines", value: "timelines" },
       { text: "Actions", value: "action", sortable: false }
     ]
-  })
+  }),
+  computed: {
+    generalDialog: {
+      get: function(){
+        return store.getters.generalDialog;
+      },
+      set: function(open: boolean){
+        store.commit("setGeneralDialog", open);
+      }
+    },
+    mythDialog: {
+      get: function(){
+        return store.getters.mythDialog;
+      },
+      set: function(open: boolean){
+        store.commit("setMythDialog", open);
+      }
+    },
+    contentDialog: {
+      get: function(){
+        return store.getters.contentDialog;
+      },
+      set: function(open: boolean){
+        store.commit("setContentDialog", open);
+      }
+    }
+  }
 });
 </script>

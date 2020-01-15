@@ -44,7 +44,10 @@ const store = new Vuex.Store({
     openProfileDialog: false,
     activationSuccessful: true,
     wikiRedirections: new Array<WikiRedirection>(),
-    appLanguage: 'FR'
+    appLanguage: 'FR',
+    generalDialog: false,
+    mythDialog: false,
+    contentDialog: false
   },
   mutations: {
     initialiseStore(state) {
@@ -131,6 +134,15 @@ const store = new Vuex.Store({
     },
     setAppLanguage(state, lang: string) {
       state.appLanguage = lang;
+    },
+    setGeneralDialog(state, dialog: boolean){
+      state.generalDialog = dialog;
+    },
+    setMythDialog(state, dialog: boolean){
+      state.mythDialog = dialog;
+    },
+    setContentDialog(state, dialog: boolean){
+      state.contentDialog = dialog;
     }
   },
   getters: {
@@ -157,7 +169,10 @@ const store = new Vuex.Store({
     openProfileDialog: state => state.openProfileDialog,
     activationSuccessful: state => state.activationSuccessful,
     wikiRedirections: state => state.wikiRedirections,
-    appLanguage: state => state.appLanguage
+    appLanguage: state => state.appLanguage,
+    generalDialog: state => state.generalDialog,
+    mythDialog: state => state.mythDialog,
+    contentDialog: state => state.contentDialog
   },
   actions: {
     fetchEvents(context) {
@@ -290,7 +305,7 @@ const store = new Vuex.Store({
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/fromid/${pageID}`)
           .then((response: any) => {
             var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
+            if (response.data._id === undefined) {
               newError.message = response.data.message;
               newError.type = "red";
               context.commit("setErrorMessage", newError);

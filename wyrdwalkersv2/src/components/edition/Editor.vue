@@ -1,10 +1,9 @@
 ﻿<template>
   <div class="quill-editor">
     <quill-editor
-      :ref="refName"
-      :content="htmlContent"
+      v-model="htmlContent"
+      ref="myQuillEditor"
       :options="editorOption"
-      @change="onEditorChange($event)"
     ></quill-editor>
   </div>
 </template>
@@ -40,15 +39,15 @@ export default Vue.extend({
   }),
   methods: {
     onEditorChange({ quill, html, text }) {
-      this.$emit('save-editor',{
+      this.$emit("save-editor", {
         editorName: this.refName,
         output: html
-      })
+      });
     }
   },
   computed: {
     editor() {
-      return this.$refs[this.refName].quill;
+      return this.$refs.myQuillEditor.quill;
     }
   },
   mounted() {}
