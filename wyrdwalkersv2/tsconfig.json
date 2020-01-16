@@ -10,11 +10,15 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "types": [
       "webpack-env",
       "vuetify",
-      "vue-meta"
+      "vue-meta",
+      "tiptap",
+      "tiptap-extensions",
+      "vue-quill-editor"
     ],
     "paths": {
       "@/*": [

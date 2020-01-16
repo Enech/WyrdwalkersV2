@@ -22,7 +22,7 @@
           &Phi;
           <span class="hidden-xs-only">Philosophie</span>
         </v-btn>
-        <v-btn small text v-if="currentUser.rights.isAdmin">
+        <v-btn small text v-if="currentUser.rights.isAdmin" :to="{name:'backOffice'}">
           <v-icon small :left="enableLeft">settings_applications</v-icon>
           <span class="hidden-xs-only">Administration</span>
         </v-btn>

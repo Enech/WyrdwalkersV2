@@ -1,4 +1,4 @@
-export default class Animation{
+export default class AnimationWW{
     public _id: string;
     public nameVF: string;
     public nameVO: string;

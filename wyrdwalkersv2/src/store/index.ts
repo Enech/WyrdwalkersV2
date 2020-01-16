@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import EventJdr from '@/model/Event.model';
 import Timeline from '@/model/Timeline.model';
-import Animation from '@/model/Animation.model';
+import AnimationWW from '@/model/Animation.model';
 import Workshop from '@/model/Workshop.model';
 import AssoHistory from '@/model/AssoHistory.model';
 import TriangleParameter from '@/model/TriangleParameter.model';
@@ -12,6 +12,8 @@ import ErrorMessage from '@/model/ErrorMessage.model';
 import User from '@/model/User.model';
 import Flatted, { parse, stringify } from '../../node_modules/flatted'
 import Music from '@/model/Music.model';
+import WikiRedirection from '@/model/WikiRedirection.model';
+import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
 
 Vue.use(Vuex)
 
@@ -22,7 +24,7 @@ const store = new Vuex.Store({
     contextDrawer: false,
     events: new Array<EventJdr>(),
     timelines: new Array<Timeline>(),
-    activities: new Array<Animation>(),
+    activities: new Array<AnimationWW>(),
     workshops: new Array<Workshop>(),
     assoHistory: new Array<AssoHistory>(),
     domains: new Array<TriangleParameter>(),
@@ -40,7 +42,13 @@ const store = new Vuex.Store({
     openLoginDialog: false,
     openSigninDialog: false,
     openProfileDialog: false,
-    activationSuccessful: true
+    activationSuccessful: true,
+    wikiRedirections: new Array<WikiRedirection>(),
+    appLanguage: 'FR',
+    generalDialog: false,
+    mythDialog: false,
+    contentDialog: false,
+    refreshData: false
   },
   mutations: {
     initialiseStore(state) {
@@ -68,7 +76,7 @@ const store = new Vuex.Store({
     setTimelines(state, newTimelines: Timeline[]) {
       state.timelines = newTimelines;
     },
-    setActivities(state, newActivities: Animation[]) {
+    setActivities(state, newActivities: AnimationWW[]) {
       state.activities = newActivities;
     },
     setWorkshops(state, newWorks: Workshop[]) {
@@ -121,6 +129,24 @@ const store = new Vuex.Store({
     },
     setActivationSuccessful(state, success: boolean) {
       state.activationSuccessful = success;
+    },
+    setWikiRedirections(state, redirections: WikiRedirection[]) {
+      state.wikiRedirections = redirections;
+    },
+    setAppLanguage(state, lang: string) {
+      state.appLanguage = lang;
+    },
+    setGeneralDialog(state, dialog: boolean) {
+      state.generalDialog = dialog;
+    },
+    setMythDialog(state, dialog: boolean) {
+      state.mythDialog = dialog;
+    },
+    setContentDialog(state, dialog: boolean) {
+      state.contentDialog = dialog;
+    },
+    setRefreshData(state, refresh: boolean) {
+      state.refreshData = refresh;
     }
   },
   getters: {
@@ -145,7 +171,13 @@ const store = new Vuex.Store({
     openLoginDialog: state => state.openLoginDialog,
     openSigninDialog: state => state.openSigninDialog,
     openProfileDialog: state => state.openProfileDialog,
-    activationSuccessful: state => state.activationSuccessful
+    activationSuccessful: state => state.activationSuccessful,
+    wikiRedirections: state => state.wikiRedirections,
+    appLanguage: state => state.appLanguage,
+    generalDialog: state => state.generalDialog,
+    mythDialog: state => state.mythDialog,
+    contentDialog: state => state.contentDialog,
+    refreshData: state => state.refreshData
   },
   actions: {
     fetchEvents(context) {
@@ -161,7 +193,8 @@ const store = new Vuex.Store({
         });
     },
     fetchTimelines(context) {
-      return axios.get(`${process.env.VUE_APP_APIURL}timelines/all`)
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}timelines/all`)
         .then((response: any) => {
           context.commit("setTimelines", response.data);
         })
@@ -171,6 +204,75 @@ const store = new Vuex.Store({
           newError.type = "red";
           context.commit("setErrorMessage", newError);
         });
+      });
+    },
+    fetchTimeline(context, timelineID: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}timelines/${timelineID}`)
+          .then((response: any) => {
+            resolve(response);
+          })
+          .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
+      });
+    },
+    addTimeline(context, newTimeline: Timeline) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}timelines/`, newTimeline)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "La timeline a bien été ajoutée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    editTimeline(context, newTimeline: Timeline) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}timelines/${newTimeline._id}`, newTimeline)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "La timeline a bien été mise à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    deleteTimeline(context, timelineID: string) {
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_APIURL}timelines/${timelineID}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "La timeline a bien été supprimée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
     },
     fetchActivities(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}activities/all`)
@@ -271,11 +373,39 @@ const store = new Vuex.Store({
         });
       });
     },
-    fetchAllWikiPages(context) {
+    fetchWikiPageById(context, pageID: string) {
       return new Promise((resolve) => {
-        return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`)
+        return axios.get(`${process.env.VUE_APP_APIURL}wiki/fromid/${pageID}`)
           .then((response: any) => {
-            context.dispatch("computeMusics", response.data);
+            var newError = new ErrorMessage();
+            if (response.data._id === undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setWikiPage", response.data);
+            }
+            resolve(response);
+          });
+      });
+    },
+    fetchAllWikiPages(context) {
+      return axios.get(`${process.env.VUE_APP_APIURL}wiki/all`);
+    },
+    addWikiPage(context, page: WikiPage) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}wiki/`, page)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = 'La page a bien été créée. Vous pouvez maintenant compléter son contenu.';
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
             resolve(response);
           })
           .catch(() => {
@@ -286,26 +416,55 @@ const store = new Vuex.Store({
         });
       });
     },
-    computeMusics(context, pages: WikiPage[]) {
-      var tempMusics = new Array<Music>();
-      for (var i = 0; i < pages.length; i++) {
-        var page = pages[i];
-        var index = i;
-        for (var j = 0; j < page.content.length; j++) {
-          var content = page.content[j];
-          if (content.music.length > 0) {
-            var music = new Music();
-            var urlTab = content.music.split("watch?v=");
-            var videoId = urlTab[urlTab.length - 1];
-            music.pageName = page.title.titleVF;
-            music.link = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            music.timeline = content.timeline;
-            music.id = `${index}${j}`;
-            tempMusics.push(music);
-          }
-        }
-      }
-      context.commit("setAllMusics", tempMusics);
+    updateWikiPage(context, page: WikiPage) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}wiki/${page._id}`, page)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1 && response.data.ok !== undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = 'La page a bien été mise à jour.';
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    lockWikiPage(context, wrapper: any) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}wiki/lock/${wrapper.pageID}`, wrapper)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1 && response.data.ok !== undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    deleteWikiPage(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_APIURL}wiki/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1 && response.data.ok !== undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = 'La page a bien été supprimée.';
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
     },
     fetchRandomWikiPages(context) {
       return new Promise((resolve) => {
@@ -434,6 +593,76 @@ const store = new Vuex.Store({
           newError.type = "red";
           context.commit("setErrorMessage", newError);
         });
+      });
+    },
+    fetchAllWikiRedirections(context) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}wiki-redirections/all`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setWikiRedirections", response.data)
+            }
+            resolve(response);
+          });
+      });
+    },
+    addWikiRedirection(context, newRedirection: WikiRedirection) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_APIURL}wiki-redirections/`, newRedirection)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Nouvelle redirection ajoutée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    updateWikiRedirection(context, editedRedirection: WikiRedirection) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}wiki-redirections/${editedRedirection._id}`, editedRedirection)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Redirection mise à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    deleteWikiRedirection(context, redirectionId: string) {
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_APIURL}wiki-redirections/${redirectionId}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Redirection supprimée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
       });
     }
   },

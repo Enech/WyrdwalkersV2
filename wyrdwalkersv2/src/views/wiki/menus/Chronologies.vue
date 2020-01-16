@@ -2,6 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3" id="app-content-custom">
       <v-card-title>Chronologies</v-card-title>
+      <v-divider class="mb-3"></v-divider>
       <div id="TimelinesCardsContainer" v-if="showCards">
         <v-layout v-for="(timeline, index) in timelines" :key="index">
           <v-flex xs12>

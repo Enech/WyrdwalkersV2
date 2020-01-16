@@ -47,7 +47,7 @@ const routes = [
       {
         path: 'animations',
         name: 'animations',
-        component: () => import('../views/accueil/menus/Activites.vue')
+        component: () => import('../views/accueil/menus/Animations.vue')
       },
       {
         path: 'workshops',
@@ -127,17 +127,59 @@ const routes = [
   {
     path: '/player',
     name: 'playerArea',
-    component: () => import('../views/espace-joueur/PlayerArea.vue')
+    component: () => import('../views/espace-joueur/PlayerArea.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/game-master',
     name: 'GMArea',
-    component: () => import('../views/espace-mj/GameMasterArea.vue')
+    component: () => import('../views/espace-mj/GameMasterArea.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/philosophy',
     name: 'philo',
     component: () => import('../views/philosophie/Philosophie.vue')
+  },
+  {
+    path: '/backoffice',
+    name: 'backOffice',
+    redirect: "/backoffice/home",
+    component: () => import('../views/administration/Administration.vue'),
+    meta: {
+      requiresAuth: true
+    },
+    children: [
+      {
+        path: '/backoffice/home',
+        name: 'backOfficeHome',
+        component: () => import('../views/administration/menus/Home.vue')
+      },
+      {
+        path: '/backoffice/wiki-redirections',
+        name: 'wikiRedirections',
+        component: () => import('../views/administration/menus/wiki/Redirections.vue')
+      },
+      {
+        path: '/backoffice/wiki-pages',
+        name: 'wikiPages',
+        component: () => import('../views/administration/menus/wiki/ContenuWiki.vue')
+      },
+      {
+        path: '/backoffice/wiki-timelines',
+        name: 'wikiTimelines',
+        component: () => import('../views/administration/menus/Timelines.vue')
+      },
+      {
+        path: '/backoffice/animations',
+        name: 'backofficeAnimations',
+        component: () => import('../views/administration/menus/AnimationsBO.vue')
+      }
+    ]
   }
 ];
 
@@ -145,5 +187,22 @@ const router = new VueRouter({
   routes,
   mode: 'history'
 })
+
+/*router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (store.getters.currentUser.length == 0) {
+      next({
+        path: '/home/presentation',
+        query: { redirect: '/home/redirection' }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});*/
 
 export default router

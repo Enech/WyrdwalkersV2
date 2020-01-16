@@ -307,3 +307,4 @@ export default Vue.extend({
       kosmosScore: Number
   }
 });
+</script>
