@@ -21,13 +21,13 @@
         <v-list-item :to="{name:'backofficeAnimations'}">
           <v-list-item-title>Animations</v-list-item-title>
         </v-list-item>
-        <v-list-item>
+        <v-list-item :to="{name:'backofficeHistoriqueJDR'}">
           <v-list-item-title>Evènements JDR</v-list-item-title>
         </v-list-item>
-        <v-list-item>
+        <v-list-item :to="{name:'backofficeAteliers'}">
           <v-list-item-title>Ateliers</v-list-item-title>
         </v-list-item>
-        <v-list-item>
+        <v-list-item :to="{name:'backofficeHistorique'}">
           <v-list-item-title>Historique association</v-list-item-title>
         </v-list-item>
         <v-list-item>

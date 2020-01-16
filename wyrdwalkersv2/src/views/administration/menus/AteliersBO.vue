@@ -116,7 +116,7 @@ import Workshop from "../../../model/Workshop.model";
 export default Vue.extend({
   name: "AdminAnimation",
   created: function(){
-    this.fetchHistory();
+    this.fetchAteliers();
   },
   computed:{
     ateliers: function(){

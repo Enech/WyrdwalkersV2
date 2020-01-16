@@ -145,7 +145,7 @@
               <td>
                 <v-menu :max-height="300">
                   <template v-slot:activator="{ on }">
-                    <v-btn color="primary" dark v-on="on">Voir</v-btn>
+                    <v-btn color="primary" dark fab small v-on="on">{{item.events.length}}</v-btn>
                   </template>
                   <v-list two-line>
                     <v-list-item v-for="(event,index) in item.events" :key="index">

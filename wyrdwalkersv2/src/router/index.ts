@@ -178,6 +178,21 @@ const routes = [
         path: '/backoffice/animations',
         name: 'backofficeAnimations',
         component: () => import('../views/administration/menus/AnimationsBO.vue')
+      },
+      {
+        path: '/backoffice/ateliers',
+        name: 'backofficeAteliers',
+        component: () => import('../views/administration/menus/AteliersBO.vue')
+      },
+      {
+        path: '/backoffice/historique-association',
+        name: 'backofficeHistoriqueAsso',
+        component: () => import('../views/administration/menus/HistoriqueAssoBO.vue')
+      },
+      {
+        path: '/backoffice/rpg-history',
+        name: 'backofficeHistoriqueJDR',
+        component: () => import('../views/administration/menus/EventsJdrBO.vue')
       }
     ]
   }
