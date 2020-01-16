@@ -247,10 +247,33 @@ export default Vue.extend({
       }
     },
     search: function(newValue: string) {
-      var searchValue = newValue.toLowerCase();
+      this.searchInPages(newValue);
+    },
+    refreshData: function() {
+      if (this.refreshData) {
+        this.fetchWikipages();
+        this.refreshData = false;
+      }
+    }
+  },
+  methods: {
+    fetchWikipages: function() {
+      this.loading = true;
+      store.dispatch("fetchAllWikiPages").then((response: any) => {
+        var densePages = this.DensifyWikiPages(response.data);
+        Object.assign(this.pages, densePages);
+        Object.assign(this.originalPages, this.pages);
+        this.searchInPages(this.search);
+        this.customPaginate();
+        this.loading = false;
+        this.editedItem = new WikiPage();
+      });
+    },
+    searchInPages: function(stringSearch: string){
+      var searchValue = stringSearch.toLowerCase();
       this.pages = this.originalPages;
 
-      if (newValue.length > 0) {
+      if (stringSearch.length > 0) {
         var result = new Array<WikiPageDense>();
 
         this.pages.forEach((element: WikiPageDense) => {
@@ -294,25 +317,6 @@ export default Vue.extend({
 
         this.pages = result;
       }
-    },
-    refreshData: function() {
-      if (this.refreshData) {
-        this.fetchWikipages();
-        this.refreshData = false;
-      }
-    }
-  },
-  methods: {
-    fetchWikipages: function() {
-      this.loading = true;
-      store.dispatch("fetchAllWikiPages").then((response: any) => {
-        var densePages = this.DensifyWikiPages(response.data);
-        Object.assign(this.pages, densePages);
-        Object.assign(this.originalPages, this.pages);
-        this.customPaginate();
-        this.loading = false;
-        this.editedItem = new WikiPage();
-      });
     },
     DensifyWikiPages: function(pages: WikiPage[]) {
       var result = new Array<WikiPageDense>();
@@ -533,6 +537,14 @@ export default Vue.extend({
         store.commit("setRefreshData", refresh);
       }
     }
+  },
+  metaInfo: function() {
+    return {
+      title:"Backoffice Wiki",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
   }
 });
 </script>

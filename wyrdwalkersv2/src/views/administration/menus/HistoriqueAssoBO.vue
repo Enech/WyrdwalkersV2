@@ -177,6 +177,14 @@ export default Vue.extend({
       { text: "Date", value: "date" },
       { text: "Actions", value: "action", sortable: false }
     ]
-  })
+  }),
+  metaInfo: function() {
+    return {
+      title:"Backoffice Association",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
+  }
 });
 </script>

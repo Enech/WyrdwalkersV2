@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div class="pa-3 ck-content">
     <v-card class="pa-3 lore" v-if="!loading" id="app-content-custom">
       <v-card-title class="headline">{{page.title.titleVF}}</v-card-title>
       <v-tabs grow show-arrows>

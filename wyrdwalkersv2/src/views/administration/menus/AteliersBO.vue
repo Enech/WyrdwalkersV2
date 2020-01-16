@@ -16,7 +16,7 @@
                 class="headline"
                 v-if="this.editedItem._id != ''"
               >Atelier - {{this.editedItem.name}}</span>
-              <span class="headline">Nouvel atelier</span>
+              <span class="headline" v-else>Nouvel atelier</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
                 <v-icon>close</v-icon>
@@ -62,20 +62,21 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>
-              <v-btn
-                color="blue"
-                text
-                @click="addAtelier();"
-                :disabled="editedItem.nameVF.length < 2"
-              >Ajouter</v-btn>
+              <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>              
               <v-btn
                 color="blue"
                 text
                 @click="sendUpdate();"
-                :disabled="editedItem.nameVF.length < 2"
+                :disabled="editedItem.name.length < 2"
                 v-if="this.editedItem._id != ''"
               >Modifier</v-btn>
+              <v-btn
+                color="blue"
+                text
+                @click="addAtelier();"
+                :disabled="editedItem.name.length < 2"
+                v-else
+              >Ajouter</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -162,6 +163,15 @@ export default Vue.extend({
   watch: {
     dateResult: function() {
       this.editedItem.date = this.dateResult;
+    },
+    dialog: function(){
+      if(this.dialog){
+        if(this.editedItem.date.length < 1){
+          this.dateResult = new Date().toISOString().substring(0, 10);
+        } else {
+          this.dateResult = new Date(this.editedItem.date).toISOString().substring(0, 10);
+        }
+      }
     }
   },
   data: () => ({
@@ -169,16 +179,24 @@ export default Vue.extend({
     deleteDialog: false,
     editedItem: new Workshop(),
     openDates: false,
-    dateResult: new Date().toISOString().substring(0, 10),
+    dateResult: '',
     loading: false,
     headers: [
       { text: "Nom", value: "name" },
       { text: "Date", value: "date" },
       { text: "Lieu", value: "location" },
-      { text: "Résumé", value: "caption" },
-      { text: "Description", value: "description" },
-      { text: "Actions", value: "action", sortable: false }
+      { text: "Résumé", value: "caption", sortable: false },
+      { text: "Description", value: "description", sortable: false },
+      { text: "Actions", value: "action", sortable: false, width: "120px" }
     ]
-  })
+  }),
+  metaInfo: function() {
+    return {
+      title:"Backoffice Ateliers",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
+  }
 });
 </script>

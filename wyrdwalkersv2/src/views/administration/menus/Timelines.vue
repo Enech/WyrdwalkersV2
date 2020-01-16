@@ -425,6 +425,14 @@ export default Vue.extend({
         team: "Veilleurs"
       }
     ]
-  })
+  }),
+  metaInfo: function() {
+    return {
+      title:"Backoffice Timelines",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
+  }
 });
 </script>

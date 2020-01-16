@@ -16,6 +16,14 @@ import store from "../../../store";
 
 export default Vue.extend({
   name: "AdminHome",
-  data: () => ({})
+  data: () => ({}),
+  metaInfo: function() {
+    return {
+      title:"Backoffice - Acceuil",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
+  }
 });
 </script>

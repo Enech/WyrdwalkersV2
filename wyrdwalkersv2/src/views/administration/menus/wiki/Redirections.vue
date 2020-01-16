@@ -177,6 +177,14 @@ export default Vue.extend({
       { text: "Destination (VO)", value: "destinationVO" },
       { text: "Actions", value: "action" }
     ]
-  })
+  }),
+  metaInfo: function() {
+    return {
+      title:"Backoffice Redirections",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
+  }
 });
 </script>

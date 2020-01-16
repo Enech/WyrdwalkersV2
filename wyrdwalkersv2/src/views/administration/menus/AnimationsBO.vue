@@ -16,7 +16,7 @@
                 class="headline"
                 v-if="this.editedItem._id != ''"
               >Animation - {{this.editedItem.nameVF}}</span>
-              <span class="headline">Nouvelle animation</span>
+              <span class="headline" v-else>Nouvelle animation</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
                 <v-icon>close</v-icon>
@@ -72,16 +72,17 @@
               <v-btn
                 color="blue"
                 text
-                @click="addAnimation();"
-                :disabled="editedItem.nameVF.length < 2"
-              >Ajouter</v-btn>
-              <v-btn
-                color="blue"
-                text
                 @click="sendUpdate();"
                 :disabled="editedItem.nameVF.length < 2"
                 v-if="this.editedItem._id != ''"
               >Modifier</v-btn>
+              <v-btn
+                color="blue"
+                text
+                @click="addAnimation();"
+                :disabled="editedItem.nameVF.length < 2"
+                v-else
+              >Ajouter</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -201,6 +202,14 @@ export default Vue.extend({
       { text: "Lien", value: "externalLink", sortable: false },
       { text: "Actions", value: "action", sortable: false }
     ]
-  })
+  }),
+  metaInfo: function() {
+    return {
+      title:"Backoffice Animations",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
+  }
 });
 </script>

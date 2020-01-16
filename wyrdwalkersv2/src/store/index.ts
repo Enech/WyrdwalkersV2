@@ -429,7 +429,7 @@ const store = new Vuex.Store({
         });
     },
     deleteWorkshop(context, atelier: Workshop) {
-      return axios.put(`${process.env.VUE_APP_APIURL}workshops/${atelier._id}`)
+      return axios.delete(`${process.env.VUE_APP_APIURL}workshops/${atelier._id}`)
         .then((response: any) => {
           var newError = new ErrorMessage();
           if (response.data.ok !== 1) {

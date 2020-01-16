@@ -4,7 +4,7 @@
       <v-card-title>
         Gestion des évènements JDR passés
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" fullscreen persistent>
+        <v-dialog v-model="dialog" fullscreen persistent :retain-focus="false">
           <template v-slot:activator="{ on }">
             <v-btn icon color="blue" class="mb-2" v-on="on" dark>
               <v-icon>add</v-icon>
@@ -226,6 +226,14 @@ export default Vue.extend({
       { text: "Année", value: "year" },
       { text: "Actions", value: "action", sortable: false }
     ]
-  })
+  }),
+  metaInfo: function() {
+    return {
+      title:"Backoffice JDR",
+      link: [
+        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+      ]
+    };
+  }
 });
 </script>

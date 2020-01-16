@@ -1,5 +1,5 @@
 ﻿<template>
-  <v-dialog persistent fullscreen v-model="open">
+  <v-dialog persistent fullscreen v-model="open" :retain-focus="false">
     <v-card>
       <v-card-title class="black white--text">
         <span>Timeline {{timeline}} - {{content.title.titleVF}}</span>
