@@ -15,8 +15,8 @@
               <span
                 class="headline"
                 v-if="this.editedItem._id != ''"
-              >Animation - {{this.editedItem.nameVF}}</span>
-              <span class="headline">Nouvelle animation</span>
+              >Historique - {{this.editedItem.nameVF}}</span>
+              <span class="headline">Nouvelle entrée historique</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
                 <v-icon>close</v-icon>
@@ -25,19 +25,10 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.nameVF" label="Nom (VF)"></v-text-field>
+                  <v-col cols="12">
+                    <v-textarea v-model="editedItem.title" label="Titre"></v-textarea>
                   </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.nameVO" label="Name (VO)"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.captionVF" label="Description (VF)"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.captionVO" label="Caption (VO)"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6">
+                  <v-col cols="12">
                     <v-menu
                       v-model="openDates"
                       :close-on-content-click="false"
@@ -57,12 +48,6 @@
                       <v-date-picker v-model="dateResult" @input="openDates = false" locale="fr-fr"></v-date-picker>
                     </v-menu>
                   </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.location" label="Lieu"></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field v-model="editedItem.externalLink" label="Lien externe"></v-text-field>
-                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -72,14 +57,14 @@
               <v-btn
                 color="blue"
                 text
-                @click="addAnimation();"
-                :disabled="editedItem.nameVF.length < 2"
+                @click="addHistory();"
+                :disabled="editedItem.title.length < 2"
               >Ajouter</v-btn>
               <v-btn
                 color="blue"
                 text
                 @click="sendUpdate();"
-                :disabled="editedItem.nameVF.length < 2"
+                :disabled="editedItem.title.length < 2"
                 v-if="this.editedItem._id != ''"
               >Modifier</v-btn>
             </v-card-actions>
@@ -87,7 +72,7 @@
         </v-dialog>
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
-      <v-data-table :items="animations" :loading="loading" :headers="headers" must-sort>
+      <v-data-table :items="history" :loading="loading" :headers="headers" must-sort>
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -100,13 +85,13 @@
       <v-dialog v-model="deleteDialog" max-width="500px" persistent>
         <v-card>
           <v-card-title>
-            <span class="headline">Suppression d'une animation</span>
+            <span class="headline">Suppression d'une entrée historique</span>
           </v-card-title>
-          <v-card-text>Vous êtes sur le point de supprimer une animation. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
+          <v-card-text>Vous êtes sur le point de supprimer une entrée de l'historique. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
-            <v-btn color="red" text @click="deleteAnimation()">Supprimer</v-btn>
+            <v-btn color="red" text @click="deleteHistory()">Supprimer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -117,52 +102,52 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
-import AnimationWW from "../../../model/Animation.model";
+import AssoHistory from "../../../model/AssoHistory.model";
 
 export default Vue.extend({
   name: "AdminAnimation",
   created: function(){
-    this.fetchAnimations();
+    this.fetchHistory();
   },
   computed:{
-    animations: function(){
-      return store.getters.activities;
+    history: function(){
+      return store.getters.history;
     }
   },
   methods: {
-    fetchAnimations: function() {
+    fetchHistory: function() {
       this.loading = true;
       store.dispatch("fetchActivities").then(() => {
         this.loading = false;
       });
     },
-    addAnimation: function() {
+    addHistory: function() {
       store.dispatch("addActivity", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem,new AnimationWW());
+        Object.assign(this.editedItem,new AssoHistory());
       });
     },
     sendUpdate: function() {
       store.dispatch("updateActivity", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem,new AnimationWW());
+        Object.assign(this.editedItem,new AssoHistory());
       });
     },
-    deleteAnimation: function() {
+    deleteHistory: function() {
       store.dispatch("deleteActivity", this.editedItem).then(() => {
         this.deleteDialog = false;
-        this.fetchAnimations();
-        Object.assign(this.editedItem,new AnimationWW());
+        this.fetchHistory();
+        Object.assign(this.editedItem,new AssoHistory());
       });
     },
-    openDialog: function(animation: AnimationWW) {
+    openDialog: function(animation: AssoHistory) {
       Object.assign(this.editedItem, animation);
       this.dialog = true;
     },
     closeDialog: function() {
-      Object.assign(this.editedItem, new AnimationWW());
+      Object.assign(this.editedItem, new AssoHistory());
       this.dialog = false;
-      this.fetchAnimations();
+      this.fetchHistory();
     }
   },
   watch: {
@@ -173,18 +158,13 @@ export default Vue.extend({
   data: () => ({
     dialog: false,
     deleteDialog: false,
-    editedItem: new AnimationWW(),
+    editedItem: new AssoHistory(),
     openDates: false,
     dateResult: new Date().toISOString().substring(0, 10),
     loading: false,
     headers: [
-      { text: "Nom (VF)", value: "nameVF" },
-      { text: "Name (VO)", value: "nameVO" },
-      { text: "Description (VF)", value: "captionVF", sortable: false },
-      { text: "Caption (VO)", value: "captionVO", sortable: false },
+      { text: "Titre", value: "title" },
       { text: "Date", value: "date" },
-      { text: "Lieu", value: "location" },
-      { text: "Lien", value: "externalLink", sortable: false },
       { text: "Actions", value: "action", sortable: false }
     ]
   })
