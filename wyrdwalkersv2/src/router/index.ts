@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -203,7 +204,7 @@ const router = new VueRouter({
   mode: 'history'
 })
 
-/*router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
@@ -218,6 +219,6 @@ const router = new VueRouter({
   } else {
     next();
   }
-});*/
+});
 
 export default router
