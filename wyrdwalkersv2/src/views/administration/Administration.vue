@@ -18,8 +18,8 @@
          <v-list-item :to="{name:'wikiTimelines'}">
             <v-list-item-title>Timelines</v-list-item-title>
           </v-list-item>
-        <v-list-item>
-          <v-list-item-title>Activités</v-list-item-title>
+        <v-list-item :to="{name:'backofficeAnimations'}">
+          <v-list-item-title>Animations</v-list-item-title>
         </v-list-item>
         <v-list-item>
           <v-list-item-title>Evènements JDR</v-list-item-title>

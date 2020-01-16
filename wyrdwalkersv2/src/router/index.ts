@@ -45,9 +45,9 @@ const routes = [
         component: () => import('../views/accueil/menus/HistoriqueJdr.vue')
       },
       {
-        path: 'activities',
-        name: 'activites',
-        component: () => import('../views/accueil/menus/Activites.vue')
+        path: 'animations',
+        name: 'animations',
+        component: () => import('../views/accueil/menus/Animations.vue')
       },
       {
         path: 'workshops',
@@ -158,12 +158,16 @@ const routes = [
         path: '/backoffice/wiki-pages',
         name: 'wikiPages',
         component: () => import('../views/administration/menus/wiki/ContenuWiki.vue')
-      }
-      ,
+      },
       {
         path: '/backoffice/wiki-timelines',
         name: 'wikiTimelines',
         component: () => import('../views/administration/menus/Timelines.vue')
+      },
+      {
+        path: '/backoffice/animations',
+        name: 'backofficeAnimations',
+        component: () => import('../views/administration/menus/AnimationsBO.vue')
       }
     ]
   }
