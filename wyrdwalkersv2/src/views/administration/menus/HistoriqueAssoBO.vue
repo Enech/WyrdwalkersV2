@@ -16,7 +16,7 @@
                 class="headline"
                 v-if="this.editedItem._id != ''"
               >Historique - {{this.editedItem.nameVF}}</span>
-              <span class="headline">Nouvelle entrée historique</span>
+              <span class="headline" v-else>Nouvelle entrée historique</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
                 <v-icon>close</v-icon>
@@ -57,16 +57,17 @@
               <v-btn
                 color="blue"
                 text
-                @click="addHistory();"
-                :disabled="editedItem.title.length < 2"
-              >Ajouter</v-btn>
-              <v-btn
-                color="blue"
-                text
                 @click="sendUpdate();"
                 :disabled="editedItem.title.length < 2"
                 v-if="this.editedItem._id != ''"
               >Modifier</v-btn>
+              <v-btn
+                color="blue"
+                text
+                @click="addHistory();"
+                :disabled="editedItem.title.length < 2"
+                v-else
+              >Ajouter</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -117,24 +118,24 @@ export default Vue.extend({
   methods: {
     fetchHistory: function() {
       this.loading = true;
-      store.dispatch("fetchActivities").then(() => {
+      store.dispatch("fetchAssoHistory").then(() => {
         this.loading = false;
       });
     },
     addHistory: function() {
-      store.dispatch("addActivity", this.editedItem).then(() => {
+      store.dispatch("addHistory", this.editedItem).then(() => {
         this.closeDialog();
         Object.assign(this.editedItem,new AssoHistory());
       });
     },
     sendUpdate: function() {
-      store.dispatch("updateActivity", this.editedItem).then(() => {
+      store.dispatch("updateHistory", this.editedItem).then(() => {
         this.closeDialog();
         Object.assign(this.editedItem,new AssoHistory());
       });
     },
     deleteHistory: function() {
-      store.dispatch("deleteActivity", this.editedItem).then(() => {
+      store.dispatch("deleteHistory", this.editedItem).then(() => {
         this.deleteDialog = false;
         this.fetchHistory();
         Object.assign(this.editedItem,new AssoHistory());
@@ -153,6 +154,15 @@ export default Vue.extend({
   watch: {
     dateResult: function() {
       this.editedItem.date = this.dateResult;
+    },
+    dialog: function(){
+      if(this.dialog){
+        if(this.editedItem.date.length < 1){
+          this.dateResult = new Date().toISOString().substring(0, 10);
+        } else {
+          this.dateResult = new Date(this.editedItem.date).toISOString().substring(0, 10);
+        }
+      }
     }
   },
   data: () => ({
@@ -160,7 +170,7 @@ export default Vue.extend({
     deleteDialog: false,
     editedItem: new AssoHistory(),
     openDates: false,
-    dateResult: new Date().toISOString().substring(0, 10),
+    dateResult: '',
     loading: false,
     headers: [
       { text: "Titre", value: "title" },

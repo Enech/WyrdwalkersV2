@@ -193,15 +193,15 @@ const store = new Vuex.Store({
       return axios.post(`${process.env.VUE_APP_APIURL}events/`, event)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'évènement' a bien été ajouté";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'évènement' a bien été ajouté";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -211,15 +211,15 @@ const store = new Vuex.Store({
       return axios.put(`${process.env.VUE_APP_APIURL}events/${event._id}`, event)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'évènement a bien été mis à jour";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'évènement a bien été mis à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -229,15 +229,15 @@ const store = new Vuex.Store({
       return axios.delete(`${process.env.VUE_APP_APIURL}events/${event._id}`)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'évènement a bien été supprimé";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'évènement a bien été supprimé";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -246,13 +246,13 @@ const store = new Vuex.Store({
     fetchTimelines(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}timelines/all`)
-        .then((response: any) => {
-          context.commit("setTimelines", response.data);
-          resolve(response);
-        })
-        .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+          .then((response: any) => {
+            context.commit("setTimelines", response.data);
+            resolve(response);
+          })
+          .catch(() => {
+            context.dispatch("displayProxyError");
+          });
       });
     },
     fetchTimeline(context, timelineID: string) {
@@ -262,8 +262,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     addTimeline(context, newTimeline: Timeline) {
@@ -333,15 +333,15 @@ const store = new Vuex.Store({
       return axios.post(`${process.env.VUE_APP_APIURL}activities/`, animation)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'animation a bien été ajoutée";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'animation a bien été ajoutée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -351,15 +351,15 @@ const store = new Vuex.Store({
       return axios.put(`${process.env.VUE_APP_APIURL}activities/${animation._id}`, animation)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'animation a bien été mise à jour";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'animation a bien été mise à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -369,15 +369,15 @@ const store = new Vuex.Store({
       return axios.put(`${process.env.VUE_APP_APIURL}activities/${animation._id}`)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'animation a bien été supprimée";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'animation a bien été supprimée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -396,15 +396,15 @@ const store = new Vuex.Store({
       return axios.post(`${process.env.VUE_APP_APIURL}workshops/`, atelier)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'atelier a bien été ajouté";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'atelier a bien été ajouté";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -414,15 +414,15 @@ const store = new Vuex.Store({
       return axios.put(`${process.env.VUE_APP_APIURL}workshops/${atelier._id}`, atelier)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'atelier a bien été mis à jour";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'atelier a bien été mis à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -432,24 +432,78 @@ const store = new Vuex.Store({
       return axios.put(`${process.env.VUE_APP_APIURL}workshops/${atelier._id}`)
         .then((response: any) => {
           var newError = new ErrorMessage();
-            if (response.data.ok !== 1) {
-              newError.message = response.data.message;
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              newError.message = "L'atelier a bien été supprimé";
-              newError.type = "green";
-              context.commit("setErrorMessage", newError);
-            }
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'atelier a bien été supprimé";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
-          
+
         });
     },
     fetchAssoHistory(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}assoHistory/all`)
         .then((response: any) => {
           context.commit("setAssoHistory", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addHistory(context, history: AssoHistory) {
+      return axios.post(`${process.env.VUE_APP_APIURL}assoHistory/`, history)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'historique a bien été ajouté";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updateHistory(context, history: AssoHistory) {
+      return axios.put(`${process.env.VUE_APP_APIURL}assoHistory/${history._id}`, history)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'historique a bien été mis à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deleteHistory(context, history: AssoHistory) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}assoHistory/${history._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'historique a bien été supprimé";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -499,8 +553,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     fetchWikiPageById(context, pageID: string) {
@@ -539,8 +593,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     updateWikiPage(context, page: WikiPage) {
@@ -601,8 +655,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     fetchWikiSearchResults(context, searchQuery: string) {
@@ -613,8 +667,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     logUser(context, logObject: any) {
@@ -635,8 +689,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     registerUser(context, newUser: User) {
@@ -656,8 +710,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     activateUser(context, userId: string) {
@@ -678,8 +732,8 @@ const store = new Vuex.Store({
             resolve(response);
           })
           .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+            context.dispatch("displayProxyError");
+          });
       });
     },
     updateUser(context, updatedUser: User) {
@@ -701,7 +755,7 @@ const store = new Vuex.Store({
           })
           .catch(() => {
             context.dispatch("displayProxyError");
-        });
+          });
       });
     },
     fetchAllWikiRedirections(context) {
@@ -774,7 +828,7 @@ const store = new Vuex.Store({
           });
       });
     },
-    displayProxyError(context){
+    displayProxyError(context) {
       var newError = new ErrorMessage();
       newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifiez qu'il est correctement configuré";
       newError.type = "red";

@@ -27,7 +27,7 @@
         <v-list-item :to="{name:'backofficeAteliers'}">
           <v-list-item-title>Ateliers</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{name:'backofficeHistorique'}">
+        <v-list-item :to="{name:'backofficeHistoriqueAsso'}">
           <v-list-item-title>Historique association</v-list-item-title>
         </v-list-item>
         <v-list-item>

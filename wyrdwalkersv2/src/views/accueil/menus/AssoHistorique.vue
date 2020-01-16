@@ -5,8 +5,9 @@
       <v-divider></v-divider>
       <v-card-text>
         <article class="mb-10" v-for="(history,index) in assoHistory" :key="index">
-          <h3>{{history.title}}</h3>
-          <p class="body-2 font-weight-light">{{history.date}}</p>
+          <h3>{{new Date(history.date).toLocaleDateString()}}</h3>
+          <p class="body-2 font-weight-light">{{history.title}}</p>
+          <v-divider class="my-3"></v-divider>
         </article>
       </v-card-text>
     </v-card>
