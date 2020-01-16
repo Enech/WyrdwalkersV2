@@ -2,7 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3">
       <v-card-title>
-        Gestion des animations
+        Gestion des ateliers
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
@@ -15,8 +15,8 @@
               <span
                 class="headline"
                 v-if="this.editedItem._id != ''"
-              >Historique - {{this.editedItem.nameVF}}</span>
-              <span class="headline">Nouvelle entrée historique</span>
+              >Atelier - {{this.editedItem.name}}</span>
+              <span class="headline">Nouvel atelier</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
                 <v-icon>close</v-icon>
@@ -25,8 +25,17 @@
             <v-card-text>
               <v-container>
                 <v-row>
+                  <v-col cols="12" sm="6">
+                    <v-text-field v-model="editedItem.name" label="Titre"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field v-model="editedItem.location" label="Lieu"></v-text-field>
+                  </v-col>
                   <v-col cols="12">
-                    <v-textarea v-model="editedItem.title" label="Titre"></v-textarea>
+                    <v-text-field v-model="editedItem.caption" label="Résumé"></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea v-model="editedItem.description" label="Description"></v-textarea>
                   </v-col>
                   <v-col cols="12">
                     <v-menu
@@ -57,14 +66,14 @@
               <v-btn
                 color="blue"
                 text
-                @click="addHistory();"
-                :disabled="editedItem.title.length < 2"
+                @click="addAtelier();"
+                :disabled="editedItem.nameVF.length < 2"
               >Ajouter</v-btn>
               <v-btn
                 color="blue"
                 text
                 @click="sendUpdate();"
-                :disabled="editedItem.title.length < 2"
+                :disabled="editedItem.nameVF.length < 2"
                 v-if="this.editedItem._id != ''"
               >Modifier</v-btn>
             </v-card-actions>
@@ -72,7 +81,7 @@
         </v-dialog>
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
-      <v-data-table :items="history" :loading="loading" :headers="headers" must-sort>
+      <v-data-table :items="ateliers" :loading="loading" :headers="headers" must-sort>
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -85,13 +94,13 @@
       <v-dialog v-model="deleteDialog" max-width="500px" persistent>
         <v-card>
           <v-card-title>
-            <span class="headline">Suppression d'une entrée historique</span>
+            <span class="headline">Suppression d'un atelier</span>
           </v-card-title>
-          <v-card-text>Vous êtes sur le point de supprimer une entrée de l'historique. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
+          <v-card-text>Vous êtes sur le point de supprimer un atelier. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
-            <v-btn color="red" text @click="deleteHistory()">Supprimer</v-btn>
+            <v-btn color="red" text @click="deleteAtelier()">Supprimer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -102,52 +111,52 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
-import AssoHistory from "../../../model/AssoHistory.model";
+import Workshop from "../../../model/Workshop.model";
 
 export default Vue.extend({
-  name: "AdminHistorique",
+  name: "AdminAnimation",
   created: function(){
     this.fetchHistory();
   },
   computed:{
-    history: function(){
-      return store.getters.assoHistory;
+    ateliers: function(){
+      return store.getters.workshops;
     }
   },
   methods: {
-    fetchHistory: function() {
+    fetchAteliers: function() {
       this.loading = true;
-      store.dispatch("fetchActivities").then(() => {
+      store.dispatch("fetchWorkshops").then(() => {
         this.loading = false;
       });
     },
-    addHistory: function() {
-      store.dispatch("addActivity", this.editedItem).then(() => {
+    addAtelier: function() {
+      store.dispatch("addWorkshop", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem,new AssoHistory());
+        Object.assign(this.editedItem,new Workshop());
       });
     },
     sendUpdate: function() {
-      store.dispatch("updateActivity", this.editedItem).then(() => {
+      store.dispatch("updateWorkshop", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem,new AssoHistory());
+        Object.assign(this.editedItem,new Workshop());
       });
     },
-    deleteHistory: function() {
-      store.dispatch("deleteActivity", this.editedItem).then(() => {
+    deleteAtelier: function() {
+      store.dispatch("deleteWorkshop", this.editedItem).then(() => {
         this.deleteDialog = false;
-        this.fetchHistory();
-        Object.assign(this.editedItem,new AssoHistory());
+        this.fetchAteliers();
+        Object.assign(this.editedItem,new Workshop());
       });
     },
-    openDialog: function(animation: AssoHistory) {
-      Object.assign(this.editedItem, animation);
+    openDialog: function(atelier: Workshop) {
+      Object.assign(this.editedItem, atelier);
       this.dialog = true;
     },
     closeDialog: function() {
-      Object.assign(this.editedItem, new AssoHistory());
+      Object.assign(this.editedItem, new Workshop());
       this.dialog = false;
-      this.fetchHistory();
+      this.fetchAteliers();
     }
   },
   watch: {
@@ -158,13 +167,16 @@ export default Vue.extend({
   data: () => ({
     dialog: false,
     deleteDialog: false,
-    editedItem: new AssoHistory(),
+    editedItem: new Workshop(),
     openDates: false,
     dateResult: new Date().toISOString().substring(0, 10),
     loading: false,
     headers: [
-      { text: "Titre", value: "title" },
+      { text: "Nom", value: "name" },
       { text: "Date", value: "date" },
+      { text: "Lieu", value: "location" },
+      { text: "Résumé", value: "caption" },
+      { text: "Description", value: "description" },
       { text: "Actions", value: "action", sortable: false }
     ]
   })
