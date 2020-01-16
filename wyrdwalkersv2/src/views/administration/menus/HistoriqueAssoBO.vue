@@ -152,7 +152,7 @@ export default Vue.extend({
   },
   watch: {
     dateResult: function() {
-      var toto = this.dateResult;
+      this.editedItem.date = this.dateResult;
     }
   },
   data: () => ({
