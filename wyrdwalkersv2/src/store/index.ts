@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import EventJdr from '@/model/Event.model';
 import Timeline from '@/model/Timeline.model';
-import Animation from '@/model/Animation.model';
+import AnimationWW from '@/model/Animation.model';
 import Workshop from '@/model/Workshop.model';
 import AssoHistory from '@/model/AssoHistory.model';
 import TriangleParameter from '@/model/TriangleParameter.model';
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
     contextDrawer: false,
     events: new Array<EventJdr>(),
     timelines: new Array<Timeline>(),
-    activities: new Array<Animation>(),
+    activities: new Array<AnimationWW>(),
     workshops: new Array<Workshop>(),
     assoHistory: new Array<AssoHistory>(),
     domains: new Array<TriangleParameter>(),
@@ -76,7 +76,7 @@ const store = new Vuex.Store({
     setTimelines(state, newTimelines: Timeline[]) {
       state.timelines = newTimelines;
     },
-    setActivities(state, newActivities: Animation[]) {
+    setActivities(state, newActivities: AnimationWW[]) {
       state.activities = newActivities;
     },
     setWorkshops(state, newWorks: Workshop[]) {

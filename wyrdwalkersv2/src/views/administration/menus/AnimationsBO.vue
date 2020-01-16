@@ -11,8 +11,16 @@
             </v-btn>
           </template>
           <v-card>
-            <v-card-title>
+            <v-card-title class="black white--text">
+              <span
+                class="headline"
+                v-if="this.editedItem._id != ''"
+              >Animation - {{this.editedItem.nameVF}}</span>
               <span class="headline">Nouvelle animation</span>
+              <v-spacer></v-spacer>
+              <v-btn text icon dark @click="dialog = false;">
+                <v-icon>close</v-icon>
+              </v-btn>
             </v-card-title>
             <v-card-text>
               <v-container>
@@ -65,8 +73,15 @@
                 color="blue"
                 text
                 @click="addAnimation();"
-                v-if="editedItem.nameVF.length > 0"
+                :disabled="editedItem.nameVF.length < 2"
               >Ajouter</v-btn>
+              <v-btn
+                color="blue"
+                text
+                @click="sendUpdate();"
+                :disabled="editedItem.nameVF.length < 2"
+                v-if="this.editedItem._id != ''"
+              >Modifier</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -74,7 +89,7 @@
       <v-divider class="mb-3"></v-divider>
       <v-data-table :items="animations" :loading="loading" :headers="headers" must-sort>
         <template v-slot:item.action="{ item }">
-          <v-btn fab small dark color="light-blue" @click.stop="editedItem = item; dialog = true;">
+          <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
           </v-btn>
           <v-btn fab small dark color="red" @click.stop="editedItem = item; deleteDialog = true;">
@@ -102,24 +117,39 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
+import AnimationWW from "../../../model/Animation.model";
 
 export default Vue.extend({
   name: "AdminAnimation",
   methods: {
+    fetchAnimations: function() {
+      this.loading = true;
+    },
     addAnimation: function() {},
-    deleteAnimation: function() {}
+    sendUpdate: function() {},
+    deleteAnimation: function() {},
+    openDialog: function(animation: AnimationWW) {
+      Object.assign(this.editedItem, animation);
+      this.dialog = true;
+    },
+    closeDialog: function() {
+      Object.assign(this.editedItem, new AnimationWW());
+      this.dialog = false;
+      this.fetchAnimations();
+    }
   },
   watch: {
-      dateResult: function(){
-          var toto = this.dateResult;
-      }
+    dateResult: function() {
+      var toto = this.dateResult;
+    }
   },
   data: () => ({
     dialog: false,
-    editedItem: new Animation(),
-    animations: new Array<Animation>(),
+    editedItem: new AnimationWW(),
+    animations: new Array<AnimationWW>(),
     openDates: false,
-    dateResult: '',
+    dateResult: new Date().toISOString().substring(0, 10),
+    loading: false,
     headers: [
       { text: "Nom (VF)", value: "nameVF" },
       { text: "Name (VO)", value: "nameVO" },

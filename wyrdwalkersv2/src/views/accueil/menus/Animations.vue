@@ -58,7 +58,7 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
-import Animation from "../../../model/Animation.model";
+import AnimationWW from "../../../model/Animation.model";
 
 export default Vue.extend({
   name: "Activites",
@@ -70,7 +70,7 @@ export default Vue.extend({
       get: function() {
         return store.getters.activities;
       },
-      set: function(newValues: Animation[]) {
+      set: function(newValues: AnimationWW[]) {
         store.commit("setActivities", newValues);
       }
     }
