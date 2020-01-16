@@ -366,7 +366,7 @@ const store = new Vuex.Store({
         });
     },
     deleteActivity(context, animation: AnimationWW) {
-      return axios.put(`${process.env.VUE_APP_APIURL}activities/${animation._id}`)
+      return axios.delete(`${process.env.VUE_APP_APIURL}activities/${animation._id}`)
         .then((response: any) => {
           var newError = new ErrorMessage();
           if (response.data.ok !== 1) {

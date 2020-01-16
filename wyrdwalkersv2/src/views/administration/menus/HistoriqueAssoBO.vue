@@ -2,7 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3">
       <v-card-title>
-        Gestion des animations
+        Gestion de l'historique associatif (évènements & légal)
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">

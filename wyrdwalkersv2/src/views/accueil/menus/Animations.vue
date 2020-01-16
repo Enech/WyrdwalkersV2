@@ -11,7 +11,7 @@
     <div v-if="!pleaseWait">
       <div v-if="activities.length > 0">
         <v-row align="center" class="pa-3 pb-0">
-          <v-col cols="12" md="3" v-for="(activity, index) in activities" :key="index">
+          <v-col cols="12" v-for="(activity, index) in activities" :key="index">
             <v-card>
               <v-card-title>
                 <v-icon left>fa-dice-d20</v-icon>
@@ -19,11 +19,11 @@
               </v-card-title>
               <v-card-text>{{activity.captionVF}}</v-card-text>
               <v-card-actions>
-                <v-btn text color="red" :href="activity.externalLink" target="_blank">En savoir plus</v-btn>
+                <v-btn text color="red" :href="activity.externalLink" target="_blank" v-if="activity.externalLink.length > 0">En savoir plus</v-btn>
                 <v-spacer></v-spacer>
                 <span class="mr-3">
                   <v-icon small left>fa-calendar-alt</v-icon>
-                  <span class="caption font-weight-light">{{activity.date}}</span>
+                  <span class="caption font-weight-light">{{new Date(activity.date).toLocaleDateString()}}</span>
                 </span>
                 <span>
                   <v-icon small left>fa-map-marker-alt</v-icon>

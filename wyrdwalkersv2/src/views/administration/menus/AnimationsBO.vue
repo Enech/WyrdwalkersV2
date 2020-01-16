@@ -88,6 +88,11 @@
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-data-table :items="animations" :loading="loading" :headers="headers" must-sort>
+        <template v-slot:item.externalLink="{ item }">
+          <v-btn fab small dark color="accent" target="_blank" :href="item.externalLink" v-if="item.externalLink.length > 0">
+            <v-icon small>link</v-icon>
+          </v-btn>
+        </template>
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -168,6 +173,15 @@ export default Vue.extend({
   watch: {
     dateResult: function() {
       this.editedItem.date = this.dateResult;
+    },
+    dialog: function(){
+      if(this.dialog){
+        if(this.editedItem.date.length < 1){
+          this.dateResult = new Date().toISOString().substring(0, 10);
+        } else {
+          this.dateResult = new Date(this.editedItem.date).toISOString().substring(0, 10);
+        }
+      }
     }
   },
   data: () => ({
@@ -175,7 +189,7 @@ export default Vue.extend({
     deleteDialog: false,
     editedItem: new AnimationWW(),
     openDates: false,
-    dateResult: new Date().toISOString().substring(0, 10),
+    dateResult: '',
     loading: false,
     headers: [
       { text: "Nom (VF)", value: "nameVF" },
