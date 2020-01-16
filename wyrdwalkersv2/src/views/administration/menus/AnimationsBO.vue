@@ -121,13 +121,40 @@ import AnimationWW from "../../../model/Animation.model";
 
 export default Vue.extend({
   name: "AdminAnimation",
+  created: function(){
+    this.fetchAnimations();
+  },
+  computed:{
+    activities: function(){
+      return store.getters.activities;
+    }
+  },
   methods: {
     fetchAnimations: function() {
       this.loading = true;
+      store.dispatch("fetchActivities").then(() => {
+        this.loading = false;
+      });
     },
-    addAnimation: function() {},
-    sendUpdate: function() {},
-    deleteAnimation: function() {},
+    addAnimation: function() {
+      store.dispatch("addActivity", this.editedItem).then(() => {
+        this.closeDialog();
+        Object.assign(this.editedItem,new AnimationWW());
+      });
+    },
+    sendUpdate: function() {
+      store.dispatch("updateActivity", this.editedItem).then(() => {
+        this.closeDialog();
+        Object.assign(this.editedItem,new AnimationWW());
+      });
+    },
+    deleteAnimation: function() {
+      store.dispatch("deleteActivity", this.editedItem).then(() => {
+        this.deleteDialog = false;
+        this.fetchAnimations();
+        Object.assign(this.editedItem,new AnimationWW());
+      });
+    },
     openDialog: function(animation: AnimationWW) {
       Object.assign(this.editedItem, animation);
       this.dialog = true;
@@ -145,6 +172,7 @@ export default Vue.extend({
   },
   data: () => ({
     dialog: false,
+    deleteDialog: false,
     editedItem: new AnimationWW(),
     animations: new Array<AnimationWW>(),
     openDates: false,

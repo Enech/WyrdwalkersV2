@@ -1,6 +1,6 @@
 <template>
-  <div class="pa-3">
-    <v-parallax dark src="@/assets/ParallaxAccueil.png" eager>
+  <div class="pa-3" id="app-content-custom">
+    <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="display-2 font-weight-thin mb-4">Où nous trouver</h1>

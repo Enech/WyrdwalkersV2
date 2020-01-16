@@ -286,6 +286,69 @@ const store = new Vuex.Store({
           context.commit("setErrorMessage", newError);
         });
     },
+    addActivity(context, animation: AnimationWW) {
+      return axios.post(`${process.env.VUE_APP_APIURL}activities/`, animation)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "L'animation a bien été ajoutée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
+    },
+    updateActivity(context, animation: AnimationWW) {
+      return axios.put(`${process.env.VUE_APP_APIURL}activities/${animation._id}`, animation)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "L'animation a bien été mise à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
+    },
+    deleteActivity(context, animation: AnimationWW) {
+      return axios.put(`${process.env.VUE_APP_APIURL}activities/${animation._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+            if (response.data.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "L'animation a bien été supprimée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+        })
+        .catch(() => {
+          var newError = new ErrorMessage();
+          newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifier qu'il est correctement configuré";
+          newError.type = "red";
+          context.commit("setErrorMessage", newError);
+        });
+    },
     fetchWorkshops(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}workshops/all`)
         .then((response: any) => {
