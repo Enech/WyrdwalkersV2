@@ -22,6 +22,10 @@
                 <v-icon>close</v-icon>
               </v-btn>
             </v-card-title>
+            <v-alert
+              type="error"
+              v-if="editedItem.isEditionLocked"
+            >Cette page est actuellement éditée par un autre utilisateur. Les changements que vous ferez risquent d'être perdus. Continuez à vos risques et périls.</v-alert>
             <v-card-text>
               <v-container>
                 <v-row>
@@ -46,7 +50,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>
+              <v-btn color="black" text @click="closeRename(editedItem._id)">Annuler</v-btn>
               <v-btn
                 color="blue"
                 text
@@ -79,8 +83,19 @@
           <v-icon color="red" v-else>close</v-icon>
         </template>
         <template v-slot:item.isEditionLocked="{ item }">
-          <v-icon color="green" v-if="item.isEditionLocked">check</v-icon>
-          <v-icon color="red" v-else>close</v-icon>
+          <v-btn
+            dark
+            fab
+            small
+            color="green"
+            v-if="item.isEditionLocked"
+            @click="lockPage(item._id,false)"
+          >
+            <v-icon small>check</v-icon>
+          </v-btn>
+          <v-btn dark fab small color="red" v-else @click="lockPage(item._id,true)">
+            <v-icon small>close</v-icon>
+          </v-btn>
         </template>
         <template v-slot:item.timelines="{ item }">
           <v-menu offset-y>
@@ -88,13 +103,21 @@
               <v-btn color="blue darken-2" fab small dark v-on="on">{{item.timelines}}</v-btn>
             </template>
             <v-list>
-              <v-list-item v-for="(timelineName, index) in item.timelinesNames" :key="index" @click="openEditPageContent(item, timelineName)">
-                <v-list-item-title>{{timelineName}}</v-list-item-title>
+              <v-list-item
+                v-for="(timelineName, index) in item.timelinesNames"
+                :key="index"
+                @click="openEditPageContent(item, timelineName)"
+              >
+                <v-list-item-title>
+                  <v-btn text>{{timelineName}}</v-btn>
+                </v-list-item-title>
               </v-list-item>
               <v-divider></v-divider>
               <v-list-item>
                 <v-list-item-title class="text-center" @click="openEditPageContent(item, '')">
-                  <v-icon small>add</v-icon>
+                  <v-btn text>
+                    <v-icon small>add</v-icon>
+                  </v-btn>
                 </v-list-item-title>
               </v-list-item>
             </v-list>
@@ -114,12 +137,12 @@
               <v-list-item @click="openEditPageMyth(item)">
                 <v-list-item-title>Modifier le Mythe</v-list-item-title>
               </v-list-item>
-              <v-list-item>
+              <v-list-item @click="openRename(item)">
                 <v-list-item-title>Renommer</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn dark fab small color="red" @click="deletePage(item)">
+          <v-btn dark fab small color="red" @click="openDeletePage(item)">
             <v-icon small>delete</v-icon>
           </v-btn>
         </template>
@@ -238,25 +261,25 @@ export default Vue.extend({
             element.titleVF.toLowerCase().includes(searchValue) ||
             element.titleVO.toLowerCase().includes(searchValue);
 
-          for(var i = 0; i < element.timelinesNames.length; i++){
+          for (var i = 0; i < element.timelinesNames.length; i++) {
             var name = element.timelinesNames[i].toLowerCase();
-            if(name.includes(searchValue)){
+            if (name.includes(searchValue)) {
               isInTimelines = true;
               break;
             }
           }
 
-          for(var j = 0; j < element.factions.length; j++){
+          for (var j = 0; j < element.factions.length; j++) {
             var faction = element.factions[j].toLowerCase();
-            if(faction.includes(searchValue)){
+            if (faction.includes(searchValue)) {
               isinFactions = true;
               break;
             }
           }
 
-          for(var k = 0; k < element.teams.length; k++){
+          for (var k = 0; k < element.teams.length; k++) {
             var team = element.teams[k].toLowerCase();
-            if(team.includes(searchValue)){
+            if (team.includes(searchValue)) {
               isInTeams = true;
               break;
             }
@@ -271,6 +294,12 @@ export default Vue.extend({
 
         this.pages = result;
       }
+    },
+    refreshData: function() {
+      if (this.refreshData) {
+        this.fetchWikipages();
+        this.refreshData = false;
+      }
     }
   },
   methods: {
@@ -280,7 +309,9 @@ export default Vue.extend({
         var densePages = this.DensifyWikiPages(response.data);
         Object.assign(this.pages, densePages);
         Object.assign(this.originalPages, this.pages);
+        this.customPaginate();
         this.loading = false;
+        this.editedItem = new WikiPage();
       });
     },
     DensifyWikiPages: function(pages: WikiPage[]) {
@@ -293,8 +324,12 @@ export default Vue.extend({
           titleVO: page.title.titleVO,
           author: page.author,
           searchable: page.searchable != null,
-          generalInfos: page.generalInfos != undefined,
-          myth: page.myth != undefined,
+          generalInfos:
+            page.generalInfos != undefined &&
+            page.generalInfos.vf.length + page.generalInfos.vo.length > 0,
+          myth:
+            page.myth != undefined &&
+            page.myth.vf.length + page.myth.vo.length > 0,
           timelines: page.content.length,
           tags: page.tags,
           isEditionLocked: page.isEditionLocked,
@@ -342,6 +377,10 @@ export default Vue.extend({
       );
     },
     openEditPageGeneral: function(page: WikiPageDense) {
+      store.dispatch("lockWikiPage", {
+        pageID: page._id,
+        lock: true
+      });
       this.pleaseWait = true;
       store.dispatch("fetchWikiPageById", page._id).then(() => {
         this.pleaseWait = false;
@@ -350,6 +389,10 @@ export default Vue.extend({
       });
     },
     openEditPageMyth: function(page: WikiPageDense) {
+      store.dispatch("lockWikiPage", {
+        pageID: page._id,
+        lock: true
+      });
       this.pleaseWait = true;
       store.dispatch("fetchWikiPageById", page._id).then(() => {
         this.pleaseWait = false;
@@ -357,7 +400,11 @@ export default Vue.extend({
         Object.assign(this.editedItem, store.getters.wikipage);
       });
     },
-    openRename: function (page: WikiPageDense){
+    openRename: function(page: WikiPageDense) {
+      store.dispatch("lockWikiPage", {
+        pageID: page._id,
+        lock: true
+      });
       this.pleaseWait = true;
       store.dispatch("fetchWikiPageById", page._id).then(() => {
         this.pleaseWait = false;
@@ -365,22 +412,65 @@ export default Vue.extend({
         Object.assign(this.editedItem, store.getters.wikipage);
       });
     },
+    closeRename: function(id: string) {
+      this.dialog = false;
+      store
+        .dispatch("lockWikiPage", {
+          pageID: id,
+          lock: false
+        })
+        .then(() => {
+          this.fetchWikipages();
+        });
+    },
     openEditPageContent: function(page: WikiPageDense, timeline: string) {
-      this.selectedTimeline = timeline;
-      this.pleaseWait = true;
-      store.dispatch("fetchWikiPageById", page._id).then(() => {
-        this.pleaseWait = false;
-        this.contentDialog = true;
-        Object.assign(this.editedItem, store.getters.wikipage);
+      store
+        .dispatch("lockWikiPage", {
+          pageID: page._id,
+          lock: true
+        })
+        .then(() => {
+          this.selectedTimeline = timeline;
+          this.pleaseWait = true;
+          store.dispatch("fetchWikiPageById", page._id).then(() => {
+            this.pleaseWait = false;
+            this.contentDialog = true;
+            Object.assign(this.editedItem, store.getters.wikipage);
+          });
+        });
+    },
+    openDeletePage: function(page: WikiPageDense) {
+      this.deleteDialog = true;
+      this.deleteId = page._id;
+    },
+    deletePage: function() {
+      store.dispatch("deleteWikiPage", this.deleteId).then(() => {
+        this.deleteDialog = false;
+        this.fetchWikipages();
+        this.deleteId = "";
       });
     },
-    deletePage: function(page: WikiPageDense) {},
     addWikiPage: function() {
+      this.editedItem.author = this.currentUser.login;
       store.dispatch("addWikiPage", this.editedItem).then(() => {
         this.fetchWikipages();
       });
+      this.dialog = false;
     },
-    sendUpdate: function() {}
+    sendUpdate: function() {
+      this.editedItem.author = this.currentUser.login;
+      store.dispatch("updateWikiPage", this.editedItem).then(() => {
+        this.closeRename(this.editedItem._id);
+      });
+    },
+    lockPage: function(id: string, lock: boolean) {
+      store.dispatch("lockWikiPage", {
+        pageID: id,
+        lock: lock
+      }).then(() => {
+        this.fetchWikipages();
+      });
+    }
   },
   data: () => ({
     editedItem: new WikiPage(),
@@ -390,12 +480,14 @@ export default Vue.extend({
     loading: true,
     dialog: false,
     deleteDialog: false,
+    deleteId: "",
     firstLoad: true,
     search: "",
     lang: "FR",
     pagination: new Pagination(),
     pleaseWait: false,
-    selectedTimeline: '',
+    selectedTimeline: "",
+    canEdit: true,
     headers: [
       { text: "Titre", value: "titleVF" },
       { text: "Général", value: "generalInfos" },
@@ -428,6 +520,17 @@ export default Vue.extend({
       },
       set: function(open: boolean) {
         store.commit("setContentDialog", open);
+      }
+    },
+    currentUser: function() {
+      return store.getters.currentUser;
+    },
+    refreshData: {
+      get: function() {
+        return store.getters.refreshData;
+      },
+      set: function(refresh: boolean) {
+        store.commit("setRefreshData", refresh);
       }
     }
   }

@@ -24,7 +24,11 @@ export default Vue.extend({
     ClassicEditor.create(document.querySelector(`#${this.name}`))
     .then ((editeur => {
       editeur.setData(this.htmlContent);
-      this.editor = editeur;
+      Object.assign(this.editor, editeur);
+      editeur.model.document.on( 'change', () => {
+        var newHTML = editeur.getData();
+        this.$emit('update:htmlContent', newHTML);
+      });
     }));
   }
 });

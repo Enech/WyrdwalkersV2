@@ -47,7 +47,8 @@ const store = new Vuex.Store({
     appLanguage: 'FR',
     generalDialog: false,
     mythDialog: false,
-    contentDialog: false
+    contentDialog: false,
+    refreshData: false
   },
   mutations: {
     initialiseStore(state) {
@@ -135,14 +136,17 @@ const store = new Vuex.Store({
     setAppLanguage(state, lang: string) {
       state.appLanguage = lang;
     },
-    setGeneralDialog(state, dialog: boolean){
+    setGeneralDialog(state, dialog: boolean) {
       state.generalDialog = dialog;
     },
-    setMythDialog(state, dialog: boolean){
+    setMythDialog(state, dialog: boolean) {
       state.mythDialog = dialog;
     },
-    setContentDialog(state, dialog: boolean){
+    setContentDialog(state, dialog: boolean) {
       state.contentDialog = dialog;
+    },
+    setRefreshData(state, refresh: boolean) {
+      state.refreshData = refresh;
     }
   },
   getters: {
@@ -172,7 +176,8 @@ const store = new Vuex.Store({
     appLanguage: state => state.appLanguage,
     generalDialog: state => state.generalDialog,
     mythDialog: state => state.mythDialog,
-    contentDialog: state => state.contentDialog
+    contentDialog: state => state.contentDialog,
+    refreshData: state => state.refreshData
   },
   actions: {
     fetchEvents(context) {
@@ -184,10 +189,10 @@ const store = new Vuex.Store({
     fetchTimelines(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}timelines/all`)
-        .then((response: any) => {
-          context.commit("setTimelines", response.data);
-          resolve(response);
-        });
+          .then((response: any) => {
+            context.commit("setTimelines", response.data);
+            resolve(response);
+          });
       });
     },
     fetchTimeline(context, timelineID: string) {
@@ -200,7 +205,7 @@ const store = new Vuex.Store({
     },
     addTimeline(context, newTimeline: Timeline) {
       return new Promise((resolve) => {
-        return axios.post(`${process.env.VUE_APP_APIURL}timelines/`,newTimeline)
+        return axios.post(`${process.env.VUE_APP_APIURL}timelines/`, newTimeline)
           .then((response: any) => {
             var newError = new ErrorMessage();
             if (response.data.ok !== 1) {
@@ -218,7 +223,7 @@ const store = new Vuex.Store({
     },
     editTimeline(context, newTimeline: Timeline) {
       return new Promise((resolve) => {
-        return axios.put(`${process.env.VUE_APP_APIURL}timelines/${newTimeline._id}`,newTimeline)
+        return axios.put(`${process.env.VUE_APP_APIURL}timelines/${newTimeline._id}`, newTimeline)
           .then((response: any) => {
             var newError = new ErrorMessage();
             if (response.data.ok !== 1) {
@@ -333,6 +338,56 @@ const store = new Vuex.Store({
               context.commit("setErrorMessage", newError);
             } else {
               newError.message = 'La page a bien été créée. Vous pouvez maintenant compléter son contenu.';
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    updateWikiPage(context, page: WikiPage) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}wiki/${page._id}`, page)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1 && response.data.ok !== undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = 'La page a bien été mise à jour.';
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    lockWikiPage(context, wrapper: any) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}wiki/lock/${wrapper.pageID}`, wrapper)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1 && response.data.ok !== undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    deleteWikiPage(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_APIURL}wiki/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.ok !== 1 && response.data.ok !== undefined) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = 'La page a bien été supprimée.';
               newError.type = "green";
               context.commit("setErrorMessage", newError);
             }

@@ -9,6 +9,7 @@ import VueQuillEditor from 'vue-quill-editor'
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/css/base.css'
+import '@/assets/css/content-styles.css'
 
 Vue.config.productionTip = false;
 /*Vue.config.devtools = false;

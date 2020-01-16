@@ -208,6 +208,14 @@ bloc-5>titre {
     height: 245px;
 }
 
+.ck.ck-content {
+    height: 100%;
+}
+
+.ck.ck-editor__main {
+    height: 300px;
+}
+
 .bordered {
     border: 1px solid #c7c7c7;
 }
