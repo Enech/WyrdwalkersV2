@@ -65,12 +65,10 @@
                     <v-textarea v-model="editedItem.captionVO" label="Caption (VO)"></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.descriptionVF" label="Description (VF)"></v-text-field>
                     <div class="subtitle-1">Version française</div>
                     <wyrd-editor :htmlContent.sync="editedItem.descriptionVF" name="descriptionVF" />
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.descriptionVO" label="Description (VO)"></v-text-field>
                     <div class="subtitle-1">English version</div>
                     <wyrd-editor :htmlContent.sync="editedItem.descriptionVO" name="descriptionVO" />
                   </v-col>
