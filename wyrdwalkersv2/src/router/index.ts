@@ -208,10 +208,9 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (store.getters.currentUser.length == 0) {
+    if (store.getters.currentUser._id.length == 0) {
       next({
-        path: '/home/presentation',
-        query: { redirect: '/home/redirection' }
+        path: '/home/presentation'
       });
     } else {
       next();

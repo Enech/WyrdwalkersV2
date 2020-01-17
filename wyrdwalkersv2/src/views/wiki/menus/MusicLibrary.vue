@@ -147,7 +147,18 @@ export default Vue.extend({
             music.link = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
             music.timeline = content.timeline;
             music.id = `${index}${j}`;
-            tempMusics.push(music);
+            
+            var found = false;
+            for(var k = 0; k < tempMusics.length; k++){
+              if(tempMusics[k].link == music.link){
+                found = true;
+                break;
+              }
+            }
+            
+            if(!found){
+              tempMusics.push(music);
+            }
           }
         }
       }

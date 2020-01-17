@@ -65,7 +65,7 @@
       <v-divider class="mb-3"></v-divider>
       <v-toolbar flat>
         <v-spacer></v-spacer>
-        <v-text-field append-icon="search" v-model="search" clearable></v-text-field>
+        <v-text-field append-icon="search" v-model="search"></v-text-field>
       </v-toolbar>
       <v-data-table
         :items="croppedPages"
@@ -269,7 +269,7 @@ export default Vue.extend({
         this.editedItem = new WikiPage();
       });
     },
-    searchInPages: function(stringSearch: string){
+    searchInPages: function(stringSearch: string) {
       var searchValue = stringSearch.toLowerCase();
       this.pages = this.originalPages;
 
@@ -381,15 +381,15 @@ export default Vue.extend({
       );
     },
     openEditPageGeneral: function(page: WikiPageDense) {
-      store.dispatch("lockWikiPage", {
-        pageID: page._id,
-        lock: true
-      });
       this.pleaseWait = true;
       store.dispatch("fetchWikiPageById", page._id).then(() => {
         this.pleaseWait = false;
         this.generalDialog = true;
         Object.assign(this.editedItem, store.getters.wikipage);
+        store.dispatch("lockWikiPage", {
+          pageID: page._id,
+          lock: true
+        });
       });
     },
     openEditPageMyth: function(page: WikiPageDense) {
@@ -402,6 +402,10 @@ export default Vue.extend({
         this.pleaseWait = false;
         this.mythDialog = true;
         Object.assign(this.editedItem, store.getters.wikipage);
+        store.dispatch("lockWikiPage", {
+          pageID: page._id,
+          lock: true
+        });
       });
     },
     openRename: function(page: WikiPageDense) {
@@ -414,6 +418,10 @@ export default Vue.extend({
         this.pleaseWait = false;
         this.dialog = true;
         Object.assign(this.editedItem, store.getters.wikipage);
+        store.dispatch("lockWikiPage", {
+          pageID: page._id,
+          lock: true
+        });
       });
     },
     closeRename: function(id: string) {
@@ -428,20 +436,17 @@ export default Vue.extend({
         });
     },
     openEditPageContent: function(page: WikiPageDense, timeline: string) {
-      store
-        .dispatch("lockWikiPage", {
+      this.selectedTimeline = timeline;
+      this.pleaseWait = true;
+      store.dispatch("fetchWikiPageById", page._id).then(() => {
+        this.pleaseWait = false;
+        this.contentDialog = true;
+        Object.assign(this.editedItem, store.getters.wikipage);
+        store.dispatch("lockWikiPage", {
           pageID: page._id,
           lock: true
-        })
-        .then(() => {
-          this.selectedTimeline = timeline;
-          this.pleaseWait = true;
-          store.dispatch("fetchWikiPageById", page._id).then(() => {
-            this.pleaseWait = false;
-            this.contentDialog = true;
-            Object.assign(this.editedItem, store.getters.wikipage);
-          });
         });
+      });
     },
     openDeletePage: function(page: WikiPageDense) {
       this.deleteDialog = true;
@@ -468,12 +473,14 @@ export default Vue.extend({
       });
     },
     lockPage: function(id: string, lock: boolean) {
-      store.dispatch("lockWikiPage", {
-        pageID: id,
-        lock: lock
-      }).then(() => {
-        this.fetchWikipages();
-      });
+      store
+        .dispatch("lockWikiPage", {
+          pageID: id,
+          lock: lock
+        })
+        .then(() => {
+          this.fetchWikipages();
+        });
     }
   },
   data: () => ({
@@ -540,10 +547,8 @@ export default Vue.extend({
   },
   metaInfo: function() {
     return {
-      title:"Backoffice Wiki",
-      link: [
-        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
-      ]
+      title: "Backoffice Wiki",
+      link: [{ rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }]
     };
   }
 });
