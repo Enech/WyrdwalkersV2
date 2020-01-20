@@ -41,7 +41,7 @@
           type="info"
           elevation="2"
           width="100%"
-        >Wyrdwalkers n'a pas d'activités prévues pour le moment</v-alert>
+        >Wyrdwalkers n'a pas d'animations prévues pour le moment</v-alert>
       </div>
     </div>
     <v-dialog v-model="pleaseWait" hide-overlay persistent width="300">

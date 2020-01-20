@@ -57,7 +57,7 @@
           <v-row align="center">
             <v-col cols="12" sm="6" md="4">
               <v-card color="grey lighten-3 prez-card">
-                <v-card-title class="justify-center">Afterworks soirées enquêtes</v-card-title>
+                <v-card-title class="justify-center">Soirées enquêtes</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
