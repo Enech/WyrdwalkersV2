@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
+import Flatted, { parse, stringify } from '../../node_modules/flatted'
 
 Vue.use(VueRouter)
 
@@ -212,13 +213,19 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (store.getters.currentUser._id.length == 0) {
+    var storedState = localStorage.getItem('store');
+    if(storedState){
+      if (Flatted.parse(storedState).currentUser._id.length == 0) {
+        next({
+          path: '/home/presentation'
+        });
+      } else {
+        next();
+      }
+    } else {
       next({
         path: '/home/presentation'
       });
-    } else {
-      next();
     }
   } else {
     next();
