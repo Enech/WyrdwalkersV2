@@ -18,7 +18,9 @@
       "vue-meta",
       "tiptap",
       "tiptap-extensions",
-      "vue-quill-editor"
+      "vue-quill-editor",
+      "webpack",
+      "webpack-env"
     ],
     "paths": {
       "@/*": [
