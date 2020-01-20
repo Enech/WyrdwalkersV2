@@ -10,7 +10,7 @@
           :key="index"
           :href="'#tab-' + content.timeline"
         >{{content.timeline}}</v-tab>
-        <v-tab-item value="tab-general" v-if="page.generalInfos != undefined">
+        <v-tab-item value="tab-general" v-if="generalDefined">
           <v-card class="pa-3" flat tile>
             <v-row dense>
               <v-col cols="12">
@@ -47,7 +47,7 @@
             </v-row>
           </v-card>
         </v-tab-item>
-        <v-tab-item value="tab-myth" v-if="page.myth != undefined">
+        <v-tab-item value="tab-myth" v-if="mythDefined">
           <v-card class="pa-3" tile flat>
             <v-row dense>
               <v-col cols="12">
@@ -147,6 +147,14 @@ export default Vue.extend({
   },
   mounted() {
     document.dispatchEvent(new Event("custom-post-render-event"));
+  },
+  computed: {
+    generalDefined: function(){
+      return this.page.generalInfos != undefined && (this.page.generalInfos.vf !== '' || this.page.generalInfos.vo !== '')
+    },
+    mythDefined: function(){
+      return this.page.myth != undefined && (this.page.myth.vf !== '' || this.page.myth.vo !== '')
+    }
   },
   methods: {
     fetchWikiPage: function(name: string) {
