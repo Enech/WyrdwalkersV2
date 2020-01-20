@@ -194,6 +194,11 @@ const routes = [
         path: '/backoffice/rpg-history',
         name: 'backofficeHistoriqueJDR',
         component: () => import('../views/administration/menus/EventsJdrBO.vue')
+      },
+      {
+        path: '/backoffice/users',
+        name: 'backofficeUsers',
+        component: () => import('../views/administration/menus/UsersBO.vue')
       }
     ]
   }

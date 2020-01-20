@@ -784,6 +784,49 @@ const store = new Vuex.Store({
           });
       });
     },
+    updateUserRights(context, updatedUser: User) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_APIURL}users/rights/${updatedUser._id}`, updatedUser)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok !== 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Utilisateur mis à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+              context.commit("setActivationSuccessful", true);
+            }
+            resolve(response);
+          })
+          .catch(() => {
+            context.dispatch("displayProxyError");
+          });
+      });
+    },
+    deleteUser(context, userId: string) {
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_APIURL}users/${userId}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Utilisateur supprimé";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          })
+          .catch(() => {
+            context.dispatch("displayProxyError");
+          });
+      });
+    },
     fetchAllWikiRedirections(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_APIURL}wiki-redirections/all`)

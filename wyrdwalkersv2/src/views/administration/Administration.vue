@@ -53,7 +53,7 @@
             <v-list-item-title>Capacités légendaires</v-list-item-title>
           </v-list-item>
         </v-list-group>
-        <v-list-item>
+        <v-list-item :to="{name:'backofficeUsers'}">
           <v-list-item-title>Utilisateurs</v-list-item-title>
         </v-list-item>
       </v-list>
