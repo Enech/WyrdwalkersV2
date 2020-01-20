@@ -20,7 +20,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="4">
-          <v-card shaped :loading="loadingTimelines" class="pa-3" color="indigo" dark>
+          <v-card shaped :loading="loadingTimelines" class="pa-3" color="blue" dark>
             <v-list-item>
               <v-list-item-title class="display-1">Timelines</v-list-item-title>
             </v-list-item>
@@ -35,7 +35,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="4">
-          <v-card shaped :loading="loadingRedirections" class="pa-3" color="indigo" dark>
+          <v-card shaped :loading="loadingRedirections" class="pa-3" color="teal" dark>
             <v-list-item>
               <v-list-item-title class="display-1">Redirections</v-list-item-title>
             </v-list-item>
@@ -50,7 +50,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="4">
-          <v-card shaped :loading="loadingAteliers" class="pa-3" color="indigo" dark>
+          <v-card shaped :loading="loadingAteliers" class="pa-3" color="lime" dark>
             <v-list-item>
               <v-list-item-title class="display-1">Ateliers</v-list-item-title>
             </v-list-item>
@@ -58,14 +58,14 @@
               <v-row align="center">
                 <v-col class="display-3" cols="6">{{nbAteliers}}</v-col>
                 <v-col cols="6" class="headline">
-                  <v-icon left large>menu_book</v-icon>
+                  <v-icon left large>fa-gamepad</v-icon>
                 </v-col>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="4">
-          <v-card shaped :loading="loadingAnimations" class="pa-3" color="indigo" dark>
+          <v-card shaped :loading="loadingAnimations" class="pa-3" color="orange" dark>
             <v-list-item>
               <v-list-item-title class="display-1">Animations</v-list-item-title>
             </v-list-item>
@@ -73,14 +73,14 @@
               <v-row align="center">
                 <v-col class="display-3" cols="6">{{nbAnimations}}</v-col>
                 <v-col cols="6" class="headline">
-                  <v-icon left large>menu_book</v-icon>
+                  <v-icon left large>fa-rss</v-icon>
                 </v-col>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="4">
-          <v-card shaped :loading="loadingEvents" class="pa-3" color="indigo" dark>
+          <v-card shaped :loading="loadingEvents" class="pa-3" color="blue-grey" dark>
             <v-list-item>
               <v-list-item-title class="display-1">Events JDR</v-list-item-title>
             </v-list-item>
@@ -88,14 +88,14 @@
               <v-row align="center">
                 <v-col class="display-3" cols="6">{{nbEvents}}</v-col>
                 <v-col cols="6" class="headline">
-                  <v-icon left large>menu_book</v-icon>
+                  <v-icon left large>fa-scroll</v-icon>
                 </v-col>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="6" md="4">
-          <v-card shaped :loading="loadingUsers" class="pa-3" color="indigo" dark>
+          <v-card shaped :loading="loadingUsers" class="pa-3" color="deep-purple" dark>
             <v-list-item>
               <v-list-item-title class="display-1">Utilisateurs</v-list-item-title>
             </v-list-item>
@@ -103,7 +103,7 @@
               <v-row align="center">
                 <v-col class="display-3" cols="6">{{nbUsers}}</v-col>
                 <v-col cols="6" class="headline">
-                  <v-icon left large>menu_book</v-icon>
+                  <v-icon left large>supervised_user_circle</v-icon>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -127,6 +127,7 @@ export default Vue.extend({
     this.fetchAteliers();
     this.fetchAnimations();
     this.fetchEvents();
+    this.fetchUsers();
   },
   methods: {
     fetchWikiPages: function() {
@@ -165,6 +166,12 @@ export default Vue.extend({
         this.nbEvents = response.data.length;
       });
     },
+    fetchUsers: function() {
+      store.dispatch("fetchUsers").then((response: any) => {
+        this.loadingUsers = false;
+        this.nbUsers = response.data.length;
+      });
+    }
   },
   data: () => ({
     nbFiches: 0,

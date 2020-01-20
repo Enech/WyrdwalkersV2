@@ -48,7 +48,8 @@ const store = new Vuex.Store({
     generalDialog: false,
     mythDialog: false,
     contentDialog: false,
-    refreshData: false
+    refreshData: false,
+    users: new Array<User>()
   },
   mutations: {
     initialiseStore(state) {
@@ -147,6 +148,9 @@ const store = new Vuex.Store({
     },
     setRefreshData(state, refresh: boolean) {
       state.refreshData = refresh;
+    },
+    setUsers(state, results: Array<User>){
+      state.users = results;
     }
   },
   getters: {
@@ -177,17 +181,21 @@ const store = new Vuex.Store({
     generalDialog: state => state.generalDialog,
     mythDialog: state => state.mythDialog,
     contentDialog: state => state.contentDialog,
-    refreshData: state => state.refreshData
+    refreshData: state => state.refreshData,
+    users: state => state.users
   },
   actions: {
     fetchEvents(context) {
-      return axios.get(`${process.env.VUE_APP_APIURL}events/all`)
-        .then((response: any) => {
-          context.commit("setEvents", response.data);
-        })
-        .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}events/all`)
+          .then((response: any) => {
+            context.commit("setEvents", response.data);
+            resolve(response);
+          })
+          .catch(() => {
+            context.dispatch("displayProxyError");
+          });
+      });
     },
     addEvent(context, event: EventJdr) {
       return axios.post(`${process.env.VUE_APP_APIURL}events/`, event)
@@ -321,13 +329,16 @@ const store = new Vuex.Store({
       });
     },
     fetchActivities(context) {
-      return axios.get(`${process.env.VUE_APP_APIURL}activities/all`)
-        .then((response: any) => {
-          context.commit("setActivities", response.data);
-        })
-        .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}activities/all`)
+          .then((response: any) => {
+            context.commit("setActivities", response.data);
+            resolve(response);
+          })
+          .catch(() => {
+            context.dispatch("displayProxyError");
+          });
+      });
     },
     addActivity(context, animation: AnimationWW) {
       return axios.post(`${process.env.VUE_APP_APIURL}activities/`, animation)
@@ -384,13 +395,16 @@ const store = new Vuex.Store({
         });
     },
     fetchWorkshops(context) {
-      return axios.get(`${process.env.VUE_APP_APIURL}workshops/all`)
-        .then((response: any) => {
-          context.commit("setWorkshops", response.data);
-        })
-        .catch(() => {
-          context.dispatch("displayProxyError");
-        });
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}workshops/all`)
+          .then((response: any) => {
+            context.commit("setWorkshops", response.data);
+            resolve(response);
+          })
+          .catch(() => {
+            context.dispatch("displayProxyError");
+          });
+      });
     },
     addWorkshop(context, atelier: Workshop) {
       return axios.post(`${process.env.VUE_APP_APIURL}workshops/`, atelier)
@@ -664,6 +678,18 @@ const store = new Vuex.Store({
         return axios.get(`${process.env.VUE_APP_APIURL}wiki/search/${searchQuery}`)
           .then((response: any) => {
             context.commit("setWikiSearchResults", response.data);
+            resolve(response);
+          })
+          .catch(() => {
+            context.dispatch("displayProxyError");
+          });
+      });
+    },
+    fetchUsers(context) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_APIURL}users/all`)
+          .then((response: any) => {
+            context.commit("setUsers", response.data);
             resolve(response);
           })
           .catch(() => {
