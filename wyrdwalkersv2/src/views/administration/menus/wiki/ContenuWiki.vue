@@ -360,17 +360,26 @@ export default Vue.extend({
         var result = 0;
         var A = eval("a." + sortBy);
         var B = eval("b." + sortBy);
-        if (pag.sortDesc[0]) {
-          if (A < B) {
-            result = 1;
+
+        if (typeof A === "string" && typeof B === "string") {
+          if (pag.sortDesc[0]) {
+            result = -1 * A.localeCompare(B,"fr");
           } else {
-            result = -1;
+            result = A.localeCompare(B,"fr");
           }
         } else {
-          if (A < B) {
-            result = -1;
+          if (pag.sortDesc[0]) {
+            if (A < B) {
+              result = 1;
+            } else {
+              result = -1;
+            }
           } else {
-            result = 1;
+            if (A < B) {
+              result = -1;
+            } else {
+              result = 1;
+            }
           }
         }
         return result;

@@ -12,9 +12,11 @@ import '@/assets/css/base.css'
 import '@/assets/css/wiki.scss'
 import '@/assets/css/content-styles.css'
 
-Vue.config.productionTip = false;
-/*Vue.config.devtools = false;
-Vue.config.silent = true;*/
+if(process.env.NODE_ENV === 'production'){
+  Vue.config.productionTip = false;
+  Vue.config.devtools = false;
+  Vue.config.silent = true;
+}
 
 Vue.use(VueMeta);
 Vue.use(VueQuillEditor);
