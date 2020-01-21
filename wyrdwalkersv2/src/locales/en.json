@@ -1,191 +1,207 @@
 ﻿{
-    "general": {
-      "login": "Sign in",
-      "signup": "Sign up",
-      "logout": "Log out",
-      "register": {
-        "valid": "Your account is now activated. Come back on the website by following <a href='/home'>this link</a> in order to log in",
-        "invalid": "Your account was not activated due to a technical issue. please contact an administrator so your account can be amnually activated.",
-        "loading": "Activating your account...",
-        "characters": "Characters",
-        "npc": "NPC",
-        "campaigns": "Campaigns"
-      }
+  "general": {
+    "login": "Sign in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "register": {
+      "valid": "Your account is now activated. Come back on the website by following <a href='/home'>this link</a> in order to log in",
+      "invalid": "Your account was not activated due to a technical issue. please contact an administrator so your account can be amnually activated.",
+      "loading": "Activating your account...",
+      "characters": "Characters",
+      "npc": "NPC",
+      "campaigns": "Campaigns"
+    }
+  },
+  "home": {
+    "main": "Association",
+    "menus": {
+      "home": "Home",
+      "join": "Join us",
+      "activities": "Activities",
+      "murders": "Murder Parties",
+      "workshops": "Workshops",
+      "animations": "Animations",
+      "rpgHistory": "RPG History",
+      "personalityTest": "Personality Test",
+      "contact": "Contact Us",
+      "legal": "Legal",
+      "status": "Bylaws",
+      "history": "History"
     },
-    "home": {
-      "main": "Association",
-      "menus": {
-        "home": "Home",
-        "join": "Join us",
-        "activities": "Activities",
-        "murders": "Murder Parties",
-        "workshops": "Workshops",
-        "animations": "Animations",
-        "rpgHistory": "RPG History",
-        "personalityTest": "Personality Test",
-        "contact": "Contact Us",
-        "legal": "Legal",
-        "status": "Bylaws",
-        "history": "History"
+    "contents": {
+      "animations": {
+        "title": "where to find us",
+        "subtitle": "Places where you can find Wyrdwalkers",
+        "more": "More",
+        "noData": "Wyrdwalkers does not have any animation scheduled for now",
+        "loading": "Loading"
       },
-      "contents": {
-        "animations": {
-          "title": "where to find us",
-          "subtitle": "Places where you can find Wyrdwalkers",
-          "more": "More",
-          "noData": "Wyrdwalkers does not have any animation scheduled for now",
-          "loading": "Loading"
+      "history": {
+        "title": "Association History",
+        "noData": "Wyrdwalkers does not have any history entries for now"
+      },
+      "workshops": {
+        "title": "Workshops",
+        "subtitle": "Our <i>storytelling</i> workshops",
+        "more": "More",
+        "noDate": "Wyrdwalkers does not have any workshop scheduled for now"
+      },
+      "contact": {
+        "title": "Contact Us",
+        "facebook": "On our Facebook page",
+        "emailTitle": "By e-mail",
+        "emailContent": "Send a message to",
+        "mail": "By physical mail (or homing pigeon)",
+        "mailAddress": "Chez Thomas Gely<br />3 rue de la Villette<br />69003 Lyon, France"
+      },
+      "gn": {
+        "title": "Live Action",
+        "subtitle": "Write your name in the Legend",
+        "more": "PLUS"
+      },
+      "rpgHistory": {
+        "title": "RPG events history",
+        "noAuthor": "Unknown author"
+      },
+      "join": {
+        "title": "WYRDWALKERS",
+        "subtitle": "Become a Legend",
+        "headline": "Join Us"
+      },
+      "presentation": {
+        "title": "WYRDWALKERS",
+        "subtitle": "The association mixing mythology and role-paying game",
+        "discord": "Join us on Discord",
+        "playful": {
+          "title": "Playful",
+          "text": "With a whole role-paying game setting putting together 12 pantheons, more than 300 divinities and around 700 detailed sheets in an entirely free wiki , Wyrdwalkers aims to introduce people to mythology through games and imaginary activities."
         },
-        "history": {
-          "title": "Association History",
-          "noData": "Wyrdwalkers does not have any history entries for now"
+        "educational": {
+          "title": "Pedagogic",
+          "text": "Through initiation workshops about mythology, role-play or <i>Storytelling</i>, Wyrdwalkers sets some foundations allowing those who wish to dive deep inside eternal tales to study them and make up their own legends in order to share them and make them alive."
         },
-        "workshops": {
-          "title": "Workshops",
-          "subtitle": "Our <i>storytelling</i> workshops",
-          "more": "More",
-          "noDate": "Wyrdwalkers does not have any workshop scheduled for now"
+        "questions": {
+          "title": "Asking questions",
+          "text": "With its own system allowing for studies of philosophies, wyrdwalkers is also a place of questionning. Is music divine or human ? Is it natural to seek for immortality ? As much questions where it is possible to give an answer with groups or through role-payin game."
         },
-        "contact": {
-          "title": "Contact Us",
-          "facebook": "On our Facebook page",
-          "email": "By e-mail",
-          "mail": "By physical mail (or homing pigeon)",
-          "mailAddress": "Chez Thomas Gely<br />3 rue de la Villette<br />69003 Lyon, France"
-        },
-        "gn": {
-          "title": "Live Action",
-          "subtitle": "Write your name in the Legend",
-          "more": "PLUS"
-        },
-        "rpgHistory": {
-          "title": "RPG events history",
-          "noAuthor": "Unknown author"
-        },
-        "join": {
-          "title": "WYRDWALKERS",
-          "subtitle": "Become a Legend",
-          "headline": "Join Us"
+        "mythological": {
+          "title": "Mythological",
+          "text": "Based on studies of different mythologies from all over the world, Wyrdwalkers makes myths and legends the core of its activities."
         },
         "presentation": {
-          "title": "WYRDWALKERS",
-          "subtitle": "The association mixing mythology and role-paying game",
-          "discord": "Join us on Discord",
-          "playful": {
-            "title": "Playful",
-            "text": "With a whole role-paying game setting putting together 12 pantheons, more than 300 divinities and around 700 detailed sheets in an entirely free wiki , Wyrdwalkers aims to introduce people to mythology through games and imaginary activities."
+          "header": "Wyrdwalkers wishes to demonstrate the omnipresence of myths. Through Role-Play, but not only. Actually, Wyrdwalkers is all of those :",
+          "more": "More",
+          "soon": "Soon...",
+          "afterworks": {
+            "title": "Afterwork Murder Parties",
+            "text": "Do you want to find out who is behind Hades' demise ? Or who murdered King Arthur ? All of this between friends, colleagues or family ? Wyrdwalkers offers you to animate those events. They are suited as much for families searching for entertainment as well as work teams searching for a relaxed and fun moment. Between 5 and 20 players."
           },
-          "educational": {
-            "title": "Pedagogic",
-            "text": "Through initiation workshops about mythology, role-play or <i>Storytelling</i>, Wyrdwalkers sets some foundations allowing those who wish to dive deep inside eternal tales to study them and make up their own legends in order to share them and make them alive."
+          "gn": {
+            "title": "Live Action Murder Parties",
+            "text": "some role-playing game, but Live Action. Become a part of major events several times a year and contribute into forging the Wyrdwalkers universe. Wether you witnessed the fall of Atlantis, King Arthur's demise or even the New World's discovery, your actions will be engraved forever in the Legend."
           },
-          "questions": {
-            "title": "Asking questions",
-            "text": "With its own system allowing for studies of philosophies, wyrdwalkers is also a place of questionning. Is music divine or human ? Is it natural to seek for immortality ? As much questions where it is possible to give an answer with groups or through role-payin game."
+          "workshops": {
+            "title": "Storytelling Workshops",
+            "text": "Myths are the senseful tales a civilization tells to itself. Storytelling workshops teach a new way to write a story and build your own myths in order to share them afterward. Wether you like fiction, theater play ou an escape game creator, you will have the basics to exploit the whole power of myths."
           },
-          "mythological": {
-            "title": "Mythological",
-            "text": "Based on studies of different mythologies from all over the world, Wyrdwalkers makes myths and legends the core of its activities."
+          "campaigns": {
+            "title": "RPG Campaigns",
+            "text": "Pure moments of fun between friends, spent baching hydras and titanic cults. Live mythology as if you were in it, with all of its mysteries and legends."
           },
-          "presentation": {
-            "header": "Wyrdwalkers wishes to demonstrate the omnipresence of myths. Through Role-Play, but not only. Actually, Wyrdwalkers is all of those :",
-            "more": "More",
-            "soon": "Soon...",
-            "afterworks": {
-              "title": "Afterwork Murder Parties",
-              "text": "Do you want to find out who is behind Hades' demise ? Or who murdered King Arthur ? All of this between friends, colleagues or family ? Wyrdwalkers offers you to animate those events. They are suited as much for families searching for entertainment as well as work teams searching for a relaxed and fun moment. Between 5 and 20 players."
-            },
-            "gn": {
-              "title": "Live Action Murder Parties",
-              "text": "some role-playing game, but Live Action. Become a part of major events several times a year and contribute into forging the Wyrdwalkers universe. Wether you witnessed the fall of Atlantis, King Arthur's demise or even the New World's discovery, your actions will be engraved forever in the Legend."
-            },
-            "workshops": {
-              "title": "Storytelling Workshops",
-              "text": "Myths are the senseful tales a civilization tells to itself. Storytelling workshops teach a new way to write a story and build your own myths in order to share them afterward. Wether you like fiction, theater play ou an escape game creator, you will have the basics to exploit the whole power of myths."
-            },
-            "campaigns": {
-              "title": "RPG Campaigns",
-              "text": "Pure moments of fun between friends, spent baching hydras and titanic cults. Live mythology as if you were in it, with all of its mysteries and legends."
-            },
-            "animations": {
-              "title": "Animations (Lyon)",
-              "text": "Wyrdwalkers is a lyonnese association et role-play is our favorite area of expression. You can find us at events such as Yggdrasil or Octogônes. Our GMs will be pleased to welcome you at their booth to intiate you to role-play and/or the Wyrdwalkers setting."
-            },
-            "triangle": {
-              "title": "A human study",
-              "text": "In order to write the Wyrdwalkers setting et make it consistent, its creators studied over a dozen mythologies. From there was born a model giving us the ability to analyze the human condition, directly inspired by civilizations and tribes that came before. This model describes the three major paradoxes every human being has to face and allows us to understand the 'useful fictions' surronding us in order to master them and invent new ones."
-            },
-            "message": "Wyrdwalkers is a law 1901 french association aiming to promote mythology through activities based on imagination, play et pedagogy."
+          "animations": {
+            "title": "Animations (Lyon)",
+            "text": "Wyrdwalkers is a lyonnese association et role-play is our favorite area of expression. You can find us at events such as Yggdrasil or Octogônes. Our GMs will be pleased to welcome you at their booth to intiate you to role-play and/or the Wyrdwalkers setting."
           },
-          "status": {
-            "title": "Association bylaws"
-          }
-        }
-      } 
-    },
-    "wiki": {
-      "main": "Wiki",
-      "menus": {
-        "home": "Home",
-        "random": "Random Pages",
-        "timelines": "Timelines",
-        "gameplay": "Gameplay",
-        "rules": "Rules",
-        "abilities": "Legendary Abilities",
-        "pantheons": "Pantheons",
-        "aesir": "Aesir - Norse",
-        "amatsukami": "Amatsukami - Japanese",
-        "ayllus": "Ayllus - Incan",
-        "bureaucracy": "Celestial Bureaucracy - Chinese",
-        "deva": "Deva - Hindu",
-        "kasunel": "K'Asunel - Mayan",
-        "neter": "Neter - Egyptian",
-        "rangi": "Nga Tama a Rangi - Maori",
-        "orisha": "Orisha - African",
-        "teotl": "Teotl - Aztec",
-        "theoi": "Theoi - Greek",
-        "tuatha": "Tuatha Dé Danann - Celtic",
-        "titans": "Titanrealms",
-        "aether": "Aether - Light",
-        "amaunet": "Amaunet - Sky",
-        "kosmos": "Kosmos - Order",
-        "muspelheim": "Muspelheim - Fire",
-        "nyx": "Nyx - Night",
-        "oceanus": "Oceanus - Water",
-        "patala": "Patala - Depths",
-        "sheol": "Sheol - Death",
-        "terra": "Terra - Earth",
-        "otherworlds": "Otherworlds",
-        "mythborns": "Mythborn Races",
-        "blackForest": "Black Forest",
-        "fairie": "Fairie",
-        "jadeSea": "Jade Sea",
-        "shambhala": "Shambhala",
-        "utopia": "Utopia",
-        "eldorado": "El Dorado",
-        "societies": "Secret Societies",
-        "illuminati": "Illuminati",
-        "cabale": "The Cabal",
-        "merlinCircle": "Circle of Merlin",
-        "jadeFist": "Ordre of the Jade Fist",
-        "playslist": "Playlist",
-        "explorer": "Explorer"
-      },
-      "contents": {
-        "timelines": {
-          "explore": "Explore"
+          "triangle": {
+            "title": "A human study",
+            "text": "In order to write the Wyrdwalkers setting et make it consistent, its creators studied over a dozen mythologies. From there was born a model giving us the ability to analyze the human condition, directly inspired by civilizations and tribes that came before. This model describes the three major paradoxes every human being has to face and allows us to understand the 'useful fictions' surronding us in order to master them and invent new ones."
+          },
+          "message": "Wyrdwalkers is a law 1901 french association aiming to promote mythology through activities based on imagination, play et pedagogy."
         },
-        "home":{
-          "header": "Welcome to the Wyrdwalkers Codex",
-          "text": "'Alright kid, grab a pint of Guinness - it’s imported, not the stale piss they make here - and let me tell you about this business of ours. The business of Legend. Our parents are up there, somewhere. Who’s your Divine Parent again? Mine’s the mighty Dagda, if it wasn’t already obvious from my devastating smile. Anyways, they’re up there, and they’re relying on us to get this World in order. It’s a real mess down here, if you hadn’t noticed.  <br /> <br />Your main job is going to be what we like to call ‘Pest Control’. See, when Titans manage to sneak their spawn down here, they usually stay quiet and slowly gather cultists and power. They gnaw at the fabric of reality until something BIG comes through. When that happens, people die. Ever heard of the Black Plague? Yeah. So we take care of the pest before that happens. This city is a real hotbed for that kind of shit. Sometimes it’s a Vampire or a Lich, but it’s usually going to be some idiot kid with a pirated copy of '<i>Necromancy for Dummies</i>' who summons a poltergeist and gets his brain scooped empty like a tub of ice cream at a fat kid’s birthday party. <br /><br /> There’s not many of us so you’ll probably have to work with the local population. Hopefully you can get the info and help you need from the usual witch convents and technodruid punks, but sometimes you need some extra oomph. That’s when the Secret Societies come in. They’re on no one’s side but their own, but they have information and resources. And they need us, because we got raw power that they don’t - we’re part God for dad’s sake! Just be wary of the Illuminati, they always find a way to make sure you pay more than you expected.<br /><br />If you start walking around this world you’re bound to run into some Mythborns. Elves, werewolves, dragons, fey - I even met a were-kangaroo once! Bouncy bugger, but a great poker player. Though I’m pretty sure he was hiding extra aces in that pouch of his...Anyways, they’re like people - some are nice some not so much - but they generally have power and a trick up their sleeve. Stay friendly with them if you can - rumours move fast in their world.<br /> <br /> But your greatest resource is always going to be your fellow Godborns. There’s not many of us, and life expectancy has never been great, so we gotta stick together. We’re bright shooting stars, and we try to write our names in the sky while we can. We all seek the same prize: Apotheosis, when a Godborn reaches full Godhood. Immortality, baby! I’m pretty sure if I make it, I’ll become God of Honor. Or Rugby. I’m not sure yet, still got a ways to go. <br /> <br />Pardon? ‘Why do people not notice there are Dragons and Demigods walking amongst them’? Oh it’s pretty simple. There’s no great masquerade or anything. It’s just that most people’s lives don’t matter - they’re background characters, really. They don’t contribute to the Legend, so they’re not included in it, it’s as simple as that. Unless you include them of course, and then they become linked to your Legend, but the plucky human sidekick rarely survives to the end of the story.<br /><br />Anyways, I digress. Finish your pint, and let’s go to a little warehouse I’ve heard about. You ever punched a Fire Giant? Cause if we’re lucky you might get to tonight. Enjoy your time as a Demigod, and try not to cause too much devastation! It’s a lot of paperwork.'"
-        },
-        "powers": {
-          "general": "General magic",
-          "enlightened": "Enlightened magic"
-        },
-        "search": {
-          "title": "Search"
+        "status": {
+          "title": "Association bylaws"
         }
       }
     }
+  },
+  "wiki": {
+    "main": "Wiki",
+    "menus": {
+      "home": "Home",
+      "random": "Random Pages",
+      "timelines": "Timelines",
+      "gameplay": "Gameplay",
+      "rules": "Rules",
+      "abilities": "Legendary Abilities",
+      "pantheons": "Pantheons",
+      "aesir": "Aesir - Norse",
+      "amatsukami": "Amatsukami - Japanese",
+      "ayllus": "Ayllus - Incan",
+      "bureaucracy": "Celestial Bureaucracy - Chinese",
+      "deva": "Deva - Hindu",
+      "kasunel": "K'Asunel - Mayan",
+      "neter": "Neter - Egyptian",
+      "rangi": "Nga Tama a Rangi - Maori",
+      "orisha": "Orisha - African",
+      "teotl": "Teotl - Aztec",
+      "theoi": "Theoi - Greek",
+      "tuatha": "Tuatha Dé Danann - Celtic",
+      "titans": "Titanrealms",
+      "aether": "Aether - Light",
+      "amaunet": "Amaunet - Sky",
+      "kosmos": "Kosmos - Order",
+      "muspelheim": "Muspelheim - Fire",
+      "nyx": "Nyx - Night",
+      "oceanus": "Oceanus - Water",
+      "patala": "Patala - Depths",
+      "sheol": "Sheol - Death",
+      "terra": "Terra - Earth",
+      "otherworlds": "Otherworlds",
+      "mythborns": "Mythborn Races",
+      "blackForest": "Black Forest",
+      "fairie": "Fairie",
+      "jadeSea": "Jade Sea",
+      "shambhala": "Shambhala",
+      "utopia": "Utopia",
+      "eldorado": "El Dorado",
+      "societies": "Secret Societies",
+      "illuminati": "Illuminati",
+      "cabale": "The Cabal",
+      "merlinCircle": "Circle of Merlin",
+      "jadeFist": "Ordre of the Jade Fist",
+      "playslist": "Playlist",
+      "explorer": "Explorer"
+    },
+    "contents": {
+      "timelines": {
+        "title": "Timelines",
+        "explore": "Explore"
+      },
+      "home": {
+        "header": "Welcome to the Wyrdwalkers Codex",
+        "text": "'Alright kid, grab a pint of Guinness - it’s imported, not the stale piss they make here - and let me tell you about this business of ours. The business of Legend. Our parents are up there, somewhere. Who’s your Divine Parent again? Mine’s the mighty Dagda, if it wasn’t already obvious from my devastating smile. Anyways, they’re up there, and they’re relying on us to get this World in order. It’s a real mess down here, if you hadn’t noticed.  <br /> <br />Your main job is going to be what we like to call ‘Pest Control’. See, when Titans manage to sneak their spawn down here, they usually stay quiet and slowly gather cultists and power. They gnaw at the fabric of reality until something BIG comes through. When that happens, people die. Ever heard of the Black Plague? Yeah. So we take care of the pest before that happens. This city is a real hotbed for that kind of shit. Sometimes it’s a Vampire or a Lich, but it’s usually going to be some idiot kid with a pirated copy of '<i>Necromancy for Dummies</i>' who summons a poltergeist and gets his brain scooped empty like a tub of ice cream at a fat kid’s birthday party. <br /><br /> There’s not many of us so you’ll probably have to work with the local population. Hopefully you can get the info and help you need from the usual witch convents and technodruid punks, but sometimes you need some extra oomph. That’s when the Secret Societies come in. They’re on no one’s side but their own, but they have information and resources. And they need us, because we got raw power that they don’t - we’re part God for dad’s sake! Just be wary of the Illuminati, they always find a way to make sure you pay more than you expected.<br /><br />If you start walking around this world you’re bound to run into some Mythborns. Elves, werewolves, dragons, fey - I even met a were-kangaroo once! Bouncy bugger, but a great poker player. Though I’m pretty sure he was hiding extra aces in that pouch of his...Anyways, they’re like people - some are nice some not so much - but they generally have power and a trick up their sleeve. Stay friendly with them if you can - rumours move fast in their world.<br /> <br /> But your greatest resource is always going to be your fellow Godborns. There’s not many of us, and life expectancy has never been great, so we gotta stick together. We’re bright shooting stars, and we try to write our names in the sky while we can. We all seek the same prize: Apotheosis, when a Godborn reaches full Godhood. Immortality, baby! I’m pretty sure if I make it, I’ll become God of Honor. Or Rugby. I’m not sure yet, still got a ways to go. <br /> <br />Pardon? ‘Why do people not notice there are Dragons and Demigods walking amongst them’? Oh it’s pretty simple. There’s no great masquerade or anything. It’s just that most people’s lives don’t matter - they’re background characters, really. They don’t contribute to the Legend, so they’re not included in it, it’s as simple as that. Unless you include them of course, and then they become linked to your Legend, but the plucky human sidekick rarely survives to the end of the story.<br /><br />Anyways, I digress. Finish your pint, and let’s go to a little warehouse I’ve heard about. You ever punched a Fire Giant? Cause if we’re lucky you might get to tonight. Enjoy your time as a Demigod, and try not to cause too much devastation! It’s a lot of paperwork.'",
+        "action": "Discover Wyrdwalkers"
+      },
+      "powers": {
+        "general": "General magic",
+        "enlightened": "Enlightened magic",
+        "effects": "Effects examples",
+        "stunts": "Stunts examples",
+        "level1": "Level 1 :",
+        "level2": "Level 2 :"
+      },
+      "search": {
+        "title": "Search",
+        "go": "Go",
+        "noData": "No wiki page contains ",
+        "loading": "Loading..."
+      },
+      "lore": {
+        "general": "General",
+        "myth": "Myth",
+        "noAuthor": "Unknown author",
+        "loading": "Loading..."
+      }
+    }
   }
+}

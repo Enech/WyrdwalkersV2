@@ -1,7 +1,7 @@
 <template>
   <div class="pa-3">
     <v-card class="pa-3" id="app-content-custom">
-      <v-card-title class="headline">Domaines de magie généraux</v-card-title>
+      <v-card-title class="headline">{{$t("wiki.contents.powers.general")}}</v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,index) in generals" :key="index">
@@ -10,19 +10,19 @@
             <div v-html="item.description"></div>
             <v-divider class="mt-3 mb-3"></v-divider>
             <template v-if="item.specs.length == 1">
-              Exemples d'effets
+              {{$t("wiki.contents.powers.effects")}}
               <ul class="drop-list">
                 <li>{{item.specs[0].Effect1}}</li>
                 <li>{{item.specs[0].Effect2}}</li>
               </ul>
-              <v-divider class="mt-3 mb-3"></v-divider>Exemples de prouesses
+              <v-divider class="mt-3 mb-3"></v-divider>{{$t("wiki.contents.powers.stunts")}}
               <ul class="drop-list">
                 <li>
-                  <u>Niveau 1:</u>&nbsp;
+                  <u>{{$t("wiki.contents.powers.level1")}}</u>&nbsp;
                   <span v-html="FormatStunt(item.specs[0].Stunt1)"></span>
                 </li>
                 <li>
-                  <u>Niveau 2:</u>&nbsp;
+                  <u>{{$t("wiki.contents.powers.level2")}}</u>&nbsp;
                   <span v-html="FormatStunt(item.specs[0].Stunt2)"></span>
                 </li>
               </ul>
@@ -32,19 +32,19 @@
                 <v-expansion-panel-header expand-icon="mdi-menu-down">{{spec.Specialty}}</v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <div v-html="spec.SpecDescription"></div>
-                  <v-divider class="mt-3 mb-3"></v-divider>Exemples d'effets
+                  <v-divider class="mt-3 mb-3"></v-divider>{{$t("wiki.contents.powers.effects")}}
                   <ul class="drop-list">
                     <li>{{spec.Effect1}}</li>
                     <li>{{spec.Effect2}}</li>
                   </ul>
-                  <v-divider class="mt-3 mb-3"></v-divider>Exemples de prouesses
+                  <v-divider class="mt-3 mb-3"></v-divider>{{$t("wiki.contents.powers.stunts")}}
                   <ul class="drop-list">
                     <li>
-                      <u>Niveau 1:</u>&nbsp;
+                      <u>{{$t("wiki.contents.powers.level1")}}</u>&nbsp;
                       <span v-html="FormatStunt(spec.Stunt1)"></span>
                     </li>
                     <li>
-                      <u>Niveau 2:</u>&nbsp;
+                      <u>{{$t("wiki.contents.powers.level2")}}</u>&nbsp;
                       <span v-html="FormatStunt(spec.Stunt2)"></span>
                     </li>
                   </ul>
@@ -56,7 +56,7 @@
       </v-expansion-panels>
     </v-card>
     <v-card class="mt-3 pa-3">
-      <v-card-title class="headline">Domaines de magie éveillés</v-card-title>
+      <v-card-title class="headline">{{$t("wiki.contents.powers.enlightened")}}</v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-expansion-panels accordion>
         <v-expansion-panel v-for="(item,index) in enlights" :key="index">
@@ -65,19 +65,19 @@
             {{item.description}}
             <v-divider></v-divider>
             <template v-if="item.specs.length == 1">
-              Exemples d'effets
+              {{$t("wiki.contents.powers.effects")}}
               <ul class="drop-list">
                 <li>{{item.specs[0].Effect1}}</li>
                 <li>{{item.specs[0].Effect2}}</li>
               </ul>
-              <v-divider></v-divider>Exemples de prouesses
+              <v-divider></v-divider>{{$t("wiki.contents.powers.stunts")}}
               <ul class="drop-list">
                 <li>
-                  <u>Niveau 1:</u>&nbsp;
+                  <u>{{$t("wiki.contents.powers.level1")}}</u>&nbsp;
                   <span v-html="FormatStunt(item.specs[0].Stunt1)"></span>
                 </li>
                 <li>
-                  <u>Niveau 2:</u>&nbsp;
+                  <u>{{$t("wiki.contents.powers.level2")}}</u>&nbsp;
                   <span v-html="FormatStunt(item.specs[0].Stunt2)"></span>
                 </li>
               </ul>

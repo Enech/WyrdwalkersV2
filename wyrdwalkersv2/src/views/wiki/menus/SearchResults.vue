@@ -2,7 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3" id="app-content-custom">
       <v-card-title class="headline">
-        <v-icon left>search</v-icon>Recherche
+        <v-icon left>search</v-icon>{{$t("wiki.contents.search.title")}}
       </v-card-title>
       <v-card-subtitle>{{searchQuery}}</v-card-subtitle>
       <v-divider class="mb-3"></v-divider>
@@ -37,19 +37,19 @@
                 color="red darken-4"
                 :href="`/wiki/lore/${page.title.titleVF}`"
                 target="_blank"
-              >Voir</v-btn>
+              >{{$t("wiki.contents.search.go")}}</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
       <v-alert prominent border="left" type="error" outlined v-if="searchResults.length == 0 && !loading">
-        Aucune page du wiki ne contient
+        {{$t("wiki.contents.search.noData")}}
         <i>{{searchQuery}}</i>
       </v-alert>
       <v-dialog v-model="loading" hide-overlay persistent width="300">
         <v-card color="primary" dark>
           <v-card-text>
-            Chargement...
+            {{$t("wiki.contents.search.noData")}}
             <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
           </v-card-text>
         </v-card>
