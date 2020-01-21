@@ -1,7 +1,7 @@
 <template>
   <div class="pa-3" id="app-content-custom">
     <v-card>
-      <v-card-title>Historique des évènements JDR</v-card-title>
+      <v-card-title>{{$t("home.contents.rpgHistory.title")}}</v-card-title>
       <v-tabs grow>
         <v-tab v-for="(timeline,index) in timelines" :key="index">{{timeline.name}}</v-tab>
         <v-tab-item v-for="(timeline,index) in timelines" :key="index">
@@ -10,9 +10,9 @@
               v-if="event.timeline == timeline.name"
               @click.stop="selectedEvent = event; showDialog = true;"
             >
-              <v-card-title class="font-weight-light">{{event.nameVF}}</v-card-title>
+              <v-card-title class="font-weight-light">{{$i18n.locale == 'fr' ? event.nameVF : event.nameVO}}</v-card-title>
               <v-card-text>
-                <div class="subtitle-1">{{event.captionVF}}</div>
+                <div class="subtitle-1">{{$i18n.locale == 'fr' ? event.captionVF : event.captionVO}}</div>
                 <div class="deep-orange--text text--darken-4">{{fullTextYear(event.year)}}</div>
               </v-card-text>
             </v-card>
@@ -23,7 +23,7 @@
     <v-dialog fullscreen v-model="showDialog">
       <v-card>
         <v-toolbar dark color="black">
-          <v-toolbar-title>{{selectedEvent.nameVF}}</v-toolbar-title>
+          <v-toolbar-title>{{$i18n.locale == 'fr' ? selectedEvent.nameVF : selectedEvent.nameVO}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon dark @click="showDialog = false">
@@ -34,7 +34,7 @@
         <v-card-text class="mt-3">
           <v-row>
             <v-col cols="12" md="9">
-              <div v-html="selectedEvent.descriptionVF"></div>
+              <div v-html="$i18n.locale == 'fr' ? selectedEvent.descriptionVF : selectedEvent.descriptionVO"></div>
             </v-col>
             <v-col cols="12" md="3">
               <v-img :src="selectedEvent.picture" eager></v-img>
@@ -44,7 +44,7 @@
                 </v-list-item-icon>
                 <v-list-item-content>
                   <span v-if="selectedEvent.pictureAuthor != ''">{{selectedEvent.pictureAuthor}}</span>
-                  <span v-else>Auteur inconnu</span>
+                  <span v-else>{{$t("home.contents.rpgHistory.noAuthor")}}</span>
                 </v-list-item-content>
               </v-list-item>
               <div v-if="selectedEvent.music != ''">

@@ -6,7 +6,10 @@
     "register": {
       "valid": "Votre compte est désormais activé. Connectez-vous en revenant sur le site en suivant <a href='/home'>ce lien</a>",
       "invalid": "L'activation de votre compte n'a pas pu se faire suite à un problème technique. Veuillez contacter un administrateur pour activer votre compte manuellement",
-      "loading": "Activation de votre compte..."
+      "loading": "Activation de votre compte...",
+      "characters": "Personnages",
+      "npc": "PNJ",
+      "campaigns": "Campagnes"
     }
   },
   "home": {
@@ -46,7 +49,8 @@
       "contact": {
         "title": "Nous contacter",
         "facebook": "Sur notre page Facebook",
-        "email": "A l'adresse",
+        "emailTitle": "Par email",
+        "emailContent": "A l'adresse",
         "mail": "Par courrier (ou pigeon voyageur)",
         "mailAddress": "Chez Thomas Gely<br />3 rue de la Villette<br />69003 Lyon"
       },

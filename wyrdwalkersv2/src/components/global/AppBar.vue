@@ -4,7 +4,7 @@
       <v-toolbar-items>
         <v-btn small text :to="{name:'home'}">
           <v-icon small :left="enableLeft">home</v-icon>
-          <span class="hidden-xs-only">Accueil</span>
+          <span class="hidden-xs-only">{{$t("home.main")}}</span>
         </v-btn>
         <v-btn small text :to="{name:'playerArea'}" v-if="currentUser._id != '' && false">
           <v-icon small :left="enableLeft">games</v-icon>
@@ -16,7 +16,7 @@
         </v-btn>
         <v-btn small text :to="{name:'wiki'}">
           <v-icon small :left="enableLeft">menu_book</v-icon>
-          <span class="hidden-xs-only">Wiki</span>
+          <span class="hidden-xs-only">{{$t("wiki.main")}}</span>
         </v-btn>
         <v-btn small text :to="{name:'philo'}" v-if="false">
           &Phi;
@@ -31,20 +31,7 @@
         <v-app-bar-nav-icon @click.stop="contextDrawer = !contextDrawer"></v-app-bar-nav-icon>
         <v-spacer></v-spacer>
         <wyrd-search />
-        <v-menu v-if="false">
-          <template v-slot:activator="{ on }">
-            <v-btn small text v-on="on">
-              <v-img src="@/assets/fr.png"></v-img>
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item v-for="(langItem, index) in langItems" :key="index">
-              <v-list-item-content>
-                <v-list-item-title v-html="langItem.title"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <wyrd-lang />
         <v-btn small text @click.stop="personalDrawer = true" v-if="currentUser._id != ''">
           <v-icon>folder</v-icon>
         </v-btn>
@@ -65,19 +52,19 @@
         <v-tabs-slider></v-tabs-slider>
         <v-tab href="#tab0">
           <v-badge>
-            <template v-slot:badge>{{currentUser.characters.length}}</template>Personnages
+            <template v-slot:badge>{{currentUser.characters.length}}</template>{{$t("general.characters")}}
           </v-badge>
         </v-tab>
         <v-tab href="#tab1">
           <v-badge>
-            <template v-slot:badge>{{currentUser.looseNPC.length}}</template>PNJ
+            <template v-slot:badge>{{currentUser.looseNPC.length}}</template>{{$t("general.npc")}}
           </v-badge>
         </v-tab>
         <v-tab href="#tab2">
           <v-badge>
             <template
               v-slot:badge
-            >{{currentUser.playerCampaigns.length + currentUser.masterCampaigns.length}}</template>Campagnes
+            >{{currentUser.playerCampaigns.length + currentUser.masterCampaigns.length}}</template>{{$t("general.campaigns")}}
           </v-badge>
         </v-tab>
         <v-tab-item value="tab0">
@@ -99,11 +86,13 @@ import Vue from "vue";
 import store from "../../store";
 import vuetify from "../../plugins/vuetify";
 import SearchBarVue from "./SearchBar.vue";
+import LocaleChanger from "./language.vue";
 
 export default Vue.extend({
   name: "AppBar",
   components: {
-    "wyrd-search": SearchBarVue
+    "wyrd-search": SearchBarVue,
+    "wyrd-lang": LocaleChanger
   },
   computed: {
     storePersonalTabIndex: {

@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="pa-3">
     <v-card class="pa-3">
-      <v-card-title>Nous contacter</v-card-title>
+      <v-card-title>{{$t("home.contents.contact.title")}}</v-card-title>
       <v-divider></v-divider>
       <v-card-text>
         <v-row dense>
@@ -13,22 +13,18 @@
               href="https://www.facebook.com/wyrdwalkers"
               target="_blank"
               color="blue darken-3"
-            >Sur notre page facebook</v-btn>
+            >{{$t("home.contents.contact.facebook")}}</v-btn>
             <v-divider class="my-3"></v-divider>
-            <div class="title font-weight-light">Par email</div>
+            <div class="title font-weight-light">{{$t("home.contents.contact.emailTitle")}}</div>
             <div class="subtitle-1">
-              A l'adresse
+              {{$t("home.contents.contact.emailTitle")}}
               <a
                 href="mailto:mastersoffate@wyrdwalkers.com"
               >mastersoffate@wyrdwalkers.com</a>
             </div>
             <v-divider class="my-3"></v-divider>
-            <div class="title font-weight-light">Par courrier (ou pigeon voyageur)</div>
-            <div class="subtitle-1">
-              Chez Thomas Gely
-              <br />3 rue de la Villette
-              <br />69003 Lyon
-            </div>
+            <div class="title font-weight-light">{{$t("home.contents.contact.mail")}}</div>
+            <div class="subtitle-1">{{$t("home.contents.contact.mailAddress")}}</div>
           </v-col>
         </v-row>
       </v-card-text>

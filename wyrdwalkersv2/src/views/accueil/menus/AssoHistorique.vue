@@ -1,7 +1,7 @@
 <template>
   <div class="pa-3" id="app-content-custom">
     <v-card max-width="1000" class="mx-auto" v-if="assoHistory.length > 0">
-      <v-card-title class="title">Historique de l'association</v-card-title>
+      <v-card-title class="title">{{$t("home.contents.history.title")}}</v-card-title>
       <v-divider></v-divider>
       <v-card-text>
         <article class="mb-10" v-for="(history,index) in assoHistory" :key="index">
@@ -18,7 +18,7 @@
         type="info"
         elevation="2"
         width="100%"
-      >Wyrdwalkers n'a pas d'historique pour le moment</v-alert>
+      >{{$t("home.contents.history.noData")}}</v-alert>
     </div>
   </div>
 </template>
