@@ -30,7 +30,7 @@
         "title": "Où nous trouver",
         "subtitle": "Les endroits où vous pourrez trouver Wyrdwalkers",
         "more": "En savoir plus",
-        "noData": "Wyrdwalkers ,'a pas d'animations prévues pour le moment",
+        "noData": "Wyrdwalkers n'a pas d'animations prévues pour le moment",
         "loading": "Chargement"
       },
       "history": {
@@ -52,11 +52,11 @@
       },
       "gn": {
         "title": "Le Grandeur Nature",
-        "subtitle": "Inscrivez-vous dans la légende",
+        "subtitle": "Inscrivez-vous dans la Légende",
         "more": "PLUS"
       },
       "rpgHistory": {
-        "title": "historique des évènements JDR",
+        "title": "Historique des évènements JDR",
         "noAuthor": "Auteur inconnu"
       },
       "join": {
@@ -112,7 +112,7 @@
             "title": "Une analyse humaine",
             "text": "Pour écrire l'univers de Wyrdwalkers et le rendre cohérent, ses créateurs ont étudié plus d'une dizaine de mythologies. De cette étude est née un modèle d'analyse de la condition humaine, directement inspirée des cultures et civilisations qui nous ont précédé. Ce modèle, décrivant les trois grands paradoxes auxquels tout humain fait face, nous permet de comprendre les 'fictions utiles' qui nous entourent pour mieux les maitriser et en inventer de nouvelles."
           },
-          "message": ">Wyrdwalkers est une association loi 1901 visant à promouvoir la découverte de la mythologie par l'intermédiaire d'activités axées sur l'imaginaire, le ludique et la pédagogie"
+          "message": "Wyrdwalkers est une association loi 1901 visant à promouvoir la découverte de la mythologie par l'intermédiaire d'activités axées sur l'imaginaire, le ludique et la pédagogie"
         },
         "status": {
           "title": "Statuts de l'association"
