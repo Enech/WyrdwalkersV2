@@ -16,17 +16,17 @@
               <div v-if="currentUser._id == ''">
                 <v-btn small text @click.stop="triggerSignup()">
                   <v-icon small left>fa-user-plus</v-icon>
-                  <span class="hidden-xs-only">S'enregistrer</span>
+                  <span class="hidden-xs-only">{{$t("general.signup")}}</span>
                 </v-btn>
                 <v-btn small text @click.stop="triggerLogin()">
                   <v-icon left small>fa-sign-in-alt</v-icon>
-                  <span class="hidden-xs-only">Connexion</span>
+                  <span class="hidden-xs-only">{{$t("general.login")}}</span>
                 </v-btn>
               </div>
               <div v-else>
                 <v-btn small text @click.stop="triggerSignout()">
                   <v-icon left small>fa-sign-out-alt</v-icon>
-                  <span class="hidden-xs-only">Déconnexion</span>
+                  <span class="hidden-xs-only">{{$t("general.logout")}}</span>
                 </v-btn>
               </div>
             </v-list-item-subtitle>
@@ -36,35 +36,35 @@
       <v-divider color="white"></v-divider>
       <v-list>
         <v-list-item :to="{name:'wikiHome'}">
-          <v-list-item-title>Accueil</v-list-item-title>
+          <v-list-item-title>{{$t("wiki.menus.home")}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-book-reader</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-item :to="{name:'randomPages'}">
-          <v-list-item-title>Pages aléatoires</v-list-item-title>
+          <v-list-item-title>{{$t("wiki.menus.random")}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-random</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-item :to="{name:'timelines'}">
-          <v-list-item-title>Chronologies</v-list-item-title>
+          <v-list-item-title>{{$t("wiki.menus.timelines")}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-bezier-curve</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-group>
           <template v-slot:activator>
-            <v-list-item-title>Système de jeu</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.gameplay")}}</v-list-item-title>
           </template>
           <v-list-item :to="{name:'rules'}">
-            <v-list-item-title>Lignes directrices</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.rules")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-book</v-icon>
             </v-list-item-action>
           </v-list-item>
           <v-list-item :to="{name:'abilities'}">
-            <v-list-item-title>Capacités légendaires</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.abilities")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-bolt</v-icon>
             </v-list-item-action>
@@ -72,122 +72,122 @@
         </v-list-group>
         <v-list-group>
           <template v-slot:activator>
-            <v-list-item-title>Panthéons</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.pantheons")}}</v-list-item-title>
           </template>
           <v-list-item :to="{path:'/wiki/lore/aesir'}" target="_blank">
-            <v-list-item-title>Aesir - Scandinave</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.aesir")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/amatsukami'}" target="_blank">
-            <v-list-item-title>Amatsukami - Japonais</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.amatsukami")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/ayllus'}" target="_blank">
-            <v-list-item-title>Ayllus - Inca</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.ayllus")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/celestial-bureaucracy'}" target="_blank">
-            <v-list-item-title>Bureaucratie Céleste - Chinois</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.bureaucracy")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/deva'}" target="_blank">
-            <v-list-item-title>Deva - Hindou</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.deva")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/k\'asunel'}" target="_blank">
-            <v-list-item-title>K'Asunel - Maya</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.kasunel")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/neter'}" target="_blank">
-            <v-list-item-title>Neter - Egyptien</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.neter")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/nga-tama-a-rangi'}" target="_blank">
-            <v-list-item-title>Nga Tama a Rangi - Maori</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.rangi")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/orisha'}" target="_blank">
-            <v-list-item-title>Orisha - Africain</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.orisha")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/teotl'}" target="_blank">
-            <v-list-item-title>Teotl - Aztèque</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.teotl")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/theoi'}" target="_blank">
-            <v-list-item-title>Théoï - Grec</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.theoi")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/tuatha-dé-danann'}" target="_blank">
-            <v-list-item-title>Tuatha Dé Danann - Celte</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.tuatha")}}</v-list-item-title>
           </v-list-item>
         </v-list-group>
         <v-list-group>
           <template v-slot:activator>
-            <v-list-item-title>Royaumes Titaniques</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.titans")}}</v-list-item-title>
           </template>
           <v-list-item :to="{path:'/wiki/lore/aether'}" target="_blank">
-            <v-list-item-title>Aether - Lumière</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.aether")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/amaunet'}" target="_blank">
-            <v-list-item-title>Amaunet - Ciel</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.amaunet")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/kosmos'}" target="_blank">
-            <v-list-item-title>Kosmos - Ordre</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.kosmos")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/muspelheim'}" target="_blank">
-            <v-list-item-title>Muspelheim - Feu</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.muspelheim")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/nyx'}" target="_blank">
-            <v-list-item-title>Nyx - Nuit</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.nyx")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/océanus'}" target="_blank">
-            <v-list-item-title>Océanus - Eau</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.oceanus")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/patala'}" target="_blank">
-            <v-list-item-title>Patala - Profondeurs</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.patala")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/sheol'}" target="_blank">
-            <v-list-item-title>Sheol - Mort</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.sheol")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/terra'}" target="_blank">
-            <v-list-item-title>Terra - Terre</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.terra")}}</v-list-item-title>
           </v-list-item>
         </v-list-group>
         <v-list-group>
           <template v-slot:activator>
-            <v-list-item-title>Outres-Mondes</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.otherworlds")}}</v-list-item-title>
           </template>
           <v-list-item :to="{path:'/wiki/lore/mythborn'}" target="_blank">
-            <v-list-item-title>Races Mythborn</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.mythborns")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/forêt-noire'}" target="_blank">
-            <v-list-item-title>Forêt Noire</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.blackForest")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/fairie'}" target="_blank">
-            <v-list-item-title>Fairie</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.fairie")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/mer-de-jade'}" target="_blank">
-            <v-list-item-title>Mer de Jade</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.jadeSea")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/shambhala'}" target="_blank">
-            <v-list-item-title>Shambhala</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.shambhala")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/utopia'}" target="_blank">
-            <v-list-item-title>Utopia</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.utopia")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/el-dorado'}" target="_blank">
-            <v-list-item-title>El Dorado</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.eldorado")}}</v-list-item-title>
           </v-list-item>
         </v-list-group>
         <v-list-group>
           <template v-slot:activator>
-            <v-list-item-title>Sociétés Secrètes</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.societies")}}</v-list-item-title>
           </template>
           <v-list-item :to="{path:'/wiki/lore/illuminati'}" target="_blank">
-            <v-list-item-title>Les Illuminati</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.illuminati")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/cabale'}" target="_blank">
-            <v-list-item-title>La Cabale</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.cabale")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/cercle-de-merlin'}" target="_blank">
-            <v-list-item-title>Le Cercle de Merlin</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.merlinCircle")}}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{path:'/wiki/lore/ordre-du-poing-de-jade'}" target="_blank">
-            <v-list-item-title>L'Ordre du Poing de Jade</v-list-item-title>
+            <v-list-item-title>{{$t("wiki.menus.jadeFist")}}</v-list-item-title>
           </v-list-item>
         </v-list-group>
         <v-list-item :to="{path:'/wiki/music-library'}" target="_blank">
-          <v-list-item-title>Playlist</v-list-item-title>
+          <v-list-item-title>{{$t("wiki.menus.playlist")}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-music</v-icon>
           </v-list-item-action>
