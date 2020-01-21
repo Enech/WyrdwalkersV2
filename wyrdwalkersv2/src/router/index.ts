@@ -162,49 +162,54 @@ const routes = [
     },
     children: [
       {
-        path: '/backoffice/home',
+        path: 'home',
         name: 'backOfficeHome',
         component: () => import('../views/administration/menus/Home.vue')
       },
       {
-        path: '/backoffice/wiki-redirections',
+        path: 'wiki-redirections',
         name: 'wikiRedirections',
         component: () => import('../views/administration/menus/wiki/Redirections.vue')
       },
       {
-        path: '/backoffice/wiki-pages',
+        path: 'wiki-pages',
         name: 'wikiPages',
         component: () => import('../views/administration/menus/wiki/ContenuWiki.vue')
       },
       {
-        path: '/backoffice/wiki-timelines',
+        path: 'wiki-timelines',
         name: 'wikiTimelines',
         component: () => import('../views/administration/menus/Timelines.vue')
       },
       {
-        path: '/backoffice/animations',
+        path: 'animations',
         name: 'backofficeAnimations',
         component: () => import('../views/administration/menus/AnimationsBO.vue')
       },
       {
-        path: '/backoffice/ateliers',
+        path: 'ateliers',
         name: 'backofficeAteliers',
         component: () => import('../views/administration/menus/AteliersBO.vue')
       },
       {
-        path: '/backoffice/historique-association',
+        path: 'historique-association',
         name: 'backofficeHistoriqueAsso',
         component: () => import('../views/administration/menus/HistoriqueAssoBO.vue')
       },
       {
-        path: '/backoffice/rpg-history',
+        path: 'rpg-history',
         name: 'backofficeHistoriqueJDR',
         component: () => import('../views/administration/menus/EventsJdrBO.vue')
       },
       {
-        path: '/backoffice/users',
+        path: 'users',
         name: 'backofficeUsers',
         component: () => import('../views/administration/menus/UsersBO.vue')
+      },
+      {
+        path: 'explorer',
+        name: 'backofficeExplorer',
+        component: () => import('../views/administration/menus/ExplorateurBO.vue')
       }
     ]
   }
