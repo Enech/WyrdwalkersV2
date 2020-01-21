@@ -123,6 +123,11 @@ const routes = [
         path: 'search/:searchquery',
         name: 'search',
         component: () => import('../views/wiki/menus/SearchResults.vue')
+      },
+      {
+        path: 'explorer',
+        name: 'explorer',
+        component: () => import('../views/wiki/menus/Explorateur.vue')
       }
     ]
   },
