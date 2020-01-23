@@ -202,6 +202,11 @@ const routes = [
         component: () => import('../views/administration/menus/UsersBO.vue')
       }
     ]
+  },
+  { 
+    path: '*',
+    name: "notFound",
+    component: () => import('../views/NotFound.vue')
   }
 ];
 
