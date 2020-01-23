@@ -1,7 +1,7 @@
 ﻿{
   "general": {
     "login": "Sign in",
-    "signup": "Sign up",
+    "signup": "Register",
     "logout": "Log out",
     "register": {
       "valid": "Your account is now activated. Come back on the website by following <a href='/home'>this link</a> in order to log in",
@@ -10,7 +10,38 @@
     },
     "characters": "Characters",
     "npc": "NPC",
-    "campaigns": "Campaigns"
+    "campaigns": "Campaigns",
+    "dialogs":{
+      "common":{
+        "cancel": "Cancel",
+        "edit": "Save",
+        "save": "Send"
+      },
+      "user": {
+        "login": "Login",
+        "email": "E-mail",
+        "name": "Your actual name",
+        "city": "City",
+        "title": "Your information"
+      },
+      "register": {
+        "title": "Register",
+        "login": "Login",
+        "email": "E-mail",
+        "name": "Your actual name",
+        "password": "Password"
+      },
+      "signin": {
+        "title": "Signing in",
+        "login": "Login / E-mail",
+        "password": "Password"
+      }
+    },
+    "activation": {
+      "success": "Your account is now activated. Follow <a href='/home'>this link</a> in order to sign in.",
+      "failure": "Your account could not be activated due to a technical issue. Please contact an administrator to activate your account manually.",
+      "loading": "Activating your account..."
+    }
   },
   "home": {
     "main": "Association",
@@ -125,7 +156,7 @@
     }
   },
   "wiki": {
-    "main": "Wiki",
+    "main": "Codex",
     "menus": {
       "home": "Home",
       "random": "Random Pages",
@@ -194,7 +225,12 @@
         "title": "Search",
         "go": "Go",
         "noData": "No wiki page contains ",
-        "loading": "Loading..."
+        "loading": "Loading...",
+        "bar": {
+          "title": "Search on codex",
+          "dialog": "Codex - Search",
+          "button": "Search"
+        }
       },
       "lore": {
         "general": "General",

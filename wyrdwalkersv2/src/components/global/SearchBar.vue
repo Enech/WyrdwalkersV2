@@ -3,7 +3,7 @@
     <v-text-field
       v-if="!mobileDevice"
       hide-details
-      label="Chercher sur le wiki"
+      :label="$t('wiki.contents.search.bar.title')"
       v-model="search"
       clearable
       prepend-icon="search"
@@ -14,13 +14,13 @@
     </v-btn>
     <v-dialog v-model="openDialog" max-width="250px">
       <v-card class="pa-3" id="app-content-custom">
-        <v-card-title>Wiki - Recherche</v-card-title>
+        <v-card-title>{{$t('wiki.contents.search.bar.dialog')}}</v-card-title>
         <v-card-text>
           <v-text-field v-model="search" clearable @keyup.enter="goToResultPage();"></v-text-field>
         </v-card-text>
         <v-card-actions>
-            <v-btn text color="black" @click="openDialog = false">Annuler</v-btn>
-            <v-btn text color="blue" :disabled="search.length == 0" :href="`/wiki/search/${search}`">Chercher</v-btn>
+            <v-btn text color="black" @click="openDialog = false">{{$t('general.dialogs.common.cancel')}}</v-btn>
+            <v-btn text color="blue" :disabled="search.length == 0" :href="`/wiki/search/${search}`">{{$t('wiki.contents.search.bar.button')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

@@ -1,23 +1,18 @@
 <template>
   <div class="pa-3">
     <div v-if="!loading">
-      <v-alert type="success" outlined v-if="activationSuccessful">
-        Votre compte est désormais activé. Connectez-vous en revenant sur le site en suivant
-        <a
-          href="/home"
-        >ce lien</a>
-      </v-alert>
+      <v-alert type="success" outlined v-if="activationSuccessful" v-html="$t('general.activation.success')"></v-alert>
       <v-alert
         type="error"
         outlined
         v-else
-      >L'activation de votre compte n'a pas pu se faire suite à un problème technique. Veuillez contacter un administrateur pour activer votre compte manuellement</v-alert>
+      >{{$t('general.activation.failure')}}</v-alert>
     </div>
     <div v-else>
       <v-dialog v-model="loading" hide-overlay persistent width="300">
         <v-card color="primary" dark>
           <v-card-text>
-            Activation de votre compte...
+            {{$t('general.activation.loading')}}
             <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
           </v-card-text>
         </v-card>

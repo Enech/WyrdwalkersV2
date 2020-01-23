@@ -10,7 +10,38 @@
     },
     "characters": "Personnages",
     "npc": "PNJ",
-    "campaigns": "Campagnes"
+    "campaigns": "Campagnes",
+    "dialogs":{
+      "common":{
+        "cancel": "Annuler",
+        "edit": "Modifier",
+        "save": "Valider"
+      },
+      "user": {
+        "login": "Pseudo",
+        "email": "Email",
+        "name": "Votre nom",
+        "city": "Ville",
+        "title": "Vos informations"
+      },
+      "register": {
+        "title": "S'enregistrer",
+        "login": "Pseudo",
+        "email": "Email",
+        "name": "Votre nom",
+        "password": "Mot de passe"
+      },
+      "signin": {
+        "title": "Connexion",
+        "login": "Pseudo / Email",
+        "password": "Mot de passe"
+      }
+    },
+    "activation": {
+      "success": "Votre compte est désormais activé. Connectez-vous en revenant sur le site en suivant <a href='/home'>ce lien</a>",
+      "failure": "L'activation de votre compte n'a pas pu se faire suite à un problème technique. Veuillez contacter un administrateur pour activer votre compte manuellement",
+      "loading": "Activation de votre compte..."
+    }
   },
   "home": {
     "main": "Association",
@@ -194,7 +225,12 @@
         "title": "Recherche",
         "go": "Voir",
         "noData": "Aucune page de wiki ne contient ",
-        "loading": "Chargement..."
+        "loading": "Chargement...",
+        "bar": {
+          "title": "Chercher sur le wiki",
+          "dialog": "Wiki - Rechercher",
+          "button": "Chercher"
+        }
       },
       "lore": {
         "general": "Général",
