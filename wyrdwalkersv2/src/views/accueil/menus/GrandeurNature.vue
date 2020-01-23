@@ -3,8 +3,8 @@
     <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-2 font-weight-thin mb-4">Le Grandeur Nature</h1>
-          <h3 class="headline">Inscrivez-vous dans la Légende</h3>
+          <h1 class="display-2 font-weight-thin mb-4">{{$t("home.contents.gn.title")}}</h1>
+          <h3 class="headline">{{$t("home.contents.gn.subtitle")}}</h3>
         </v-col>
       </v-row>
     </v-parallax>
@@ -17,7 +17,7 @@
           </v-card-title>
           <v-card-text>{{gn.caption.substring(0,150) + '...'}}</v-card-text>
           <v-card-actions>
-            <v-btn text color="red" @click="showDialog = true; selectedGN = gn;" v-if="gn.done">PLUS</v-btn>
+            <v-btn text color="red" @click="showDialog = true; selectedGN = gn;" v-if="gn.done">{{$t("home.contents.gn.more")}}</v-btn>
             <v-spacer></v-spacer>
             <span class="mr-3">
               <v-icon small left>fa-calendar-alt</v-icon>

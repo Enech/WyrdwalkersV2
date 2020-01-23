@@ -3,48 +3,49 @@
     <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-1 font-weight-light mb-4">WYRDWALKERS</h1>
-          <h3 class="headline font-weight-thin">L'association qui mélange mythologie et jeu de rôle</h3>
-          <v-btn color="white" class="mt-3" outlined href="https://discord.gg/tjqrwJ" target="_blank">Rejoignez-nous sur Discord</v-btn>
+          <h1 class="display-1 font-weight-light mb-4">{{$t("home.contents.presentation.title")}}</h1>
+          <h3 class="headline font-weight-thin">{{$t("home.contents.presentation.subtitle")}}</h3>
+          <v-btn color="white" class="mt-3" outlined href="https://discord.gg/tjqrwJ" target="_blank">{{$t("home.contents.presentation.discord")}}</v-btn>
         </v-col>
       </v-row>
     </v-parallax>
     <v-row align="center">
       <v-col cols="12" sm="6" md="3">
         <v-card height="270">
-          <v-card-title class="title justify-center">Ludique</v-card-title>
+          <v-card-title class="title justify-center">{{$t("home.contents.presentation.playful.title")}}</v-card-title>
           <v-divider></v-divider>
           <v-card-text
             class="subtitle text-center"
-          >Dotée d'un univers de Jeu de Rôle complet et open-source regroupant 12 panthéons, plus de 300 divinités et 700 fiches détaillées, Wyrdwalkers vise à faire découvrir la mythologie avant tout par le jeu et l'imaginaire.</v-card-text>
+          >{{$t("home.contents.presentation.playful.text")}}</v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <v-card height="270">
-          <v-card-title class="title justify-center">Pédagogique</v-card-title>
+          <v-card-title class="title justify-center">{{$t("home.contents.presentation.educational.title")}}</v-card-title>
           <v-divider></v-divider>
           <v-card-text class="subtitle text-center">
-            Au travers d'ateliers découverte sur les sujets de la mythologie, du Jeu de Rôle ou du
-            <i>Storytelling</i>, Wyrdwalkers pose des bases permettant à ceux et celles désirant plonger dans les contes éternels que sont les mythes de s'y adonner et d'y trouver leurs propres légendes pour les partager et les faire vivre
+            {{$t("home.contents.presentation.educational.text")}}
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <v-card height="270">
-          <v-card-title class="title justify-center">Pour questionner</v-card-title>
+          <v-card-title class="title justify-center">{{$t("home.contents.presentation.questions.title")}}</v-card-title>
           <v-divider></v-divider>
           <v-card-text
             class="subtitle text-center"
-          >Dotée d'un système d'analyse des philosophies, Wyrdwalkers est un espace de questionnements. La musique est-elle divine ou humaine ? Est-ce naturel de rechercher l'immortalité ? Autant de questions sur lesquelles il est possible de réfléchir en groupes ou bien à travers le Jeu de Rôle</v-card-text>
+          >
+          {{$t("home.contents.presentation.questions.text")}}
+          </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="3">
         <v-card height="270">
-          <v-card-title class="title justify-center">Mythologique</v-card-title>
+          <v-card-title class="title justify-center">{{$t("home.contents.presentation.mythological.title")}}</v-card-title>
           <v-divider></v-divider>
           <v-card-text
             class="subtitle text-center"
-          >Basée sur l'étude de mythologies du monde entier, Wyrdwalkers place les mythes et les légendes au coeur de ses activités.</v-card-text>
+          >{{$t("home.contents.presentation.mythological.text")}}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -52,78 +53,78 @@
       <v-col cols="12">
         <v-card class="pa-3">
           <v-card-title class="title font-weight-light text-justify">
-            Wyrdwalkers s'applique à démontrer l'omniprésence des mythes. Par le jeu de rôle, certes, mais pas que. En vrai, Wyrdwalkers c'est tout ça :
+            {{$t("home.contents.presentation.presentation.header")}}
           </v-card-title>
           <v-row align="center">
             <v-col cols="12" sm="6" md="4">
               <v-card color="grey lighten-3 prez-card">
-                <v-card-title class="justify-center">Afterworks soirées enquêtes</v-card-title>
+                <v-card-title class="justify-center">{{$t("home.contents.presentation.presentation.afterworks.title")}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
-                >Envie de découvrir qui se cache derrière la mort d'Hadès ? Ou encore qui a assassiné le Roi Arthur ? Le tout entre amis, entre collègues ou en famille ? Wyrdwalkers vous propose d'animer pour vous des "soirées" enquêtes (murder parties). Convient aussi bien aux familles en quête de divertissement qu'aux équipes en recherche de détente. Entre 5 et 20 joueurs.</v-card-text>
+                >{{$t("home.contents.presentation.presentation.afterworks.text")}}</v-card-text>
                 <v-card-actions class="justify-center">
-                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'murderParties'}">En savoir plus</v-btn>
+                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'murderParties'}">{{$t("home.contents.presentation.presentation.more")}}</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-card color="grey lighten-3 prez-card">
-                <v-card-title class="justify-center">Murder Parties Grandeur Nature</v-card-title>
+                <v-card-title class="justify-center">{{$t("home.contents.presentation.presentation.gn.title")}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
-                >Du jeu de rôle, mais Grandeur Nature cette fois. Participez à des évènements d'envergure plusieurs fois par an et contribuez à forger le multivers Wyrdwalkers. Que vous participiez à la chute de l'Atlantide, à la mort du Roi Arthur ou à la découverte du Nouveau Monde, vos actions resteront inscrites pour toujours dans la Légende.</v-card-text>
+                >{{$t("home.contents.presentation.presentation.gn.text")}}</v-card-text>
                 <v-card-actions class="justify-center">
-                  <v-btn color="blue-grey" bottom :absolute="!isMobile" dark :to="{name:'grandeurNature'}">En savoir plus</v-btn>
+                  <v-btn color="blue-grey" bottom :absolute="!isMobile" dark :to="{name:'grandeurNature'}">{{$t("home.contents.presentation.presentation.more")}}</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-card color="grey lighten-3 prez-card">
-                <v-card-title class="justify-center">Ateliers de storytelling</v-card-title>
+                <v-card-title class="justify-center">{{$t("home.contents.presentation.presentation.workshops.title")}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
-                >Les mythes sont les histoires pleines de sens qu'une civilisation se raconte. Les ateliers de Storytelling vous permettent d'apprendre à construire une histoire, à bâtir vos propres mythes pour ensuite les partager. Que vous soyiez plutôt roman, pièce de théâtre ou créateur de jeu comme des escape games, vous repartirez clés en main pour exploiter la puissance des mythes.</v-card-text>
+                >{{$t("home.contents.presentation.presentation.workshops.text")}}</v-card-text>
                 <v-card-actions class="justify-center">
-                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'ateliers'}">En savoir plus</v-btn>
+                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'ateliers'}">{{$t("home.contents.presentation.presentation.more")}}</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-card color="grey lighten-3 prez-card">
-                <v-card-title class="justify-center">Campagnes de JDR</v-card-title>
+                <v-card-title class="justify-center">{{$t("home.contents.presentation.presentation.campaigns.title")}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
-                >De purs moments de détente entre amis à taper des Hydres et démanteler des cultes de Titans. Vivez la mythologie comme si vous y étiez, avec son lot de mystères et de légendes.</v-card-text>
+                >{{$t("home.contents.presentation.presentation.campaigns.text")}}</v-card-text>
                 <v-card-actions class="justify-center">
-                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'historiqueJdr'}">En savoir plus</v-btn>
+                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'historiqueJdr'}">{{$t("home.contents.presentation.presentation.more")}}</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-card color="grey lighten-3 prez-card">
-                <v-card-title class="justify-center">Animations (Lyon)</v-card-title>
+                <v-card-title class="justify-center">{{$t("home.contents.presentation.presentation.animations.title")}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
-                >Wyrdwalkers est une association lyonnaise et le jeu de rôle est notre terrain d'expression favori. Vous pourrez nous trouver à des évènements tels que le festival Yggdrasil ou encore Octogônes. Nos MJ se feront un plaisir de vous accueillir à leur table pour vous initier au jeu de rôle et/ou à l'univers Wyrdwalkers.</v-card-text>
+                >{{$t("home.contents.presentation.presentation.animations.text")}}</v-card-text>
                 <v-card-actions class="justify-center">
-                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'animations'}">En savoir plus</v-btn>
+                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile" :to="{name:'animations'}">{{$t("home.contents.presentation.presentation.more")}}</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-card color="grey lighten-3 prez-card">
-                <v-card-title class="justify-center">Une analyse humaine</v-card-title>
+                <v-card-title class="justify-center">{{$t("home.contents.presentation.presentation.triangle.title")}}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
-                >Pour écrire l'univers de Wyrdwalkers et le rendre cohérent, ses créateurs ont étudié plus d'une dizaine de mythologies. De cette étude est née un modèle d'analyse de la condition humaine, directement inspirée des cultures et civilisations qui nous ont précédé. Ce modèle, décrivant les trois grands paradoxes auxquels tout humain fait face, nous permet de comprendre les "fictions utiles" qui nous entourent pour mieux les maitriser et en inventer de nouvelles.</v-card-text>
+                >{{$t("home.contents.presentation.presentation.triangle.text")}}</v-card-text>
                 <v-card-actions class="justify-center">
-                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile">Bientôt...</v-btn>
+                  <v-btn color="blue-grey" dark bottom :absolute="!isMobile">{{$t("home.contents.presentation.presentation.soon")}}</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -138,7 +139,7 @@
         type="info"
         elevation="2"
         width="100%"
-      >Wyrdwalkers est une association loi 1901 visant à promouvoir la découverte de la mythologie par l'intermédiaire d'activités axées sur l'imaginaire, le ludique et la pédagogie</v-alert>
+      >{{$t("home.contents.presentation.presentation.message")}}</v-alert>
     </v-row>
   </div>
 </template>

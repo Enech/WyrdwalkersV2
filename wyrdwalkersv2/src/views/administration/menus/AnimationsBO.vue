@@ -14,8 +14,8 @@
             <v-card-title class="black white--text">
               <span
                 class="headline"
-                v-if="this.editedItem._id != ''"
-              >Animation - {{this.editedItem.nameVF}}</span>
+                v-if="editedItem._id != ''"
+              >Animation - {{editedItem.nameVF}}</span>
               <span class="headline" v-else>Nouvelle animation</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
@@ -74,7 +74,7 @@
                 text
                 @click="sendUpdate();"
                 :disabled="editedItem.nameVF.length < 2"
-                v-if="this.editedItem._id != ''"
+                v-if="editedItem._id != ''"
               >Modifier</v-btn>
               <v-btn
                 color="blue"

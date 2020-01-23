@@ -3,8 +3,8 @@
     <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-2 font-weight-thin mb-4">Où nous trouver</h1>
-          <h3 class="headline">Les endroits où vous pourrez trouver Wyrdwalkers</h3>
+          <h1 class="display-2 font-weight-thin mb-4">{{$t("home.contents.animations.title")}}</h1>
+          <h3 class="headline">{{$t("home.contents.animations.subtitle")}}</h3>
         </v-col>
       </v-row>
     </v-parallax>
@@ -15,11 +15,11 @@
             <v-card>
               <v-card-title>
                 <v-icon left>fa-dice-d20</v-icon>
-                <span class="title font-weight-light">{{activity.nameVF}}</span>
+                <span class="title font-weight-light">{{$i18n.locale == 'fr' ? activity.nameVF : activity.nameVO}}</span>
               </v-card-title>
-              <v-card-text>{{activity.captionVF}}</v-card-text>
+              <v-card-text>{{$i18n.locale == 'fr' ? activity.captionVF : activity.captionVO}}</v-card-text>
               <v-card-actions>
-                <v-btn text color="red" :href="activity.externalLink" target="_blank" v-if="activity.externalLink.length > 0">En savoir plus</v-btn>
+                <v-btn text color="red" :href="activity.externalLink" target="_blank" v-if="activity.externalLink.length > 0">{{$t("home.contents.animations.more")}}</v-btn>
                 <v-spacer></v-spacer>
                 <span class="mr-3">
                   <v-icon small left>fa-calendar-alt</v-icon>
@@ -41,13 +41,13 @@
           type="info"
           elevation="2"
           width="100%"
-        >Wyrdwalkers n'a pas d'activités prévues pour le moment</v-alert>
+        >{{$t("home.contents.animations.noData")}}</v-alert>
       </div>
     </div>
     <v-dialog v-model="pleaseWait" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          Chargement...
+          {{$t("home.contents.animations.loading")}}...
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>

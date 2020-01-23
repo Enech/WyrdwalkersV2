@@ -1,7 +1,7 @@
 <template>
   <div class="pa-3">
     <v-card class="pa-3" id="app-content-custom">
-      <v-card-title>Chronologies</v-card-title>
+      <v-card-title>{{$t("wiki.contents.timelines.title")}}</v-card-title>
       <v-divider class="mb-3"></v-divider>
       <div id="TimelinesCardsContainer" v-if="showCards">
         <v-layout v-for="(timeline, index) in timelines" :key="index">
@@ -10,7 +10,7 @@
               <v-card-title>{{timeline.name}}</v-card-title>
               <v-card-text>{{timeline.description}}</v-card-text>
               <v-card-actions>
-                <v-btn dark color="red" @click="assignSelectedTimeline(timeline);">Explorer</v-btn>
+                <v-btn dark color="red" @click="assignSelectedTimeline(timeline);">{{$t("wiki.contents.timelines.explore")}}</v-btn>
               </v-card-actions>
             </v-card>
             <br />

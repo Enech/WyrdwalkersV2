@@ -3,8 +3,11 @@
     <v-card class="pa-3 lore" v-if="!loading" id="app-content-custom">
       <v-card-title class="headline">{{page.title.titleVF}}</v-card-title>
       <v-tabs grow show-arrows>
-        <v-tab v-if="page.generalInfos != undefined" href="#tab-general">Général</v-tab>
-        <v-tab v-if="page.myth != undefined" href="#tab-myth">Mythe</v-tab>
+        <v-tab
+          v-if="page.generalInfos != undefined"
+          href="#tab-general"
+        >{{$t("wiki.contents.lore.general")}}</v-tab>
+        <v-tab v-if="page.myth != undefined" href="#tab-myth">{{$t("wiki.contents.lore.myth")}}</v-tab>
         <v-tab
           v-for="(content,index) in page.content"
           :key="index"
@@ -21,7 +24,11 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="page.generalInfos.vf"></v-col>
+              <v-col
+                cols="12"
+                md="9"
+                v-html="$i18n.locale == 'fr' ? page.generalInfos.vf : page.generalInfos.vo"
+              ></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
                 <v-list-item class="blue mb-1" dark v-if="page.content[0].picture != ''">
@@ -30,14 +37,14 @@
                   </v-list-item-icon>
                   <v-list-item-content>
                     <span v-if="page.content[0].picAuthor != ''">{{page.content[0].picAuthor}}</span>
-                    <span v-else>Auteur inconnu</span>
+                    <span v-else>{{$t("wiki.contents.lore.noAuthor")}}</span>
                   </v-list-item-content>
                 </v-list-item>
-                <div v-if="page.content[0].music != ''">
+                <div v-if="music != ''">
                   <iframe
                     width="100%"
                     height="100"
-                    :src="getEmbedUrl(page.content[0].music)"
+                    :src="page.content[0].music"
                     frameborder="0"
                     allow="autoplay; encrypted-media"
                     allowfullscreen
@@ -58,7 +65,7 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="page.myth.vf"></v-col>
+              <v-col cols="12" md="9" v-html="$i18n.locale == 'fr' ? page.myth.vf : page.myth.vo"></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
                 <v-list-item class="blue mb-1" dark v-if="page.content[0].picture != ''">
@@ -67,14 +74,14 @@
                   </v-list-item-icon>
                   <v-list-item-content>
                     <span v-if="page.content[0].picAuthor != ''">{{page.content[0].picAuthor}}</span>
-                    <span v-else>Auteur inconnu</span>
+                    <span v-else>{{$t("wiki.contents.lore.noAuthor")}}</span>
                   </v-list-item-content>
                 </v-list-item>
-                <div v-if="page.content[0].music != ''">
+                <div v-if="music != ''">
                   <iframe
                     width="100%"
                     height="100"
-                    :src="getEmbedUrl(page.content[0].music)"
+                    :src="page.content[0].music"
                     frameborder="0"
                     allow="autoplay; encrypted-media"
                     allowfullscreen
@@ -96,7 +103,11 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="content.textVF"></v-col>
+              <v-col
+                cols="12"
+                md="9"
+                v-html="$i18n.locale == 'fr' ? content.textVF : content.textVO"
+              ></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="content.picture" eager></v-img>
                 <v-list-item class="blue mb-1" dark v-if="content.picture != ''">
@@ -105,14 +116,14 @@
                   </v-list-item-icon>
                   <v-list-item-content>
                     <span v-if="content.picAuthor != ''">{{content.picAuthor}}</span>
-                    <span v-else>Auteur inconnu</span>
+                    <span v-else>{{$t("wiki.contents.lore.noAuthor")}}</span>
                   </v-list-item-content>
                 </v-list-item>
-                <div v-if="content.music != ''">
+                <div v-if="music != ''">
                   <iframe
                     width="100%"
                     height="100"
-                    :src="getEmbedUrl(content.music)"
+                    :src="content.music"
                     frameborder="0"
                     allow="autoplay; encrypted-media"
                     allowfullscreen
@@ -127,7 +138,7 @@
     <v-dialog v-model="loading" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          Chargement...
+          {{$t("wiki.contents.lore.loading")}}
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
@@ -149,11 +160,17 @@ export default Vue.extend({
     document.dispatchEvent(new Event("custom-post-render-event"));
   },
   computed: {
-    generalDefined: function(){
-      return this.page.generalInfos != undefined && (this.page.generalInfos.vf !== '' || this.page.generalInfos.vo !== '')
+    generalDefined: function() {
+      return (
+        this.page.generalInfos != undefined &&
+        (this.page.generalInfos.vf !== "" || this.page.generalInfos.vo !== "")
+      );
     },
-    mythDefined: function(){
-      return this.page.myth != undefined && (this.page.myth.vf !== '' || this.page.myth.vo !== '')
+    mythDefined: function() {
+      return (
+        this.page.myth != undefined &&
+        (this.page.myth.vf !== "" || this.page.myth.vo !== "")
+      );
     }
   },
   methods: {
@@ -177,7 +194,7 @@ export default Vue.extend({
         disabled: true
       };
       result.push({
-        text: "Accueil",
+        text: this.$i18n.locale == "fr" ? "Accueil" : "Home",
         href: "/wiki/home"
       });
       // Le cas "empty" induit de ne pas mettre le breadcrumb correspondant danas la liste
@@ -185,25 +202,31 @@ export default Vue.extend({
         switch (content.faction) {
           case "dieux":
             result.push({
-              text: "Panthéons",
+              text: this.$i18n.locale == "fr" ? "Panthéons" : "Pantheons",
               href: "/wiki/lore/panthéons"
             });
             break;
           case "society":
             result.push({
-              text: "Sociétés Secrètes",
+              text:
+                this.$i18n.locale == "fr"
+                  ? "Sociétés Secrètes"
+                  : "Secret Societies",
               href: "/wiki/lore/sociétés-secrètes"
             });
             break;
           case "otherworld":
             result.push({
-              text: "Outres-Mondes",
+              text: this.$i18n.locale == "fr" ? "Outres-Mondes" : "Otherworlds",
               href: "/wiki/lore/outres-mondes"
             });
             break;
           case "titans":
             result.push({
-              text: "Royaumes Titaniques",
+              text:
+                this.$i18n.locale == "fr"
+                  ? "Royaumes Titaniques"
+                  : "Titanrealms",
               href: "/wiki/lore/titans"
             });
             break;

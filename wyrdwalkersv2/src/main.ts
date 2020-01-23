@@ -7,12 +7,11 @@ import vuetify from './plugins/vuetify';
 import VueMeta from 'vue-meta'
 import VueQuillEditor from 'vue-quill-editor'
 
-import '@/shared/filters/Translation';
-
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/css/base.css'
 import '@/assets/css/wiki.scss'
 import '@/assets/css/content-styles.css'
+import i18n from './i18n'
 
 if(process.env.NODE_ENV === 'production'){
   Vue.config.productionTip = false;
@@ -27,5 +26,6 @@ new Vue({
   router,
   store,
   vuetify,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

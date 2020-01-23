@@ -3,14 +3,14 @@
     <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-2 font-weight-thin mb-4">WYRDWALKERS</h1>
-          <h3 class="headline">Devenez une Légende</h3>
+          <h1 class="display-2 font-weight-thin mb-4">{{$t("home.contents.join.title")}}</h1>
+          <h3 class="headline">{{$t("home.contents.join.subtitle")}}</h3>
         </v-col>
       </v-row>
     </v-parallax>
     <v-row align="center" class="pa-3 pb-0">
       <v-card color="#292929" width="100%">
-        <v-card-text class="white--text headline">Nous rejoindre</v-card-text>
+        <v-card-text class="white--text headline">{{$t("home.contents.join.headline")}}</v-card-text>
       </v-card>
     </v-row>
     <iframe

@@ -3,11 +3,8 @@
     <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-2 font-weight-thin mb-4">Les Ateliers</h1>
-          <h3 class="headline">
-            Nos ateliers de
-            <i>storytelling</i>
-          </h3>
+          <h1 class="display-2 font-weight-thin mb-4">{{$t("home.contents.wokshops.title")}}</h1>
+          <h3 class="headline">{{$t("home.contents.wokshops.subtitle")}}</h3>
         </v-col>
       </v-row>
     </v-parallax>
@@ -25,7 +22,7 @@
                 text
                 color="red"
                 @click="showDialog = true; selectedWorkshop = work;"
-              >En savoir plus</v-btn>
+              >{{$t("home.contents.wokshops.more")}}</v-btn>
               <v-spacer></v-spacer>
               <span class="mr-3">
                 <v-icon small left>fa-calendar-alt</v-icon>
@@ -74,7 +71,7 @@
         type="info"
         elevation="2"
         width="100%"
-      >Wyrdwalkers n'a pas d'ateliers prévus pour le moment</v-alert>
+      >{{$t("home.contents.wokshops.noData")}}</v-alert>
     </div>
   </div>
 </template>

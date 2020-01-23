@@ -16,17 +16,17 @@
               <div v-if="currentUser._id == ''">
                 <v-btn small text @click.stop="triggerSignup()">
                   <v-icon small left>fa-user-plus</v-icon>
-                  <span class="hidden-xs-only">S'enregistrer</span>
+                  <span class="hidden-xs-only">{{$t("general.signup")}}</span>
                 </v-btn>
                 <v-btn small text @click.stop="triggerLogin()">
                   <v-icon left small>fa-sign-in-alt</v-icon>
-                  <span class="hidden-xs-only">Connexion</span>
+                  <span class="hidden-xs-only">{{$t("general.login")}}</span>
                 </v-btn>
               </div>
               <div v-else>
                 <v-btn small text @click.stop="triggerSignout()">
                   <v-icon left small>fa-sign-out-alt</v-icon>
-                  <span class="hidden-xs-only">Déconnexion</span>
+                  <span class="hidden-xs-only">{{$t("general.logout")}}</span>
                 </v-btn>
               </div>
             </v-list-item-subtitle>
@@ -36,54 +36,54 @@
       <v-divider color="white"></v-divider>
       <v-list>
         <v-list-item :to="{name:'presentation'}">
-          <v-list-item-title>Accueil</v-list-item-title>
+          <v-list-item-title>{{$t("home.menus.home")}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-key</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-item :to="{name:'join'}">
-          <v-list-item-title>Nous rejoindre</v-list-item-title>
+          <v-list-item-title>{{$t("home.menus.join")}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-map</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-group no-action>
           <template v-slot:activator>
-            <v-list-item-title>Activités</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.activities")}}</v-list-item-title>
           </template>
           <v-list-item :to="{name:'murderParties'}">
-            <v-list-item-title>Soirées enquêtes</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.murders")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-search</v-icon>
             </v-list-item-action>
           </v-list-item>
           <v-list-item :to="{name:'ateliers'}">
-            <v-list-item-title>Ateliers</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.workshops")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-gamepad</v-icon>
             </v-list-item-action>
           </v-list-item>
           <v-list-item :to="{name:'animations'}">
-            <v-list-item-title>Animations</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.animations")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-rss</v-icon>
             </v-list-item-action>
           </v-list-item>
           <v-list-item :to="{name:'historiqueJdr'}">
-            <v-list-item-title>Historique JDR</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.rpgHistory")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-scroll</v-icon>
             </v-list-item-action>
           </v-list-item>
         </v-list-group>
         <v-list-item :to="{name:'personalityTest'}">
-          <v-list-item-title>Test de personnalité</v-list-item-title>
+          <v-list-item-title>{{$t("home.menus.personalityTest")}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-lightbulb</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-item :to="{name:'contact'}">
-            <v-list-item-title>Nous contacter</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.contact")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-comments</v-icon>
             </v-list-item-action>
@@ -91,17 +91,17 @@
         <v-list-group no-action>
           <template v-slot:activator>
             <v-list-item-content>
-              <v-list-item-title>Légal</v-list-item-title>
+              <v-list-item-title>{{$t("home.menus.legal")}}</v-list-item-title>
             </v-list-item-content>
           </template>
           <v-list-item :to="{name:'status'}">
-            <v-list-item-title>Fonctionnement</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.status")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-cog</v-icon>
             </v-list-item-action>
           </v-list-item>
           <v-list-item :to="{name:'assoHistory'}">
-            <v-list-item-title>Historique</v-list-item-title>
+            <v-list-item-title>{{$t("home.menus.history")}}</v-list-item-title>
             <v-list-item-action>
               <v-icon small>fa-book</v-icon>
             </v-list-item-action>
