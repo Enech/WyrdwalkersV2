@@ -122,7 +122,7 @@
                 <v-divider></v-divider>
                 <v-card-text
                   class="subtitle-1 text-justify"
-                >{{$t("home.contents.presentation.presentation.triangle.text")}}v-card-text>
+                >{{$t("home.contents.presentation.presentation.triangle.text")}}</v-card-text>
                 <v-card-actions class="justify-center">
                   <v-btn color="blue-grey" dark bottom :absolute="!isMobile">{{$t("home.contents.presentation.presentation.soon")}}</v-btn>
                 </v-card-actions>

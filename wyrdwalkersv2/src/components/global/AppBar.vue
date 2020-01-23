@@ -86,7 +86,7 @@ import Vue from "vue";
 import store from "../../store";
 import vuetify from "../../plugins/vuetify";
 import SearchBarVue from "./SearchBar.vue";
-import LocaleChanger from "./language.vue";
+import LocaleChanger from "./Language.vue";
 
 export default Vue.extend({
   name: "AppBar",

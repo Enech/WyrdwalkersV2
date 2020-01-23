@@ -44,7 +44,7 @@ const store = new Vuex.Store({
     openProfileDialog: false,
     activationSuccessful: true,
     wikiRedirections: new Array<WikiRedirection>(),
-    appLanguage: 'FR',
+    appLanguage: 'fr',
     generalDialog: false,
     mythDialog: false,
     contentDialog: false,

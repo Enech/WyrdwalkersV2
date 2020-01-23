@@ -6,7 +6,6 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 import VueMeta from 'vue-meta'
 import VueQuillEditor from 'vue-quill-editor'
-import wwDictionary from './shared/translation/translation-content.json'
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/css/base.css'

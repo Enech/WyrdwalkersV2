@@ -21,7 +21,7 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="this.$i18n.locale == 'fr' ? page.generalInfos.vf : page.generalInfos.vo"></v-col>
+              <v-col cols="12" md="9" v-html="$i18n.locale == 'fr' ? page.generalInfos.vf : page.generalInfos.vo"></v-col>
               <v-col cols="12" md="3">
                 <wiki-meta :picture="page.content[0].picture" :pictureAuthor="page.content[0].picAuthor" :music="page.content[0].music"/>
               </v-col>
@@ -39,7 +39,7 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="this.$i18n.locale == 'fr' ? page.myth.vf : page.myth.vo"></v-col>
+              <v-col cols="12" md="9" v-html="$i18n.locale == 'fr' ? page.myth.vf : page.myth.vo"></v-col>
               <v-col cols="12" md="3">
                 <wiki-meta :picture="page.content[0].picture" :pictureAuthor="page.content[0].picAuthor" :music="page.content[0].music"/>
               </v-col>
@@ -58,7 +58,7 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="this.$i18n.locale == 'fr' ? content.textVF : content.textVO"></v-col>
+              <v-col cols="12" md="9" v-html="$i18n.locale == 'fr' ? content.textVF : content.textVO"></v-col>
               <v-col cols="12" md="3">
                 <wiki-meta :picture="content.picture" :pictureAuthor="content.picAuthor" :music="content.music"/>
               </v-col>
