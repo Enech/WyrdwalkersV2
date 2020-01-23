@@ -5,7 +5,6 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import VueMeta from 'vue-meta'
-import VueQuillEditor from 'vue-quill-editor'
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@/assets/css/base.css'
@@ -20,7 +19,6 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 Vue.use(VueMeta);
-Vue.use(VueQuillEditor);
 
 new Vue({
   router,

@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <rules-vf v-if="i18n.locale == 'fr'"/>
+    <rules-vf v-if="$i18n.locale == 'fr'"/>
     <rules-vo v-else/>
   </div>
 </template>

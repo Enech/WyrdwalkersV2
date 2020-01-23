@@ -30,7 +30,7 @@
       <template v-slot:extension>
         <v-app-bar-nav-icon @click.stop="contextDrawer = !contextDrawer"></v-app-bar-nav-icon>
         <v-spacer></v-spacer>
-        <wyrd-search />
+        <wyrd-search v-if="siteSection != 5"/>
         <wyrd-lang />
         <v-btn small text @click.stop="personalDrawer = true" v-if="currentUser._id != ''">
           <v-icon>folder</v-icon>
@@ -124,6 +124,9 @@ export default Vue.extend({
     },
     currentUser: function() {
       return store.getters.currentUser;
+    },
+    siteSection: function(){
+      return store.getters.siteSection;
     }
   },
   watch: {

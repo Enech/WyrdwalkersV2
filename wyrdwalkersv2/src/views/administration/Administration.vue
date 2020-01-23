@@ -77,7 +77,18 @@ export default Vue.extend({
       set: function(open: boolean) {
         store.commit("setContextDrawer", open);
       }
+    },
+    siteSection: {
+      get: function(){
+        return store.getters.siteSection;
+      },
+      set: function(section: number){
+        store.commit("setSiteSection", section);
+      }
     }
+  },
+  created: function(){
+    this.siteSection = SiteSection.ADMIN;
   },
   data: () => ({})
 });
