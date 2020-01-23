@@ -16,9 +16,6 @@
       "webpack-env",
       "vuetify",
       "vue-meta",
-      "tiptap",
-      "tiptap-extensions",
-      "vue-quill-editor",
       "webpack",
       "webpack-env"
     ],

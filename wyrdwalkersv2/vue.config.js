@@ -6,11 +6,9 @@ module.exports = {
   "transpileDependencies": [
     "vuetify"
   ],
-
   devServer: {
     proxy: 'https://wyrdwalkers.com:3000/api/',
   },
-
   configureWebpack:{
     plugins: process.env.NODE_ENV === 'production' ? [
       new PrerenderSPAPlugin({
@@ -307,13 +305,6 @@ module.exports = {
           '/wiki/lore/ikole-orun',
           '/wiki/lore/guinée'
         ],
-        /*postProcess(renderedRoute) {
-          renderedRoute.html = renderedRoute.html
-            .replace(/<script (.*?)>/g, `<script $1 defer>`)
-            .replace(`id="app"`, `id="app" data-server-rendered="true"`)
-
-          return renderedRoute
-        },*/
         renderer: new Renderer({
           ignoreJSErrors: true,
           headless: false,
@@ -328,13 +319,12 @@ module.exports = {
       })
     ] : []
   },
-
   pluginOptions: {
     i18n: {
       locale: 'fr',
       fallbackLocale: 'fr',
-      localeDir: 'locales',
-      enableInSFC: true
-    }
+      localeDir: 'locales'
+    },
+    enableInSFC: true
   }
 }
