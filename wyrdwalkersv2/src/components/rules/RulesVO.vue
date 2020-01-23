@@ -2188,7 +2188,7 @@ export default Vue.extend({
     showDrawer: false,
     sheets: [
       "/ressources/regles/Diapositive1.PNG",
-      "ressources/regles/Diapositive2.PNG",
+      "/ressources/regles/Diapositive2.PNG",
       "/ressources/regles/Diapositive3.PNG",
       "/ressources/regles/Diapositive4.PNG",
       "/ressources/regles/Diapositive5.PNG",

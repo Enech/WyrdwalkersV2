@@ -17,14 +17,14 @@
             <v-divider class="my-3"></v-divider>
             <div class="title font-weight-light">{{$t("home.contents.contact.emailTitle")}}</div>
             <div class="subtitle-1">
-              {{$t("home.contents.contact.emailTitle")}}
+              {{$t("home.contents.contact.emailContent")}}
               <a
                 href="mailto:mastersoffate@wyrdwalkers.com"
               >mastersoffate@wyrdwalkers.com</a>
             </div>
             <v-divider class="my-3"></v-divider>
             <div class="title font-weight-light">{{$t("home.contents.contact.mail")}}</div>
-            <div class="subtitle-1">{{$t("home.contents.contact.mailAddress")}}</div>
+            <div class="subtitle-1" v-html="$t('home.contents.contact.mailAddress')"></div>
           </v-col>
         </v-row>
       </v-card-text>

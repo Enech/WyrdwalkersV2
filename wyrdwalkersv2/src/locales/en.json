@@ -6,11 +6,11 @@
     "register": {
       "valid": "Your account is now activated. Come back on the website by following <a href='/home'>this link</a> in order to log in",
       "invalid": "Your account was not activated due to a technical issue. please contact an administrator so your account can be manually activated.",
-      "loading": "Activating your account...",
-      "characters": "Characters",
-      "npc": "NPC",
-      "campaigns": "Campaigns"
-    }
+      "loading": "Activating your account..."
+    },
+    "characters": "Characters",
+    "npc": "NPC",
+    "campaigns": "Campaigns"
   },
   "home": {
     "main": "Association",
@@ -49,9 +49,10 @@
       "contact": {
         "title": "Contact Us",
         "facebook": "On our Facebook page",
-        "email": "By e-mail",
+        "emailTitle": "By e-mail",
+        "emailContent": "Send a message to",
         "mail": "By physical mail (or homing pigeon)",
-        "mailAddress": "Thomas Gely<br />3 rue de la Villette<br />69003 Lyon, France"
+        "mailAddress": "Chez Thomas Gely<br />3 rue de la Villette<br />69003 Lyon, France"
       },
       "gn": {
         "title": "Live Action",
@@ -115,7 +116,7 @@
             "title": "A human study",
             "text": "In order to write the Wyrdwalkers setting et make it consistent, its creators studied over a dozen mythologies. From there was born a model giving us the ability to analyze the human condition, directly inspired by civilizations and tribes that came before. This model describes the three major paradoxes every human being has to face and allows us to understand the 'useful fictions' surrounding us in order to master them and invent new ones."
           },
-          "message": "Wyrdwalkers is a Loi 1901 french association aiming to promote mythology through activities based on imagination, play et pedagogy."
+          "message": "Wyrdwalkers is a Loi 1901 french association aiming to promote mythology through activities based on imagination, play and pedagogy."
         },
         "status": {
           "title": "Association bylaws"

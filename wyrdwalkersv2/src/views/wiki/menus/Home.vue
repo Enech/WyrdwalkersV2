@@ -14,7 +14,7 @@
     </div>
     <v-card class="mt-3 text-justify pa-3">
       <h3 class="display-1 font-weight-light uppercase pa-3 text-center">{{$t("wiki.contents.home.header")}}</h3>
-      <p class="body-1 article-look-3">{{$t("wiki.contents.home.text")}}</p>
+      <p class="body-1 article-look-3" v-html="$t('wiki.contents.home.text')"></p>
       <v-btn outlined color="red" block class="mb-3" :to="{path:'/wiki/lore/panthéons'}">
           <v-icon left>fa-dungeon</v-icon>{{$t("wiki.contents.home.action")}}
         </v-btn>
