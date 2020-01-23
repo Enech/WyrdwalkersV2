@@ -5,6 +5,7 @@ export default class Timeline {
     public _id: string;
     public name: string;
     public description: string;
+    public descriptionVO: string;
     public firstEvent: TimelineEvent;
     public events: TimelineEvent[];
     public availableTeams: TimelineTeam[];
@@ -13,6 +14,7 @@ export default class Timeline {
         this._id = '';
         this.name = '';
         this.description = '';
+        this.descriptionVO = '';
         this.firstEvent = new TimelineEvent();
         this.events = new Array<TimelineEvent>();
         this.availableTeams = [

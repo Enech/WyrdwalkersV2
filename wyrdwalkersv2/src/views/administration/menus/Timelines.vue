@@ -26,7 +26,14 @@
                     <v-text-field v-model="editedItem.name" label="Nom"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-textarea v-model="editedItem.description" label="Description"></v-textarea>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-textarea v-model="editedItem.description" label="Description (VF)"></v-textarea>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-textarea v-model="editedItem.descriptionVO" label="Description (VO)"></v-textarea>
+                      </v-col>
+                    </v-row>
                   </v-col>
                   <v-col cols="12">
                     <v-select
@@ -71,11 +78,17 @@
                   <v-col cols="12" sm="6">
                     <v-text-field type="number" v-model="editedItem.firstEvent.year" label="Année"></v-text-field>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col cols="12" sm="6">
                     <v-text-field v-model="editedItem.firstEvent.title" label="Titre"></v-text-field>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col cols="12" sm="6">
+                    <v-text-field v-model="editedItem.firstEvent.title" label="Title"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
                     <v-textarea v-model="editedItem.firstEvent.content" label="Contenu"></v-textarea>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-textarea v-model="editedItem.firstEvent.content" label="Content"></v-textarea>
                   </v-col>
                 </v-row>
                 <v-divider class="mb-3"></v-divider>
@@ -107,11 +120,17 @@
                           <v-col cols="12" sm="6">
                             <v-text-field v-model="event.year" label="Année"></v-text-field>
                           </v-col>
-                          <v-col cols="12">
-                            <v-text-field v-model="event.title" label="Titre"></v-text-field>
+                          <v-col cols="12" sm="6">
+                            <v-text-field v-model="editedItem.firstEvent.title" label="Titre"></v-text-field>
                           </v-col>
-                          <v-col cols="12">
-                            <v-text-field v-model="event.content" label="Contenu"></v-text-field>
+                          <v-col cols="12" sm="6">
+                            <v-text-field v-model="editedItem.firstEvent.title" label="Title"></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6">
+                            <v-textarea v-model="editedItem.firstEvent.content" label="Contenu"></v-textarea>
+                          </v-col>
+                          <v-col cols="12" sm="6">
+                            <v-textarea v-model="editedItem.firstEvent.content" label="Content"></v-textarea>
                           </v-col>
                         </v-row>
                       </v-card>
@@ -428,10 +447,8 @@ export default Vue.extend({
   }),
   metaInfo: function() {
     return {
-      title:"Backoffice Timelines",
-      link: [
-        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
-      ]
+      title: "Backoffice Timelines",
+      link: [{ rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }]
     };
   }
 });

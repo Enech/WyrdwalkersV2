@@ -8,7 +8,7 @@
           <v-flex xs12>
             <v-card>
               <v-card-title>{{timeline.name}}</v-card-title>
-              <v-card-text>{{timeline.description}}</v-card-text>
+              <v-card-text>{{$i18n.locale == 'fr' ? timeline.description : timeline.descriptionVO}}</v-card-text>
               <v-card-actions>
                 <v-btn dark color="red" @click="assignSelectedTimeline(timeline);">{{$t("wiki.contents.timelines.explore")}}</v-btn>
               </v-card-actions>
@@ -26,11 +26,11 @@
                 <span>{{GetLiteralYear(selectedTimeline.firstEvent.year)}}</span>
               </template>
               <v-card class="elevation-2">
-                <v-card-title class="headline">{{selectedTimeline.firstEvent.title}}</v-card-title>
+                <v-card-title class="headline">{{$i18n.locale == 'fr' ? selectedTimeline.firstEvent.title : selectedTimeline.firstEvent.titleVO}}</v-card-title>
                 <v-subheader v-if="showDense">
                   <span>{{GetLiteralYear(selectedTimeline.firstEvent.year)}}</span>
                 </v-subheader>
-                <v-card-text>{{selectedTimeline.firstEvent.content}}</v-card-text>
+                <v-card-text>{{$i18n.locale == 'fr' ? selectedTimeline.firstEvent.content : selectedTimeline.firstEvent.contentVO}}</v-card-text>
               </v-card>
             </v-timeline-item>
             <v-timeline-item
@@ -43,11 +43,11 @@
                 <span>{{GetLiteralYear(event.year)}}</span>
               </template>
               <v-card class="elevation-2">
-                <v-card-title class="headline">{{event.title}}</v-card-title>
+                <v-card-title class="headline">{{$i18n.locale == 'fr' ? event.title : event.titleVO}}</v-card-title>
                 <v-subheader v-if="showDense">
                   <span>{{GetLiteralYear(event.year)}}</span>
                 </v-subheader>
-                <v-card-text>{{event.content}}</v-card-text>
+                <v-card-text>{{$i18n.locale == 'fr' ? event.content : event.contentVO}}</v-card-text>
               </v-card>
             </v-timeline-item>
             <v-btn fixed dark fab bottom right color="red" @click="showCards = true;"><v-icon>clear</v-icon></v-btn>
@@ -89,12 +89,14 @@ export default Vue.extend({
       var yearsTab = yearString.split(";");
 
       if (yearsTab.length > 1) {
-        result = "De ";
+        this.$i18n.locale == 'fr' ? result = "De " : result = "From ";
 
         for (var i = 0; i < yearsTab.length; i++) {
           result += this.GetBCorAD(yearsTab[i]);
 
-          if (i == 0) result += " à ";
+          if (i == 0) {
+            this.$i18n.locale == 'fr' ? result += " à " : result += " to ";
+          }
         }
       } else {
         result = this.GetBCorAD(yearString);
@@ -107,9 +109,9 @@ export default Vue.extend({
       var result = yearString;
 
       if (year < 0) {
-        result = Math.abs(year) + " av. J-C";
+        result = Math.abs(year) + (this.$i18n.locale == 'fr' ? " av. J-C" : " BC");
       } else {
-        result = year + " ap. J-C";
+        result = year + (this.$i18n.locale == 'fr' ? " ap. J-C" : " AD");
       }
 
       return result;
