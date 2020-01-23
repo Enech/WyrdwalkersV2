@@ -82,13 +82,13 @@
                     <v-text-field v-model="editedItem.firstEvent.title" label="Titre"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.firstEvent.title" label="Title"></v-text-field>
+                    <v-text-field v-model="editedItem.firstEvent.titleVO" label="Title"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-textarea v-model="editedItem.firstEvent.content" label="Contenu"></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-textarea v-model="editedItem.firstEvent.content" label="Content"></v-textarea>
+                    <v-textarea v-model="editedItem.firstEvent.contentVO" label="Content"></v-textarea>
                   </v-col>
                 </v-row>
                 <v-divider class="mb-3"></v-divider>
@@ -121,16 +121,16 @@
                             <v-text-field v-model="event.year" label="Année"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6">
-                            <v-text-field v-model="editedItem.firstEvent.title" label="Titre"></v-text-field>
+                            <v-text-field v-model="event.title" label="Titre"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6">
-                            <v-text-field v-model="editedItem.firstEvent.title" label="Title"></v-text-field>
+                            <v-text-field v-model="event.titleVO" label="Title"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6">
-                            <v-textarea v-model="editedItem.firstEvent.content" label="Contenu"></v-textarea>
+                            <v-textarea v-model="event.content" label="Contenu"></v-textarea>
                           </v-col>
                           <v-col cols="12" sm="6">
-                            <v-textarea v-model="editedItem.firstEvent.content" label="Content"></v-textarea>
+                            <v-textarea v-model="event.contentVO" label="Content"></v-textarea>
                           </v-col>
                         </v-row>
                       </v-card>
