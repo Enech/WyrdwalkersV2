@@ -239,5 +239,9 @@
         "loading": "Chargement..."
       }
     }
+  },
+  "random": {
+    "title": "Pages aléatoires",
+    "button": "Voir"
   }
 }

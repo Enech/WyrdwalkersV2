@@ -1,14 +1,14 @@
 <template>
   <div class="pa-3">
     <v-card class="pa-3" id="app-content-custom">
-      <v-card-title class="headline">Pages aléatoires</v-card-title>
+      <v-card-title class="headline">{{$t('random.title')}}</v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-row dense>
         <v-col cols="12" md="4" v-for="(page,index) in randomPages" :key="index">
           <v-card class="pa-3" dark>
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
-                <v-card-title class="headline" v-text="page.title.titleVF"></v-card-title>
+                <v-card-title class="headline" v-text="$i18n.locale == 'fr' ? page.title.titleVF : page.title.titleVO"></v-card-title>
 
                 <v-card-subtitle v-text="getRenderText(page)"></v-card-subtitle>
               </div>
@@ -24,7 +24,7 @@
                 color="red darken-4"
                 :href="`/wiki/lore/${page.title.titleVF}`"
                 target="_blank"
-              >Voir</v-btn>
+              >{{$t('random.button')}}</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -50,10 +50,21 @@ export default Vue.extend({
   },
   methods: {
     getRenderText: function(page: WikiPage) {
-      var text =
-        page.generalInfos !== undefined
-          ? page.generalInfos.vf
-          : page.content[0].textVF;
+      var text = '';
+
+      if(this.$i18n.locale == 'fr'){
+        if(page.generalInfos.vf.length != ''){
+          text = page.generalInfos.vf
+        } else {
+          page.content[0].textVF;
+        }
+      } else {
+        if(page.generalInfos.vo.length != ''){
+          text = page.generalInfos.vo
+        } else {
+          text = page.content[0].textVO;
+        }
+      }
       var node = document.createElement("div");
       node.innerHTML = text;
       var innerText = node.innerText;

@@ -239,5 +239,9 @@
         "loading": "Loading..."
       }
     }
+  },
+  "random": {
+    "title": "Random Pages",
+    "button": "Go"
   }
 }

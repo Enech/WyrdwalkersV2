@@ -16,7 +16,7 @@
             ></v-img>
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
-                <v-card-title class="headline" v-text="page.title.titleVF"></v-card-title>
+                <v-card-title class="headline" v-text="$i18n.locale == 'fr' ? page.title.titleVF : page.title.titleVO"></v-card-title>
                 <v-divider></v-divider>
                 <v-card-subtitle v-text="getRenderText(page)"></v-card-subtitle>
               </div>
@@ -82,10 +82,21 @@ export default Vue.extend({
   },
   methods: {
     getRenderText: function(page: WikiPage) {
-      var text =
-        page.generalInfos !== undefined
-          ? page.generalInfos.vf
-          : page.content[0].textVF;
+       var text = '';
+
+      if(this.$i18n.locale == 'fr'){
+        if(page.generalInfos.vf.length != ''){
+          text = page.generalInfos.vf
+        } else {
+          page.content[0].textVF;
+        }
+      } else {
+        if(page.generalInfos.vo.length != ''){
+          text = page.generalInfos.vo
+        } else {
+          text = page.content[0].textVO;
+        }
+      }
       var node = document.createElement("div");
       node.innerHTML = text;
       var innerText = node.innerText;
