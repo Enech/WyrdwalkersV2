@@ -2,7 +2,8 @@
   <div class="pa-3">
     <v-card class="pa-3" id="app-content-custom">
       <v-card-title class="headline">
-        <v-icon left>search</v-icon>{{$t("wiki.contents.search.title")}}
+        <v-icon left>search</v-icon>
+        {{$t("wiki.contents.search.title")}}
       </v-card-title>
       <v-card-subtitle>{{searchQuery}}</v-card-subtitle>
       <v-divider class="mb-3"></v-divider>
@@ -16,7 +17,10 @@
             ></v-img>
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
-                <v-card-title class="headline" v-text="$i18n.locale == 'fr' ? page.title.titleVF : page.title.titleVO"></v-card-title>
+                <v-card-title
+                  class="headline"
+                  v-text="$i18n.locale == 'fr' ? page.title.titleVF : page.title.titleVO"
+                ></v-card-title>
                 <v-divider></v-divider>
                 <v-card-subtitle v-text="getRenderText(page)"></v-card-subtitle>
               </div>
@@ -42,7 +46,13 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-alert prominent border="left" type="error" outlined v-if="searchResults.length == 0 && !loading">
+      <v-alert
+        prominent
+        border="left"
+        type="error"
+        outlined
+        v-if="searchResults.length == 0 && !loading"
+      >
         {{$t("wiki.contents.search.noData")}}
         <i>{{searchQuery}}</i>
       </v-alert>
@@ -82,20 +92,33 @@ export default Vue.extend({
   },
   methods: {
     getRenderText: function(page: WikiPage) {
-       var text = '';
-
-      if(this.$i18n.locale == 'fr'){
-        if(page.generalInfos.vf.length != ''){
-          text = page.generalInfos.vf
-        } else {
-          page.content[0].textVF;
-        }
-      } else {
-        if(page.generalInfos.vo.length != ''){
-          text = page.generalInfos.vo
+      var text = "";
+      // A décommenter quand le wiki sera traduit
+      /*if (!page.generalInfos) {
+        if (this.$i18n.locale == "fr") {
+          text = page.content[0].textVF;
         } else {
           text = page.content[0].textVO;
         }
+      } else {
+        if (this.$i18n.locale == "fr") {
+          if (page.generalInfos.vf != "") {
+            text = page.generalInfos.vf;
+          } else {
+            text = page.content[0].textVF;
+          }
+        } else {
+          if (page.generalInfos.vo != "") {
+            text = page.generalInfos.vo;
+          } else {
+            text = page.content[0].textVO;
+          }
+        }
+      }*/
+      if(page.generalInfos){
+        text = page.generalInfos.vf;
+      } else {
+        text = page.content[0].textVF;
       }
       var node = document.createElement("div");
       node.innerHTML = text;
@@ -114,10 +137,14 @@ export default Vue.extend({
   }),
   metaInfo: {
     title: "Recherches",
-    meta:[
-      {name: "description", content: "Pages de résultats des recherches"},
-      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"},
-      {name: "author", content: "Thomas Gely"}
+    meta: [
+      { name: "description", content: "Pages de résultats des recherches" },
+      {
+        name: "keywords",
+        content:
+          "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons"
+      },
+      { name: "author", content: "Thomas Gely" }
     ]
   }
 });
