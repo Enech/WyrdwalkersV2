@@ -139,17 +139,7 @@ export default Vue.extend({
   },
   data: () => ({
     personalTabIndex: 0,
-    personalDrawer: false,
-    langItems: [
-      {
-        image: "@/assets/fr.png",
-        title: "FR"
-      },
-      {
-        image: "@/assets/gb.png",
-        title: "EN"
-      }
-    ]
+    personalDrawer: false
   })
 });
 </script>

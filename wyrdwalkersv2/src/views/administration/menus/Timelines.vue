@@ -333,6 +333,10 @@ export default Vue.extend({
       },
       {
         faction: "dieux",
+        team: "B.E.A.R"
+      },
+      {
+        faction: "dieux",
         team: "Bureaucratie Céleste"
       },
       {

@@ -1,13 +1,13 @@
 <template>
   <div class="pa-3 ck-content">
     <v-card class="pa-3 lore" v-if="!loading" id="app-content-custom">
-      <v-card-title class="headline">{{page.title.titleVF}}</v-card-title>
+      <v-card-title class="headline">{{$i18n.locale.toLowerCase() == 'fr' ? page.title.titleVF : page.title.titleVO}}</v-card-title>
       <v-tabs grow show-arrows>
         <v-tab
-          v-if="page.generalInfos != undefined"
+          v-if="generalDefined"
           href="#tab-general"
         >{{$t("wiki.contents.lore.general")}}</v-tab>
-        <v-tab v-if="page.myth != undefined" href="#tab-myth">{{$t("wiki.contents.lore.myth")}}</v-tab>
+        <v-tab v-if="mythDefined" href="#tab-myth">{{$t("wiki.contents.lore.myth")}}</v-tab>
         <v-tab
           v-for="(content,index) in page.content"
           :key="index"
@@ -27,7 +27,7 @@
               <v-col
                 cols="12"
                 md="9"
-                v-html="$i18n.locale == 'fr' ? page.generalInfos.vf : page.generalInfos.vo"
+                v-html="$i18n.locale.toLowerCase() == 'fr' ? page.generalInfos.vf : page.generalInfos.vo"
               ></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
@@ -65,7 +65,7 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="$i18n.locale == 'fr' ? page.myth.vf : page.myth.vo"></v-col>
+              <v-col cols="12" md="9" v-html="$i18n.locale.toLowerCase() == 'fr' ? page.myth.vf : page.myth.vo"></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
                 <v-list-item class="blue mb-1" dark v-if="page.content[0].picture != ''">
@@ -106,7 +106,7 @@
               <v-col
                 cols="12"
                 md="9"
-                v-html="$i18n.locale == 'fr' ? content.textVF : content.textVO"
+                v-html="$i18n.locale.toLowerCase() == 'fr' ? content.textVF : content.textVO"
               ></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="content.picture" eager></v-img>
@@ -190,26 +190,26 @@ export default Vue.extend({
       var factionCrumb = {};
       var teamCrumb = {};
       var nameCrumb = {
-        text: this.page.title.titleVF,
+        text: this.$i18n.locale.toLowerCase() == "fr" ? this.page.title.titleVF : this.page.title.titleVO,
         disabled: true
       };
       result.push({
-        text: this.$i18n.locale == "fr" ? "Accueil" : "Home",
+        text: this.$i18n.locale.toLowerCase() == "fr" ? "Accueil" : "Home",
         href: "/wiki/home"
       });
       // Le cas "empty" induit de ne pas mettre le breadcrumb correspondant danas la liste
-      if (content.faction !== "empty") {
+      if (content.faction !== "empty" && content.faction !== "") {
         switch (content.faction) {
           case "dieux":
             result.push({
-              text: this.$i18n.locale == "fr" ? "Panthéons" : "Pantheons",
+              text: this.$i18n.locale.toLowerCase() == "fr" ? "Panthéons" : "Pantheons",
               href: "/wiki/lore/panthéons"
             });
             break;
           case "society":
             result.push({
               text:
-                this.$i18n.locale == "fr"
+                this.$i18n.locale.toLowerCase() == "fr"
                   ? "Sociétés Secrètes"
                   : "Secret Societies",
               href: "/wiki/lore/sociétés-secrètes"
@@ -217,14 +217,14 @@ export default Vue.extend({
             break;
           case "otherworld":
             result.push({
-              text: this.$i18n.locale == "fr" ? "Outres-Mondes" : "Otherworlds",
+              text: this.$i18n.locale.toLowerCase() == "fr" ? "Outres-Mondes" : "Otherworlds",
               href: "/wiki/lore/outres-mondes"
             });
             break;
           case "titans":
             result.push({
               text:
-                this.$i18n.locale == "fr"
+                this.$i18n.locale.toLowerCase() == "fr"
                   ? "Royaumes Titaniques"
                   : "Titanrealms",
               href: "/wiki/lore/titans"
@@ -232,7 +232,7 @@ export default Vue.extend({
             break;
         }
 
-        if (content.team !== "empty") {
+        if (content.team !== "empty" && content.team !== "") {
           result.push({
             text: content.team,
             href: `/wiki/lore/${content.team}`

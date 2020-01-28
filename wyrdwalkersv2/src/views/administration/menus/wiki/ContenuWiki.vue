@@ -140,7 +140,7 @@
               <v-list-item @click="openRename(item)">
                 <v-list-item-title>Renommer</v-list-item-title>
               </v-list-item>
-              <v-list-item :href="`/wiki/lore/${item.title.titleVF}`" target="_blank">
+              <v-list-item :href="`/wiki/lore/${item.titleVF}`" target="_blank">
                 <v-list-item-title>Voir la page</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -506,7 +506,6 @@ export default Vue.extend({
     deleteId: "",
     firstLoad: true,
     search: "",
-    lang: "FR",
     pagination: new Pagination(),
     pleaseWait: false,
     selectedTimeline: "",

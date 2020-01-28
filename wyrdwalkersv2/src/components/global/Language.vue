@@ -51,9 +51,9 @@ export default Vue.extend({
   },
   methods: {
     assignFlag: function() {
-      if (this.lang == "fr") {
+      if (this.lang.toLowerCase() == "fr") {
         this.imgSrc = this.imgFR;
-      } else if (this.lang == "en") {
+      } else if (this.lang.toLowerCase() == "en") {
         this.imgSrc = this.imgGB;
       }
     }
