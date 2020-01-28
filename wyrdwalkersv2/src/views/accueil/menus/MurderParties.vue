@@ -127,7 +127,8 @@
           </v-parallax>
           <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn dark color="blue-grey" href="https://www.helloasso.com/associations/wyrdwalkers/evenements/soiree-enquete-heure-h" target="_blank">Réserver</v-btn>
+              <v-btn dark color="blue-grey" v-if="false" href="https://www.helloasso.com/associations/wyrdwalkers/evenements/soiree-enquete-heure-h" target="_blank">Réserver</v-btn>
+              <v-btn dark color="blue-grey">Bientôt...</v-btn>
               <v-btn dark color="blue-grey" href="https://wyrdwalkers.com/ressources/murder-parties/HeureH.pdf" download>En savoir plus</v-btn>
               <v-spacer></v-spacer>
           </v-card-actions>
@@ -184,7 +185,8 @@
           </v-parallax>
           <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn dark color="blue-grey" href="https://www.helloasso.com/associations/wyrdwalkers/evenements/soiree-enquete-arturus-rex" target="_blank">Réserver</v-btn>
+              <v-btn dark color="blue-grey" v-if="false" href="https://www.helloasso.com/associations/wyrdwalkers/evenements/soiree-enquete-arturus-rex" target="_blank">Réserver</v-btn>
+              <v-btn dark color="blue-grey">Bientôt...</v-btn>
               <v-btn dark color="blue-grey" href="https://wyrdwalkers.com/ressources/murder-parties/ArturusRex.pdf" download>En savoir plus</v-btn>
               <v-spacer></v-spacer>
           </v-card-actions>
