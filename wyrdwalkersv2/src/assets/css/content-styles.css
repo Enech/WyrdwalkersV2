@@ -175,7 +175,7 @@
 .ck-content .table table th {
     min-width: 2em;
     padding: .4em;
-    border-color: hsl(0, 0%, 85%);
+    border: 1px solid hsl(0, 0%, 85%);
 }
 /* ckeditor5-table/theme/table.css */
 .ck-content .table table th {
