@@ -27,7 +27,7 @@
               <v-col
                 cols="12"
                 md="9"
-                v-html="$i18n.locale.toLowerCase() == 'fr' ? page.generalInfos.vf : page.generalInfos.vo"
+                v-html="$i18n.locale.toLowerCase() == 'fr' ? computeLinks(page.generalInfos.vf) : computeLinks(page.generalInfos.vo)"
               ></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
@@ -40,11 +40,11 @@
                     <span v-else>{{$t("wiki.contents.lore.noAuthor")}}</span>
                   </v-list-item-content>
                 </v-list-item>
-                <div v-if="music != ''">
+                <div v-if="page.content[0].music != ''">
                   <iframe
                     width="100%"
                     height="100"
-                    :src="page.content[0].music"
+                    :src="getEmbedUrl(page.content[0].music)"
                     frameborder="0"
                     allow="autoplay; encrypted-media"
                     allowfullscreen
@@ -65,7 +65,7 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="$i18n.locale.toLowerCase() == 'fr' ? page.myth.vf : page.myth.vo"></v-col>
+              <v-col cols="12" md="9" v-html="$i18n.locale.toLowerCase() == 'fr' ? computeLinks(page.myth.vf) : computeLinks(page.myth.vo)"></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
                 <v-list-item class="blue mb-1" dark v-if="page.content[0].picture != ''">
@@ -77,11 +77,11 @@
                     <span v-else>{{$t("wiki.contents.lore.noAuthor")}}</span>
                   </v-list-item-content>
                 </v-list-item>
-                <div v-if="music != ''">
+                <div v-if="page.content[0].music != ''">
                   <iframe
                     width="100%"
                     height="100"
-                    :src="page.content[0].music"
+                    :src="getEmbedUrl(page.content[0].music)"
                     frameborder="0"
                     allow="autoplay; encrypted-media"
                     allowfullscreen
@@ -106,7 +106,7 @@
               <v-col
                 cols="12"
                 md="9"
-                v-html="$i18n.locale.toLowerCase() == 'fr' ? content.textVF : content.textVO"
+                v-html="$i18n.locale.toLowerCase() == 'fr' ? computeLinks(content.textVF) : computeLinks(content.textVO)"
               ></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="content.picture" eager></v-img>
@@ -119,11 +119,11 @@
                     <span v-else>{{$t("wiki.contents.lore.noAuthor")}}</span>
                   </v-list-item-content>
                 </v-list-item>
-                <div v-if="music != ''">
+                <div v-if="content.music != ''">
                   <iframe
                     width="100%"
                     height="100"
-                    :src="content.music"
+                    :src="getEmbedUrl(content.music)"
                     frameborder="0"
                     allow="autoplay; encrypted-media"
                     allowfullscreen
@@ -184,6 +184,23 @@ export default Vue.extend({
       var urlTab = url.split("watch?v=");
       var videoId = urlTab[urlTab.length - 1];
       return `https://www.youtube.com/embed/${videoId}`;
+    },
+    computeLinks(html: string){
+      var container = document.createElement("div");
+      container.innerHTML = html;
+      var linkElements = container.querySelectorAll("a");
+      
+      for(var i = 0; i < linkElements.length; i++){
+        var link = linkElements[i];
+        var url = link.href;
+
+        if(!url.includes("/wiki/lore/") && !url.includes("http://") && !url.includes("https://")){
+          var targetTab = url.split("/");
+          var target = targetTab[targetTab.length - 1];
+          link.href = "/wiki/lore/" + target.toLowerCase().replace(" ", "-");
+        }
+      }
+      return container.innerHTML;
     },
     computeBreadcrumbs: function(content: any) {
       var result = new Array<any>();

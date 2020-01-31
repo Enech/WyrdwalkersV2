@@ -264,8 +264,8 @@ export default Vue.extend({
       this.loading = true;
       store.dispatch("fetchAllWikiPages").then((response: any) => {
         var densePages = this.DensifyWikiPages(response.data);
-        Object.assign(this.pages, densePages);
-        Object.assign(this.originalPages, this.pages);
+        this.pages = densePages;
+        this.originalPages = this.pages;
         this.searchInPages(this.search);
         this.customPaginate();
         this.loading = false;
