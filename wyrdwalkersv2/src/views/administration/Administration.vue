@@ -37,7 +37,7 @@
           <template v-slot:activator>
             <v-list-item-title>Character Makers</v-list-item-title>
           </template>
-          <v-list-item>
+          <v-list-item :to="{name:'approches'}">
             <v-list-item-title>Approches</v-list-item-title>
           </v-list-item>
           <v-list-item>

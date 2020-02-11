@@ -14,6 +14,7 @@ import Flatted, { parse, stringify } from '../../node_modules/flatted'
 import Music from '@/model/Music.model';
 import WikiRedirection from '@/model/WikiRedirection.model';
 import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
+import Approche from '@/model/explorer/Approche.model';
 
 Vue.use(Vuex)
 
@@ -527,6 +528,60 @@ const store = new Vuex.Store({
       return axios.get(`${process.env.VUE_APP_APIURL}approaches/all`)
         .then((response: any) => {
           context.commit("setApproaches", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addApproach(context, approche: Approche) {
+      return axios.post(`${process.env.VUE_APP_APIURL}approaches/`, approche)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'approche a bien été ajoutée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updateApproach(context, approche: Approche) {
+      return axios.put(`${process.env.VUE_APP_APIURL}approaches/${approche._id}`, approche)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'approche a bien été mise à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deleteApproach(context, approche: Approche) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}approaches/${approche._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'approche a bien été supprimée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");

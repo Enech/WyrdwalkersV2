@@ -210,6 +210,11 @@ const routes = [
         path: 'explorer',
         name: 'backofficeExplorer',
         component: () => import('../views/administration/menus/ExplorateurBO.vue')
+      },
+      {
+        path: 'approaches',
+        name: 'approches',
+        component: () => import('../views/administration/menus/makers/Approches.vue')
       }
     ]
   }
