@@ -18,7 +18,7 @@
               >Approche - {{this.editedItem.nameVF}}</span>
               <span class="headline" v-else>Nouvelle approche</span>
               <v-spacer></v-spacer>
-              <v-btn text icon dark @click="dialog = false;">
+              <v-btn text icon dark @click="closeDialog()">
                 <v-icon>close</v-icon>
               </v-btn>
             </v-card-title>
@@ -31,44 +31,115 @@
                   <v-col cols="12" sm="6">
                     <v-text-field v-model="editedItem.nameVO" label="Name (VO)"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.captionVF" label="Description (VF)"></v-text-field>
+                  <v-col cols="12" sm="4">
+                    <v-text-field v-model="editedItem.logos" label="Score Logos"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.captionVO" label="Caption (VO)"></v-text-field>
+                  <v-col cols="12" sm="4">
+                    <v-text-field v-model="editedItem.kosmos" label="Score Kosmos"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-menu
-                      v-model="openDates"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="dateResult"
-                          label="Date"
-                          prepend-icon="event"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker v-model="dateResult" @input="openDates = false" locale="fr-fr"></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.location" label="Lieu"></v-text-field>
+                  <v-col cols="12" sm="4">
+                    <v-text-field v-model="editedItem.eros" label="Score Eros"></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="editedItem.externalLink" label="Lien externe"></v-text-field>
+                    <v-divider></v-divider>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.athletics"
+                      label="Athlétisme"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.rapport"
+                      label="Rapport"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.engineering"
+                      label="Ingénierie"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.combat"
+                      label="Combat"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.lore"
+                      label="Savoir"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.notice"
+                      label="Perception"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.physique"
+                      label="Physique"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.presence"
+                      label="Présence"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.manipulation"
+                      label="Manipulation"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.resources"
+                      label="Ressources"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.marksmanship"
+                      label="Tir"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.stealth"
+                      label="Furtivité"
+                      type="number"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-text-field
+                      v-model="editedItem.skillsWeights.will"
+                      label="Volonté"
+                      type="number"
+                    ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="black" text @click="dialog = false;">Annuler</v-btn>
+              <v-btn color="black" text @click="closeDialog();">Annuler</v-btn>
               <v-btn
                 color="blue"
                 text
@@ -79,7 +150,7 @@
               <v-btn
                 color="blue"
                 text
-                @click="addAnimation();"
+                @click="addApproach();"
                 :disabled="editedItem.nameVF.length < 2"
                 v-else
               >Ajouter</v-btn>
@@ -88,12 +159,7 @@
         </v-dialog>
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
-      <v-data-table :items="animations" :loading="loading" :headers="headers" must-sort>
-        <template v-slot:item.skillsWeights="{ item }">
-          <v-btn fab small dark color="accent" target="_blank" :href="item.externalLink" v-if="item.externalLink.length > 0">
-            <v-icon small>link</v-icon>
-          </v-btn>
-        </template>
+      <v-data-table :items="approaches" :loading="loading" :headers="headers">
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -112,7 +178,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
-            <v-btn color="red" text @click="deleteAnimation()">Supprimer</v-btn>
+            <v-btn color="red" text @click="deleteApproach()">Supprimer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -127,11 +193,11 @@ import Approche from "../../../../model/explorer/Approche.model";
 
 export default Vue.extend({
   name: "AdminApproches",
-  created: function(){
+  created: function() {
     this.fetchApproaches();
   },
-  computed:{
-    approaches: function(){
+  computed: {
+    approaches: function() {
       return store.getters.approaches;
     }
   },
@@ -145,20 +211,20 @@ export default Vue.extend({
     addApproach: function() {
       store.dispatch("addApproach", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem,new Approche());
+        Object.assign(this.editedItem, new Approche());
       });
     },
     sendUpdate: function() {
       store.dispatch("updateApproach", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem,new Approche());
+        Object.assign(this.editedItem, new Approche());
       });
     },
     deleteApproach: function() {
       store.dispatch("deleteApproach", this.editedItem).then(() => {
         this.deleteDialog = false;
-        this.fetchAnimations();
-        Object.assign(this.editedItem,new Approche());
+        this.fetchApproaches();
+        Object.assign(this.editedItem, new Approche());
       });
     },
     openDialog: function(approche: Approche) {
@@ -168,7 +234,7 @@ export default Vue.extend({
     closeDialog: function() {
       Object.assign(this.editedItem, new Approche());
       this.dialog = false;
-      this.fetchAnimations();
+      this.fetchApproaches();
     }
   },
   data: () => ({
@@ -176,24 +242,21 @@ export default Vue.extend({
     deleteDialog: false,
     editedItem: new Approche(),
     openDates: false,
-    dateResult: '',
+    dateResult: "",
     loading: false,
     headers: [
       { text: "Nom (VF)", value: "nameVF" },
       { text: "Name (VO)", value: "nameVO" },
-      { text: "Logos", value: "captionVF", sortable: false },
-      { text: "Kosmos", value: "captionVO", sortable: false },
-      { text: "Eros", value: "date" },
-      { text: "Poids Talents", value: "skillsWeights" },
+      { text: "Logos", value: "logos" },
+      { text: "Kosmos", value: "kosmos" },
+      { text: "Eros", value: "eros" },
       { text: "Actions", value: "action", sortable: false }
     ]
   }),
   metaInfo: function() {
     return {
-      title:"Backoffice Approches",
-      link: [
-        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
-      ]
+      title: "Backoffice Approches",
+      link: [{ rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }]
     };
   }
 });
