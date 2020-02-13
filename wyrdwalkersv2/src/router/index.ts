@@ -215,6 +215,11 @@ const routes = [
         path: 'approaches',
         name: 'approches',
         component: () => import('../views/administration/menus/makers/Approches.vue')
+      },
+      {
+        path: 'domains',
+        name: 'domaines',
+        component: () => import('../views/administration/menus/makers/Domaines.vue')
       }
     ]
   }
