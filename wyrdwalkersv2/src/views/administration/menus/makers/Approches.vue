@@ -160,6 +160,55 @@
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
       <v-data-table :items="approaches" :loading="loading" :headers="headers">
+          
+        <template v-slot:item.skillsWeights="{ item }">
+          <v-menu :max-height="300">
+            <template v-slot:activator="{ on }">
+              <v-btn color="primary" dark fab small v-on="on">#</v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>Athlétisme : {{item.skillsWeights.athletics}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Rapport : {{item.skillsWeights.rapport}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Ingénierie : {{item.skillsWeights.engineering}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Combat : {{item.skillsWeights.combat}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Savoir : {{item.skillsWeights.lore}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Perception : {{item.skillsWeights.notice}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Physique : {{item.skillsWeights.physique}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Presence : {{item.skillsWeights.presence}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Manipulation : {{item.skillsWeights.manipulation}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Ressources : {{item.skillsWeights.resources}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Tir : {{item.skillsWeights.marksmanship}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Furtivité : {{item.skillsWeights.stealth}}</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>Volonté : {{item.skillsWeights.will}}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -250,6 +299,7 @@ export default Vue.extend({
       { text: "Logos", value: "logos" },
       { text: "Kosmos", value: "kosmos" },
       { text: "Eros", value: "eros" },
+      { text: "Poids Talents", value: "skillsWeights", sortable: false },
       { text: "Actions", value: "action", sortable: false }
     ]
   }),
