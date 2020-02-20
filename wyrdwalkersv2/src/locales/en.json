@@ -73,9 +73,9 @@
       },
       "workshops": {
         "title": "Workshops",
-        "subtitle": "Our <i>storytelling</i> workshops",
+        "subtitle": "Our storytelling workshops",
         "more": "More",
-        "noDate": "Wyrdwalkers does not have any workshops scheduled yet"
+        "noData": "Wyrdwalkers does not have any workshops scheduled yet"
       },
       "contact": {
         "title": "Contact Us",

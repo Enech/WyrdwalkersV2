@@ -73,9 +73,9 @@
       },
       "workshops": {
         "title": "Ateliers",
-        "subtitle": "Nos ateliers de <i>storytelling</i>",
+        "subtitle": "Nos ateliers de storytelling",
         "more": "En savoir plus",
-        "noDate": "Wyrdwalkers n'a pas d'ateliers prévus pour le moment"
+        "noData": "Wyrdwalkers n'a pas d'ateliers prévus pour le moment"
       },
       "contact": {
         "title": "Nous contacter",

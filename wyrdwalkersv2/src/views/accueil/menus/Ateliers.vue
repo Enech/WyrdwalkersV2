@@ -3,8 +3,8 @@
     <v-parallax dark src="@/assets/ParallaxAccueil.webp" eager :height="250">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-2 font-weight-thin mb-4">{{$t("home.contents.wokshops.title")}}</h1>
-          <h3 class="headline">{{$t("home.contents.wokshops.subtitle")}}</h3>
+          <h1 class="display-2 font-weight-thin mb-4">{{$t("home.contents.workshops.title")}}</h1>
+          <h3 class="headline">{{$t("home.contents.workshops.subtitle")}}</h3>
         </v-col>
       </v-row>
     </v-parallax>
@@ -71,7 +71,7 @@
         type="info"
         elevation="2"
         width="100%"
-      >{{$t("home.contents.wokshops.noData")}}</v-alert>
+      >{{$t("home.contents.workshops.noData")}}</v-alert>
     </div>
   </div>
 </template>
