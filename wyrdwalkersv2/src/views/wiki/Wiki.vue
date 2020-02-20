@@ -41,7 +41,7 @@
             <v-icon small>fa-book-reader</v-icon>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item :to="{name:'explorer'}">
+        <v-list-item :to="{name:'explorer'}" v-if="false">
           <v-list-item-title>Explorateur</v-list-item-title>
           <v-list-item-action>
             <v-icon small>near_me</v-icon>
