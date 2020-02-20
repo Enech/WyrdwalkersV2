@@ -51,16 +51,17 @@ export default Vue.extend({
   methods: {
     getRenderText: function(page: WikiPage) {
       var text = '';
+      var isFrench = this.$i18n.locale == 'fr';
 
-      if(this.$i18n.locale == 'fr'){
-        if(page.generalInfos.vf.length != ''){
-          text = page.generalInfos.vf
-        } else {
-          page.content[0].textVF;
+      if(page.generalInfos){
+        if(page.generalInfos.vf != '' && isFrench){
+          text = page.generalInfos.vf;
+        } else if(page.generalInfos.vo != '' && !isFrench){
+          text = page.generalInfos.vo;
         }
       } else {
-        if(page.generalInfos.vo.length != ''){
-          text = page.generalInfos.vo
+        if(isFrench){
+          text = page.content[0].textVF;
         } else {
           text = page.content[0].textVO;
         }
