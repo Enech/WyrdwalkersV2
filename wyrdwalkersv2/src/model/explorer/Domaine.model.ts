@@ -4,7 +4,7 @@ import { LegendaryWeight } from './weights/LegendaryWeight.model';
 export default class Domaine {
     public _id: string;
     public nameVF: string;
-    public nameVO: string;
+    public name: string;
     public logos: number;
     public kosmos: number;
     public eros: number;
@@ -14,7 +14,7 @@ export default class Domaine {
     constructor() {
         this._id = '';
         this.nameVF = '';
-        this.nameVO = '';
+        this.name = '';
         this.logos = -1;
         this.kosmos = -1;
         this.eros = -1;

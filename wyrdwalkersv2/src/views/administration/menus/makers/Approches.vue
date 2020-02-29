@@ -4,7 +4,7 @@
       <v-card-title>
         Gestion des approches
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px" persistent>
+        <v-dialog v-model="dialog" max-width="1000px" persistent>
           <template v-slot:activator="{ on }">
             <v-btn icon color="blue" class="mb-2" v-on="on" dark>
               <v-icon>add</v-icon>

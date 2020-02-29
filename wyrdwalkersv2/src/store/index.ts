@@ -15,6 +15,7 @@ import Music from '@/model/Music.model';
 import WikiRedirection from '@/model/WikiRedirection.model';
 import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
 import Approche from '@/model/explorer/Approche.model';
+import Domaine from '@/model/explorer/Domaine.model';
 
 Vue.use(Vuex)
 
@@ -591,6 +592,60 @@ const store = new Vuex.Store({
       return axios.get(`${process.env.VUE_APP_APIURL}domains/all`)
         .then((response: any) => {
           context.commit("setDomains", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addDomain(context, domaine: Domaine) {
+      return axios.post(`${process.env.VUE_APP_APIURL}domains/`, domaine)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le domaine a bien été ajouté";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updateDomain(context, domaine: Domaine) {
+      return axios.put(`${process.env.VUE_APP_APIURL}domains/${domaine._id}`, domaine)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le domaine a bien été mis à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deleteDomain(context, domaine: Domaine) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}domains/${domaine._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le domaine a bien été supprimé";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
