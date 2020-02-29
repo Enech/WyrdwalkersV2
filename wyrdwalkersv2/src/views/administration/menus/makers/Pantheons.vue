@@ -2,7 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3">
       <v-card-title>
-        Gestion des domaines
+        Gestion des panthéons
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px" persistent>
           <template v-slot:activator="{ on }">
@@ -15,8 +15,8 @@
               <span
                 class="headline"
                 v-if="this.editedItem._id != ''"
-              >Domaine - {{this.editedItem.nameVF}}</span>
-              <span class="headline" v-else>Nouveau domaine</span>
+              >Panthéon - {{this.editedItem.nameVF}}</span>
+              <span class="headline" v-else>Nouveau panthéon</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="closeDialog()">
                 <v-icon>close</v-icon>
@@ -920,7 +920,7 @@
               <v-btn
                 color="blue"
                 text
-                @click="addDomain();"
+                @click="addPantheon();"
                 :disabled="editedItem.nameVF.length < 2"
                 v-else
               >Ajouter</v-btn>
@@ -929,7 +929,7 @@
         </v-dialog>
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
-      <v-data-table :items="domains" :loading="loading" :headers="headers">
+      <v-data-table :items="pantheons" :loading="loading" :headers="headers">
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -942,13 +942,13 @@
       <v-dialog v-model="deleteDialog" max-width="500px" persistent>
         <v-card>
           <v-card-title>
-            <span class="headline">Suppression d'un domaine</span>
+            <span class="headline">Suppression d'un panthéon</span>
           </v-card-title>
-          <v-card-text>Vous êtes sur le point de supprimer un domaine. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
+          <v-card-text>Vous êtes sur le point de supprimer un panthéon. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
-            <v-btn color="red" text @click="deleteDomain()">Supprimer</v-btn>
+            <v-btn color="red" text @click="deletePantheon()">Supprimer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -959,58 +959,58 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../../store";
-import Domaine from "../../../../model/explorer/Domaine.model";
+import Pantheon from "../../../../model/explorer/Pantheon.model";
 
 export default Vue.extend({
-  name: "AdminDomaines",
+  name: "AdminPantheon",
   created: function() {
-    this.fetchDomains();
+    this.fetchPantheons();
   },
   computed: {
-    domains: function() {
-      return store.getters.domains;
+    pantheons: function() {
+      return store.getters.pantheons;
     }
   },
   methods: {
-    fetchDomains: function() {
+    fetchPantheons: function() {
       this.loading = true;
-      store.dispatch("fetchDomains").then(() => {
+      store.dispatch("fetchPantheons").then(() => {
         this.loading = false;
       });
     },
-    addDomain: function() {
-      store.dispatch("addDomain", this.editedItem).then(() => {
+    addPantheon: function() {
+      store.dispatch("addPantheon", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem, new Domaine());
+        Object.assign(this.editedItem, new Pantheon());
       });
     },
     sendUpdate: function() {
-      store.dispatch("updateDomain", this.editedItem).then(() => {
+      store.dispatch("updatePantheon", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem, new Domaine());
+        Object.assign(this.editedItem, new Pantheon());
       });
     },
-    deleteDomain: function() {
-      store.dispatch("deleteDomain", this.editedItem).then(() => {
+    deletePantheon: function() {
+      store.dispatch("deletePantheon", this.editedItem).then(() => {
         this.deleteDialog = false;
-        this.fetchDomains();
-        Object.assign(this.editedItem, new Domaine());
+        this.fetchPantheons();
+        Object.assign(this.editedItem, new Pantheon());
       });
     },
-    openDialog: function(domaine: Domaine) {
-      Object.assign(this.editedItem, domaine);
+    openDialog: function(pantheon: Pantheon) {
+      Object.assign(this.editedItem, pantheon);
       this.dialog = true;
     },
     closeDialog: function() {
-      Object.assign(this.editedItem, new Domaine());
+      Object.assign(this.editedItem, new Pantheon());
       this.dialog = false;
-      this.fetchDomains();
+      this.fetchPantheons();
     }
   },
   data: () => ({
     dialog: false,
     deleteDialog: false,
-    editedItem: new Domaine(),
+    editedItem: new Pantheon(),
     openDates: false,
     dateResult: "",
     loading: false,
@@ -1025,7 +1025,7 @@ export default Vue.extend({
   }),
   metaInfo: function() {
     return {
-      title: "Backoffice Domaines",
+      title: "Backoffice Panthéons",
       link: [{ rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }]
     };
   }

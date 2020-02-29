@@ -17,6 +17,7 @@ import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
 import Approche from '@/model/explorer/Approche.model';
 import Domaine from '@/model/explorer/Domaine.model';
 import Personality from '@/model/explorer/Personality.model';
+import Pantheon from '@/model/explorer/Pantheon.model';
 
 Vue.use(Vuex)
 
@@ -719,6 +720,60 @@ const store = new Vuex.Store({
       return axios.get(`${process.env.VUE_APP_APIURL}pantheons/all`)
         .then((response: any) => {
           context.commit("setPantheons", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addPantheon(context, pantheon: Pantheon) {
+      return axios.post(`${process.env.VUE_APP_APIURL}pantheons/`, pantheon)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le panthéon a bien été ajouté";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updatePantheon(context, pantheon: Pantheon) {
+      return axios.put(`${process.env.VUE_APP_APIURL}pantheons/${pantheon._id}`, pantheon)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le panthéon a bien été mis à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deletePantheon(context, pantheon: Pantheon) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}pantheons/${pantheon._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le panthéon a bien été supprimé";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");

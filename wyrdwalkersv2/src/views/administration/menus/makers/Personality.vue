@@ -942,9 +942,9 @@
       <v-dialog v-model="deleteDialog" max-width="500px" persistent>
         <v-card>
           <v-card-title>
-            <span class="headline">Suppression d'un domaine</span>
+            <span class="headline">Suppression d'une personnalité</span>
           </v-card-title>
-          <v-card-text>Vous êtes sur le point de supprimer un domaine. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
+          <v-card-text>Vous êtes sur le point de supprimer une personnalité. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
@@ -962,7 +962,7 @@ import store from "../../../../store";
 import Personality from "../../../../model/explorer/Personality.model";
 
 export default Vue.extend({
-  name: "AdminDomaines",
+  name: "AdminPersonality",
   created: function() {
     this.fetchPersonalities();
   },

@@ -225,6 +225,11 @@ const routes = [
         path: 'personalities',
         name: 'personalities',
         component: () => import('../views/administration/menus/makers/Personality.vue')
+      },
+      {
+        path: 'pantheons',
+        name: 'pantheons',
+        component: () => import('../views/administration/menus/makers/Pantheons.vue')
       }
     ]
   }
