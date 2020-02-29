@@ -220,6 +220,11 @@ const routes = [
         path: 'domains',
         name: 'domaines',
         component: () => import('../views/administration/menus/makers/Domaines.vue')
+      },
+      {
+        path: 'personalities',
+        name: 'personalities',
+        component: () => import('../views/administration/menus/makers/Personality.vue')
       }
     ]
   }

@@ -16,6 +16,7 @@ import WikiRedirection from '@/model/WikiRedirection.model';
 import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
 import Approche from '@/model/explorer/Approche.model';
 import Domaine from '@/model/explorer/Domaine.model';
+import Personality from '@/model/explorer/Personality.model';
 
 Vue.use(Vuex)
 
@@ -655,6 +656,60 @@ const store = new Vuex.Store({
       return axios.get(`${process.env.VUE_APP_APIURL}personalities/all`)
         .then((response: any) => {
           context.commit("setPersonalities", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addPersonality(context, perso: Personality) {
+      return axios.post(`${process.env.VUE_APP_APIURL}personalities/`, perso)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "La personnalité a bien été ajoutée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updatePersonality(context, perso: Personality) {
+      return axios.put(`${process.env.VUE_APP_APIURL}personalities/${perso._id}`, perso)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "La personnalité a bien été mise à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deletePersonality(context, perso: Personality) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}personalities/${perso._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "La personnalité a bien été supprimée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");

@@ -2,7 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3">
       <v-card-title>
-        Gestion des domaines
+        Gestion des personnalités
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px" persistent>
           <template v-slot:activator="{ on }">
@@ -15,8 +15,8 @@
               <span
                 class="headline"
                 v-if="this.editedItem._id != ''"
-              >Domaine - {{this.editedItem.nameVF}}</span>
-              <span class="headline" v-else>Nouveau domaine</span>
+              >Personnalité - {{this.editedItem.nameVF}}</span>
+              <span class="headline" v-else>Nouvelle personnalité</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="closeDialog()">
                 <v-icon>close</v-icon>
@@ -920,7 +920,7 @@
               <v-btn
                 color="blue"
                 text
-                @click="addDomain();"
+                @click="addPersonality();"
                 :disabled="editedItem.nameVF.length < 2"
                 v-else
               >Ajouter</v-btn>
@@ -929,7 +929,7 @@
         </v-dialog>
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
-      <v-data-table :items="domains" :loading="loading" :headers="headers">
+      <v-data-table :items="personalities" :loading="loading" :headers="headers">
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -948,7 +948,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
-            <v-btn color="red" text @click="deleteDomain()">Supprimer</v-btn>
+            <v-btn color="red" text @click="deletePersonality()">Supprimer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -959,58 +959,58 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../../store";
-import Domaine from "../../../../model/explorer/Domaine.model";
+import Personality from "../../../../model/explorer/Personality.model";
 
 export default Vue.extend({
   name: "AdminDomaines",
   created: function() {
-    this.fetchDomains();
+    this.fetchPersonalities();
   },
   computed: {
-    domains: function() {
-      return store.getters.domains;
+    personalities: function() {
+      return store.getters.personalities;
     }
   },
   methods: {
-    fetchDomains: function() {
+    fetchPersonalities: function() {
       this.loading = true;
-      store.dispatch("fetchDomains").then(() => {
+      store.dispatch("fetchPersonalities").then(() => {
         this.loading = false;
       });
     },
-    addDomain: function() {
-      store.dispatch("addDomain", this.editedItem).then(() => {
+    addPersonality: function() {
+      store.dispatch("addPersonality", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem, new Domaine());
+        Object.assign(this.editedItem, new Personality());
       });
     },
     sendUpdate: function() {
       store.dispatch("updateDomain", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem, new Domaine());
+        Object.assign(this.editedItem, new Personality());
       });
     },
-    deleteDomaine: function() {
-      store.dispatch("deleteDomain", this.editedItem).then(() => {
+    deletePersonality: function() {
+      store.dispatch("deletePersonality", this.editedItem).then(() => {
         this.deleteDialog = false;
-        this.fetchDomains();
-        Object.assign(this.editedItem, new Domaine());
+        this.fetchPersonalities();
+        Object.assign(this.editedItem, new Personality());
       });
     },
-    openDialog: function(domaine: Domaine) {
+    openDialog: function(domaine: Personality) {
       Object.assign(this.editedItem, domaine);
       this.dialog = true;
     },
     closeDialog: function() {
-      Object.assign(this.editedItem, new Domaine());
+      Object.assign(this.editedItem, new Personality());
       this.dialog = false;
-      this.fetchDomains();
+      this.fetchPersonalities();
     }
   },
   data: () => ({
     dialog: false,
     deleteDialog: false,
-    editedItem: new Domaine(),
+    editedItem: new Personality(),
     openDates: false,
     dateResult: "",
     loading: false,
@@ -1025,7 +1025,7 @@ export default Vue.extend({
   }),
   metaInfo: function() {
     return {
-      title: "Backoffice Domaines",
+      title: "Backoffice Personnalités",
       link: [{ rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }]
     };
   }

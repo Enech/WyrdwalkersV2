@@ -43,7 +43,7 @@
           <v-list-item :to="{name:'domaines'}">
             <v-list-item-title>Domaines</v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'personalities'}">
             <v-list-item-title>Personnalités</v-list-item-title>
           </v-list-item>
           <v-list-item>
