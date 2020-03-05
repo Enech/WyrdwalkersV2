@@ -46,7 +46,7 @@
           <v-list-item :to="{name:'personalities'}">
             <v-list-item-title>Personnalités</v-list-item-title>
           </v-list-item>
-          <v-list-item :to="{name:'pantheons'}">
+          <v-list-item :to="{name:'origins'}">
             <v-list-item-title>Panthéons</v-list-item-title>
           </v-list-item>
           <v-list-item>

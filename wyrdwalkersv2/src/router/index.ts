@@ -227,9 +227,9 @@ const routes = [
         component: () => import('../views/administration/menus/makers/Personality.vue')
       },
       {
-        path: 'pantheons',
-        name: 'pantheons',
-        component: () => import('../views/administration/menus/makers/Pantheons.vue')
+        path: 'origins',
+        name: 'origins',
+        component: () => import('../views/administration/menus/makers/Origins.vue')
       }
     ]
   }

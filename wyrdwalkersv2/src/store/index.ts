@@ -17,7 +17,7 @@ import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
 import Approche from '@/model/explorer/Approche.model';
 import Domaine from '@/model/explorer/Domaine.model';
 import Personality from '@/model/explorer/Personality.model';
-import Pantheon from '@/model/explorer/Pantheon.model';
+import Origin from '@/model/explorer/Origin.model';
 
 Vue.use(Vuex)
 
@@ -34,7 +34,7 @@ const store = new Vuex.Store({
     domains: new Array<TriangleParameter>(),
     approaches: new Array<TriangleParameter>(),
     personalities: new Array<TriangleParameter>(),
-    pantheons: new Array<TriangleParameter>(),
+    origins: new Array<Origin>(),
     wikipage: new WikiPage(),
     allMusics: new Array<Music>(),
     randomWikiPages: new Array<WikiPage>(),
@@ -99,8 +99,8 @@ const store = new Vuex.Store({
     setPersonalities(state, newEntries: TriangleParameter[]) {
       state.personalities = newEntries;
     },
-    setPantheons(state, newEntries: TriangleParameter[]) {
-      state.pantheons = newEntries;
+    setOrigins(state, newEntries: Origin[]) {
+      state.origins = newEntries;
     },
     setWikiPage(state, page: WikiPage) {
       state.wikipage = page;
@@ -167,7 +167,7 @@ const store = new Vuex.Store({
     approaches: state => state.approaches,
     domains: state => state.domains,
     personalities: state => state.personalities,
-    pantheons: state => state.pantheons,
+    origins: state => state.origins,
     wikipage: state => state.wikipage,
     allMusics: state => state.allMusics,
     randomWikiPages: state => state.randomWikiPages,
@@ -716,17 +716,17 @@ const store = new Vuex.Store({
           context.dispatch("displayProxyError");
         });
     },
-    fetchPantheons(context) {
-      return axios.get(`${process.env.VUE_APP_APIURL}pantheons/all`)
+    fetchOrigins(context) {
+      return axios.get(`${process.env.VUE_APP_APIURL}origins/all`)
         .then((response: any) => {
-          context.commit("setPantheons", response.data);
+          context.commit("setOrigins", response.data);
         })
         .catch(() => {
           context.dispatch("displayProxyError");
         });
     },
-    addPantheon(context, pantheon: Pantheon) {
-      return axios.post(`${process.env.VUE_APP_APIURL}pantheons/`, pantheon)
+    addOrigin(context, pantheon: Origin) {
+      return axios.post(`${process.env.VUE_APP_APIURL}origins/`, pantheon)
         .then((response: any) => {
           var newError = new ErrorMessage();
           if (response.data.ok !== 1) {
@@ -734,7 +734,7 @@ const store = new Vuex.Store({
             newError.type = "red";
             context.commit("setErrorMessage", newError);
           } else {
-            newError.message = "Le panthéon a bien été ajouté";
+            newError.message = "L'origine a bien été ajoutée";
             newError.type = "green";
             context.commit("setErrorMessage", newError);
           }
@@ -743,8 +743,8 @@ const store = new Vuex.Store({
           context.dispatch("displayProxyError");
         });
     },
-    updatePantheon(context, pantheon: Pantheon) {
-      return axios.put(`${process.env.VUE_APP_APIURL}pantheons/${pantheon._id}`, pantheon)
+    updateOrigin(context, pantheon: Origin) {
+      return axios.put(`${process.env.VUE_APP_APIURL}origins/${pantheon._id}`, pantheon)
         .then((response: any) => {
           var newError = new ErrorMessage();
           if (response.data.ok !== 1) {
@@ -752,7 +752,7 @@ const store = new Vuex.Store({
             newError.type = "red";
             context.commit("setErrorMessage", newError);
           } else {
-            newError.message = "Le panthéon a bien été mis à jour";
+            newError.message = "L'origine a bien été mise à jour";
             newError.type = "green";
             context.commit("setErrorMessage", newError);
           }
@@ -761,8 +761,8 @@ const store = new Vuex.Store({
           context.dispatch("displayProxyError");
         });
     },
-    deletePantheon(context, pantheon: Pantheon) {
-      return axios.delete(`${process.env.VUE_APP_APIURL}pantheons/${pantheon._id}`)
+    deleteOrigin(context, pantheon: Origin) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}origins/${pantheon._id}`)
         .then((response: any) => {
           var newError = new ErrorMessage();
           if (response.data.ok !== 1) {
@@ -770,7 +770,7 @@ const store = new Vuex.Store({
             newError.type = "red";
             context.commit("setErrorMessage", newError);
           } else {
-            newError.message = "Le panthéon a bien été supprimé";
+            newError.message = "L'origine a bien été supprimée";
             newError.type = "green";
             context.commit("setErrorMessage", newError);
           }

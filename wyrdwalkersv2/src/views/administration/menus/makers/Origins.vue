@@ -920,7 +920,7 @@
               <v-btn
                 color="blue"
                 text
-                @click="addPantheon();"
+                @click="addOrigin();"
                 :disabled="editedItem.nameVF.length < 2"
                 v-else
               >Ajouter</v-btn>
@@ -929,7 +929,7 @@
         </v-dialog>
       </v-card-title>
       <v-divider class="mb-3"></v-divider>
-      <v-data-table :items="pantheons" :loading="loading" :headers="headers">
+      <v-data-table :items="origins" :loading="loading" :headers="headers">
         <template v-slot:item.action="{ item }">
           <v-btn fab small dark color="light-blue" @click.stop="openDialog(item)">
             <v-icon small>edit</v-icon>
@@ -948,7 +948,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
-            <v-btn color="red" text @click="deletePantheon()">Supprimer</v-btn>
+            <v-btn color="red" text @click="deleteOrigin()">Supprimer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -959,58 +959,58 @@
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../../store";
-import Pantheon from "../../../../model/explorer/Pantheon.model";
+import Origin from "../../../../model/explorer/Origin.model";
 
 export default Vue.extend({
-  name: "AdminPantheon",
+  name: "AdminOrigin",
   created: function() {
-    this.fetchPantheons();
+    this.fetchOrigins();
   },
   computed: {
-    pantheons: function() {
-      return store.getters.pantheons;
+    origins: function() {
+      return store.getters.origins;
     }
   },
   methods: {
-    fetchPantheons: function() {
+    fetchOrigins: function() {
       this.loading = true;
-      store.dispatch("fetchPantheons").then(() => {
+      store.dispatch("fetchOrigins").then(() => {
         this.loading = false;
       });
     },
-    addPantheon: function() {
-      store.dispatch("addPantheon", this.editedItem).then(() => {
+    addOrigin: function() {
+      store.dispatch("addOrigin", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem, new Pantheon());
+        Object.assign(this.editedItem, new Origin());
       });
     },
     sendUpdate: function() {
-      store.dispatch("updatePantheon", this.editedItem).then(() => {
+      store.dispatch("updateOrigin", this.editedItem).then(() => {
         this.closeDialog();
-        Object.assign(this.editedItem, new Pantheon());
+        Object.assign(this.editedItem, new Origin());
       });
     },
-    deletePantheon: function() {
-      store.dispatch("deletePantheon", this.editedItem).then(() => {
+    deleteOrigin: function() {
+      store.dispatch("deleteOrigin", this.editedItem).then(() => {
         this.deleteDialog = false;
-        this.fetchPantheons();
-        Object.assign(this.editedItem, new Pantheon());
+        this.fetchOrigins();
+        Object.assign(this.editedItem, new Origin());
       });
     },
-    openDialog: function(pantheon: Pantheon) {
+    openDialog: function(pantheon: Origin) {
       Object.assign(this.editedItem, pantheon);
       this.dialog = true;
     },
     closeDialog: function() {
-      Object.assign(this.editedItem, new Pantheon());
+      Object.assign(this.editedItem, new Origin());
       this.dialog = false;
-      this.fetchPantheons();
+      this.fetchOrigins();
     }
   },
   data: () => ({
     dialog: false,
     deleteDialog: false,
-    editedItem: new Pantheon(),
+    editedItem: new Origin(),
     openDates: false,
     dateResult: "",
     loading: false,
@@ -1025,7 +1025,7 @@ export default Vue.extend({
   }),
   metaInfo: function() {
     return {
-      title: "Backoffice Panthéons",
+      title: "Backoffice Origines",
       link: [{ rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }]
     };
   }

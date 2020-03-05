@@ -1,7 +1,7 @@
 import { SkillWeight } from './weights/SkillWeight.model';
 import { LegendaryWeight } from './weights/LegendaryWeight.model';
 
-export default class Pantheon {
+export default class Origin {
     public _id: string;
     public nameVF: string;
     public name: string;
