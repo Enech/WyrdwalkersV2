@@ -1,31 +1,33 @@
+import GenericPoids from './GenericWeight.model';
+
 export class SkillWeight {
-    public athletics: number;
-    public rapport: number;
-    public engineering: number;
-    public combat: number;
-    public lore: number;
-    public notice: number;
-    public physique: number;
-    public presence: number;
-    public manipulation: number;
-    public resources: number;
-    public marksmanship: number;
-    public stealth: number;
-    public will: number;
+    public athletics: GenericPoids;
+    public rapport: GenericPoids;
+    public engineering: GenericPoids;
+    public combat: GenericPoids;
+    public lore: GenericPoids;
+    public notice: GenericPoids;
+    public physique: GenericPoids;
+    public presence: GenericPoids;
+    public manipulation: GenericPoids;
+    public resources: GenericPoids;
+    public marksmanship: GenericPoids;
+    public stealth: GenericPoids;
+    public will: GenericPoids;
 
     constructor(){
-        this.athletics = -100;
-        this.rapport = -100;
-        this.engineering = -100;
-        this.combat = -100;
-        this.lore = -100;
-        this.notice = -100;
-        this.physique = -100;
-        this.presence = -100;
-        this.manipulation = -100;
-        this.marksmanship = -100;
-        this.resources = -100;
-        this.stealth = -100;
-        this.will = -100;
+        this.athletics = new GenericPoids("athletics","Athlétisme","Athletics");
+        this.rapport = new GenericPoids("rapport","Rapport","Rapport");
+        this.engineering = new GenericPoids("engineering","Ingénierie","Engineering");
+        this.combat = new GenericPoids("combat","Combat","Combat");
+        this.lore = new GenericPoids("lore","Savoir","Lore");
+        this.notice = new GenericPoids("notice","Perception","Notice");
+        this.physique = new GenericPoids("physique","Physique","Physique");
+        this.presence = new GenericPoids("presence","Présence","Presence");
+        this.manipulation = new GenericPoids("manipulation","Manipulation","Manipulation");
+        this.marksmanship = new GenericPoids("marksmanship","Tir","Marksmanship");
+        this.resources = new GenericPoids("resources","Ressources","Resources");
+        this.stealth = new GenericPoids("stealth","Furtivité","Stealth");
+        this.will = new GenericPoids("will","Volonté","Will");
     }
 }
