@@ -45,91 +45,91 @@
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.athletics"
+                      v-model="editedItem.skillsWeights.athletics.poids"
                       label="Athlétisme"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.rapport"
+                      v-model="editedItem.skillsWeights.rapport.poids"
                       label="Rapport"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.engineering"
+                      v-model="editedItem.skillsWeights.engineering.poids"
                       label="Ingénierie"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.combat"
+                      v-model="editedItem.skillsWeights.combat.poids"
                       label="Combat"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.lore"
+                      v-model="editedItem.skillsWeights.lore.poids"
                       label="Savoir"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.notice"
+                      v-model="editedItem.skillsWeights.notice.poids"
                       label="Perception"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.physique"
+                      v-model="editedItem.skillsWeights.physique.poids"
                       label="Physique"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.presence"
+                      v-model="editedItem.skillsWeights.presence.poids"
                       label="Présence"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.manipulation"
+                      v-model="editedItem.skillsWeights.manipulation.poids"
                       label="Manipulation"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.resources"
+                      v-model="editedItem.skillsWeights.resources.poids"
                       label="Ressources"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.marksmanship"
+                      v-model="editedItem.skillsWeights.marksmanship.poids"
                       label="Tir"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.stealth"
+                      v-model="editedItem.skillsWeights.stealth.poids"
                       label="Furtivité"
                       type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="6" sm="3">
                     <v-text-field
-                      v-model="editedItem.skillsWeights.will"
+                      v-model="editedItem.skillsWeights.will.poids"
                       label="Volonté"
                       type="number"
                     ></v-text-field>
@@ -168,43 +168,43 @@
             </template>
             <v-list>
               <v-list-item>
-                <v-list-item-title>Athlétisme : {{item.skillsWeights.athletics}}</v-list-item-title>
+                <v-list-item-title>Athlétisme : {{item.skillsWeights.athletics.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Rapport : {{item.skillsWeights.rapport}}</v-list-item-title>
+                <v-list-item-title>Rapport : {{item.skillsWeights.rapport.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Ingénierie : {{item.skillsWeights.engineering}}</v-list-item-title>
+                <v-list-item-title>Ingénierie : {{item.skillsWeights.engineering.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Combat : {{item.skillsWeights.combat}}</v-list-item-title>
+                <v-list-item-title>Combat : {{item.skillsWeights.combat.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Savoir : {{item.skillsWeights.lore}}</v-list-item-title>
+                <v-list-item-title>Savoir : {{item.skillsWeights.lore.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Perception : {{item.skillsWeights.notice}}</v-list-item-title>
+                <v-list-item-title>Perception : {{item.skillsWeights.notice.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Physique : {{item.skillsWeights.physique}}</v-list-item-title>
+                <v-list-item-title>Physique : {{item.skillsWeights.physique.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Presence : {{item.skillsWeights.presence}}</v-list-item-title>
+                <v-list-item-title>Presence : {{item.skillsWeights.presence.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Manipulation : {{item.skillsWeights.manipulation}}</v-list-item-title>
+                <v-list-item-title>Manipulation : {{item.skillsWeights.manipulation.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Ressources : {{item.skillsWeights.resources}}</v-list-item-title>
+                <v-list-item-title>Ressources : {{item.skillsWeights.resources.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Tir : {{item.skillsWeights.marksmanship}}</v-list-item-title>
+                <v-list-item-title>Tir : {{item.skillsWeights.marksmanship.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Furtivité : {{item.skillsWeights.stealth}}</v-list-item-title>
+                <v-list-item-title>Furtivité : {{item.skillsWeights.stealth.poids}}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>Volonté : {{item.skillsWeights.will}}</v-list-item-title>
+                <v-list-item-title>Volonté : {{item.skillsWeights.will.poids}}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
