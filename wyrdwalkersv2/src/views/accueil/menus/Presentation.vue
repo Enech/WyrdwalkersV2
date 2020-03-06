@@ -23,8 +23,7 @@
         <v-card height="270">
           <v-card-title class="title justify-center">{{$t("home.contents.presentation.educational.title")}}</v-card-title>
           <v-divider></v-divider>
-          <v-card-text class="subtitle text-center">
-            {{$t("home.contents.presentation.educational.text")}}
+          <v-card-text class="subtitle text-center" v-html="$t('home.contents.presentation.educational.text')">
           </v-card-text>
         </v-card>
       </v-col>

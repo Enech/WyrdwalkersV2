@@ -4,7 +4,7 @@
       <v-card-title>
         Gestion des animations
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px" persistent>
+        <v-dialog v-model="dialog" max-width="1000px" persistent>
           <template v-slot:activator="{ on }">
             <v-btn icon color="blue" class="mb-2" v-on="on" dark>
               <v-icon>add</v-icon>
@@ -32,10 +32,10 @@
                     <v-text-field v-model="editedItem.nameVO" label="Name (VO)"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.captionVF" label="Description (VF)"></v-text-field>
+                    <v-textarea v-model="editedItem.captionVF" label="Description (VF)"></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.captionVO" label="Caption (VO)"></v-text-field>
+                    <v-textarea v-model="editedItem.captionVO" label="Caption (VO)"></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-menu
