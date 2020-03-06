@@ -17,9 +17,6 @@
       "vuetify",
       "vue-meta",
       "webpack",
-      "webpack-env",
-      "webpack",
-      "webpack-env"
     ],
     "paths": {
       "@/*": [

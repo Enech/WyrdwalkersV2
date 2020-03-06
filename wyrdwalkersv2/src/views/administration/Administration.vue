@@ -4,7 +4,7 @@
     <v-navigation-drawer v-model="contextDrawer" app clipped color="black" dark bottom>
       <v-divider color="white"></v-divider>
       <v-list>
-         <v-list-group>
+        <v-list-group>
           <template v-slot:activator>
             <v-list-item-title>Wiki</v-list-item-title>
           </template>
@@ -14,10 +14,10 @@
           <v-list-item :to="{name:'wikiRedirections'}">
             <v-list-item-title>Gestion des redirections</v-list-item-title>
           </v-list-item>
-         </v-list-group>
-         <v-list-item :to="{name:'wikiTimelines'}">
-            <v-list-item-title>Timelines</v-list-item-title>
-          </v-list-item>
+        </v-list-group>
+        <v-list-item :to="{name:'wikiTimelines'}">
+          <v-list-item-title>Timelines</v-list-item-title>
+        </v-list-item>
         <v-list-item :to="{name:'backofficeAnimations'}">
           <v-list-item-title>Animations</v-list-item-title>
         </v-list-item>
@@ -37,20 +37,23 @@
           <template v-slot:activator>
             <v-list-item-title>Character Makers</v-list-item-title>
           </template>
-          <v-list-item>
+          <v-list-item :to="{name:'approches'}">
             <v-list-item-title>Approches</v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'domaines'}">
             <v-list-item-title>Domaines</v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item :to="{name:'personalities'}">
             <v-list-item-title>Personnalités</v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title>Panthéons</v-list-item-title>
+          <v-list-item :to="{name:'origins'}">
+            <v-list-item-title>Origines</v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Capacités légendaires</v-list-item-title>
+          </v-list-item>
+          <v-list-item :to="{name:'backofficeExplorer'}">
+            <v-list-item-title>Explorateur</v-list-item-title>
           </v-list-item>
         </v-list-group>
         <v-list-item :to="{name:'backofficeUsers'}">

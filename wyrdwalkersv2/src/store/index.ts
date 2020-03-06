@@ -14,6 +14,11 @@ import Flatted, { parse, stringify } from '../../node_modules/flatted'
 import Music from '@/model/Music.model';
 import WikiRedirection from '@/model/WikiRedirection.model';
 import WikiDenseMode from '@/model/enums/WikiDenseMode.enum'
+import Approche from '@/model/explorer/Approche.model';
+import Domaine from '@/model/explorer/Domaine.model';
+import Personality from '@/model/explorer/Personality.model';
+import Origin from '@/model/explorer/Origin.model';
+import EntityExplorer from '@/model/explorer/EntityExplorer.model';
 
 Vue.use(Vuex)
 
@@ -30,7 +35,7 @@ const store = new Vuex.Store({
     domains: new Array<TriangleParameter>(),
     approaches: new Array<TriangleParameter>(),
     personalities: new Array<TriangleParameter>(),
-    pantheons: new Array<TriangleParameter>(),
+    origins: new Array<Origin>(),
     wikipage: new WikiPage(),
     allMusics: new Array<Music>(),
     randomWikiPages: new Array<WikiPage>(),
@@ -49,7 +54,8 @@ const store = new Vuex.Store({
     mythDialog: false,
     contentDialog: false,
     refreshData: false,
-    users: new Array<User>()
+    users: new Array<User>(),
+    explorerEntities: new Array<EntityExplorer>()
   },
   mutations: {
     initialiseStore(state) {
@@ -95,8 +101,8 @@ const store = new Vuex.Store({
     setPersonalities(state, newEntries: TriangleParameter[]) {
       state.personalities = newEntries;
     },
-    setPantheons(state, newEntries: TriangleParameter[]) {
-      state.pantheons = newEntries;
+    setOrigins(state, newEntries: Origin[]) {
+      state.origins = newEntries;
     },
     setWikiPage(state, page: WikiPage) {
       state.wikipage = page;
@@ -151,6 +157,9 @@ const store = new Vuex.Store({
     },
     setUsers(state, results: Array<User>){
       state.users = results;
+    },
+    setExplorerEntities(state, entities: EntityExplorer[]){
+      state.explorerEntities = entities;
     }
   },
   getters: {
@@ -163,7 +172,7 @@ const store = new Vuex.Store({
     approaches: state => state.approaches,
     domains: state => state.domains,
     personalities: state => state.personalities,
-    pantheons: state => state.pantheons,
+    origins: state => state.origins,
     wikipage: state => state.wikipage,
     allMusics: state => state.allMusics,
     randomWikiPages: state => state.randomWikiPages,
@@ -182,7 +191,8 @@ const store = new Vuex.Store({
     mythDialog: state => state.mythDialog,
     contentDialog: state => state.contentDialog,
     refreshData: state => state.refreshData,
-    users: state => state.users
+    users: state => state.users,
+    explorerEntities: state => state.explorerEntities
   },
   actions: {
     fetchEvents(context) {
@@ -532,10 +542,118 @@ const store = new Vuex.Store({
           context.dispatch("displayProxyError");
         });
     },
+    addApproach(context, approche: Approche) {
+      return axios.post(`${process.env.VUE_APP_APIURL}approaches/`, approche)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'approche a bien été ajoutée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updateApproach(context, approche: Approche) {
+      return axios.put(`${process.env.VUE_APP_APIURL}approaches/${approche._id}`, approche)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'approche a bien été mise à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deleteApproach(context, approche: Approche) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}approaches/${approche._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'approche a bien été supprimée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
     fetchDomains(context) {
       return axios.get(`${process.env.VUE_APP_APIURL}domains/all`)
         .then((response: any) => {
           context.commit("setDomains", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addDomain(context, domaine: Domaine) {
+      return axios.post(`${process.env.VUE_APP_APIURL}domains/`, domaine)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le domaine a bien été ajouté";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updateDomain(context, domaine: Domaine) {
+      return axios.put(`${process.env.VUE_APP_APIURL}domains/${domaine._id}`, domaine)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le domaine a bien été mis à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deleteDomain(context, domaine: Domaine) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}domains/${domaine._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "Le domaine a bien été supprimé";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
@@ -550,10 +668,181 @@ const store = new Vuex.Store({
           context.dispatch("displayProxyError");
         });
     },
-    fetchPantheons(context) {
-      return axios.get(`${process.env.VUE_APP_APIURL}pantheons/all`)
+    addPersonality(context, perso: Personality) {
+      return axios.post(`${process.env.VUE_APP_APIURL}personalities/`, perso)
         .then((response: any) => {
-          context.commit("setPantheons", response.data);
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "La personnalité a bien été ajoutée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updatePersonality(context, perso: Personality) {
+      return axios.put(`${process.env.VUE_APP_APIURL}personalities/${perso._id}`, perso)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "La personnalité a bien été mise à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deletePersonality(context, perso: Personality) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}personalities/${perso._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "La personnalité a bien été supprimée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    fetchOrigins(context) {
+      return axios.get(`${process.env.VUE_APP_APIURL}origins/all`)
+        .then((response: any) => {
+          context.commit("setOrigins", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addOrigin(context, pantheon: Origin) {
+      return axios.post(`${process.env.VUE_APP_APIURL}origins/`, pantheon)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'origine a bien été ajoutée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updateOrigin(context, pantheon: Origin) {
+      return axios.put(`${process.env.VUE_APP_APIURL}origins/${pantheon._id}`, pantheon)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'origine a bien été mise à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deleteOrigin(context, pantheon: Origin) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}origins/${pantheon._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'origine a bien été supprimée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    fetchExplorerEntities(context) {
+      return axios.get(`${process.env.VUE_APP_APIURL}explorer/all`)
+        .then((response: any) => {
+          context.commit("setExplorerEntities", response.data);
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    addExplorerEntity(context, entity: EntityExplorer) {
+      return axios.post(`${process.env.VUE_APP_APIURL}explorer/`, entity)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'entité a bien été ajoutée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    updateExplorerEntity(context, entity: EntityExplorer) {
+      return axios.put(`${process.env.VUE_APP_APIURL}explorer/${entity._id}`, entity)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'entité a bien été mise à jour";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
+        })
+        .catch(() => {
+          context.dispatch("displayProxyError");
+        });
+    },
+    deleteExplorerEntity(context, entity: EntityExplorer) {
+      return axios.delete(`${process.env.VUE_APP_APIURL}explorer/${entity._id}`)
+        .then((response: any) => {
+          var newError = new ErrorMessage();
+          if (response.data.ok !== 1) {
+            newError.message = response.data.message;
+            newError.type = "red";
+            context.commit("setErrorMessage", newError);
+          } else {
+            newError.message = "L'entité a bien été supprimée";
+            newError.type = "green";
+            context.commit("setErrorMessage", newError);
+          }
         })
         .catch(() => {
           context.dispatch("displayProxyError");
