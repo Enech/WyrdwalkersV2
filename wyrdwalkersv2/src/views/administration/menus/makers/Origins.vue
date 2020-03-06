@@ -2,7 +2,7 @@
   <div class="pa-3">
     <v-card class="pa-3">
       <v-card-title>
-        Gestion des panthéons
+        Gestion des origines
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="1000px" persistent>
           <template v-slot:activator="{ on }">
@@ -15,8 +15,8 @@
               <span
                 class="headline"
                 v-if="this.editedItem._id != ''"
-              >Panthéon - {{this.editedItem.nameVF}}</span>
-              <span class="headline" v-else>Nouveau panthéon</span>
+              >Origine - {{this.editedItem.nameVF}}</span>
+              <span class="headline" v-else>Nouvelle origine</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="closeDialog()">
                 <v-icon>close</v-icon>
@@ -25,11 +25,14 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6">
+                  <v-col cols="12" sm="4">
                     <v-text-field v-model="editedItem.nameVF" label="Nom (VF)"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6">
+                  <v-col cols="12" sm="4">
                     <v-text-field v-model="editedItem.name" label="Name (VO)"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="4">
+                    <v-select v-model="editedItem.faction" :items="factions" item-value="key" item-text="name" return-object label="Faction"></v-select>
                   </v-col>
                   <v-col cols="12" sm="4">
                     <v-text-field v-model="editedItem.logos" label="Score Logos"></v-text-field>
@@ -942,9 +945,9 @@
       <v-dialog v-model="deleteDialog" max-width="500px" persistent>
         <v-card>
           <v-card-title>
-            <span class="headline">Suppression d'un panthéon</span>
+            <span class="headline">Suppression d'une origine</span>
           </v-card-title>
-          <v-card-text>Vous êtes sur le point de supprimer un panthéon. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
+          <v-card-text>Vous êtes sur le point de supprimer une origine. Cette action est définitive. Êtes-vous sûr de vouloir continuer ?</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="black" text @click="deleteDialog = false;">Annuler</v-btn>
@@ -960,6 +963,7 @@
 import Vue from "vue";
 import store from "../../../../store";
 import Origin from "../../../../model/explorer/Origin.model";
+import ExplorerFaction from "../../../../model/enums/ExplorerFaction.enum";
 
 export default Vue.extend({
   name: "AdminOrigin",
@@ -1020,7 +1024,14 @@ export default Vue.extend({
       { text: "Logos", value: "logos" },
       { text: "Kosmos", value: "kosmos" },
       { text: "Eros", value: "eros" },
+      { text: "Faction", value: "faction.name" },
       { text: "Actions", value: "action", sortable: false }
+    ],
+    factions: [
+      {key: ExplorerFaction.GOD, name: "Dieux", nameVO: "Gods"},
+      {key: ExplorerFaction.TITAN, name: "Titans", nameVO: "Titans"},
+      {key: ExplorerFaction.MYTHBORN, name: "Mythborns", nameVO: "Mythborns"},
+      {key: ExplorerFaction.SOCIETY, name: "Eveillés", nameVO: "Enlighteneds"}
     ]
   }),
   metaInfo: function() {

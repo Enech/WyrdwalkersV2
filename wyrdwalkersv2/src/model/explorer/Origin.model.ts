@@ -10,6 +10,7 @@ export default class Origin {
     public eros: number;
     public skillsWeights: SkillWeight;
     public legendaryWeights: LegendaryWeight;
+    public faction: any;
 
     constructor() {
         this._id = '';
@@ -20,5 +21,6 @@ export default class Origin {
         this.eros = -1;
         this.skillsWeights = new SkillWeight();
         this.legendaryWeights = new LegendaryWeight();
+        this.faction = {};
     } 
 }
