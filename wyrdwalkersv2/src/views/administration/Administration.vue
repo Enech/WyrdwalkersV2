@@ -47,7 +47,7 @@
             <v-list-item-title>Personnalités</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{name:'origins'}">
-            <v-list-item-title>Panthéons</v-list-item-title>
+            <v-list-item-title>Origines</v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-list-item-title>Capacités légendaires</v-list-item-title>
