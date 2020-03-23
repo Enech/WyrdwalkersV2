@@ -980,14 +980,4 @@ img.main-logo {
 .full-height {
   height: 100%;
 }
-
-@media (max-width: 450px) {
-  .logo-container {
-    /*padding-top: calc(25vw - 0px);*/
-  }
-
-  .logo-container .spinning-logo {
-    /*top: calc(25vw - 0px);*/
-  }
-}
 </style>
