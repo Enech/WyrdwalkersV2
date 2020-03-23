@@ -17,8 +17,10 @@
         </article>
         <article class="mb-10">
           <h3>Article 3 - Siège social</h3>
-          <p>Le siège social est fixé au 3 rue de la Villette, 69003 Lyon.
-            <br />Il pourra être transféré par simple décision du conseil d'administration.</p>
+          <p>
+            Le siège social est fixé au 3 rue de la Villette, 69003 Lyon.
+            <br />Il pourra être transféré par simple décision du conseil d'administration.
+          </p>
         </article>
         <article class="mb-10">
           <h3>Article 4 - Durée</h3>
@@ -46,6 +48,8 @@
           <p>
             L’association est ouverte aux personnes considérées comme majeures sur le territoire français. Les personnes mineures devront fournir une autorisation parentale afin de valider leur adhésion.
             <br />Pour faire partie de l'association, il faut être agréé par le conseil d’administration, qui statue, lors de chacune de ses réunions, sur les demandes d'admission présentées.
+            <br />Dans le cas d’une adhésion en ligne, chaque nouvel arrivant se voit automatiquement agréé par le conseil d’administration. Toutefois, ce dernier peut invalider une adhésion en ligne a posteriori dans un délai de 15 jours à compter de la date d’adhésion en ligne. Dans cette éventualité, l’intégralité de l’adhésion est reversée à la personne concernée.<br>
+            Chaque membre adhérent se verra remettre par email une carte d’adhérent à imprimer et à présenter à chaque évènement tenu par l’association.
           </p>
         </article>
         <article class="mb-10">
@@ -55,7 +59,7 @@
             <br />Sont membres d'honneur ceux qui ont rendu des services signalés à l’association ; ils sont dispensés
             de cotisation.
             <br />Sont membres bienfaiteurs, les personnes qui versent un droit d'entrée de 100€ et, au-delà de la première année d’adhésion, une cotisation annuelle fixée chaque année par l'assemblée générale.
-            <br />Sont membres fondateurs les créateurs de l’association et créateurs du contenu imaginaire et encyclopédique servant de base au fonctionnement de l’association. Ces membres sont Emile DOUILHET, Sébastien DOUILHET et
+            <br />Sont membres fondateurs les créateurs de l’association et créateurs du contenu imaginaire, académique et encyclopédique servant de base au fonctionnement de l’association. Ces membres sont Emile DOUILHET, Sébastien DOUILHET et
             Thomas GELY.
             <br />
             <br />Toute cotisation pourra être rachetée moyennant le paiement d'une somme minima égale au montant de la cotisation versée.
@@ -75,7 +79,9 @@
         </article>
         <article class="mb-10">
           <h3>Article 9 - Affiliations</h3>
-          <p>La présente association n’est présentement affiliée à aucune autre association.</p>
+          <p>La présente association n’est présentement affiliée à aucun parti politique, organisation religieuse ou entreprise.
+            <br>La présente association est membre de la Fajira.
+          </p>
         </article>
         <article class="mb-10">
           <h3>Article 10 - Ressources</h3>
@@ -83,7 +89,7 @@
           <ol>
             <li>Le montant des droits d'entrée et des cotisations</li>
             <li>Les subventions de l'Etat, des départements et des communes</li>
-            <li>Les ateliers payants proposés par l’association</li>
+            <li>Les ateliers et activités ludiques payantes proposés par l’association</li>
             <li>Toutes les ressources autorisées par les lois et règlements en vigueur</li>
           </ol>
         </article>
@@ -122,7 +128,7 @@
         <article class="mb-10">
           <h3>Article 13 - Conseil d'administration</h3>
           <p>
-            L'association est dirigée par un conseil de 3 à 5 membres, élus pour 1 an par l'assemblée générale. Les membres sont rééligibles.
+            L'association est dirigée par un conseil de 3 à 5 membres, comportant les membres du Bureau, élus pour 1 an par l'assemblée générale. Les membres sont rééligibles.
             <br />
             <br />Le conseil étant renouvelé chaque année par moitié, la première année, les membres sortants sont désignés par tirage au sort.
             <br />
@@ -159,25 +165,28 @@
               possède aucun caractère religieux ni aucune affiliation religieuse d’aucune sorte. Les membres de l’association sont donc invités à exprimer leurs opinions philosophiques et/ou religieuses dans les limites de la
               bienséance et l’écoute commune. De même, l’association WYRDWALKERS n’est lié à aucune entité ou courant politique.
             </li>
-            <li>Les droits d’entrée sont exigibles dès l’agrément des nouveaux membres, pour le montant total d’une année entière. Toute cotisation payée est définitivement acquise à l’association.</li>
-            <li>Tout membre de l’association se doit de participer à son bon fonctionnement.</li>
+            <li>Les droits d’entrée sont exigibles dès l’agrément des nouveaux membres, pour le montant total d’une année entière. Toute cotisation payée est définitivement acquise à l’association. Une exception est faite dans le cas des adhésions en ligne (voir Article 6)</li>
+            <li>Tout membre de l’association se doit de participer à son bon fonctionnement et se verra sollicité dans ce but.</li>
             <li>
               Dans le cas d’évènements payants organisés par l’association, tous ses membres sans distinction s’y voient attribués un tarif préférentiel pouvant aller jusqu’à la gratuité. Ces évènements payants sont toujours gratuits
               pour les membres fondateurs et bienfaiteurs.
             </li>
             <li>Le conseil d’administration doit comporter 3 membres au minimum, à savoir les membres du bureau.</li>
             <li>
-              Le conseil d’administration comporte deux postes optionnels : un responsable communication extérieure et un responsable logistique. Si ces postes ne sont pas pourvus, leurs responsabilités sont distribuées équitablement
+              Le conseil d’administration comporte trois postes optionnels : un responsable animation, un responsable communication extérieure et un responsable logistique. Si ces postes ne sont pas pourvus, leurs responsabilités sont distribuées équitablement
               entre les membres du bureau et consignées à la fin de chaque assemblée générale.
             </li>
-            <li>Le président de l’association en est le représentant légal. Il est en charge de la tenue administrative de l’association.</li>
+            <li>Le président de l’association en est le représentant légal. Il est en charge de la tenue administrative de l’association ainsi que de la supervision des projets.</li>
             <li>Le secrétaire est en charge de la collecte des informations à transmettre aux membres de l’association ainsi que de la communication desdites informations.</li>
             <li>
               Le trésorier est en charge de la tenue des finances de l’association. Il est le contact privilégié de l’établissement bancaire hébergeant le compte de l’association. Il est aussi la personne à contacter pour la gestion
               des indemnités.
             </li>
-            <li>Le responsable communication extérieure est en charge de la diffusion des informations relatives à la vie de l’association au grand public, ainsi que de la tenue d’une présence de l’association sur les réseaux sociaux.</li>
-            <li>Le responsable logistique est en charge de la gestion pratique des évènements et des besoins matériels de l’association.</li>
+            <li>
+              Le responsable animation est en charge du recrutement et de la coordination des animateurs de l’association ainsi que de la bonne marche des évènements à animer.
+            </li>
+            <li>Le responsable communication extérieure est en charge de la diffusion des informations relatives à la vie de l’association au grand public, ainsi que de la tenue d’une présence de l’association sur les réseaux sociaux. Il/Elle travaille en étroite relation avec le/la Secrétaire.</li>
+            <li>Le responsable logistique est en charge de la gestion pratique des évènements et des besoins matériels de l’association. Il/Elle travaille en étroite relation avec le/la Président(e) </li>
             <li>Seuls les membres du bureau et les membres fondateurs possèdent les procurations nécessaires à la dépense des ressources financières de l’association.</li>
             <li>Tout contact au nom de l’association WYRDWALKERS auprès d’autres entités doit être reportée aux membres du conseil d’administration.</li>
             <li>Toute infraction au présent règlement intérieur fera l’objet d’une délibération auprès du conseil d’administration à qui incombe la responsabilité d’éventuelles sanctions.</li>
@@ -207,17 +216,27 @@ export default Vue.extend({
   metaInfo: {
     title: "Statuts",
     link: [
-      {rel: "canonical", href: "https://wyrdwalkers.com/home/status"},
-      {rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico"}
+      { rel: "canonical", href: "https://wyrdwalkers.com/home/status" },
+      { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
     ],
-    meta:[
-      {name: "description", content: "Les statuts de l'association Wyrdwalkers"},
-      {name: "keywords", content: "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,statuses,statuts"},
-      {name: "author", content: "Thomas Gely"},
-      {property: "og:url", content: "https://wyrdwalkers.com/home/status"},
-      {property: "og:type", content: "website"},
-      {property: "og:description", content: "Les statuts de l'association Wyrdwalkers, tout simplement"},
-      {property: "og:image", content: "https://i.imgur.com/xSW0VL0.png"}
+    meta: [
+      {
+        name: "description",
+        content: "Les statuts de l'association Wyrdwalkers"
+      },
+      {
+        name: "keywords",
+        content:
+          "philosophy,philosophie,mythologie,mythologie,codex,association,panthéons,fate,destin,dieux,titans,dragons,statuses,statuts"
+      },
+      { name: "author", content: "Thomas Gely" },
+      { property: "og:url", content: "https://wyrdwalkers.com/home/status" },
+      { property: "og:type", content: "website" },
+      {
+        property: "og:description",
+        content: "Les statuts de l'association Wyrdwalkers, tout simplement"
+      },
+      { property: "og:image", content: "https://i.imgur.com/xSW0VL0.png" }
     ]
   }
 });
