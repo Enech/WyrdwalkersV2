@@ -19,6 +19,7 @@ import Domaine from '@/model/explorer/Domaine.model';
 import Personality from '@/model/explorer/Personality.model';
 import Origin from '@/model/explorer/Origin.model';
 import EntityExplorer from '@/model/explorer/EntityExplorer.model';
+import LandingTree from '@/model/WikiLandingTree.model';
 
 Vue.use(Vuex)
 
@@ -55,7 +56,9 @@ const store = new Vuex.Store({
     contentDialog: false,
     refreshData: false,
     users: new Array<User>(),
-    explorerEntities: new Array<EntityExplorer>()
+    explorerEntities: new Array<EntityExplorer>(),
+    selectedWikiTree: new LandingTree(),
+    wikiTreeHistory: new Array<LandingTree>()
   },
   mutations: {
     initialiseStore(state) {
@@ -160,6 +163,12 @@ const store = new Vuex.Store({
     },
     setExplorerEntities(state, entities: EntityExplorer[]){
       state.explorerEntities = entities;
+    },
+    setSelectedWikiTree(state, tree: LandingTree){
+      state.selectedWikiTree = tree;
+    },
+    setWikiTreeHistory(state, nodes: LandingTree[]){
+      state.wikiTreeHistory = nodes;
     }
   },
   getters: {
@@ -192,7 +201,9 @@ const store = new Vuex.Store({
     contentDialog: state => state.contentDialog,
     refreshData: state => state.refreshData,
     users: state => state.users,
-    explorerEntities: state => state.explorerEntities
+    explorerEntities: state => state.explorerEntities,
+    selectedWikiTree: state => state.selectedWikiTree,
+    wikiTreeHistory: state => state.wikiTreeHistory
   },
   actions: {
     fetchEvents(context) {

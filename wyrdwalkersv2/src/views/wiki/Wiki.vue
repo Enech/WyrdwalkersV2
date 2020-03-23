@@ -1,9 +1,8 @@
 <template>
   <div class="wiki">
     <router-view />
-    <v-navigation-drawer v-model="contextDrawer" app clipped color="black" dark bottom>
+    <v-navigation-drawer v-model="contextDrawer" app clipped color="black" dark>
       <template v-slot:prepend>
-        <v-divider color="white"></v-divider>
         <v-list-item three-line>
           <v-list-item-content>
             <v-list-item-title v-if="currentUser._id != ''">
