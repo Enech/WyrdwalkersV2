@@ -11,8 +11,8 @@
     "characters": "Characters",
     "npc": "NPC",
     "campaigns": "Campaigns",
-    "dialogs":{
-      "common":{
+    "dialogs": {
+      "common": {
         "cancel": "Cancel",
         "edit": "Save",
         "save": "Send"
@@ -212,7 +212,15 @@
         "header": "Welcome to the Wyrdwalkers Codex",
         "text": "'Alright kid, grab a pint of Guinness - it’s imported, not the stale piss they make here - and let me tell you about this business of ours. The business of Legend. Our parents are up there, somewhere. Who’s your Divine Parent again? Mine’s the mighty Dagda, if it wasn’t already obvious from my devastating smile. Anyways, they’re up there, and they’re relying on us to get this World in order. It’s a real mess down here, if you hadn’t noticed.  <br /> <br />Your main job is going to be what we like to call ‘Pest Control’. See, when Titans manage to sneak their spawn down here, they usually stay quiet and slowly gather cultists and power. They gnaw at the fabric of reality until something BIG comes through. When that happens, people die. Ever heard of the Black Plague? Yeah. So we take care of the pest before that happens. This city is a real hotbed for that kind of shit. Sometimes it’s a Vampire or a Lich, but it’s usually going to be some idiot kid with a pirated copy of '<i>Necromancy for Dummies</i>' who summons a poltergeist and gets his brain scooped empty like a tub of ice cream at a fat kid’s birthday party. <br /><br /> There’s not many of us so you’ll probably have to work with the local population. Hopefully you can get the info and help you need from the usual witch convents and technodruid punks, but sometimes you need some extra oomph. That’s when the Secret Societies come in. They’re on no one’s side but their own, but they have information and resources. And they need us, because we got raw power that they don’t - we’re part God for dad’s sake! Just be wary of the Illuminati, they always find a way to make sure you pay more than you expected.<br /><br />If you start walking around this world you’re bound to run into some Mythborns. Elves, werewolves, dragons, fey - I even met a were-kangaroo once! Bouncy bugger, but a great poker player. Though I’m pretty sure he was hiding extra aces in that pouch of his...Anyways, they’re like people - some are nice some not so much - but they generally have power and a trick up their sleeve. Stay friendly with them if you can - rumours move fast in their world.<br /> <br /> But your greatest resource is always going to be your fellow Godborns. There’s not many of us, and life expectancy has never been great, so we gotta stick together. We’re bright shooting stars, and we try to write our names in the sky while we can. We all seek the same prize: Apotheosis, when a Godborn reaches full Godhood. Immortality, baby! I’m pretty sure if I make it, I’ll become God of Honor. Or Rugby. I’m not sure yet, still got a ways to go. <br /> <br />Pardon? ‘Why do people not notice there are Dragons and Demigods walking amongst them’? Oh it’s pretty simple. There’s no great masquerade or anything. It’s just that most people’s lives don’t matter - they’re background characters, really. They don’t contribute to the Legend, so they’re not included in it, it’s as simple as that. Unless you include them of course, and then they become linked to your Legend, but the plucky human sidekick rarely survives to the end of the story.<br /><br />Anyways, I digress. Finish your pint, and let’s go to a little warehouse I’ve heard about. You ever punched a Fire Giant? Cause if we’re lucky you might get to tonight. Enjoy your time as a Demigod, and try not to cause too much devastation! It’s a lot of paperwork.'",
         "action": "Explore Wyrdwalkers",
-        "subheader": "A mythological setting designed to make you live epic tales and make your own legend throughout any era."
+        "subheader": "A mythological setting designed to make you live epic tales and make your own legend throughout any era.",
+        "whatis": {
+          "title": "What is Wyrdwalkers ?",
+          "content": "Urban Fantasy? Medieval Fantasy? Fictional History? Wyrdwalkers is none of those. It is a setting which can be whatever you want it to be. Every location and character is designed to tell stories based of mythological, epic and legendary themes.<br>Do you want to play a medieval-fantasy story? Head off to Fairie and deal with its Dark Elves and Trolls. Then take a day trip to the Dark Forest to hunt some werewolves.<br>Is Urban Fantasy more your speed? No worries: track down a gang of necromancers hiding in the bowels of a mexican Cartel.<br>The best part is that you may journey through all these adventures in whatever time period you fancy with no restrictions.<br>Wyrdwalkers is a setting which gives its Storytellers and players complete freedom to collectively write their Legends. No matter the story you want to tell, it can be told in this setting."
+        },
+        "links": {
+          "title": "Important Links",
+          "content": "To start off your story, here are some quick links you can check out :<br><ul><li>The <a href='/wiki/lore/dieux' target='_blank'>Gods</a> and the <a href='/wiki/lore/titans' target='_blank'>Titans</a></li><li>The Cosmic Planes : The <a href='/wiki/lore/monde' target='_blank'>World</a>, the <a href='/wiki/lore/dieux' target='_blank'>Otherworlds</a> and the <a href='/wiki/lore/overworld' target='_blank'>Overworld</a></li><li> The main types of magical creatures : the <a href='/wiki/lore/mythborns' target='_blank'>Mythborn</a></li>            <li>The <a href='/wiki/lore/sociétés-secrètes' target='_blank'>Secret Societies</a> fighting for a free and independent humanity</li>            <li>The <a href='/wiki/random' target='_blank'>random pages</a></li>            <li>The various telling of the different <a href='/wiki/timelines' target='_blank'>timelines</a></li>            <li><a href='/wiki/gameplay/rules' target='_blank'>The rules</a> and the <a href='/wiki/gameplay/legendary-abilities' target='_blank'>list of powers</a></li>          </ul>          <br>You can also click on the big red button on top of the page to easily access all the main pages of the Codex"
+        }
       },
       "powers": {
         "general": "General magic",
@@ -238,11 +246,306 @@
         "myth": "Myth",
         "noAuthor": "Unknown author",
         "loading": "Loading..."
+      },
+      "explorer": {
+        "title": "Explore the Codex",
+        "characters": {
+          "title": "Characters",
+          "description": "The main factions fighting for their own interest in Wyrdwalkers. All of the different players are listed, from Gods and Titans to simple mortals brave enough to face the divine order.",
+          "content": {
+            "gods": {
+              "title": "Gods",
+              "description": "Immortal and metaphysical entities grouped together in Pantheons, the Gods and Goddesses work towards gaining the most influence possible onto the World and the humans who populate it using their demigod agents - the Godborn",
+              "content": {
+                "aesir": {
+                  "title": "Aesir",
+                  "description": "The Scandinavian Gods. Proud, a tad brutish, they have a sense of family and always try to defy Fate. After all, they are condemned to all perish on the day of Ragnarök..."
+                },
+                "amatsukami": {
+                  "title": "Amatsukami",
+                  "description": "The Japanese Gods. A tad isolated and focused on tradition, they have managed to weave alliances ensuring their safety against the Titans most envious of their resources."
+                },
+                "ayllus": {
+                  "title": "Ayllus",
+                  "description": "The Incan Gods. Isolated from worldly matters and with limited influence in Divine Geopolitics, the Inca Pantheon is nevertheless young, dynamic and led by a protective and energetic leader. Despite its isolation, it is a Pantheon seeking to get back on top."
+                },
+                "bureaucracy": {
+                  "title": "Celestial Bureaucracy",
+                  "description": "The Chinese Gods. Exactly what their name suggests. Forget individualism with these Gods. Each member of this Pantheon (and there are many of them!) is a link in the chain. Steamroller of divine politics, nothing really resists the Bureaucracy. Not even Fate..."
+                },
+                "deva": {
+                  "title": "Deva",
+                  "description": "The Hindu Gods. Created by the extremely powerful Trimurti (Brahma, Vishnu and Shiva), the Deva is among the oldest Pantheons and includes some of the eldest and wisest deities. However, their power has led them to take more and more distance from the World..."
+                },
+                "kasunel": {
+                  "title": "K'Asunel",
+                  "description": "The Mayan Gods. Fanatically anti-Titans, the Mayan Gods live under the precepts of the Four Toltec Accords. They believe in the precepts of the Hunab Ku, which makes them the only Pantheon of Gods who are themselves religious."
+                },
+                "neter": {
+                  "title": "Neter",
+                  "description": "The Egyptian Gods and one of the oldest Pantheons. With the Deva and the Theoi, they are amongst the three greatest Pantheons in terms of wealth, military might and ancient wisdom. Very orderly, the Egyptian Gods believe firmly in Ma’at - the principle of cosmic balance - and apply it through promoting values like Justice, Truth and Order."
+                },
+                "nga": {
+                  "title": "Nga Tama a Rangi",
+                  "description": "The Maori Gods. Made up of children of Gaïa and Ouranos, the members of the Nga Tama a Rangi are amongst the oldest deities of the Cosmos - older than some Titans - but are not amongst the strongest Pantheons. Having chosen exile after the first war against the Titans, the Maori Gods are now focused on local and less ambitious problems."
+                },
+                "orisha": {
+                  "title": "Orisha",
+                  "description": "The African gods. Bringing together two major generations of deities and much more focused on the affairs of the World and humans, the Orisha are among the least belligerent and ambitious gods, even if their strength is recognized throughout the Cosmos. Their pacifism was not always this way and until a few centuries ago, the Orisha was considered the most warlike pantheon in the universe for several millennia. It's the kind of thing that doesn't magically fade..."
+                },
+                "teotl": {
+                  "title": "Teotl",
+                  "description": "The Aztec Gods. Great practitioners of blood magic, the Aztec Gods have traditions that some consider violent. They are proud fighters and conquerors. Unfortunately their extreme impulsiveness limits the number of their allies, but they do not hesitate to put their martial skills and their thirst for blood to bear for the cause of the gods against the Titans."
+                },
+                "theoi": {
+                  "title": "Theoi",
+                  "description": "The Greek Gods. One of the most famous Pantheons, the Olympians are led by Zeus and are one of the main driving forces of the Cosmos. They bring together enough assets in all areas to assuage their power on other Pantheons. But even the all-powerful have a weakness. Theirs ? Their oversized ego and arrogance."
+                },
+                "tuatha": {
+                  "title": "Tuatha Dé Danann",
+                  "description": "The Celtic Gods. Without doubt the deities closest to Nature. They are all Master Druid above all. But to mistake them for cosmic hippies would be a big mistake. The Children of Danu are among the most combative and proud pantheons of the Cosmos and their talents combined with their ancestral wisdom make them vital assets against the Titans."
+                }
+              }
+            },
+            "titans": {
+              "title": "Titans",
+              "description": "Primordial, immortal and extremely powerful beings in total war against the Gods, the Titans embody a concept of the Cosmos that they seek to prevail over others at all costs. Most of them are themselves ancient Gods who succumbed to the attraction of Destiny and Legend.",
+              "content": {
+                "light": {
+                  "title": "Titans of Light",
+                  "description": "The Titans of Light are zealous creatures and totally loyal to their respective masters. This is all the more the case since Aten’s takeover of the Titanrealm of Light. All its servants show an eternal fanaticism when it comes to bringing the word of Aten to every part of the universe. They embody concepts such as Glory, the Sun or Brightness."
+                },
+                "air": {
+                  "title": "Titans of Sky and Air",
+                  "description": "These titans are of very varied character, from the calm and powerful Ouranos to the angry and dangerous Huracan. They embody the freedom associated with Air, freedom to soar or to destroy. They embody concepts such as Calm, Rain or Cataclysm."
+                },
+                "order": {
+                  "title": "Titans of Order and Civilization",
+                  "description": "These Titans are among the most powerful enemies of the Gods and no Pantheon has yet attempted an incursion into the Kingdom of Order, for fear of turning into Titans themselves or of being simply obliterated from Reality. They embody concepts such as Control, Knowledge or the Law."
+                },
+                "fire": {
+                  "title": "Titans of Heat and Fire",
+                  "description": "These titans are the most destructive and volatile natural forces in the Cosmos, largely enemies of the Gods. They embody concepts such as Destruction, Invention or Drought."
+                },
+                "night": {
+                  "title": "Titans of Night",
+                  "description": "These Titans do not know the concepts of order and authority. They play on fear, illusions or camouflage to get what they want. They embody concepts such as Terror, Sleep, Darkness or the Moon."
+                },
+                "water": {
+                  "title": "Titans of Water and Oceans",
+                  "description": "Some of these Titans are allies of the gods because they are beneficial to humanity, like Sedna. Others, like Yam, are dedicated to the destruction of everything that has the audacity to sail the seas. They embody concepts such as Life, Drowning or Fertility."
+                },
+                "depths": {
+                  "title": "Titans of Depths",
+                  "description": "All these Titans embody the underground concepts that haunt the human imagination, from oppressive abyssal depths to the decomposition of living things through buried riches."
+                },
+                "death": {
+                  "title": "Titans of Death",
+                  "description": "While some of these Titans are of definite use for both Gods and humans, the majority of them remain entities determined to bring death wherever they go and in the most horrible ways imaginable. They embody concepts such as Travel, Peace, Horror or Extinction."
+                },
+                "earth": {
+                  "title": "Titans of Earth",
+                  "description": "These Titans are extremely adaptable and know the rules of the wilderness. Many of them have a feral intelligence at best, but the major avatars are real architects, able to think of plans over decades or centuries directly related to the World and its inhabitants. They embody concepts like Life, Expanse or Mountains."
+                }
+              }
+            },
+            "mythborns": {
+              "title": "Mythborn",
+              "description": "Magical creatures from folklore the world over, mythborn are representatives of Nature. Dragons, Elves, Dwarves, etc. all live in the Otherworlds, far from humans and Gods.",
+              "content": {
+                "dragons": {
+                  "title": "Dragons",
+                  "description": "Proudly independent and keen to live in isolation from others, Dragons are one of the rare Mythborn species sufficiently powerful to impose their independence from the gods and titans. However, having been hunted for centuries by the gods and their children, some of them succumb to the call of the Titans and enter the service of Apophis, Zhulong or even Kur."
+                },
+                "garous": {
+                  "title": "Garous",
+                  "description": "Mixture between a human soul and an animal kami, the Garous are a very diverse race which includes among others the Centaurs, Werewolves, Satyrs and even the Minotaurs. Their allegiances are as varied as there are Garous, but the vast majority of them are neither affiliated with the gods nor with the titans and live in the Otherworld of the Black Forest."
+                },
+                "feys": {
+                  "title": "Fey",
+                  "description": "The Fey are a collection of creatures of different races, malicious and taking delight in tormenting mortals. Fairies, Trolls, Goblins, Kitsune, Yokai, etc. All these races are the Fey. Mostly grouped in the Otherworlds of the Summer Court and the Winter Court, they can nevertheless be found all over the World or the Otherworlds."
+                },
+                "rakshasas": {
+                  "title": "Rakshasas",
+                  "description": "Creations of Brahma, the Rakshasas quickly rebelled against the cosmic order imposed by the law of Dharma. Because of their innate savagery, which they redirect to humans and the gods, the Rakshasas are creatures that are difficult to control. After their defeat against the reincarnated great Vishnu, the Rakshasas became the military core of the Otherworld of Shambhala."
+                },
+                "dwarves": {
+                  "title": "Dwarves",
+                  "description": "Inhabitants of Nidavellir, the dwarves are a race of mythborn highly resistant to extreme environments, as well as formidable craftsmen and engineers."
+                },
+                "asuras": {
+                  "title": "Asuras",
+                  "description": "The great enemies of the Hindu gods. Asuras are a race of intelligent and organized Mythborn. They are not inherently malicious like other Mythborn races, but are more inclined to follow their emotions. Therefore, the law of Darma seems too moralizing for their taste and they prefer to detach from it, which generates a lot of friction with the Hindu Pantheon."
+                }
+              }
+            },
+            "enlightened": {
+              "title": "Enlightened",
+              "description": "Humans with magical powers, the Enlightened usually belong to Secret Societies and participate in the struggle for the independence of humanity from the Gods and Titans.",
+              "content": {
+                "illuminati": {
+                  "title": "The Illuminati",
+                  "description": "One of the most widespread Secret Societies in the World. Their motto: 'Sex, Drugs and Rockefeller'. The Illuminati seek above all material power and wealth. Concentrated on the individual rather than the collective, they use their wealth and their secrets accumulated over the ages to be able to negotiate on equal terms with the gods in order to counter their influence on the World."
+                },
+                "merlin": {
+                  "title": "The Circle of Merlin",
+                  "description": "Heirs of King Arthur and the Round Table, the Circle of Merlin is made up of Knights with unrivaled martial talents and Druids sharing an almost symbiotic connection with Nature. Sworn enemies of the Celtic Gods they chased from the World, the Circle of Merlin is the police of the Concordat of Stonehenge - the contract of Fate forbidding the gods to materialize on the World - and as such does not hesitate to chase the Godborns who cross the line."
+                },
+                "cabale": {
+                  "title": "The Cabal",
+                  "description": "If there is a Secret Society it is difficult to get hold of, it is the Cabal. Totally hidden in broad daylight, it counts in its ranks all the pariahs throughout all societies and time periods and its members are followers of occult arcana not always duly appreciated by other groups, such as the use of necromancy."
+                },
+                "fist": {
+                  "title": "The Order of the Jade Fist",
+                  "description": "Martial order without compare, the Order of the Jade Fist brings together military orders from all walks of life, from the Templars to the Speztnaz to the Japanese Yakuza and the Chinese Triads."
+                }
+              }
+            }
+          }
+        },
+        "locations": {
+          "title": "Locations",
+          "description": "The main locations where Wyrdwalkers' intrigue takes place, whether it be the secret tunnels sheltering the most sordid plots or the great Olympian halls hosting divine politics.",
+          "content": {
+            "world": {
+              "title": "The World",
+              "description": "The physical plane where humans dwell. This is where most of the intrigue takes place involving young Godborns and Secret Societies, whatever the era. This is also where Fate is most strongly expressed."
+            },
+            "otherworld": {
+              "title": "The Otherworlds",
+              "description": "The Otherworlds represent the separation between the plane of existence of humans and that of the Gods and Titans. Each is unique and has its own history and people. These are the main places of intrigue for advanced Godborns, young Gods, and Mythborns.",
+              "content": {
+                "forest": {
+                  "title": "The Dark Forest",
+                  "description": "Antithesis of Order, society and mental health. This is where Little Red Riding Hood got lost, where Hansel and Gretel were drawn, where the trees have crazy smiles, the animals speak in puzzles and where darkness reigns constantly."
+                },
+                "shambhala": {
+                  "title": "Shambhala",
+                  "description": "Ancient sanctuary of the Asian Mythborn, Shambhala is a kingdom where the spiritual and the material are one. Shambhala is a symbol of peace in a cosmos constantly disturbed by war."
+                },
+                "utopia": {
+                  "title": "Utopia",
+                  "description": "Very recent Otherworld, Utopia was formed during the 20th century when the concept of the metropolis became predominant over the World. It is the Otherworld of civilization, the bustling city, technology, modernity and the new magical creatures that emerge from these new myths."
+                },
+                "fairie": {
+                  "title": "Fairie",
+                  "description": "Home of the Fey and the most influential Otherworld within the Mythborn community, Fairie brings together countless different races and is the target of a plethora of wars of influence between the gods, the titans and even other Mythborn races."
+                },
+                "eldorado": {
+                  "title": "El Dorado",
+                  "description": "Otherworld populated by the Mesoamerican Enlightened survivors of the massacre of the Spanish invasion. Created by the Mayan and Inca pantheons, El Dorado brings together believers of the precepts of Hunab Ku, carried by the Mayan gods."
+                },
+                "jadesea": {
+                  "title": "The Jade Sea",
+                  "description": "Otherworld under the control of the Dragons, the Jade Sea is a place difficult to access from the World. Western dragons found refuge there after the great Dragon purge orchestrated by the Gods in the Middle Ages. The place is not welcoming to the Gods and the Dragons do not hesitate to exercise their revenge on them, physically or by extorting them of their resources in exchange for their age-old (but still overestimated ) knowledge."
+                }
+              }
+            },
+            "overworld": {
+              "title": "The Overworld",
+              "description": "The Overworld is the metaphorical plane where the Gods and Titans live and where they wage their war without mercy. A simple mortal being cannot access it, much less survive it. The intrigue that takes place there involves (young) Gods and Titans.",
+              "content": {
+                "godrealms": {
+                  "title": "The Godrealms",
+                  "description": "The Godrealms - also called Heaven or Paradise by mortals - are the homes of the Gods. Each Pantheon has one (or more). Olympus for the Greeks, Asgard for the Scandinavians, etc. Each Godrealm was conquered by the Gods on the territory of one or more Titans, so they are divine enclaves in the middle of Titanrealms.",
+                  "content": {
+                    "aunu": {
+                      "title": "Aunu",
+                      "description": "The Realm of the Egyptian Gods. Aunu takes the form of a huge city representing the social order of the Egyptian pantheon. Primarily populated of unworthy souls reduced to eternal servitude, the city is traversed by the cosmic representation of the Nile, which Râ travels every day on his solar barge."
+                    },
+                    "asgard": {
+                      "title": "Asgard",
+                      "description": "The Realm of the Norse Gods. It is made up of a single eponymous city planted in the middle of the Plains of Idavoll. Asgard is accessible from Yggrasil, the great World-Tree, and both are doomed by Fate to be destroyed during Ragnarök."
+                    },
+                    "devaloka": {
+                      "title": "Devaloka",
+                      "description": "The Realms of the Hindu Gods. The Devaloka is actually a hierarchy of Realms on multiple levels, reachable according to the purity of the soul. At the very top is the Realm of the great Vishnu: Vaikunta, accessible only to the purest of souls."
+                    },
+                    "hanan": {
+                      "title": "Hana Pacha",
+                      "description": "The Realm of the Inca Gods. Populated by the venerable ancestors of the Inca people, the Kingdom of the Condor is made up of a unique city accessible from the highest clouds floating above the Andean peaks."
+                    },
+                    "ikole": {
+                      "title": "Ikole Orun",
+                      "description": "The Realm of the African Gods. A vast savannah dotted with cities from all eras, Ikole Orun shelters the ancestors who won their place in paradise. Not far from the borders of Ikole Orun is Ville au Camp, the city of Voodoo Loas."
+                    },
+                    "kahiki": {
+                      "title": "Kahiki",
+                      "description": "The Realm of the Maori Gods. Archipelago hidden in the mist, Kahiki does not have opulent palaces or other forms of wealth. Its topology is in all respects that of a Polynesian archipelago, making it a uniquely primal and “down-to-earth” Divine Realm."
+                    },
+                    "olympe": {
+                      "title": "Mount Olympus",
+                      "description": "The Realm of the Greek Gods. Carried by the Titan Atlas, it shelters all the Greek Gods and their servants. It is in its marble palaces that much of the politics of the Cosmos are played out."
+                    },
+                    "takamagahara": {
+                      "title": "Takamagahara",
+                      "description": "The Realm of the Japanese Gods. A haughty and sacred world, it represents perfection in the Japanese sense of the term. Everything is in its right place and works in perfect harmony with the rest of the Realm. Calm and withdrawn, Takamagahara is considered a refuge by many deities."
+                    },
+                    "tian": {
+                      "title": "Tiàn",
+                      "description": "The Realm of the Chinese Gods. A sprawling Forbidden City housing the most elaborate and well-oiled Bureaucracy of the cosmos. HQ of the Common Good, some must leave their individuality at the door if they want to be able to navigate smoothly within the lands of Tiàn."
+                    },
+                    "tirnanog": {
+                      "title": "Tir na nÓg",
+                      "description": "The Realm of the Celtic Gods. A huge sea dotted with islands, Tir na nÓg was once one with the World until the Concordat  of Stonehenge was ratified. It is a little paradise of peace and nature without frills or extravagance visitors find difficult to leave."
+                    },
+                    "treize": {
+                      "title": "The Thirteen Heavens",
+                      "description": "The Realm of the Mayan and Aztec gods. Each of the 'Heavens' is a Realm on its own and linked to a different Titanrealm. Each realm is accessible by the Pillar of Fire, which smites those who flouted the precepts of the Hunab Ku. An entity attempting to reach a level of the Thirteen Heavens of which it is not worthy is immediately immolated by the Pillar of Fire."
+                    }
+                  }
+                },
+                "titanrealms": {
+                  "title": "The Titanrealms",
+                  "description": "The Titanrealms are the embodiment of natural concepts on the scale of the Cosmos. Night, Heaven, Fire, etc. Each shelters creatures who in turn embody related concepts. Night as Terror, Heaven as Wind, Fire as Destruction. Each Realm expands as infinitely as the concepts they represent.",
+                  "content": {
+                    "aether": {
+                      "title": "Aether",
+                      "description": "The Titanrealm of Light. It brings together all the Titans embodying a concept related to Light, whether it be the light of Glory or that of Illumination. Since Aten’s takeover, this Realm has become an extremely dangerous place where the influence of the Avatar of Brightness corrupts everything that approaches it as a fanatic devoted to its cause."
+                    },
+                    "amaunet": {
+                      "title": "Amaunet",
+                      "description": "The Titanrealm of Air and Heaven. Totally chaotic, this Kingdom is the embodiment of Freedom associated with Air. The titans who live there are of all types of characters, from the calm and powerful Ouranos to the angry and dangerous Huracan. Despite everything, each stratum of this Kingdom contributes to a global balance, unfortunately under the constant threat of the return of Typhon."
+                    },
+                    "kosmos": {
+                      "title": "Kosmos",
+                      "description": "The Kingdom of Order and Civilization. In this Kingdom, nothing is natural or left to chance. Everything is orderly, thought out, calibrated and measured to levels of precision and rigor that only divine entities can contemplate. The Titans who reside there are among the most powerful enemies of the gods and no Pantheon has yet attempted an incursion into Kosmos, for fear of turning into Titans themselves or of being simply obliterated from Reality."
+                    },
+                    "muspelheim": {
+                      "title": "Muspelheim",
+                      "description": "The Titanrealm of Heat and Fire. This Realm brings together the most destructive and volatile natural forces in the cosmos. It is for this reason that the whole of this Realm is dotted with areas of permanent conflict. The vast majority of the Titans who live there are enemies of the gods."
+                    },
+                    "nyx": {
+                      "title": "Nyx",
+                      "description": "The Titanrealm of the Night. The concepts of control, order and authority do not exist here. It is the Realm of Terror, Sleep, the Moon and Darkness. Its inhabitants play on fear, illusions or camouflage to get what they want. The Gods make a few forays there, but even they remain very careful because this Realm is completely unpredictable."
+                    },
+                    "oceanus": {
+                      "title": "Oceanus",
+                      "description": "The Titanrealm of Water and Oceans. By its nature, this Realm is only an infinite ocean filled with monsters of all kinds and agitated by the eddies of permanent war between its major titans Sedna and Yam. Some of its titans are allies of the gods because they are beneficial to humanity, like Sedna. Others, like Yam, are dedicated to the destruction of everything that has the audacity to sail the seas."
+                    },
+                    "patala": {
+                      "title": "Patala",
+                      "description": "The Titanrealm of the Depths. Entirely composed of dark caves and abysses, Patala is a cold Realm where there is constant danger. As with Nyx, authority and order do not exist in this Kingdom. Only the most vigilant or prepared survive. All the Titans who live there embody the underground concepts that haunt the human imagination, from oppressive abyssal depths to the decomposition of living things through buried riches."
+                    },
+                    "sheol": {
+                      "title": "Sheol",
+                      "description": "The Titanrealm of Death. Without doubt the least cheery Realm of the cosmos. Although some of its Titans are of definite use for Gods and humans, the majority of them remain entities determined to bring death wherever they go and in the most horrible ways that can be imagined. The Underworld of each pantheon was conquered on the territory of this Kingdom, adding to the frustration of its inhabitants."
+                    },
+                    "terra": {
+                      "title": "Terra",
+                      "description": "The Titanrealm of Earth. Not to be confused with planet Earth (aka “the World”). Terra represents the Earth as a concept opposite to the Sky. It is an infinite Realm with landscapes all as varied as the creatures that populate them and their ways of killing their prey. Gaia is the main Avatar and everything that lives there is her child. Only the most suitable survive."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "random": {
+        "title": "Random Pages",
+        "button": "Go"
       }
     }
-  },
-  "random": {
-    "title": "Random Pages",
-    "button": "Go"
   }
 }

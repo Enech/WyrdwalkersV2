@@ -8,9 +8,9 @@
       style="position: relative;"
     >
       <div style="background-color: rgba(0,0,0,0.5);">
-        <v-card-title class="white--text justify-center">{{wikiNode.title}}</v-card-title>
+        <v-card-title class="white--text justify-center">{{$t(wikiNode.title)}}</v-card-title>
         <v-divider color="white"></v-divider>
-        <v-card-subtitle class="white--text justify-center" v-html="wikiNode.description"></v-card-subtitle>
+        <v-card-subtitle class="white--text justify-center" v-html="$t(wikiNode.description)"></v-card-subtitle>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn

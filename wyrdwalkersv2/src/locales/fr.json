@@ -11,8 +11,8 @@
     "characters": "Personnages",
     "npc": "PNJ",
     "campaigns": "Campagnes",
-    "dialogs":{
-      "common":{
+    "dialogs": {
+      "common": {
         "cancel": "Annuler",
         "edit": "Modifier",
         "save": "Valider"
@@ -212,7 +212,15 @@
         "header": "Bienvenue sur le codex Wyrdwalkers",
         "text": "<i>Novembre 2018. Le Chaudron Bedonnant - pub New-Yorkais, Brooklyn.</i><br /><br />'Un Godborn tout frais ! Allez gamin, chope une pinte de Guinness, elle est importée et ça change de la pisse chaude qu'ils font par ici. Laisse-moi t'expliquer quelques petites choses à propos de notre business. Le business de la Légende. Nos parents sont quelque part, là-haut. Pas parce-qu'ils sont morts, mais parce-que ce sont des dieux. C'est qui ton parent divin déjà ? Le mien c'est Le Dagda, des fois que ce soit pas assez évident avec mon sourire ravageur. Enfin bon, ils sont perchés là-haut chez eux et ils comptent sur nous pour remettre le Monde en ordre. Je sais pas si tu as remarqué mais c'est vraiment le bordel chez nous les mortels. <br /> <br />Ton principal boulot c'est de faire ce qu'on appelle de la \"gestion de nuisibles\". Tu vois, quand des Titans arrivent à se frayer un chemin jusqu'à nous, ils restent généralement discrets et rassemblent des cultistes à droite à gauche. Ca leur permet de gonfler en puissance jusqu'à ce qu'ils puissent grignoter suffisamment la réalité pour invoquer un gros truc dégueulasse. Etonamment c'est là que les gens commencent à mourir. T'as déjà entendu parler de la Peste Noire ? Ouais ? Ben notre job c'est de faire en sorte que ce genre de catastrophe n'arrive pas. Ou plus. Cette ville est un véritable foyer pour toutes ces conneries. De temps en temps tu vas avoir affaire à un vampire ou à une liche, mais la plupart du temps c'est juste un abruti qui a voulu jouer au malin avec sa version crackée de '<i>La nécromancie pour les nuls</i>' et qui s'est retrouvé à invoquer un poltergeist qui lui a vidé la cervelle comme un petit gros face à un pot de glace. <br /><br />On est pas nombreux, il faut bien l'avouer, alors il te faudra sûrement travailler avec la population locale. Avec un peu de chance tu pourras choper les informations qui t'intéressent auprès des covens de sorcières habituels ou des punks technodruides, mais parfois tu auras besoin d'un peu plus de moyens. C'est là que les Sociétés Secrètes entrent en jeu. Ne cherche pas de loyauté chez elles, elles ne sont loyales qu'envers elles-mêmes, mais  elles ont des informations et des ressources. Et elles ont besoin de nous, parce-qu'on a une puissance qu'elles n'ont pas - on est des demi-dieux, faut pas l'oublier ! Fait juste attention aux Illuminati par contre, ils trouveront toujours un moyen de te faire payer plus que ce que tu aurais dû. <br /><br />Si tu commences à te balader autour du globe, tu vas forcément rencontrer des Mythborns. Des elfes, des loups-garous, des dragons, des fées,... J'ai même rencontré un kangourou-garou (ou un kangarou si tu préfères) ! Il tenait pas en place mais c'était un sacré bon joueur de poker. Même si je reste persuadé qu'il cachait quelques as dans sa grosse poche...Enfin bref, ces Mythborns sont comme des gens normaux - certains sont sympas d'autres beaucoup moins - mais en général ils sont plus puissants et ont toujours une corde à leur arc. Essaie de te les mettre dans la poche si tu peux, les rumeurs vont vite dans ce monde. <br /> <br />Mais ta plus grande aide viendra toujours de tes camarades Godborns. On est pas très nombreux et notre espérance de vie est assez courte alors il faut qu'on se serre les coudes. On est comme des étoiles filantes, on essaie d'écrire nos noms dans le ciel pendant qu'on le peut. On cherche tous la même carotte : l'Apothéose, le moment où un Godborn devient un Dieu. Et ouais ! L'immortalité mon gars ! Je suis quasiment sûr que si j'y arrive je deviendrai Dieu de l'Honneur. Ou du Rugby. Je suis pas encore décidé, mais j'ai encore du temps. <br /> <br />De quoi ? 'Pourquoi les gens autour de nous ne voient pas les Dragons et les demi-dieux qui se baladent' ? C'est très simple : la vie de la plupart des gens est insignifiante. Il n'y a pas de secret ou de grande mascarade. Les gens sont juste des figurants, vraiment. Comme ils ne contribuent pas à la Légende, ils n'en font pas partie, c'est aussi simple que ça. A moins que tu les y inclue toi-même, là ils deviendraient liés à ta Légende...mais il faut garder en tête que le courageux petit acolyte humain fait rarement de vieux os dans ce qu'on vit au quotidien.<br /><br />Enfin bref, je diverge. Finis ta pinte, on va aller dans un entrepôt pas loin. T'as déjà tabassé un Géant de Feu ? Parce-que si on a de la chance, ça pourrait bien arriver ce soir. En attendant, profite bien de ton temps de demi-dieu sur Terre et essaie de pas trop causer de ruine et de dévastation. La paperasse est un véritable enfer.'",
         "action": "Explorer Wyrdwalkers",
-        "subheader": "Un univers mythologique conçu pour vivre des récits épiques et construire votre propre légende à travers toutes les époques."
+        "subheader": "Un univers mythologique conçu pour vivre des récits épiques et construire votre propre légende à travers toutes les époques.",
+        "whatis": {
+          "title": "Wyrdwalkers, c'est quoi ?",
+          "content": "De l'Urban Fantasy ? Du Medieval Fantasy ? De l'Histoire-Fiction ? Wyrdwalkers n'est rien de tout ça. C'est un univers qui est ce que vous avez envie qu'il soit. Chaque lieu et chaque personnage sont conçus pour raconter des histoires et aborder des thèmes mythologiques, épiques et légendaires.<br>          Vous voulez jouer une histoire medieval-fantasy ? Baladez-vous du côté de Fairie et traitez avec les elfes noirs et les trolls qui y habitent. Puis faites une virée dans la Forêt Noire pour chasser du Loup-Garou.<br>          C'est l'Urban Fantasy qui vous intéresse ? Qu'à cela ne tienne : partez à la poursuite d'un gang de nécromanciens se cachant dans les cartels mexicains.<br>          Le plus beau, c'est que vous pouvez jouer toutes ces aventures à l'époque qu'il vous plait sans aucun restriction d'aucune sorte.<br>          Wyrdwalkers est un univers qui laisse complète liberté à ses Maitres du Jeu et ses joueurs pour écrire leurs légendes ensemble. Quelle que soit l'histoire que vous voulez raconter, elle peut être racontée dans cet univers."
+        },
+        "links": {
+          "title": "Les liens importants",
+          "content": "Pour bien commencer votre lecture, voici quelques liens rapides que vous pouvez consulter :<br>          <ul>            <li>Les <a href='/wiki/lore/dieux' target='_blank'>Dieux</a> et les <a href='/wiki/lore/titans' target='_blank'>Titans</a></li>            <li>Les différents plans cosmiques : le <a href='/wiki/lore/monde' target='_blank'>Monde</a>, les <a href='/wiki/lore/dieux' target='_blank'>Outres-Mondes</a> et l'<a href='/wiki/lore/overworld' target='_blank'>Overworld</a></li><li>Les principales races de créatures magiques : les <a href='/wiki/lore/mythborns' target='_blank'>Mythborns</a></li>            <li>Les <a href='/wiki/lore/sociétés-secrètes' target='_blank'>Sociétés Secrètes</a> luttant pour une humanité libre et indépendante</li>            <li>Les <a href='/wiki/random' target='_blank'>pages aléatoires</a></li>            <li>Les différentes <a href='/wiki/timelines' target='_blank'>chronologies</a> racontant des univers parallèles</li>            <li><a href='/wiki/gameplay/rules' target='_blank'>Les règles</a> et la <a href='/wiki/gameplay/legendary-abilities' target='_blank'>liste des pouvoirs</a></li>          </ul>          <br>Vous pouvez aussi cliquer sur le gros bouton rouge en haut de la page pour accéder facilement à toutes les principales pages du codex"
+        }
       },
       "powers": {
         "general": "Domaines de magie généraux",
@@ -238,11 +246,306 @@
         "myth": "Mythe",
         "noAuthor": "Auteur inconnu",
         "loading": "Chargement..."
+      },
+      "explorer": {
+        "title": "Explorer le Codex",
+        "characters": {
+          "title": "Personnages",
+          "description": "Les principales factions luttant pour leurs intérêts dans Wyrdwalkers. Toutes les catégories y sont répertoriées, des Dieux aux Titans jusqu'aux simples mortels suffisamment téméraires pour défier l'ordre divin.",
+          "content": {
+            "gods": {
+              "title": "Dieux",
+              "description": "Entités immortelles et métaphysiques réunies en panthéons, les dieux et déesses cherchent à s'attribuer le plus d'influence possible sur le Monde et les humains qui le peuplent grâce à leurs agents demi-dieux : les Godborns",
+              "content": {
+                "aesir": {
+                  "title": "Aesir",
+                  "description": "Les dieux scandinaves. Fiers, un brin brutaux, ils ont le sens de la famille et cherchent en permanence à échapper au Destin. Il faut dire qu'ils sont condamnés à périr le jour de Ragnarök..."
+                },
+                "amatsukami": {
+                  "title": "Amatsukami",
+                  "description": "Les dieux japonais. Un brin isolés et portés sur les traditions, ils ont su tisser des alliances leur assurant protection contre les titans les plus envieux de leurs ressources."
+                },
+                "ayllus": {
+                  "title": "Ayllus",
+                  "description": "Les dieux incas. Isolés des affaires du monde et peu influents dans la géopilitique divine, le panthéon inca est jeune, dynamique et est mené par un leader protecteur et énergique. Malgré son isolement, c'est un panthéon qui cherche à revenir sur le devant de la scène."
+                },
+                "bureaucracy": {
+                  "title": "Bureaucratie Céleste",
+                  "description": "es dieux chinois. Le nom du panthéon se suffit à lui seul. Oubliez l'individualisme avec ces dieux. Chaque membre du panthéon (et ils sont très nombreux !) est un maillon dans la chaïne. Véritable rouleau compresseur de la politique divine, rien ne lui résiste vraiment. Pas même le Destin..."
+                },
+                "deva": {
+                  "title": "Deva",
+                  "description": "Les dieux hindous. Créé par l'extrêmement puissant Trimurti (Brahma, Vishnu et Shiva), le Deva fait partie des plus vieux panthéons et contient donc les divinités les plus anciennes et les plus sages. En revanche, leur puissance les a amené à prendre de plus en plus de recul par rapport aux affaires du monde..."
+                },
+                "kasunel": {
+                  "title": "K'Asunel",
+                  "description": "Les dieux mayas. Fanatiquement anti-titans, les dieux mayas vivent selon les préceptes des quatres accords toltèques. Ils croient dans les principes édictés dans l'Hunab Ku, ce qui fait d'eux le seul panthéon de dieux croyants."
+                },
+                "neter": {
+                  "title": "Neter",
+                  "description": "Les dieux égyptiens et un des plus vieux panthéons. Avec le Deva et le Théoï il fait partie du trio de tête des panthéons en terme de richesses, de puissance militaire et de sagesse millénaire. Très ordonnés, les dieux égyptiens croient fermement en Ma'at - le principe d'équilibre cosmique - et l'appliquent à travers des valeurs comme la Justice, la Vérité et l'Ordre."
+                },
+                "nga": {
+                  "title": "Nga Tama a Rangi",
+                  "description": "Les dieux maoris. Composé des enfants directs de Gaïa et Ouranos, les membres du Nga Tama a Rangi comptent parmis les plus vieilles divinités du cosmos - plus vieux que certains titans - mais ne fait pas partie des panthéons les plus puissants. Ayant préféré l'exil après la première guerre contre les titans, les dieux maoris se concentrent désormais sur des problèmes plus locaux et moins ambitieux."
+                },
+                "orisha": {
+                  "title": "Orisha",
+                  "description": "Les dieux africains. Réunissant deux générations majeures de divinités et beaucoup plus concentrés sur les affaires du Monde et des humains, les Orishas font parti des dieux les moins belliqueux et ambitieux, même si leur force est reconnue à travers le cosmos. Leur pacifisme  n'a pas été toujours présent et il y a quelques siècles encore, l'Orisha était considéré comme le panthéon le plus guerrier de l'univers pendant plusieurs millénaires. C'est le genre de chose qui ne s'efface pas par magie..."
+                },
+                "teotl": {
+                  "title": "Teotl",
+                  "description": "Les dieux aztèques. Grands adeptes de la magie du sang, les dieux aztèques ont des traditions que d'aucuns considèrent violentes. Ce sont de fiers combattants et des conquérants. Malheureusement leur impulsivité poussée à l'extrême limite le nombre de leurs alliés, mais ils n'hésitent pas à mettre leurs compétences martiales et leur soif de sang à profit pour la cause des dieux contre les titans."
+                },
+                "theoi": {
+                  "title": "Théoï",
+                  "description": "Les dieux grecs. Figurant parmi les panthéons les plus connus, les Olympiens sont menés par Zeus et sont une des principales forces motrices du cosmos. Ils regroupent suffisamment d'atouts dans tous les domaines pour assoeir leur puissance sur d'autres panthéons. Mais même les tout-puissants ont une faiblesse. La leur ? Leur égo et leur arrogance surdimensionnée."
+                },
+                "tuatha": {
+                  "title": "Tuatha Dé Danann",
+                  "description": "Les dieux celtes. Sans doute les divinités les plus proches de la Nature. Tous sont des maitres druides avant tout. Mais les prendre pour des hippies cosmiques serait une grave erreur. Les Enfants de Danu font parti des panthéons les plus combattifs et fiers du cosmos et leurs talents combinés à leur sagesse ancestrale font d'eux des atouts vitaux contre les titans."
+                }
+              }
+            },
+            "titans": {
+              "title": "Titans",
+              "description": "Êtres primordiaux, immortels et extrêmement puissants en guerre totale contre les Dieux, les Titans incarnent un concept du Cosmos qu'ils cherchent à faire prévaloir sur les autres coûte que coûte. La plupart sont eux-mêmes d'anciens dieux ayant succombé à l'attraction du Destin et de la Légende.",
+              "content": {
+                "light": {
+                  "title": "Titans de la Lumière",
+                  "description": "Les titans de la Lumière sont des créatures zélées et totalement loyales à leurs maitres respectifs. C'est d'autant plus le cas depuis la prise de contrôle d'Aten sur le Royaume Titanique de la Lumière. Tous ses servants font preuve d'un fanatisme éternel lorsqu'il s'agit de porter la parole d'Aten aux confins de l'univers. Ils incarnent des concepts tels que la Gloire, le Soleil ou la Brillance."
+                },
+                "air": {
+                  "title": "Titans de l'Air et du Ciel",
+                  "description": "Ces titans sont de tous types de caractères, du calme et puissant Ouranos au colérique et dangereux Huracan. Ils incarnent la Liberté associée à l'Air. Ils incarnent des concepts tels que le Calme, la Pluie ou les Cataclysmes."
+                },
+                "order": {
+                  "title": "Titans de l'Ordre et de la Civilisation",
+                  "description": "Ces titans sont parmi les ennemis les plus puissants des dieux et aucun panthéon n'a encore tenté d'incursion dans le Royaume de l'Ordre, de crainte de se tranformer eux-mêmes en titans ou bien d'être tout simplement oblitérés de la Réalité. Ils incarnent des concepts tels que le Contrôle, le Savoir ou encore la Loi."
+                },
+                "fire": {
+                  "title": "Titans de la Chaleur et du Feu",
+                  "description": "Ces titans sont les forces naturelles les plus destructrices et volatiles du cosmos, en grande partie ennemis des dieux. Ils incarnent des concepts tels que la Destruction, l'Invention ou la Sécheresse."
+                },
+                "night": {
+                  "title": "Titans de la Nuit",
+                  "description": "Ces titans ne connaissent pas les concepts d'ordre et d'autorité. Ils jouent sur la peur, les illusions ou le camouflage pour obtenir ce qu'ils veulent. Ils incarnent des concepts tels que la Terreur, le Sommeil, les Ténèbres ou la Lune."
+                },
+                "water": {
+                  "title": "Titans de l'Eau et des Océans",
+                  "description": "Certains de ces titans sont alliés des dieux car bénéfiques à l'humanité, comme Sedna. D'autres, comme Yam, sont voués à la destruction de tout ce qui a l'audace de parcourir les mers. Ils incarnent des concepts tels que la Vie, la Noyade ou la Fertilité."
+                },
+                "depths": {
+                  "title": "Titans des Profondeurs",
+                  "description": "Tous ces titans incarnent les concepts souterrains qui hantent l'imagination humaine, des profondeurs abyssales oppressantes à la décomposition de ce qui vit en passant par les richesses enfouies."
+                },
+                "death": {
+                  "title": "Titans de la Mort",
+                  "description": "Bien que certains de ces titans soient d'une utilité certaine pour les dieux et les humains, la majorité d'entre eux restent des entités déterminées à apporter la Mort partout où elles passent et des manières les plus horribles qui puissent être imaginées. Ils incarnent des concepts tels que le Voyage, la Paix, l'Horreur ou l'Extinction."
+                },
+                "earth": {
+                  "title": "Titans de la Terre",
+                  "description": "Ces titans sont extrêmement adaptables et rompus à la loi de la jungle. Beaucoup d'entre eux ont une intelligence bestiale au mieux, mais les avatars majeurs sont de véritables architectes, pouvant penser à des plans sur des décennies directement reliés au Monde et à ses habitants. Ils incarnent des concepts comme la Vie, l'Etendue ou les Montagnes."
+                }
+              }
+            },
+            "mythborns": {
+              "title": "Mythborns",
+              "description": "Créatures magiques issues des folklores du monde entier, les mythborns sont les représentants de la Nature. Dragons, Elfes, Nains, etc. vivent tous dans les Outres-Mondes, loin des humains et des Dieux.",
+              "content": {
+                "dragons": {
+                  "title": "Dragons",
+                  "description": "Fièrement indépendants et aimant vivre isolés, les Dragons sont une des rares espèces de Mythborns suffisamment puissantes pour imposer leur indépendance aux dieux et aux titans. Toutefois, ayant été pourchassés pendant des siècles par les dieux, certains d'entre eux succombent à l'appel des titans et entrent au service d'Apophis, Zhulong ou encore Kur."
+                },
+                "garous": {
+                  "title": "Garous",
+                  "description": "Mélange entre une âme humaine et un kami d'animal, les Garous sont une race très diversifiée qui compte entre autre les Centaures, les Loups-Garous, les Satyres ou encore les Minotaures. Leurs allégeances sont aussi variées qu'il y a de Garous, mais la grande majorité d'entre eux ne sont affiliés ni aux dieux ni aux titans et vivent dans l'Outre-Monde de la Forêt Noire."
+                },
+                "feys": {
+                  "title": "Feys",
+                  "description": "Les feys sont un ensemble de créatures de races différentes, malicieuses et se délectant de tourmenter les mortels. Fées, Trolls, Lutins, Kitsune, Yokai, etc. Toutes ces races représentent les Feys. Majoritairement regroupés dans les Outres-Mondes de la Cour de l'Eté et de la Cour de l'Hiver, ils peuvent néanmoins être trouvées partout sur le Monde ou les Outres-Mondes."
+                },
+                "rakshasas": {
+                  "title": "Rakshasas",
+                  "description": "Création de Brahma, les Rakshasas se sont très vite rebellés contre l'ordre cosmique imposé par loi du Darma. A cause de leur sauvagerie innée, qu'ils redirigent vers les humains et les dieux, les Rakshasas sont des créatures difficiles à maitriser. Après leur défaite face au grand Vishnu réincarné, les Rakshasas sont devenus la force de frappe de l'Outre-Monde de Shambhala."
+                },
+                "dwarves": {
+                  "title": "Nains",
+                  "description": "Habitants de Nidavellir, les nains sont une race de mythborns hautement résistants aux environnements extrêmes et de formidables artisans et ingénieurs."
+                },
+                "asuras": {
+                  "title": "Asuras",
+                  "description": "Les némésis des dieux hindous. Les asuras sont une race de Mythborns intelligents et organisés. Ils ne sont pas malveillants comme d'autres races Mythborns, mais sont plus enclins à suivre leur émotions. De ce fait, la loi du Darma leur aprait beaucoup trop moralisatrice à leur goût et ils préfèrent s'en détacher, ce qui engendre beaucoup de frictions avec le panthéon hindou."
+                }
+              }
+            },
+            "enlightened": {
+              "title": "Eveillés",
+              "description": "Humains dotés de pouvoirs magiques, les Eveillés appartiennent à des Sociétés Secrètes et participent à lutter pour l'indépendance de l'humanité vis-à-vis des Dieux et des Titans.",
+              "content": {
+                "illuminati": {
+                  "title": "Les Illuminati",
+                  "description": "Une des Sociétés Secrètes les plus répandue sur le Monde. Leur devise : 'Sexe, Drogues et Rockefeller'. Les Illuminati recherchent avant tout le pouvoir matériel et la richesse. Concentrés sur l'individualité plutôt que le collectif, ils mettent à profit leurs richesses et leurs secrets accumulés à travers les âges pour être en mesure de négocier à armes égales avec les dieux afin de contrer leur influence sur le Monde."
+                },
+                "merlin": {
+                  "title": "Le Cercle de Merlin",
+                  "description": "Issu des héritiers du Roi Arthur et de la Table Ronde, le Cercle de Merlin est composé de Chevaliers aux talents martiaux hors pairs et de Druides partageant une connexion presque symbiotique avec la Nature. Ennemis jurés des dieux celtes qu'ils ont chassé du Monde, le Cercle de Merlin est la police du Concordat de Stonehenge - le contrat du Destin interdisant aux dieux de se matérialiser sur le Monde - et en tant que telle n'hésite pas à pourchasser les Godborns qui franchissent les limites."
+                },
+                "cabale": {
+                  "title": "La Cabale",
+                  "description": "S'il est une Société Secrète sur laquelle il est difficile de mettre la main, c'est La Cabale. Totalement dissimulée en plein jour, elle compte dans ses rangs tous les parias de toutes les sociétés à travers le Monde et les époques et ses membres sont adeptes d'arcanes occultes pas toujours appréciées d'autres groupes, telles que la nécromancie."
+                },
+                "fist": {
+                  "title": "L'Ordre du Poing de Jade",
+                  "description": "Ordre martial par excellence, l'Ordre du Poing de Jade regroupe tous les ordres militaires de toutes les époques, des Templiers aux Speztnaz en passant par les Yakuzas japonais et les Triades chinoises."
+                }
+              }
+            }
+          }
+        },
+        "locations": {
+          "title": "Lieux",
+          "description": "Les principaux lieux où se trament les intrigues de Wyrdwalkers, que ce soient les tunnels secrets abritant les complots les plus sordides ou les grandes salles Olympiennes accueillant la politique divine.",
+          "content": {
+            "world": {
+              "title": "Le Monde",
+              "description": "Le plan physique abritant les humains. C'est là où se déroule majorité des intrigues impliquant les jeunes Godborns et les Sociétés Secrètes, quelles que soient les époques. C'est aussi là que s'exprime le Destin."
+            },
+            "otherworld": {
+              "title": "Les Outres-Mondes",
+              "description": "Les Outres-Mondes représentent la séparation entre le plan d'existence des humains et celui des dieux et des titans. Chacun est unique et possède sa propre histoire et sa propre population. Ce sont les principaux lieux d'intrigues pour les Godborns avancés, les jeunes Dieux, les Wyrdborns et les Mythborns.",
+              "content": {
+                "forest": {
+                  "title": "La Forêt Noire",
+                  "description": "Antithèse de l'ordre, de la société et de la santé mentale. C'est là que le Petit Chaperon Rouge s'est perdu, où Hansel et Gretel ont été attirés, où les arbres ont des sourires fous, les animaux parlent en énigmes et où l'obscurité reigne constamment."
+                },
+                "shambhala": {
+                  "title": "Shambhala",
+                  "description": "Ancien sactuaire des créatures asiatiques, Shambhala est un royaume où le spirituel et le matériel ne font qu'un. Shambhala est un symbole de paix dans un cosmos constamment perturbé par les guerres."
+                },
+                "utopia": {
+                  "title": "Utopia",
+                  "description": "Outre-Monde très récent, Utopia s'est formée au cours du XXème siècle lorsque le concept de la ville est devenu prépondérant sur le Monde. C'est l'Outre-Monde de la Civilisation, de la ville animée, de la technologie, de la modernité et des nouvelles créatures magiques qui émergent de ces nouveaux mythes."
+                },
+                "fairie": {
+                  "title": "Fairie",
+                  "description": "Territoire des Feys et Outre-Monde le plus influent au sein de la communauté Mythborn, il regroupe un nombre incalculable de races différentes et il est la cible de pléthores de guerres d'influences entre les dieux, les titans et mêmes d'autres races Mythborns."
+                },
+                "eldorado": {
+                  "title": "El Dorado",
+                  "description": "Outre-Monde peuplé par les Eveillés mésoaméricains survivants du massacre de l'invasion espagnole. Créé par les panthéons mayas et incas, El Dorado regroupe les fidèles aux préceptes de l'Hunab Ku, portés par les dieux mayas."
+                },
+                "jadesea": {
+                  "title": "La Mer de Jade",
+                  "description": "Outre-Monde sous la coupe des Dragons, la Mer de Jade est un endroit difficilement accessible depuis le Monde. Les dragons occidentaux y ont trouvé refuge après la grande purge draconique orchestrée par les dieux au Moyen-Age. L'endroit n'est pas accueillant envers les dieux et les dragons n'hésitent à exercer leur vengeance sur eux, de manière physique ou bien en les extorquant de leurs ressources en échange d'un savoir séculaire (mais tout de même sur-estimé)."
+                }
+              }
+            },
+            "overworld": {
+              "title": "L'Overworld",
+              "description": "L'Overworld est le plan métaphorique où vivent les dieux et les titans et où ils se livrent leur guerre sans mercie. Un être mortel ne peut pas y accéder et encore moins y survivre. Les intrigues qui s'y déroulent impliquent des (jeunes) dieux et des titans.",
+              "content": {
+                "godrealms": {
+                  "title": "Les Royaumes Divins",
+                  "description": "Les Royaumes Divins - autrement appelés les Cieux ou Paradis par les mortels - sont les lieux de résidence des dieux. Chaque panthéon en possède un. L'Olympe pour les grecs, Asgard pour les scandinaves. Chaque Royaume Divin a été conquis par les dieux sur le territoire d'un ou plusieurs titans, ce sont donc des enclaves divines au milieu de Royaumes Titaniques.",
+                  "content": {
+                    "aunu": {
+                      "title": "Aunu",
+                      "description": "Le Royaume des dieux égyptiens. Aunu prend la forme d'une immense ville représentant l'ordre social du panthéon égyptien. Essentiellement composée d'âmes indignes réduites en éternel esclavage, la ville est parcourue par la représentation cosmique du Nil, que Râ parcourt tous les jours sur sa barge solaire."
+                    },
+                    "asgard": {
+                      "title": "Asgard",
+                      "description": "Le Royaume des dieux scandinaves. Il est composée d'une unique ville éponyme plantée au milieu des Plaines d'Idavoll. Asgard est accessible depuis Yggrasil, le grand Arbre-Monde et tous deux sont condamnés par le Destin à être détruits lors de Ragnarök."
+                    },
+                    "devaloka": {
+                      "title": "Devaloka",
+                      "description": "Le Royaume des dieux hindous. Le Devaloka est en réalité une succession de Royaumes sur plusieurs niveaux, atteignables selon la pureté de l'âme. Tout en haut se trouve le Royaume du grand Vishnu : Vaikunta, accessible seulement aux âmes pures au-delà de tout reproche."
+                    },
+                    "hanan": {
+                      "title": "Hana Pacha",
+                      "description": "Le Royaume des dieux incas. Peuplé des ancêtres vénérables du peuple Inca, le Royaume du Condor est composé d'une ville unique accessible depuis les plus hauts nuages flottant au-dessus des sommets andins."
+                    },
+                    "ikole": {
+                      "title": "Ikole Orun",
+                      "description": "Le Royaume des dieux africains. Vaste savane parsemée de villes de toutes les époques, Ikole Orun abrite les ancêtres ayant gagné leur place au paradis. Non loin des frontières d'Ikole Orun se trouve Ville au Camp, la ville des Loas vaudous."
+                    },
+                    "kahiki": {
+                      "title": "Kahiki",
+                      "description": "Le Royaume des dieux maoris. Véritable archipel dissimulé dans la brûme, Kahiki ne porte pas de palais opulents ou d'autres formes de richesses. Sa topologie est en tout point celui d'un archipel polynésien, faisant de lui un Royaume Divin unique en son genre."
+                    },
+                    "olympe": {
+                      "title": "Mount Olympus",
+                      "description": "Le Royaume des dieux grecs. Porté par le titan Atlas en personne, il abrite tous les dieux grecs et leurs serviteurs. C'est dans ses palais de marbre que se joue beaucoup de la politique du cosmos."
+                    },
+                    "takamagahara": {
+                      "title": "Takamagahara",
+                      "description": "Le Royaume des dieux japonais. Monde hautain et sacré, il représente la perfection au sens japonais du terme. Tout y est à sa juste place et fonctionne en parfaite harmonie avec le reste du Royaume. Calme et retiré, Takamagahara est considéré comme un refuge par beaucoup de divinités."
+                    },
+                    "tian": {
+                      "title": "Tiàn",
+                      "description": "Le Royaume des dieux chinois. Gigantesque Cité Interdite abritant la Bureaucratie la plus élaborée et la plus huilée du cosmos. QG du Bien Commun, d'aucuns doivent laisser à la porte leur individualité s'ils veulent pouvoir naviguer sans heurts dans l'enceinte de Tiàn."
+                    },
+                    "tirnanog": {
+                      "title": "Tir na nÓg",
+                      "description": "Le Royaume des dieux celtes. Immense mer parsemée d'îles, Tir na nÓg ne faisait autrefois qu'un avec le Monde jusqu'à la ratification du Concordat de Stonehenge. C'est un petit paradis de paix et de nature sans fioritures ni extravagance dont les visiteurs peinent à repartir."
+                    },
+                    "treize": {
+                      "title": "Les Treize Cieux",
+                      "description": "Le Royaume des dieux mayas et aztèques. Chacun des 'Cieux' est un Royaume à lui seul et relié à un Royaume Titanique différent. Chaque Royaume est accessible par le Pilier du Feu, qui juge ceux ayant bafoué les préceptes de l'Hunab Ku. Une entité tentant d'accéder à un niveau des Treize Cieux dont elle n'est pas digne est immédiatement brûlée par le Pilier de Feu."
+                    }
+                  }
+                },
+                "titanrealms": {
+                  "title": "Les Royaumes Titaniques",
+                  "description": "Les Royaumes Titaniques sont l'incarnation de concepts naturels à l'échelle du cosmos. La Nuit, le Ciel, le Feu, etc. Chacun abrite des créatures incarnant à leur tour des concepts reliés. La Nuit comme Terreur, le Ciel comme Vent, le Feu comme Destruction. Chaque Royaume est infini en taille et en existence.",
+                  "content": {
+                    "aether": {
+                      "title": "Aether",
+                      "description": "Le Royaume de la Lumière. Il regroupe tous les titans incarnant un concept relié à la lumière. Que ce soit la lumière de la Gloire ou bien celle de l'Illumination. Depuis la prise de pouvoir d'Aten, ce Royaume est devenu un endroit extrêment dangereux où l'influence de l'Avatar de la Brillance corrompt tout ce qui s'en approche en fanatique dévoué à sa cause."
+                    },
+                    "amaunet": {
+                      "title": "Amaunet",
+                      "description": "Le Royaume de l'Air et du Ciel. Totalement chaotique, ce Royaume est l'incarnation de la Liberté associée à l'Air. Les titans qui y résident sont de tous types de caractères, du calme et puissant Ouranos au colérique et dangereux Huracan. Malgré tout, chaque strate de ce Royaume contribue à un équilibre global, malheureusement sous la menace constante du retour de Typhon."
+                    },
+                    "kosmos": {
+                      "title": "Kosmos",
+                      "description": "Le Royaume de l'Ordre et de la Civilisation. Dans ce Royaume, rien de naturel ou de laissé au hasard. Tout est carré, pensé, calibré et mesuré à des niveaux de précision et de rigueur que seules des entités divines peuvent mettre en place. Les titans qui y résident sont parmi les ennemis les plus puissants des dieux et aucun panthéon n'a encore tenté d'incursion dans Kosmos, de crainte de se tranformer eux-mêmes en titans ou bien d'être tout simplement oblitérés de la Réalité."
+                    },
+                    "muspelheim": {
+                      "title": "Muspelheim",
+                      "description": "Le Royaume de la Chaleur et du Feu. Ce Royaume regroupes les forces naturelles les plus destructrices et volatiles du cosmos. C'est pour cette raison que la totalité de ce Royaume est parsemée de zones de conflits permanents. La grande majorité des titans qui y habitent sont des ennemis des dieux."
+                    },
+                    "nyx": {
+                      "title": "Nyx",
+                      "description": "Le Royaume de la Nuit. Les notions de contrôle, d'ordre et d'autorité n'existent pas ici, c'est même l'exact opposé. C'est le Royaume de la Terreur, du Sommeil, de la Lune et de l'Obscurité. Ses habitants jouent sur la peur, les illusions ou le camouflage pour obtenir ce qu'ils veulent. Les dieux y font quelques incursions, mais même eux restent très prudents car ce Royaume est totalement imprévisible."
+                    },
+                    "oceanus": {
+                      "title": "Oceanus",
+                      "description": "Le Royaume de l'Eau et des Océans. De par sa nature, ce Royaume n'est qu'un océan infini rempli de monstres en tous genres et agité des remous de la guerre permanente entre ses titans majeurs Sedna et Yam. Certains de ses titans sont alliés des dieux car bénéfiques à l'humanité, comme Sedna. D'autres, comme Yam, sont voués à la destruction de tout ce qui a l'audace de parcourir les mers."
+                    },
+                    "patala": {
+                      "title": "Patala",
+                      "description": "Le Royaume des Profondeurs. Entièrement composé de cavernes sombres et d'abysses, Patala est un Royaume froid où règne un danger constant. Comme pour Nyx, l'autorité et l'ordre n'existent pas dans ce Royaume. Seuls les plus vigilants ou préparés survivent. Tous les titans qui y vivent incarnent les concepts souterrains qui hantent l'imagination humaine, des profondeurs abysalles oppressantes à la décomposition de ce qui vit en passant par les richesses enfouies."
+                    },
+                    "sheol": {
+                      "title": "Sheol",
+                      "description": "Le Royaume de la Mort. Sans doute le Royaume le moins réjouissant du cosmos. Bien que certains de ses titans soient d'une utilité certaine pour les dieux et les humains, la majorité d'entre eux restent des entités déterminées à apporter la Mort partout où elles passent et des manières les plus horribles qui puissent être imaginées. Les Enfers de chaque panthéon ont été conquis sur le territoire de ce Royaume, ajoutant à la frustration de ses habitants."
+                    },
+                    "terra": {
+                      "title": "Terra",
+                      "description": "Le Royaume de la Terre. A ne pas confondre avec la planète Terre (aka le Monde). Terra représente la Terre comme concept opposé au Ciel. C'est un Royaume infini aux paysages tous aussi variés que les créatures qui les peuplent et leurs manières de tuer leurs proies. Gaïa en est l'Avatar principal et tout ce qui y vit est son enfant. Seuls les plus adaptés y survivent."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "random": {
+        "title": "Pages aléatoires",
+        "button": "Voir"
       }
     }
-  },
-  "random": {
-    "title": "Pages aléatoires",
-    "button": "Voir"
   }
 }

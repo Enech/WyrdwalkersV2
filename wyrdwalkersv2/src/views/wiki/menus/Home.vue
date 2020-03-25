@@ -20,7 +20,7 @@
                 <v-icon>arrow_back</v-icon>
               </v-btn>
               <v-spacer></v-spacer>
-              <span>Explorer le Codex</span>
+              <span>{{$t("wiki.contents.explorer.title")}}</span>
               <v-spacer></v-spacer>
               <v-btn dark icon @click="closeExplorerDialog()">
                 <v-icon>close</v-icon>
@@ -46,33 +46,17 @@
     <v-row>
       <v-col cols="12" sm="6">
         <v-card class="mb-3 text-justify pa-3" min-height="500">
-          <v-card-title class="justify-center">Wyrdwalkers, c'est quoi ?</v-card-title>
+          <v-card-title class="justify-center">{{$t("wiki.contents.home.whatis.title")}}</v-card-title>
           <v-divider></v-divider>
-          <v-card-text class="subtitle-1" :height="400">
-            De l'Urban Fantasy ? Du Medieval Fantasy ? De l'Histoire-Fiction ? Wyrdwalkers n'est rien de tout ça. C'est un univers qui est ce que vous avez envie qu'il soit. Chaque lieu et chaque personnage sont conçus pour raconter des histoires et aborder des thèmes mythologiques, épiques et légendaires.<br>
-            Vous voulez jouer une histoire medieval-fantasy ? Baladez-vous du côté de Fairie et traitez avec les elfes noirs et les trolls qui y habitent. Puis faites une virée dans la Forêt Noire pour chasser du Loup-Garou.<br>
-            C'est l'Urban Fantasy qui vous intéresse ? Qu'à cela ne tienne : partez à la poursuite d'un gang de nécromanciens se cachant dans les cartels mexicains.<br>
-            Le plus beau, c'est que vous pouvez jouer toutes ces aventures à l'époque qu'il vous plait sans aucun restriction d'aucune sorte.<br>
-            Wyrdwalkers est un univers qui laisse complète liberté à ses Maitres du Jeu et ses joueurs pour écrire leurs légendes ensemble. Quelle que soit l'histoire que vous voulez raconter, elle peut être racontée dans cet univers.
+          <v-card-text class="subtitle-1" v-html="$t('wiki.contents.home.whatis.content')">
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
         <v-card class="mb-3 text-justify pa-3" min-height="500">
-          <v-card-title class="justify-center">Les liens importants</v-card-title>
+          <v-card-title class="justify-center">{{$t("wiki.contents.home.links.title")}}</v-card-title>
           <v-divider></v-divider>
-          <v-card-text class="subtitle-1">
-            Pour bien commencer votre lecture, voici quelques liens rapides que vous pouvez consulter :<br>
-            <ul>
-              <li>Les <a href="/wiki/lore/dieux" target="_blank">Dieux</a> et les <a href="/wiki/lore/titans" target="_blank">Titans</a></li>
-              <li>Les différents plans cosmiques : le <a href="/wiki/lore/monde" target="_blank">Monde</a>, les <a href="/wiki/lore/dieux" target="_blank">Outres-Mondes</a> et l'<a href="/wiki/lore/overworld" target="_blank">Overworld</a></li>
-              <li>Les principales races de créatures magiques : les <a href="/wiki/lore/mythborns" target="_blank">Mythborns</a></li>
-              <li>Les <a href="/wiki/lore/sociétés-secrètes" target="_blank">Sociétés Secrètes</a> luttant pour une humanité libre et indépendante</li>
-              <li>Les <a href="/wiki/random" target="_blank">pages aléatoires</a></li>
-              <li>Les différentes <a href="/wiki/timelines" target="_blank">chronologies</a> racontant des univers parallèles</li>
-              <li><a href="/wiki/gameplay/rules" target="_blank">Les règles</a> et la <a href="/wiki/gameplay/legendary-abilities" target="_blank">liste des pouvoirs</a></li>
-            </ul>
-            <br>Vous pouvez aussi cliquer sur le gros bouton rouge en haut de la page pour accéder facilement à toutes les principales pages du codex <v-icon>arrow_upward</v-icon>
+          <v-card-text class="subtitle-1"><span v-html="$t('wiki.contents.home.links.content')"></span>&nbsp;<v-icon>arrow_upward</v-icon>
           </v-card-text>
         </v-card>
       </v-col>
@@ -153,26 +137,26 @@ export default Vue.extend({
       children: [
         {
           key: "characters",
-          title: "Personnages",
+          title: "wiki.contents.explorer.characters.title",
           description:
-            "Les principales factions luttant pour leurs intérêts dans Wyrdwalkers. Toutes les catégories y sont répertoriées, des Dieux aux Titans jusqu'aux simples mortels suffisamment téméraires pour défier l'ordre divin.",
+            "wiki.contents.explorer.characters.description",
           picture: "/ressources/wiki-landing/ExplorerCharacters.webp",
           parentKey: "origin",
           children: [
             {
               key: "gods",
-              title: "Dieux",
+              title: "wiki.contents.explorer.characters.content.gods.title",
               description:
-                "Entités immortelles et métaphysiques réunies en panthéons, les dieux et déesses cherchent à s'attribuer le plus d'influence possible sur le Monde et les humains qui le peuplent grâce à leurs agents demi-dieux : les Godborns",
+                "wiki.contents.explorer.characters.content.gods.description",
               picture: "/ressources/wiki-landing/ExplorerGods.webp",
               parentKey: "characters",
               wikiLink: "/wiki/lore/dieux",
               children: [
                 {
                   key: "aesir",
-                  title: "Aesir",
+                  title: "wiki.contents.explorer.characters.content.gods.content.aesir.title",
                   description:
-                    "Les dieux scandinaves. Fiers, un brin brutaux, ils ont le sens de la famille et cherchent en permanence à échapper au Destin. Il faut dire qu'ils sont condamnés à périr le jour de Ragnarök...",
+                    "wiki.contents.explorer.characters.content.gods.content.aesir.description",
                   picture: "/ressources/wiki-landing/ExplorerAesir.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/aesir",
@@ -180,9 +164,9 @@ export default Vue.extend({
                 },
                 {
                   key: "amatsukami",
-                  title: "Amatsukami",
+                  title: "wiki.contents.explorer.characters.content.gods.content.amatsukami.title",
                   description:
-                    "Les dieux japonais. Un brin isolés et portés sur les traditions, ils ont su tisser des alliances leur assurant protection contre les titans les plus envieux de leurs ressources.",
+                    "wiki.contents.explorer.characters.content.gods.content.amatsukami.description",
                   picture: "/ressources/wiki-landing/ExplorerAmatsukami.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/amatsukami",
@@ -190,9 +174,9 @@ export default Vue.extend({
                 },
                 {
                   key: "ayllus",
-                  title: "Ayllus",
+                  title: "wiki.contents.explorer.characters.content.gods.content.ayllus.title",
                   description:
-                    "Les dieux incas. Isolés des affaires du monde et peu influents dans la géopilitique divine, le panthéon inca est jeune, dynamique et est mené par un leader protecteur et énergique. Malgré son isolement, c'est un panthéon qui cherche à revenir sur le devant de la scène.",
+                    "wiki.contents.explorer.characters.content.gods.content.ayllus.description",
                   picture: "/ressources/wiki-landing/ExplorerAyllus.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/ayllus",
@@ -200,9 +184,9 @@ export default Vue.extend({
                 },
                 {
                   key: "bureaucracy",
-                  title: "Bureaucratie Céleste",
+                  title: "wiki.contents.explorer.characters.content.gods.content.bureaucracy.title",
                   description:
-                    "Les dieux chinois. Le nom du panthéon se suffit à lui seul. Oubliez l'individualisme avec ces dieux. Chaque membre du panthéon (et ils sont très nombreux !) est un maillon dans la chaïne. Véritable rouleau compresseur de la politique divine, rien ne lui résiste vraiment. Pas même le Destin...",
+                    "wiki.contents.explorer.characters.content.gods.content.bureaucracy.description",
                   picture: "/ressources/wiki-landing/ExplorerBurCel.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/bureaucratie-céleste",
@@ -210,9 +194,9 @@ export default Vue.extend({
                 },
                 {
                   key: "deva",
-                  title: "Deva",
+                  title: "wiki.contents.explorer.characters.content.gods.content.deva.title",
                   description:
-                    "Les dieux hindous. Créé par l'extrêmement puissant Trimurti (Brahma, Vishnu et Shiva), le Deva fait partie des plus vieux panthéons et contient donc les divinités les plus anciennes et les plus sages. En revanche, leur puissance les a amené à prendre de plus en plus de recul par rapport aux affaires du monde...",
+                    "wiki.contents.explorer.characters.content.gods.content.deva.description",
                   picture: "/ressources/wiki-landing/ExplorerDeva.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/deva",
@@ -220,9 +204,9 @@ export default Vue.extend({
                 },
                 {
                   key: "kasunel",
-                  title: "K'Asunel",
+                  title: "wiki.contents.explorer.characters.content.gods.content.kasunel.title",
                   description:
-                    "Les dieux mayas. Fanatiquement anti-titans, les dieux mayas vivent selon les préceptes des quatres accords toltèques. Ils croient dans les principes édictés dans l'Hunab Ku, ce qui fait d'eux le seul panthéon de dieux croyants.",
+                    "wiki.contents.explorer.characters.content.gods.content.kasunel.description",
                   picture: "/ressources/wiki-landing/ExplorerMaya.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/k'asunel",
@@ -230,9 +214,9 @@ export default Vue.extend({
                 },
                 {
                   key: "neter",
-                  title: "Neter",
+                  title: "wiki.contents.explorer.characters.content.gods.content.neter.title",
                   description:
-                    "Les dieux égyptiens et un des plus vieux panthéons. Avec le Deva et le Théoï il fait partie du trio de tête des panthéons en terme de richesses, de puissance militaire et de sagesse millénaire. Très ordonnés, les dieux égyptiens croient fermement en Ma'at - le principe d'équilibre cosmique - et l'appliquent à travers des valeurs comme la Justice, la Vérité et l'Ordre.",
+                    "wiki.contents.explorer.characters.content.gods.content.neter.description",
                   picture: "/ressources/wiki-landing/ExplorerNeter.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/neter",
@@ -240,9 +224,9 @@ export default Vue.extend({
                 },
                 {
                   key: "nga",
-                  title: "Nga Tama a Rangi",
+                  title: "wiki.contents.explorer.characters.content.gods.content.nga.title",
                   description:
-                    "Les dieux maoris. Composé des enfants directs de Gaïa et Ouranos, les membres du Nga Tama a Rangi comptent parmis les plus vieilles divinités du cosmos - plus vieux que certains titans - mais ne fait pas partie des panthéons les plus puissants. Ayant préféré l'exil après la première guerre contre les titans, les dieux maoris se concentrent désormais sur des problèmes plus locaux et moins ambitieux.",
+                    "wiki.contents.explorer.characters.content.gods.content.nga.description",
                   picture: "/ressources/wiki-landing/ExplorerNga.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/nga-tama-a-rangi",
@@ -250,9 +234,9 @@ export default Vue.extend({
                 },
                 {
                   key: "orisha",
-                  title: "Orisha",
+                  title: "wiki.contents.explorer.characters.content.gods.content.orisha.title",
                   description:
-                    "Les dieux africains. Réunissant deux générations majeures de divinités et beaucoup plus concentrés sur les affaires du Monde et des humains, les Orishas font parti des dieux les moins belliqueux et ambitieux, même si leur force est reconnue à travers le cosmos. Leur pacifisme  n'a pas été toujours présent et il y a quelques siècles encore, l'Orisha était considéré comme le panthéon le plus guerrier de l'univers pendant plusieurs millénaires. C'est le genre de chose qui ne s'efface pas par magie...",
+                    "wiki.contents.explorer.characters.content.gods.content.orisha.description",
                   picture: "/ressources/wiki-landing/ExplorerOrisha.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/orisha",
@@ -260,9 +244,9 @@ export default Vue.extend({
                 },
                 {
                   key: "teotl",
-                  title: "Teotl",
+                  title: "wiki.contents.explorer.characters.content.gods.content.teotl.title",
                   description:
-                    "Les dieux aztèques. Grands adeptes de la magie du sang, les dieux aztèques ont des traditions que d'aucuns considèrent violentes. Ce sont de fiers combattants et des conquérants. Malheureusement leur impulsivité poussée à l'extrême limite le nombre de leurs alliés, mais ils n'hésitent pas à mettre leurs compétences martiales et leur soif de sang à profit pour la cause des dieux contre les titans.",
+                    "wiki.contents.explorer.characters.content.gods.content.teotl.description",
                   picture: "/ressources/wiki-landing/ExplorerTeotl.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/teotl",
@@ -270,9 +254,9 @@ export default Vue.extend({
                 },
                 {
                   key: "theoi",
-                  title: "Théoï",
+                  title: "wiki.contents.explorer.characters.content.gods.content.theoi.title",
                   description:
-                    "Les dieux grecs. Figurant parmi les panthéons les plus connus, les Olympiens sont menés par Zeus et sont une des principales forces motrices du cosmos. Ils regroupent suffisamment d'atouts dans tous les domaines pour assoeir leur puissance sur d'autres panthéons. Mais même les tout-puissants ont une faiblesse. La leur ? Leur égo et leur arrogance surdimensionnée.",
+                    "wiki.contents.explorer.characters.content.gods.content.theoi.description",
                   picture: "/ressources/wiki-landing/ExplorerTheoi.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/theoi",
@@ -280,9 +264,9 @@ export default Vue.extend({
                 },
                 {
                   key: "tuatha",
-                  title: "Tuatha Dé Danann",
+                  title: "wiki.contents.explorer.characters.content.gods.content.tuatha.title",
                   description:
-                    "Les dieux celtes. Sans doute les divinités les plus proches de la Nature. Tous sont des maitres druides avant tout. Mais les prendre pour des hippies cosmiques serait une grave erreur. Les Enfants de Danu font parti des panthéons les plus combattifs et fiers du cosmos et leurs talents combinés à leur sagesse ancestrale font d'eux des atouts vitaux contre les titans.",
+                    "wiki.contents.explorer.characters.content.gods.content.tuatha.description",
                   picture: "/ressources/wiki-landing/ExplorerTuatha.webp",
                   parentKey: "gods",
                   wikiLink: "/wiki/lore/tuatha-dé-danann",
@@ -292,18 +276,18 @@ export default Vue.extend({
             },
             {
               key: "titans",
-              title: "Titans",
+              title: "wiki.contents.explorer.characters.content.titans.title",
               description:
-                "Êtres primordiaux, immortels et extrêmement puissants en guerre totale contre les Dieux, les Titans incarnent un concept du Cosmos qu'ils cherchent à faire prévaloir sur les autres coûte que coûte. La plupart sont eux-mêmes d'anciens dieux ayant succombé à l'attraction du Destin et de la Légende.",
+                "wiki.contents.explorer.characters.content.titans.description",
               picture: "/ressources/wiki-landing/ExplorerTitans.webp",
               parentKey: "characters",
               wikiLink: "/wiki/lore/titans",
               children: [
                 {
                   key: "light",
-                  title: "Titans de la Lumière",
+                  title: "wiki.contents.explorer.characters.content.titans.content.light.title",
                   description:
-                    "Les titans de la Lumière sont des créatures zélées et totalement loyales à leurs maitres respectifs. C'est d'autant plus le cas depuis la prise de contrôle d'Aten sur le Royaume Titanique de la Lumière. Tous ses servants font preuve d'un fanatisme éternel lorsqu'il s'agit de porter la parole d'Aten aux confins de l'univers. Ils incarnent des concepts tels que la Gloire, le Soleil ou la Brillance.",
+                    "wiki.contents.explorer.characters.content.titans.content.light.description",
                   picture: "/ressources/wiki-landing/ExplorerLight.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/aether",
@@ -311,9 +295,9 @@ export default Vue.extend({
                 },
                 {
                   key: "air",
-                  title: "Titans de l'Air et du Ciel",
+                  title: "wiki.contents.explorer.characters.content.titans.content.air.title",
                   description:
-                    "Ces titans sont de tous types de caractères, du calme et puissant Ouranos au colérique et dangereux Huracan. Ils incarnent la Liberté associée à l'Air. Ils incarnent des concepts tels que le Calme, la Pluie ou les Cataclysmes.",
+                    "wiki.contents.explorer.characters.content.titans.content.air.description",
                   picture: "/ressources/wiki-landing/ExplorerAir.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/amaunet",
@@ -321,9 +305,9 @@ export default Vue.extend({
                 },
                 {
                   key: "order",
-                  title: "Titans de l'Ordre et de la Civilisation",
+                  title: "wiki.contents.explorer.characters.content.titans.content.order.title",
                   description:
-                    "Ces titans sont parmi les ennemis les plus puissants des dieux et aucun panthéon n'a encore tenté d'incursion dans le Royaume de l'Ordre, de crainte de se tranformer eux-mêmes en titans ou bien d'être tout simplement oblitérés de la Réalité. Ils incarnent des concepts tels que le Contrôle, le Savoir ou encore la Loi.",
+                    "wiki.contents.explorer.characters.content.titans.content.order.description",
                   picture: "/ressources/wiki-landing/ExplorerOrder.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/kosmos",
@@ -331,9 +315,9 @@ export default Vue.extend({
                 },
                 {
                   key: "fire",
-                  title: "Titans de la Chaleur et du Feu",
+                  title: "wiki.contents.explorer.characters.content.titans.content.fire.title",
                   description:
-                    "Ces titans sont les forces naturelles les plus destructrices et volatiles du cosmos, en grande partie ennemis des dieux. Ils incarnent des concepts tels que la Destruction, l'Invention ou la Sécheresse.",
+                    "wiki.contents.explorer.characters.content.titans.content.fire.description",
                   picture: "/ressources/wiki-landing/ExplorerFire.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/muspelheim",
@@ -341,9 +325,9 @@ export default Vue.extend({
                 },
                 {
                   key: "night",
-                  title: "Titans de la Nuit",
+                  title: "wiki.contents.explorer.characters.content.titans.content.night.title",
                   description:
-                    "Ces titans ne connaissent pas les concepts d'ordre et d'autorité. Ils jouent sur la peur, les illusions ou le camouflage pour obtenir ce qu'ils veulent. Ils incarnent des concepts tels que la Terreur, le Sommeil, les Ténèbres ou la Lune.",
+                    "wiki.contents.explorer.characters.content.titans.content.night.description",
                   picture: "/ressources/wiki-landing/ExplorerNight.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/nyx",
@@ -351,9 +335,9 @@ export default Vue.extend({
                 },
                 {
                   key: "water",
-                  title: "Titans de l'Eau et des Océans",
+                  title: "wiki.contents.explorer.characters.content.titans.content.water.title",
                   description:
-                    "Certains de ces titans sont alliés des dieux car bénéfiques à l'humanité, comme Sedna. D'autres, comme Yam, sont voués à la destruction de tout ce qui a l'audace de parcourir les mers. Ils incarnent des concepts tels que la Vie, la Noyade ou la Fertilité.",
+                    "wiki.contents.explorer.characters.content.titans.content.water.description",
                   picture: "/ressources/wiki-landing/ExplorerWater.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/oceanus",
@@ -361,9 +345,9 @@ export default Vue.extend({
                 },
                 {
                   key: "depths",
-                  title: "Titans des Profondeurs",
+                  title: "wiki.contents.explorer.characters.content.titans.content.depths.title",
                   description:
-                    "Tous ces titans incarnent les concepts souterrains qui hantent l'imagination humaine, des profondeurs abyssales oppressantes à la décomposition de ce qui vit en passant par les richesses enfouies.",
+                    "wiki.contents.explorer.characters.content.titans.content.depths.description",
                   picture: "/ressources/wiki-landing/ExplorerDepths.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/patala",
@@ -371,9 +355,9 @@ export default Vue.extend({
                 },
                 {
                   key: "death",
-                  title: "Titans de la Mort",
+                  title: "wiki.contents.explorer.characters.content.titans.content.death.title",
                   description:
-                    "Bien que certains de ces titans soient d'une utilité certaine pour les dieux et les humains, la majorité d'entre eux restent des entités déterminées à apporter la Mort partout où elles passent et des manières les plus horribles qui puissent être imaginées. Ils incarnent des concepts tels que le Voyage, la Paix, l'Horreur ou l'Extinction.",
+                    "wiki.contents.explorer.characters.content.titans.content.death.description",
                   picture: "/ressources/wiki-landing/ExplorerDeath.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/sheol",
@@ -381,9 +365,9 @@ export default Vue.extend({
                 },
                 {
                   key: "earth",
-                  title: "Titans de la Terre",
+                  title: "wiki.contents.explorer.characters.content.titans.content.earth.title",
                   description:
-                    "Ces titans sont extrêmement adaptables et rompus à la loi de la jungle. Beaucoup d'entre eux ont une intelligence bestiale au mieux, mais les avatars majeurs sont de véritables architectes, pouvant penser à des plans sur des décennies directement reliés au Monde et à ses habitants. Ils incarnent des concepts comme la Vie, l'Etendue ou les  Montagnes.",
+                    "wiki.contents.explorer.characters.content.titans.content.earth.description",
                   picture: "/ressources/wiki-landing/ExplorerEarth.webp",
                   parentKey: "titans",
                   wikiLink: "/wiki/lore/terra",
@@ -393,18 +377,18 @@ export default Vue.extend({
             },
             {
               key: "mythborns",
-              title: "Mythborns",
+              title: "wiki.contents.explorer.characters.content.mythborns.title",
               description:
-                "Créatures magiques issues des folklores du monde entier, les mythborns sont les représentants de la Nature. Dragons, Elfes, Nains, etc. vivent tous dans les Outres-Mondes, loin des humains et des Dieux.",
+                "wiki.contents.explorer.characters.content.mythborns.description",
               picture: "/ressources/wiki-landing/ExplorerMythborns.webp",
               parentKey: "characters",
               wikiLink: "/wiki/lore/mythborns",
               children: [
                 {
                   key: "dragons",
-                  title: "Dragons",
+                  title: "wiki.contents.explorer.characters.content.mythborns.content.dragons.title",
                   description:
-                    "Fièrement indépendants et aimant vivre isolés, les Dragons sont une des rares espèces de Mythborns suffisamment puissantes pour imposer leur indépendance aux dieux et aux titans. Toutefois, ayant été pourchassés pendant des siècles par les dieux, certains d'entre eux succombent à l'appel des titans et entrent au service d'Apophis, Zhulong ou encore Kur.",
+                    "wiki.contents.explorer.characters.content.mythborns.content.dragons.description",
                   picture: "/ressources/wiki-landing/ExplorerDragons.webp",
                   parentKey: "mythborns",
                   wikiLink: "/wiki/lore/dragons",
@@ -412,9 +396,9 @@ export default Vue.extend({
                 },
                 {
                   key: "garous",
-                  title: "Garous",
+                  title: "wiki.contents.explorer.characters.content.mythborns.content.garous.title",
                   description:
-                    "Mélange entre une âme humaine et un kami d'animal, les Garous sont une race très diversifiée qui compte entre autre les Centaures, les Loups-Garous, les Satyres ou encore les Minotaures. Leurs allégeances sont aussi variées qu'il y a de Garous, mais la grande majorité d'entre eux ne sont affiliés ni aux dieux ni aux titans et vivent dans l'Outre-Monde de la Forêt Noire.",
+                    "wiki.contents.explorer.characters.content.mythborns.content.garous.description",
                   picture: "/ressources/wiki-landing/ExplorerGarous.webp",
                   parentKey: "mythborns",
                   wikiLink: "/wiki/lore/garous",
@@ -422,9 +406,9 @@ export default Vue.extend({
                 },
                 {
                   key: "rakshasas",
-                  title: "Rakshasas",
+                  title: "wiki.contents.explorer.characters.content.mythborns.content.rakshasas.title",
                   description:
-                    "Création de Brahma, les Rakshasas se sont très vite rebellés contre l'ordre cosmique imposé par loi du Darma. A cause de leur sauvagerie innée, qu'ils redirigent vers les humains et les dieux, les Rakshasas sont des créatures difficiles à maitriser. Après leur défaite face au grand Vishnu réincarné, les Rakshasas sont devenus la force de frappe de l'Outre-Monde de Shambhala.",
+                    "wiki.contents.explorer.characters.content.mythborns.content.rakshasas.description",
                   picture: "/ressources/wiki-landing/ExplorerRakshasas.webp",
                   parentKey: "mythborns",
                   wikiLink: "/wiki/lore/rakshasas",
@@ -432,9 +416,9 @@ export default Vue.extend({
                 },
                 {
                   key: "fey",
-                  title: "Feys",
+                  title: "wiki.contents.explorer.characters.content.mythborns.content.feys.title",
                   description:
-                    "Les feys sont un ensemble de créatures de races différentes, malicieuses et se délectant de tourmenter les mortels. Fées, Trolls, Lutins, Kitsune, Yokai, etc. Toutes ces races représentent les Feys. Majoritairement regroupés dans les Outres-Mondes de la Cour de l'Eté et de la Cour de l'Hiver, ils peuvent néanmoins être trouvées partout sur le Monde ou les Outres-Mondes.",
+                    "wiki.contents.explorer.characters.content.mythborns.content.feys.description",
                   picture: "/ressources/wiki-landing/ExplorerFeys.webp",
                   parentKey: "mythborns",
                   wikiLink: "/wiki/lore/fey",
@@ -442,9 +426,9 @@ export default Vue.extend({
                 },
                 {
                   key: "nains",
-                  title: "Nains",
+                  title: "wiki.contents.explorer.characters.content.mythborns.content.dwarves.title",
                   description:
-                    "Habitans de Nidavellir, les nains sont une race de mythborns hautement résistants aux environnements extrêmes et de formidables artisans et ingénieurs.",
+                    "wiki.contents.explorer.characters.content.mythborns.content.dwarves.description",
                   picture: "/ressources/wiki-landing/ExplorerNains.webp",
                   parentKey: "mythborns",
                   wikiLink: "/wiki/lore/nains",
@@ -452,9 +436,9 @@ export default Vue.extend({
                 },
                 {
                   key: "asuras",
-                  title: "Asuras",
+                  title: "wiki.contents.explorer.characters.content.mythborns.content.asuras.title",
                   description:
-                    "Les némésis des dieux hindous. Les asuras sont une race de Mythborns intelligents et organisés. Ils ne sont pas malveillants comme d'autres races Mythborns, mais sont plus enclins à suivre leur émotions. De ce fait, la loi du Darma leur aprait beaucoup trop moralisatrice à leur goût et ils préfèrent s'en détacher, ce qui engendre beaucoup de frictions avec le panthéon hindou.",
+                    "wiki.contents.explorer.characters.content.mythborns.content.asuras.description",
                   picture: "/ressources/wiki-landing/ExplorerAsuras.webp",
                   parentKey: "mythborns",
                   wikiLink: "/wiki/lore/asuras",
@@ -464,18 +448,18 @@ export default Vue.extend({
             },
             {
               key: "enlight",
-              title: "Eveillés",
+              title: "wiki.contents.explorer.characters.content.enlightened.title",
               description:
-                "Humains dotés de pouvoirs magiques, les Eveillés appartiennent à des Sociétés Secrètes et participent à lutter pour l'indépendance de l'humanité vis-à-vis des Dieux et des Titans.",
+                "wiki.contents.explorer.characters.content.enlightened.description",
               picture: "/ressources/wiki-landing/ExplorerEveilles.webp",
               parentKey: "characters",
               wikiLink: "/wiki/lore/éveillé",
               children: [
                 {
                   key: "illuminati",
-                  title: "Les Illuminati",
+                  title: "wiki.contents.explorer.characters.content.enlightened.content.illuminati.title",
                   description:
-                    "Une des Sociétés Secrètes les plus répandue sur le Monde. Leur devise : 'Sexe, Drogues et Rockefeller'. Les Illuminati recherchent avant tout le pouvoir matériel et la richesse. Concentrés sur l'individualité plutôt que le collectif, ils mettent à profit leurs richesses et leurs secrets accumulés à travers les âges pour être en mesure de négocier à armes égales avec les dieux afin de contrer leur influence sur le Monde.",
+                    "wiki.contents.explorer.characters.content.enlightened.content.illuminati.description",
                   picture: "/ressources/wiki-landing/ExplorerIlluminati.webp",
                   parentKey: "enlight",
                   wikiLink: "/wiki/lore/illuminati",
@@ -483,9 +467,9 @@ export default Vue.extend({
                 },
                 {
                   key: "merlin",
-                  title: "Le Cercle de Merlin",
+                  title: "wiki.contents.explorer.characters.content.enlightened.content.merlin.title",
                   description:
-                    "Issu des héritiers du Roi Arthur et de la Table Ronde, le Cercle de Merlin est composé de Chevaliers aux talents martiaux hors pairs et de Druides partageant une connexion presque symbiotique avec la Nature. Ennemis jurés des dieux celtes qu'ils ont chassé du Monde, le Cercle de Merlin est la police du Concordat de Stonehenge - le contrat du Destin interdisant aux dieux de se matérialiser sur le Monde - et en tant que telle n'hésite pas à pourchasser les Godborns qui franchissent les limites.",
+                    "wiki.contents.explorer.characters.content.enlightened.content.merlin.description",
                   picture: "/ressources/wiki-landing/ExplorerMerlin.webp",
                   parentKey: "enlight",
                   wikiLink: "/wiki/lore/cercle de merlin",
@@ -493,9 +477,9 @@ export default Vue.extend({
                 },
                 {
                   key: "cabale",
-                  title: "La Cabale",
+                  title: "wiki.contents.explorer.characters.content.enlightened.content.cabale.title",
                   description:
-                    "S'il est une Société Secrète sur laquelle il est difficile de mettre la main, c'est La Cabale. Totalement dissimulée en plein jour, elle compte dans ses rangs tous les parias de toutes les sociétés à travers le Monde et les époques et ses membres sont adeptes d'arcanes occultes pas toujours appréciées d'autres groupes, telles que la nécromancie.",
+                    "wiki.contents.explorer.characters.content.enlightened.content.cabale.description",
                   picture: "/ressources/wiki-landing/ExplorerCabale.webp",
                   parentKey: "enlight",
                   wikiLink: "/wiki/lore/cabale",
@@ -503,9 +487,9 @@ export default Vue.extend({
                 },
                 {
                   key: "poingJade",
-                  title: "L'Ordre du Poing de Jade",
+                  title: "wiki.contents.explorer.characters.content.enlightened.content.fist.title",
                   description:
-                    "Ordre martial par excellence, l'Ordre du Poing de Jade regroupe tous les ordres militaires de toutes les époques, des Templiers aux Speztnaz en passant par les Yakuzas japonais et les Triades chinoises.",
+                    "wiki.contents.explorer.characters.content.enlightened.content.fist.description",
                   picture: "/ressources/wiki-landing/ExplorerJade.webp",
                   parentKey: "enlight",
                   wikiLink: "/wiki/lore/ordre du poing de jade",
@@ -517,17 +501,17 @@ export default Vue.extend({
         },
         {
           key: "locations",
-          title: "Lieux",
+          title: "wiki.contents.explorer.locations.title",
           description:
-            "Les principaux lieux où se trament les intrigues de Wyrdwalkers, que ce soient les tunnels secrets abritant les complots les plus sordides ou les grandes salles Olympiennes accueillant la politique divine.",
+            "wiki.contents.explorer.locations.description",
           picture: "/ressources/wiki-landing/ExplorerLocations.webp",
           parentKey: "origin",
           children: [
             {
               key: "monde",
-              title: "Le Monde",
+              title: "wiki.contents.explorer.locations.content.world.title",
               description:
-                "Le plan physique abritant les humains. C'est là où se déroule majorité des intrigues impliquant les jeunes Godborns et les Sociétés Secrètes, quelles que soient les époques. C'est aussi là que s'exprime le Destin.",
+                "wiki.contents.explorer.locations.content.world.description",
               picture: "/ressources/wiki-landing/ExplorerMonde.webp",
               parentKey: "locations",
               wikiLink: "/wiki/lore/monde",
@@ -535,18 +519,18 @@ export default Vue.extend({
             },
             {
               key: "outreMonde",
-              title: "Les Outres-Mondes",
+              title: "wiki.contents.explorer.locations.content.otherworld.title",
               description:
-                "Les Outres-Mondes représentent la séparation entre le plan d'existence des humains et celui des dieux et des titans. Chacun est unique et possède sa propre histoire et sa propre population. Ce sont les principaux lieux d'intrigues pour les Godborns avancés, les jeunes Dieux, les Wyrdborns et les Mythborns.",
+                "wiki.contents.explorer.locations.content.otherworld.description",
               picture: "/ressources/wiki-landing/ExplorerOutresMondes.webp",
               parentKey: "locations",
               wikiLink: "/wiki/lore/outres-mondes",
               children: [
                 {
                   key: "foretNoire",
-                  title: "Forêt Noire",
+                  title: "wiki.contents.explorer.locations.content.otherworld.content.forest.title",
                   description:
-                    "Antithèse de l'ordre, de la société et de la santé mentale. C'est là que le Petit Chaperon Rouge s'est perdu, où Hansel et Gretel ont été attirés, où les arbres ont des sourires fous, les animaux parlent en énigmes et où l'obscurité reigne constamment.",
+                    "wiki.contents.explorer.locations.content.otherworld.content.forest.description",
                   picture: "/ressources/wiki-landing/ExplorerForest.webp",
                   parentKey: "outreMonde",
                   wikiLink: "/wiki/lore/forêt-noire",
@@ -554,9 +538,9 @@ export default Vue.extend({
                 },
                 {
                   key: "shambhala",
-                  title: "Shambhala",
+                  title: "wiki.contents.explorer.locations.content.otherworld.content.shambhala.title",
                   description:
-                    "Ancien sactuaire des créatures asiatiques, Shambhala est un royaume où le spirituel et le matériel ne font qu'un. Shambhala est un symbole de paix dans un cosmos constamment perturbé par les guerres.",
+                    "wiki.contents.explorer.locations.content.otherworld.content.shambhala.description",
                   picture: "/ressources/wiki-landing/ExplorerShambhala.webp",
                   parentKey: "outreMonde",
                   wikiLink: "/wiki/lore/shambhala",
@@ -564,9 +548,9 @@ export default Vue.extend({
                 },
                 {
                   key: "utopia",
-                  title: "Utopia",
+                  title: "wiki.contents.explorer.locations.content.otherworld.content.utopia.title",
                   description:
-                    "Outre-Monde très récent, Utopia s'est formée au cours du XXème siècle lorsque le concept de la ville est devenu prépondérant sur le Monde. C'est l'Outre-Monde de la Civilisation, de la ville animée, de la technologie, de la modernité et des nouvelles créatures magiques qui émergent de ces nouveaux mythes.",
+                    "wiki.contents.explorer.locations.content.otherworld.content.utopia.description",
                   picture: "/ressources/wiki-landing/ExplorerUtopia.webp",
                   parentKey: "outreMonde",
                   wikiLink: "/wiki/lore/utopia",
@@ -574,9 +558,9 @@ export default Vue.extend({
                 },
                 {
                   key: "fairie",
-                  title: "Fairie",
+                  title: "wiki.contents.explorer.locations.content.otherworld.content.fairie.title",
                   description:
-                    "Territoire des Feys et Outre-Monde le plus influent au sein de la communauté Mythborn, il regroupe un nombre incalculable de races différentes et il est la cible de pléthores de guerres d'influences entre les dieux, les titans et mêmes d'autres races Mythborns.",
+                    "wiki.contents.explorer.locations.content.otherworld.content.fairie.description",
                   picture: "/ressources/wiki-landing/ExplorerFairie.webp",
                   parentKey: "outreMonde",
                   wikiLink: "/wiki/lore/fairie",
@@ -584,9 +568,9 @@ export default Vue.extend({
                 },
                 {
                   key: "elDorado",
-                  title: "El Dorado",
+                  title: "wiki.contents.explorer.locations.content.otherworld.content.eldorado.title",
                   description:
-                    "Outre-Monde peuplé par les Eveillés mésoaméricains survivants du massacre de l'invasion espagnole. Créé par les panthéons mayas et incas, El Dorado regroupe les fidèles aux préceptes de l'Hunab Ku, portés par les dieux mayas.",
+                    "wiki.contents.explorer.locations.content.otherworld.content.eldorado.description",
                   picture: "/ressources/wiki-landing/ExplorerDorado.webp",
                   parentKey: "outreMonde",
                   wikiLink: "/wiki/lore/el-dorado",
@@ -594,9 +578,9 @@ export default Vue.extend({
                 },
                 {
                   key: "merJade",
-                  title: "Mer de Jade",
+                  title: "wiki.contents.explorer.locations.content.otherworld.content.jadesea.title",
                   description:
-                    "Outre-Monde sous la coupe des Dragons, la Mer de Jade est un endroit difficilement accessible depuis le Monde. Les dragons occidentaux y ont trouvé refuge après la grande purge draconique orchestrée par les dieux au Moyen-Age. L'endroit n'est pas accueillant envers les dieux et les dragons n'hésitent à exercer leur vengeance sur eux, de manière physique ou bien en les extorquant de leurs ressources en échange d'un savoir séculaire (mais tout de même sur-estimé).",
+                    "wiki.contents.explorer.locations.content.otherworld.content.jadesea.description",
                   picture: "/ressources/wiki-landing/ExplorerMerJade.webp",
                   parentKey: "outreMonde",
                   wikiLink: "/wiki/lore/mer-de-jade",
@@ -606,27 +590,27 @@ export default Vue.extend({
             },
             {
               key: "overworld",
-              title: "L'Overworld",
+              title: "wiki.contents.explorer.locations.content.overworld.title",
               description:
-                "L'Overworld est le plan métaphorique où vivent les dieux et les titans et où ils se livrent leur guerre sans mercie. Un être mortel ne peut pas y accéder et encore moins y survivre. Les intrigues qui s'y déroulent impliquent des (jeunes) dieux et des titans.",
+                "wiki.contents.explorer.locations.content.overworld.description",
               picture: "/ressources/wiki-landing/ExplorerOverworld.webp",
               parentKey: "locations",
               wikiLink: "/wiki/lore/overworld",
               children: [
                 {
                   key: "godrealm",
-                  title: "Les Royaumes Divins",
+                  title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.title",
                   description:
-                    "Les Royaumes Divins - autrement appelés les Cieux ou Paradis par les mortels - sont les lieux de résidence des dieux. Chaque panthéon en possède un. L'Olympe pour les grecs, Asgard pour les scandinaves. Chaque Royaume Divin a été conquis par les dieux sur le territoire d'un ou plusieurs titans, ce sont donc des enclaves divines au milieu de Royaumes Titaniques.",
+                    "wiki.contents.explorer.locations.content.overworld.content.godrealms.description",
                   picture: "/ressources/wiki-landing/ExplorerHeavens.webp",
                   parentKey: "locations",
                   wikiLink: "/wiki/lore/royaume-divin",
                   children: [
                     {
                       key: "aunu",
-                      title: "Aunu",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.aunu.title",
                       description:
-                        "Le Royaume des dieux égyptiens. Aunu prend la forme d'une immense ville représentant l'ordre social du panthéon égyptien. Essentiellement composée d'âmes indignes réduites en éternel esclavage, la ville est parcourue par la représentation cosmique du Nil, que Râ parcourt tous les jours sur sa barge solaire.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.aunu.description",
                       picture: "/ressources/wiki-landing/ExplorerAunu.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/aunu",
@@ -634,9 +618,9 @@ export default Vue.extend({
                     },
                     {
                       key: "asgard",
-                      title: "Asgard",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.asgard.title",
                       description:
-                        "Le Royaume des dieux scandinaves. Il est composée d'une unique ville éponyme plantée au milieu des Plaines d'Idavoll. Asgard est accessible depuis Yggrasil, le grand Arbre-Monde et tous deux sont condamnés par le Destin à être détruits lors de Ragnarök.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.asgard.description",
                       picture: "/ressources/wiki-landing/ExplorerAsgard.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/asgard",
@@ -644,9 +628,9 @@ export default Vue.extend({
                     },
                     {
                       key: "devaloka",
-                      title: "Devaloka",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.devaloka.title",
                       description:
-                        "Le Royaume des dieux hindous. Le Devaloka est en réalité une succession de Royaumes sur plusieurs niveaux, atteignables selon la pureté de l'âme. Tout en haut se trouve le Royaume du grand Vishnu : Vaikunta, accessible seulement aux âmes pures au-delà de tout reproche.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.devaloka.description",
                       picture: "/ressources/wiki-landing/ExplorerDevaloka.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/devaloka",
@@ -654,9 +638,9 @@ export default Vue.extend({
                     },
                     {
                       key: "hanan",
-                      title: "Hanan Pacha",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.hanan.title",
                       description:
-                        "Le Royaume des dieux incas. Peuplé des ancêtres vénérables du peuple Inca, le Royaume du Condor est composé d'une ville unique accessible depuis les plus hauts nuages flottant au-dessus des sommets andins..",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.hanan.description",
                       picture: "/ressources/wiki-landing/ExplorerHanan.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/hanan-pacha",
@@ -664,9 +648,9 @@ export default Vue.extend({
                     },
                     {
                       key: "ikole",
-                      title: "Ikole Orun",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.ikole.title",
                       description:
-                        "Le Royaume des dieux africains. Vaste savane parsemée de villes de toutes les époques, Ikole Orun abrite les ancêtres ayant gagné leur place au paradis. Non loin des frontières d'Ikole Orun se trouve Ville au Camp, la ville des Loas vaudous.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.ikole.description",
                       picture: "/ressources/wiki-landing/ExplorerIkole.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/ikole-orun",
@@ -674,9 +658,9 @@ export default Vue.extend({
                     },
                     {
                       key: "kahiki",
-                      title: "Kahiki",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.kahiki.title",
                       description:
-                        "Le Royaume des dieux maoris. Véritable archipel dissimulé dans la brûme, Kahiki ne porte pas de palais opulents ou d'autres formes de richesses. Sa topologie est en tout point celui d'un archipel polynésien, faisant de lui un Royaume Divin unique en son genre.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.kahiki.description",
                       picture: "/ressources/wiki-landing/ExplorerKahiki.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/kahiki",
@@ -684,9 +668,9 @@ export default Vue.extend({
                     },
                     {
                       key: "olympe",
-                      title: "Le Mont Olympe",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.olympe.title",
                       description:
-                        "Le Royaume des dieux grecs. Porté par le titan Atlas en personne, il abrite tous les dieux grecs et leurs serviteurs. C'est dans ses palais de marbre que se joue beaucoup de la politique du cosmos.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.olympe.description",
                       picture: "/ressources/wiki-landing/ExplorerOlympe.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/olympe",
@@ -694,9 +678,9 @@ export default Vue.extend({
                     },
                     {
                       key: "takamagahara",
-                      title: "Takamagahara",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.takamagahara.title",
                       description:
-                        "Le Royaume des dieux japonais. Monde hautain et sacré, il représente la perfection au sens japonais du terme. Tout y est à sa juste place et fonctionne en parfaite harmonie avec le reste du Royaume. Calme et retiré, Takamagahara est considéré comme un refuge par beaucoup de divinités.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.takamagahara.description",
                       picture:
                         "/ressources/wiki-landing/ExplorerTakamagahara.webp",
                       parentKey: "godrealm",
@@ -705,9 +689,9 @@ export default Vue.extend({
                     },
                     {
                       key: "tian",
-                      title: "Tiàn",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.tian.title",
                       description:
-                        "Le Royaume des dieux chinois. Gigantesque Cité Interdite abritant la Bureaucratie la plus élaborée et la plus huilée du cosmos. QG du Bien Commun, d'aucuns doivent laisser à la porte leur individualité s'ils veulent pouvoir naviguer sans heurts dans l'enceinte de Tiàn.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.tian.description",
                       picture: "/ressources/wiki-landing/ExplorerTian.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/tiàn",
@@ -715,9 +699,9 @@ export default Vue.extend({
                     },
                     {
                       key: "tirNaNog",
-                      title: "Tir na nÓg",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.tirnanog.title",
                       description:
-                        "Le Royaume des dieux celtes. Immense mer parsemée d'îles, Tir na nÓg ne faisait autrefois qu'un avec le Monde jusqu'à la ratification du Concordat de Stonehenge. C'est un petit paradis de paix et de nature sans fioritures ni extravagance dont les visiteurs peinent à repartir.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.tirnanog.description",
                       picture: "/ressources/wiki-landing/ExplorerTirNaNog.webp",
                       parentKey: "godrealm",
                       wikiLink: "/wiki/lore/tir-na-nog",
@@ -725,9 +709,9 @@ export default Vue.extend({
                     },
                     {
                       key: "treizeCieux",
-                      title: "Les Treize Cieux",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.treize.title",
                       description:
-                        "Le Royaume des dieux mayas et aztèques. Chacun des 'Cieux' est un Royaume à lui seul et relié à un Royaume Titanique différent. Chaque Royaume est accessible par le Pilier du Feu, qui juge ceux ayant bafoué les préceptes de l'Hunab Ku. Une entité tentant d'accéder à un niveau des Treize Cieux dont elle n'est pas digne est immédiatement brûlée par le Pilier de Feu.",
+                        "wiki.contents.explorer.locations.content.overworld.content.godrealms.content.treize.description",
                       picture:
                         "/ressources/wiki-landing/ExplorerTreizeCieux.webp",
                       parentKey: "godrealm",
@@ -738,18 +722,18 @@ export default Vue.extend({
                 },
                 {
                   key: "titanrealm",
-                  title: "Les Royaumes Titaniques",
+                  title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.title",
                   description:
-                    "Les Royaumes Titaniques sont l'incarnation de concepts naturels à l'échelle du cosmos. La Nuit, le Ciel, le Feu, etc. Chacun abrite des créatures incarnant à leur tour des concepts reliés. La Nuit comme Terreur, le Ciel comme Vent, le Feu comme Destruction. Chaque Royaume est infini en taille et en existence.",
+                    "wiki.contents.explorer.locations.content.overworld.content.titanrealms.description",
                   picture: "/ressources/wiki-landing/ExplorerRoyTitans.webp",
                   parentKey: "locations",
                   wikiLink: "/wiki/lore/titans",
                   children: [
                     {
                       key: "aether",
-                      title: "Aether",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.aether.title",
                       description:
-                        "Le Royaume de la Lumière. Il regroupe tous les titans incarnant un concept relié à la lumière. Que ce soit la lumière de la Gloire ou bien celle de l'Illumination. Depuis la prise de pouvoir d'Aten, ce Royaume est devenu un endroit extrêment dangereux où l'influence de l'Avatar de la Brillance corrompt tout ce qui s'en approche en fanatique dévoué à sa cause.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.aether.description",
                       picture: "/ressources/wiki-landing/ExplorerAether.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/aether",
@@ -757,9 +741,9 @@ export default Vue.extend({
                     },
                     {
                       key: "amaunet",
-                      title: "Amaunet",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.amaunet.title",
                       description:
-                        "Le Royaume de l'Air et du Ciel. Totalement chaotique, ce Royaume est l'incarnation de la Liberté associée à l'Air. Les titans qui y résident sont de tous types de caractères, du calme et puissant Ouranos au colérique et dangereux Huracan. Malgré tout, chaque strate de ce Royaume contribue à un équilibre global, malheureusement sous la menace constante du retour de Typhon.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.amaunet.description",
                       picture: "/ressources/wiki-landing/ExplorerAmaunet.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/amaunet",
@@ -767,9 +751,9 @@ export default Vue.extend({
                     },
                     {
                       key: "kosmos",
-                      title: "Kosmos",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.kosmos.title",
                       description:
-                        "Le Royaume de l'Ordre et de la Civilisation. Dans ce Royaume, rien de naturel ou de laissé au hasard. Tout est carré, pensé, calibré et mesuré à des niveaux de précision et de rigueur que seules des entités divines peuvent mettre en place. Les titans qui y résident sont parmi les ennemis les plus puissants des dieux et aucun panthéon n'a encore tenté d'incursion dans Kosmos, de crainte de se tranformer eux-mêmes en titans ou bien d'être tout simplement oblitérés de la Réalité.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.kosmos.description",
                       picture: "/ressources/wiki-landing/ExplorerKosmos.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/kosmos",
@@ -777,9 +761,9 @@ export default Vue.extend({
                     },
                     {
                       key: "muspelheim",
-                      title: "Muspelheim",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.muspelheim.title",
                       description:
-                        "Le Royaume de la Chaleur et du Feu. Ce Royaume regroupes les forces naturelles les plus destructrices et volatiles du cosmos. C'est pour cette raison que la totalité de ce Royaume est parsemée de zones de conflits permanents. La grande majorité des titans qui y habitent sont des ennemis des dieux.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.muspelheim.description",
                       picture:
                         "/ressources/wiki-landing/ExplorerMuspelheim.webp",
                       parentKey: "titanrealm",
@@ -788,9 +772,9 @@ export default Vue.extend({
                     },
                     {
                       key: "nyx",
-                      title: "Nyx",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.nyx.title",
                       description:
-                        "Le Royaume de la Nuit. Les notions de contrôle, d'ordre et d'autorité n'existent pas ici, c'est même l'exact opposé. C'est le Royaume de la Terreur, du Sommeil, de la Lune et de l'Obscurité. Ses habitants jouent sur la peur, les illusions ou le camouflage pour obtenir ce qu'ils veulent. Les dieux y font quelques incursions, mais même eux restent très prudents car ce Royaume est totalement imprévisible.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.nyx.description",
                       picture: "/ressources/wiki-landing/ExplorerNyx.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/nyx",
@@ -798,9 +782,9 @@ export default Vue.extend({
                     },
                     {
                       key: "oceanus",
-                      title: "Océanus",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.oceanus.title",
                       description:
-                        "Le Royaume de l'Eau et des Océans. De par sa nature, ce Royaume n'est qu'un océan infini rempli de monstres en tous genres et agité des remous de la guerre permanente entre ses titans majeurs Sedna et Yam. Certains de ses titans sont alliés des dieux car bénéfiques à l'humanité, comme Sedna. D'autres, comme Yam, sont voués à la destruction de tout ce qui a l'audace de parcourir les mers.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.oceanus.description",
                       picture: "/ressources/wiki-landing/ExplorerOceanus.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/oceanus",
@@ -808,9 +792,9 @@ export default Vue.extend({
                     },
                     {
                       key: "patala",
-                      title: "Patala",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.patala.title",
                       description:
-                        "Le Royaume des Profondeurs. Entièrement composé de cavernes sombres et d'abysses, Patala est un Royaume froid où règne un danger constant. Comme pour Nyx, l'autorité et l'ordre n'existent pas dans ce Royaume. Seuls les plus vigilants ou préparés survivent. Tous les titans qui y vivent incarnent les concepts souterrains qui hantent l'imagination humaine, des profondeurs abysalles oppressantes à la décomposition de ce qui vit en passant par les richesses enfouies.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.patala.description",
                       picture: "/ressources/wiki-landing/ExplorerPatala.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/patala",
@@ -818,9 +802,9 @@ export default Vue.extend({
                     },
                     {
                       key: "sheol",
-                      title: "Sheol",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.sheol.title",
                       description:
-                        "Le Royaume de la Mort. Sans doute le Royaume le moins réjouissant du cosmos. Bien que certains de ses titans soient d'une utilité certaine pour les dieux et les humains, la majorité d'entre eux restent des entités déterminées à apporter la Mort partout où elles passent et des manières les plus horribles qui puissent être imaginées. Les Enfers de chaque panthéon ont été conquis sur le territoire de ce Royaume, ajoutant à la frustration de ses habitants.",
+                        "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.sheol.description",
                       picture: "/ressources/wiki-landing/ExplorerSheol.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/sheol",
@@ -828,9 +812,8 @@ export default Vue.extend({
                     },
                     {
                       key: "terra",
-                      title: "Terra",
-                      description:
-                        "Le Royaume de la Terre. A ne pas confondre avec la planète Terre (aka le Monde). Terra représente la Terre comme concept opposé au Ciel. C'est un Royaume infini aux paysages tous aussi variés que les créatures qui les peuplent et leurs manières de tuer leurs proies. Gaïa en est l'Avatar principal et tout ce qui y vit est son enfant. Seuls les plus adaptés y survivent.",
+                      title: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.terra.title",
+                      description: "wiki.contents.explorer.locations.content.overworld.content.titanrealms.content.terra.description",
                       picture: "/ressources/wiki-landing/ExplorerTerra.webp",
                       parentKey: "titanrealm",
                       wikiLink: "/wiki/lore/terra",
