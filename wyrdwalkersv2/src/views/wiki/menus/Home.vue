@@ -475,7 +475,7 @@ export default Vue.extend({
                   key: "illuminati",
                   title: "Les Illuminati",
                   description:
-                    "Une des Sociétés Secrètes les plus répandue sur le Monde, leur devise indique leur état d'esprit : 'Sexe, Drogues et Rockefeller'. Les Illuminati recherchent avant tout le pouvoir matériel et la richesse. Ils n'obéissent à aucun dogme et concentrent leurs valeurs sur l'individualité plutôt que le collectif. Prêts à faire des affaires avec n'importe qui pourvu qu'ils y trouvent un intérêt, ils mettent à profit leurs richesses et leurs secrets accumulés à travers les âges pour être en mesure de négocier à armes égales avec les dieux afin de contrer leur influence sur le Monde.",
+                    "Une des Sociétés Secrètes les plus répandue sur le Monde. Leur devise : 'Sexe, Drogues et Rockefeller'. Les Illuminati recherchent avant tout le pouvoir matériel et la richesse. Concentrés sur l'individualité plutôt que le collectif, ils mettent à profit leurs richesses et leurs secrets accumulés à travers les âges pour être en mesure de négocier à armes égales avec les dieux afin de contrer leur influence sur le Monde.",
                   picture: "/ressources/wiki-landing/ExplorerIlluminati.webp",
                   parentKey: "enlight",
                   wikiLink: "/wiki/lore/illuminati",
@@ -596,7 +596,7 @@ export default Vue.extend({
                   key: "merJade",
                   title: "Mer de Jade",
                   description:
-                    "Outre-Monde sous la coupe des Dragons, la Merde de Jade est un endroit difficilement accessible depuis le Monde. Les dragons occidentaux y ont trouvé refuge après la grande purge draconique orchestrée par les dieux au Moyen-Age. L'endroit n'est pas accueillant envers les dieux et les dragons n'hésitent à exercer leur vengeance sur eux, de manière physique ou bien en les extorquant de leurs ressources en échange d'un savoir séculaire (mais tout de même sur-estimé).",
+                    "Outre-Monde sous la coupe des Dragons, la Mer de Jade est un endroit difficilement accessible depuis le Monde. Les dragons occidentaux y ont trouvé refuge après la grande purge draconique orchestrée par les dieux au Moyen-Age. L'endroit n'est pas accueillant envers les dieux et les dragons n'hésitent à exercer leur vengeance sur eux, de manière physique ou bien en les extorquant de leurs ressources en échange d'un savoir séculaire (mais tout de même sur-estimé).",
                   picture: "/ressources/wiki-landing/ExplorerMerJade.webp",
                   parentKey: "outreMonde",
                   wikiLink: "/wiki/lore/mer-de-jade",

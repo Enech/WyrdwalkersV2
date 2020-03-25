@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view />
-    <v-navigation-drawer v-model="contextDrawer" app clipped color="black" dark bottom>
+    <v-navigation-drawer v-model="contextDrawer" app clipped color="black" dark>
       <v-divider color="white"></v-divider>
       <v-list>
         <v-list-group>
