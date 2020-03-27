@@ -5,6 +5,7 @@ export default class Game {
     public endDate: string;
     public closed: boolean;
     public running: boolean;
+    public locked: boolean;
 
     constructor(){
         this.name = "";
@@ -13,5 +14,6 @@ export default class Game {
         this.endDate = "";
         this.closed = false;
         this.running = false;
+        this.locked = false;
     }
 }
