@@ -14,19 +14,23 @@ export default class Player {
     public givenOrders: string[];
     public defaultOrders: number[];
     public gameID: string;
+    public titanForcesVisible: boolean;
+    public sheetsVisible: string[];
 
     constructor() {
         this.user = new User();
         this.pantheon = new Pantheon();
-        this.orichalcum = 0;
-        this.army = 0;
-        this.heroism = 0;
-        this.population = 0;
+        this.orichalcum = 3;
+        this.army = 3;
+        this.heroism = 3;
+        this.population = 3;
         this.fatebindings = 0;
-        this.prophets = 0;
+        this.prophets = 3;
         this.territories = new Array<string>();
         this.givenOrders = new Array<string>();
+        this.sheetsVisible = new Array<string>();
         this.defaultOrders = new Array<number>();
         this.gameID = "";
+        this.titanForcesVisible = false;
     }
 }

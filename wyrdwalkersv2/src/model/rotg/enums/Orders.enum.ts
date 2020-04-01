@@ -14,5 +14,8 @@ enum ResourceOrders {
     FATE_RITUAL,
     FATE_GOSSIP,
     PROPH_FORESEE,
-    PROPH_INFILT
+    PROPH_INFILT,
+    PROPH_SPY,
+    ORI_GAMBLE,
+    ORI_OPU
 }
