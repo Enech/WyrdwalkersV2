@@ -1,6 +1,7 @@
 import OrderSheetParameter from './OrderSheetParameters.model';
 
 export default class OrderSheet {
+    public _id: string;
     public gameID: string;
     public timeOfSubmit: string;
     public dayOfSubmit: string;
@@ -10,6 +11,7 @@ export default class OrderSheet {
     public parameters: OrderSheetParameter;
 
     constructor() {
+        this._id = "";
         this.gameID = "";
         this.timeOfSubmit = "";
         this.dayOfSubmit = "";

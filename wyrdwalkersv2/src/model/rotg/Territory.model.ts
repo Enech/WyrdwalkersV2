@@ -1,7 +1,9 @@
 import TerritoryPlayerForces from './TerritoryPlayerForces.model';
 
 export default class Territory {
+    public _id: string;
     public name: string;
+    public nameVO: string;
     public key: number;
     public owner: string;
     public titanForces: number;
@@ -9,7 +11,9 @@ export default class Territory {
     public gameID: string;
 
     constructor() {
+        this._id = "";
         this.name = "";
+        this.nameVO = "";
         this.owner = "";
         this.gameID = "";
         this.titanForces = 0;

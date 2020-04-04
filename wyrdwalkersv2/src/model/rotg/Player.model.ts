@@ -2,6 +2,7 @@ import User from '../User.model';
 import Pantheon from './Pantheon.model';
 
 export default class Player {
+    public _id: string;
     public user: User;
     public pantheon: Pantheon;
     public orichalcum: number;
@@ -18,6 +19,7 @@ export default class Player {
     public sheetsVisible: string[];
 
     constructor() {
+        this._id = "";
         this.user = new User();
         this.pantheon = new Pantheon();
         this.orichalcum = 3;

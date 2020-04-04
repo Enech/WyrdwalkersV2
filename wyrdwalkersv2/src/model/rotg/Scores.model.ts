@@ -1,4 +1,5 @@
 export default class Scores {
+    public _id: string;
     public playerID: string;
     public gameID: string;
     public pantheon: string;
@@ -6,6 +7,7 @@ export default class Scores {
     public victoryPoints: number;
 
     constructor(){
+        this._id = "";
         this.playerID = "";
         this.gameID = "";
         this.pantheon = "";

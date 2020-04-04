@@ -20,6 +20,7 @@ import Personality from '@/model/explorer/Personality.model';
 import Origin from '@/model/explorer/Origin.model';
 import EntityExplorer from '@/model/explorer/EntityExplorer.model';
 import LandingTree from '@/model/WikiLandingTree.model';
+import Game from '@/model/rotg/Game.model';
 
 Vue.use(Vuex)
 
@@ -58,7 +59,8 @@ const store = new Vuex.Store({
     users: new Array<User>(),
     explorerEntities: new Array<EntityExplorer>(),
     selectedWikiTree: new LandingTree(),
-    wikiTreeHistory: new Array<LandingTree>()
+    wikiTreeHistory: new Array<LandingTree>(),
+    rotgGames: new Array<Game>()
   },
   mutations: {
     initialiseStore(state) {
@@ -169,6 +171,9 @@ const store = new Vuex.Store({
     },
     setWikiTreeHistory(state, nodes: LandingTree[]){
       state.wikiTreeHistory = nodes;
+    },
+    setROTGGames(state, games: Game[]){
+      state.rotgGames = games;
     }
   },
   getters: {
@@ -203,7 +208,8 @@ const store = new Vuex.Store({
     users: state => state.users,
     explorerEntities: state => state.explorerEntities,
     selectedWikiTree: state => state.selectedWikiTree,
-    wikiTreeHistory: state => state.wikiTreeHistory
+    wikiTreeHistory: state => state.wikiTreeHistory,
+    rotgGames: state => state.rotgGames
   },
   actions: {
     fetchEvents(context) {
@@ -1190,6 +1196,58 @@ const store = new Vuex.Store({
               context.commit("setErrorMessage", newError);
             } else {
               newError.message = "Redirection supprimée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    fetchAllROTGGames(context) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}games/all`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setROTGGames", response.data);
+            }
+            resolve(response);
+          });
+      });
+    },
+    addROTGGame(context, game: Game) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_ROTGURL}games/`, game)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Nouvelle partie ajoutée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    updateROTGGame(context, game: Game) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_ROTGURL}games/${game._id}`, game)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Partie mise à jour";
               newError.type = "green";
               context.commit("setErrorMessage", newError);
             }

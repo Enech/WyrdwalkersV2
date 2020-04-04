@@ -233,6 +233,24 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/rotg',
+    name: 'ROTG',
+    redirect: "/rotg/home",
+    component: () => import('../views/rotg/RiseOfTheGods.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'homeROTG',
+        component: () => import('../views/rotg/menus/Home.vue'),
+      },
+      {
+        path: 'games',
+        name: 'gamesROTG',
+        component: () => import('../views/rotg/menus/Games.vue'),
+      }
+    ]
+  },
   { 
     path: '*',
     name: "notFound",

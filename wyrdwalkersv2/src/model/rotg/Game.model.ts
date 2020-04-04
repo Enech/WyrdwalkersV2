@@ -1,4 +1,5 @@
 export default class Game {
+    public _id: string;
     public name: string;
     public playersIds: string[];
     public startDate: string;
@@ -8,6 +9,7 @@ export default class Game {
     public locked: boolean;
 
     constructor(){
+        this._id = "";
         this.name = "";
         this.playersIds = new Array<string>();
         this.startDate = "";

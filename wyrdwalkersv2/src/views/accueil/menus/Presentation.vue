@@ -5,7 +5,7 @@
         <v-col class="text-center" cols="12">
           <h1 class="display-1 font-weight-light mb-4">{{$t("home.contents.presentation.title")}}</h1>
           <h3 class="headline font-weight-thin">{{$t("home.contents.presentation.subtitle")}}</h3>
-          <v-btn color="white" class="mt-3" outlined href="https://discord.gg/tjqrwJ" target="_blank">{{$t("home.contents.presentation.discord")}}</v-btn>
+          <v-btn color="white" class="mt-3" outlined href="https://discord.gg/CJf25BB" target="_blank">{{$t("home.contents.presentation.discord")}}</v-btn>
         </v-col>
       </v-row>
     </v-parallax>
