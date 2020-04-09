@@ -1,6 +1,21 @@
 <template>
   <div class="pa-3">
-    <rotg-counter class="mb-3" />
+    <v-card class="pa-1 mb-3">
+        <v-card-title>
+            <span>Fin du tour actuel dans</span>
+            <v-spacer></v-spacer>
+            <rotg-counter />
+        </v-card-title>
+    </v-card>
+    <v-alert
+        border="left"
+        colored-border
+        type="warning"
+        elevation="2"
+        width="100%"
+        class="mb-3"
+        v-if="currentUser._id == ''"
+      >Vous devez posséder un compte sur le site pour jouer à Rise of The Gods</v-alert>
     <v-card class="pa-3">
       <v-card-title>Parties en cours</v-card-title>
       <v-divider></v-divider>
@@ -24,7 +39,7 @@
                     flat
                     hide-details
                     prepend-inner-icon="search"
-                    label="Search"
+                    label="Rechercher"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -33,7 +48,7 @@
             <template v-slot:default="props">
               <v-row>
                 <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6" md="4" lg="3">
-                  <v-card @click.stop="">
+                  <v-card>
                     <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
 
                     <v-divider></v-divider>
@@ -46,6 +61,20 @@
                       <v-list-item>
                         <v-list-item-content>Démarrée :</v-list-item-content>
                         <v-list-item-content class="align-end">{{ item.running ? 'Oui' : 'Non' }}</v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>Terminée :</v-list-item-content>
+                        <v-list-item-content class="align-end">{{ item.closed ? 'Oui' : 'Non' }}</v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content class="align-center">
+                          <v-btn
+                            color="blue darken-4"
+                            dark
+                            :disabled="disableJoinButton(item)"
+                            @click.stop="goToGamePage(item._id)"
+                          >Entrer</v-btn>
+                        </v-list-item-content>
                       </v-list-item>
                     </v-list>
                   </v-card>
@@ -76,10 +105,10 @@
                 </v-menu>
 
                 <span class="mr-4 grey--text">Page {{ page }} sur {{ numberOfPages }}</span>
-                <v-btn fab dark color="blue darken-3" class="mr-1" @click="formerPage">
+                <v-btn icon dark color="blue darken-3" class="mr-1" @click="formerPage">
                   <v-icon>mdi-chevron-left</v-icon>
                 </v-btn>
-                <v-btn fab dark color="blue darken-3" class="ml-1" @click="nextPage">
+                <v-btn icon dark color="blue darken-3" class="ml-1" @click="nextPage">
                   <v-icon>mdi-chevron-right</v-icon>
                 </v-btn>
               </v-row>
@@ -102,7 +131,8 @@
                 color="deep-purple darken-4"
                 class="white--text"
                 v-on="on"
-              >Créer une nouvelle partie</v-btn>
+                :disabled="disableGameCreation"
+              >Nouvelle partie</v-btn>
             </div>
           </template>
           <v-card>
@@ -137,6 +167,15 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <v-alert
+          class="mt-3 text-center"
+          border="left"
+          colored-border
+          type="error"
+          elevation="2"
+          width="100%"
+          v-if="disableGameCreation"
+        >La création de partie est disponible à partir de 23h GTM jusqu'au lendemain 21h GMT</v-alert>
       </div>
     </v-card>
     <v-dialog v-model="loading" hide-overlay persistent width="300">
@@ -155,6 +194,7 @@ import Vue from "vue";
 import store from "../../../store";
 import ROTGCounter from "../../../components/rotg/Counter.vue";
 import Game from "../../../model/rotg/Game.model";
+import router from "../../../router";
 
 export default Vue.extend({
   components: {
@@ -170,6 +210,15 @@ export default Vue.extend({
       get: function() {
         return store.getters.rotgGames;
       }
+    },
+    disableGameCreation: function() {
+      var now = new Date();
+      var nowHours = now.getUTCHours();
+
+      return nowHours >= 21 && nowHours < 23;
+    },
+    currentUser: function() {
+      return store.getters.currentUser;
     }
   },
   methods: {
@@ -183,13 +232,11 @@ export default Vue.extend({
       });
     },
     addGame: function() {
+      this.editedItem.startDate = new Date().toString();
+      var endDate = new Date();
+      endDate.setDate(new Date(this.editedItem.startDate).getDate() + 7);
+      this.editedItem.endDate = endDate.toString();
       store.dispatch("addROTGGame", this.editedItem).then(() => {
-        this.closeDialog();
-        Object.assign(this.editedItem, new Game());
-      });
-    },
-    sendUpdate: function() {
-      store.dispatch("updateROTGGame", this.editedItem).then(() => {
         this.closeDialog();
         Object.assign(this.editedItem, new Game());
       });
@@ -214,18 +261,28 @@ export default Vue.extend({
     },
     updateItemsPerPage(number: number) {
       this.itemsPerPage = number;
+    },
+    disableJoinButton: function(game: Game) {
+      return (
+        game.playersIds.length > 12 ||
+        game.closed ||
+        this.currentUser._id == ""
+      );
+    },
+    goToGamePage(gameId: string){
+        router.push({ name: 'gameUI', params: { idGame: gameId } });
     }
   },
   watch: {
     search: function(value: string) {
-        if(value.length > 0){
-            var filteredArray = this.filteredGames.filter(game => {
-                return game.name.toLowerCase().indexOf(value) > -1;
-            });
-            this.filteredGames = filteredArray;
-        } else {
-            this.filteredGames = this.rotgGames;
-        }
+      if (value.length > 0) {
+        var filteredArray = this.filteredGames.filter(game => {
+          return game.name.toLowerCase().indexOf(value) > -1;
+        });
+        this.filteredGames = filteredArray;
+      } else {
+        this.filteredGames = this.rotgGames;
+      }
     }
   },
   data: () => ({

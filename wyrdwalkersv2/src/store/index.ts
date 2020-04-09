@@ -21,6 +21,8 @@ import Origin from '@/model/explorer/Origin.model';
 import EntityExplorer from '@/model/explorer/EntityExplorer.model';
 import LandingTree from '@/model/WikiLandingTree.model';
 import Game from '@/model/rotg/Game.model';
+import Player from '@/model/rotg/Player.model';
+import Territory from '@/model/rotg/Territory.model';
 
 Vue.use(Vuex)
 
@@ -60,7 +62,10 @@ const store = new Vuex.Store({
     explorerEntities: new Array<EntityExplorer>(),
     selectedWikiTree: new LandingTree(),
     wikiTreeHistory: new Array<LandingTree>(),
-    rotgGames: new Array<Game>()
+    rotgGames: new Array<Game>(),
+    selectedGame: new Game(),
+    selectedGamePlayers: new Array<Player>(),
+    selectedGameTerritories: new Array<Territory>()
   },
   mutations: {
     initialiseStore(state) {
@@ -160,20 +165,29 @@ const store = new Vuex.Store({
     setRefreshData(state, refresh: boolean) {
       state.refreshData = refresh;
     },
-    setUsers(state, results: Array<User>){
+    setUsers(state, results: Array<User>) {
       state.users = results;
     },
-    setExplorerEntities(state, entities: EntityExplorer[]){
+    setExplorerEntities(state, entities: EntityExplorer[]) {
       state.explorerEntities = entities;
     },
-    setSelectedWikiTree(state, tree: LandingTree){
+    setSelectedWikiTree(state, tree: LandingTree) {
       state.selectedWikiTree = tree;
     },
-    setWikiTreeHistory(state, nodes: LandingTree[]){
+    setWikiTreeHistory(state, nodes: LandingTree[]) {
       state.wikiTreeHistory = nodes;
     },
-    setROTGGames(state, games: Game[]){
+    setROTGGames(state, games: Game[]) {
       state.rotgGames = games;
+    },
+    setSelectedGame(state, game: Game) {
+      state.selectedGame = game;
+    },
+    setSelectedGamePlayers(state, players: Player[]) {
+      state.selectedGamePlayers = players;
+    },
+    setSelectedGameTerritories(state, planes: Territory[]){
+      state.selectedGameTerritories = planes;
     }
   },
   getters: {
@@ -209,7 +223,10 @@ const store = new Vuex.Store({
     explorerEntities: state => state.explorerEntities,
     selectedWikiTree: state => state.selectedWikiTree,
     wikiTreeHistory: state => state.wikiTreeHistory,
-    rotgGames: state => state.rotgGames
+    rotgGames: state => state.rotgGames,
+    selectedGame: state => state.selectedGame,
+    selectedGamePlayers: state => state.selectedGamePlayers,
+    selectedGameTerritories: state => state.selectedGameTerritories
   },
   actions: {
     fetchEvents(context) {
@@ -1203,6 +1220,22 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGGame(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}games/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setSelectedGame", response.data[0]);
+            }
+            resolve(response);
+          });
+      });
+    },
     fetchAllROTGGames(context) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}games/all`)
@@ -1250,6 +1283,70 @@ const store = new Vuex.Store({
               newError.message = "Partie mise à jour";
               newError.type = "green";
               context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    launchROTGGame(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}games/start/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if(response.data){
+              newError.message = "Partie mise à jour";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data);
+          });
+      });
+    },
+    fetchROTGGamePlayers(context, idGame: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}players/game/${idGame}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setSelectedGamePlayers", response.data);
+            }
+            resolve(response);
+          });
+      });
+    },
+    addROTGPlayer(context, player: Player) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_ROTGURL}players/`, player)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (response.data.result.ok != 1) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Vous avez rejoint la partie";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    fetchROTGGameTerritories(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}territories/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response) {
+              newError.message = "Unable to fetch the game's planes";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setSelectedGameTerritories", response.data);
             }
             resolve(response);
           });

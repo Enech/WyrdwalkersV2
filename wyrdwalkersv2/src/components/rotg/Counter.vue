@@ -1,12 +1,6 @@
 <template>
   <div class="rotg-counter">
-    <v-card class="pa-1">
-        <v-card-title>
-            <span>Fin du tour actuel dans</span>
-            <v-spacer></v-spacer>
-            <span :class="parseInt(hoursLeft,10) < 1 ? 'red--text' : ''">{{hoursLeft}} : {{minutesLeft}} : {{secondsLeft}}</span>
-        </v-card-title>
-    </v-card>
+     <span :class="parseInt(hoursLeft,10) < 1 ? 'red--text' : ''">{{hoursLeft}} : {{minutesLeft}} : {{secondsLeft}}</span>
   </div>
 </template>
 
@@ -19,14 +13,17 @@ export default Vue.extend({
   created() {
     setInterval(function(context){
         var today = new Date();
+        var tzOffset = today.getTimezoneOffset();
+        var utcToday = new Date(today);
+        utcToday.setHours(today.getHours() + Math.floor(tzOffset / 60));
         var endTurn = new Date();
         endTurn.setHours(22);
         endTurn.setMinutes(0);
         endTurn.setSeconds(0);
-        if(today.getHours() >= 22){
+        if(today.getUTCHours() >= 22){
             endTurn = context.addDays(endTurn, 1);
         }
-        var timeLeft = endTurn.getTime() - today.getTime();
+        var timeLeft = endTurn.getTime() - utcToday.getTime();
         context.hoursLeft = Math.floor(timeLeft / 1000 / 60 / 60);
         context.minutesLeft = Math.floor(timeLeft / 1000 / 60 - (60 * context.hoursLeft));
         context.secondsLeft = Math.floor(timeLeft / 1000 - (60 * context.minutesLeft) - (3600 * context.hoursLeft));

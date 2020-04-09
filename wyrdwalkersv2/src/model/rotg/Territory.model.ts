@@ -6,6 +6,7 @@ export default class Territory {
     public nameVO: string;
     public key: number;
     public owner: string;
+    public ownerName: string;
     public titanForces: number;
     public playersForces: TerritoryPlayerForces[];
     public gameID: string;
@@ -15,6 +16,7 @@ export default class Territory {
         this.name = "";
         this.nameVO = "";
         this.owner = "";
+        this.ownerName = "";
         this.gameID = "";
         this.titanForces = 0;
         this.key = -1;

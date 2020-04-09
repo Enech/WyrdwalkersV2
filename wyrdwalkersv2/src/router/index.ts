@@ -247,11 +247,16 @@ const routes = [
       {
         path: 'games',
         name: 'gamesROTG',
-        component: () => import('../views/rotg/menus/Games.vue'),
+        component: () => import('../views/rotg/menus/Games.vue')
+      },
+      {
+        path: 'games/:idGame',
+        name: 'gameUI',
+        component: () => import('../views/rotg/menus/GameUI.vue')
       }
     ]
   },
-  { 
+  {
     path: '*',
     name: "notFound",
     component: () => import('../views/NotFound.vue')
@@ -267,7 +272,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     var storedState = localStorage.getItem('store');
-    if(storedState){
+    if (storedState) {
       if (Flatted.parse(storedState).currentUser._id.length == 0) {
         next({
           path: '/home/presentation'
