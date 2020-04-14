@@ -175,7 +175,7 @@
           elevation="2"
           width="100%"
           v-if="disableGameCreation"
-        >La création de partie est disponible à partir de 23h GTM jusqu'au lendemain 21h GMT</v-alert>
+        >La création de partie est disponible à partir de 23h GMT jusqu'au lendemain 21h GMT</v-alert>
       </div>
     </v-card>
     <v-dialog v-model="loading" hide-overlay persistent width="300">

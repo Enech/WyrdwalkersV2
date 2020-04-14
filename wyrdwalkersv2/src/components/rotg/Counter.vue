@@ -16,13 +16,10 @@ export default Vue.extend({
         var tzOffset = today.getTimezoneOffset();
         var utcToday = new Date(today);
         utcToday.setHours(today.getHours() + Math.floor(tzOffset / 60));
-        var endTurn = new Date();
+        var endTurn = new Date(new Date().toUTCString());
         endTurn.setHours(22);
         endTurn.setMinutes(0);
         endTurn.setSeconds(0);
-        if(today.getUTCHours() >= 22){
-            endTurn = context.addDays(endTurn, 1);
-        }
         var timeLeft = endTurn.getTime() - utcToday.getTime();
         context.hoursLeft = Math.floor(timeLeft / 1000 / 60 / 60);
         context.minutesLeft = Math.floor(timeLeft / 1000 / 60 - (60 * context.hoursLeft));

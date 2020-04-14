@@ -17,6 +17,7 @@ export default class Player {
     public gameID: string;
     public titanForcesVisible: boolean;
     public sheetsVisible: string[];
+    public victoryPoints: number;
 
     constructor() {
         this._id = "";
@@ -33,6 +34,7 @@ export default class Player {
         this.sheetsVisible = new Array<string>();
         this.defaultOrders = new Array<number>();
         this.gameID = "";
+        this.victoryPoints = 0;
         this.titanForcesVisible = false;
     }
 }

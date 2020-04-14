@@ -250,7 +250,7 @@ const routes = [
         component: () => import('../views/rotg/menus/Games.vue')
       },
       {
-        path: 'games/:idGame',
+        path: 'game/:idGame',
         name: 'gameUI',
         component: () => import('../views/rotg/menus/GameUI.vue')
       }

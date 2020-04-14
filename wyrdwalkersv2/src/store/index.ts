@@ -23,6 +23,8 @@ import LandingTree from '@/model/WikiLandingTree.model';
 import Game from '@/model/rotg/Game.model';
 import Player from '@/model/rotg/Player.model';
 import Territory from '@/model/rotg/Territory.model';
+import OrderSheet from '@/model/rotg/OrderSheet.model';
+import Resources from '@/model/rotg/Resources.model';
 
 Vue.use(Vuex)
 
@@ -65,7 +67,11 @@ const store = new Vuex.Store({
     rotgGames: new Array<Game>(),
     selectedGame: new Game(),
     selectedGamePlayers: new Array<Player>(),
-    selectedGameTerritories: new Array<Territory>()
+    selectedGameTerritories: new Array<Territory>(),
+    currentPlayer: new Player(),
+    currentOrderSheet: new OrderSheet(),
+    playerSheets: new Array<OrderSheet>(),
+    resourcesSpent: new Resources()
   },
   mutations: {
     initialiseStore(state) {
@@ -188,6 +194,18 @@ const store = new Vuex.Store({
     },
     setSelectedGameTerritories(state, planes: Territory[]){
       state.selectedGameTerritories = planes;
+    },
+    setCurrentPlayer(state, player: Player){
+      state.currentPlayer = player;
+    },
+    setCurrentOrderSheet(state, sheet: OrderSheet){
+      state.currentOrderSheet = sheet;
+    },
+    setResourcesSpent(state, resources: Resources){
+      state.resourcesSpent = resources;
+    },
+    setPlayerSheets(state, sheets: OrderSheet[]){
+      state.playerSheets = sheets;
     }
   },
   getters: {
@@ -226,7 +244,11 @@ const store = new Vuex.Store({
     rotgGames: state => state.rotgGames,
     selectedGame: state => state.selectedGame,
     selectedGamePlayers: state => state.selectedGamePlayers,
-    selectedGameTerritories: state => state.selectedGameTerritories
+    selectedGameTerritories: state => state.selectedGameTerritories,
+    currentPlayer: state => state.currentPlayer,
+    currentOrderSheet: state => state.currentOrderSheet,
+    playerSheets: state => state.playerSheets,
+    resourcesSpent: state => state.resourcesSpent 
   },
   actions: {
     fetchEvents(context) {
@@ -1352,11 +1374,53 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGPlayerSheets(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}orders/player/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response) {
+              newError.message = "Unable to fetch the player's sheets";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setPlayerSheets", response.data);
+            }
+            resolve(response);
+          });
+      });
+    },
+    sendROTGOrderSheet(context, sheet: OrderSheet) {
+      return new Promise((resolve) => {
+        return axios.post(`${process.env.VUE_APP_ROTGURL}orders/`, sheet)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response) {
+              newError.message = "Unable to submit order sheet";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Fiche d'Ordre envoyée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
     displayProxyError(context) {
       var newError = new ErrorMessage();
       newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifiez qu'il est correctement configuré";
       newError.type = "red";
       context.commit("setErrorMessage", newError);
+    },
+    manualEnding(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}games/endturn/${id}`)
+          .then((response: any) => {
+            resolve(response);
+          });
+      });
     }
   },
   modules: {

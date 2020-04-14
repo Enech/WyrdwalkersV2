@@ -15,7 +15,7 @@
       <v-spacer></v-spacer>
       <v-tooltip bottom v-if="selectedGame.running">
         <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
+          <v-btn icon v-on="on" @click.stop="manualOverride()">
             <v-icon>alarm_on</v-icon>
           </v-btn>
         </template>
@@ -47,6 +47,10 @@
                 <v-icon left>fa-gem</v-icon>
                 <v-spacer></v-spacer>
                 <span class="subtitle-1">{{currentPlayer.orichalcum}}</span>
+                <span
+                  class="subtitle-1"
+                  v-if="resourcesSpent.orichalcum > 0"
+                >(-{{resourcesSpent.orichalcum}})</span>
               </v-card-title>
             </v-card>
           </template>
@@ -61,6 +65,7 @@
                 <v-icon left>fa-fist-raised</v-icon>
                 <v-spacer></v-spacer>
                 <span class="subtitle-1">{{currentPlayer.army}}</span>
+                <span class="subtitle-1" v-if="resourcesSpent.army > 0">(-{{resourcesSpent.army}})</span>
               </v-card-title>
             </v-card>
           </template>
@@ -75,6 +80,10 @@
                 <v-icon left>fa-jedi</v-icon>
                 <v-spacer></v-spacer>
                 <span class="subtitle-1">{{currentPlayer.heroism}}</span>
+                <span
+                  class="subtitle-1"
+                  v-if="resourcesSpent.heroism > 0"
+                >(-{{resourcesSpent.heroism}})</span>
               </v-card-title>
             </v-card>
           </template>
@@ -89,6 +98,10 @@
                 <v-icon left>fa-eye</v-icon>
                 <v-spacer></v-spacer>
                 <span class="subtitle-1">{{currentPlayer.prophets}}</span>
+                <span
+                  class="subtitle-1"
+                  v-if="resourcesSpent.prophets > 0"
+                >(-{{resourcesSpent.prophets}})</span>
               </v-card-title>
             </v-card>
           </template>
@@ -103,6 +116,10 @@
                 <v-icon left>fa-user-friends</v-icon>
                 <v-spacer></v-spacer>
                 <span class="subtitle-1">{{currentPlayer.population}}</span>
+                <span
+                  class="subtitle-1"
+                  v-if="resourcesSpent.population > 0"
+                >(-{{resourcesSpent.population}})</span>
               </v-card-title>
             </v-card>
           </template>
@@ -117,6 +134,10 @@
                 <v-icon left>fa-spider</v-icon>
                 <v-spacer></v-spacer>
                 <span class="subtitle-1">{{currentPlayer.fatebindings}}</span>
+                <span
+                  class="subtitle-1"
+                  v-if="resourcesSpent.fatebindings > 0"
+                >(+{{resourcesSpent.fatebindings}})</span>
               </v-card-title>
             </v-card>
           </template>
@@ -124,17 +145,17 @@
         </v-tooltip>
       </v-col>
     </v-row>
-    <div class="mt-3">
+    <v-card class="mt-3 pa-3">
       <v-tabs v-model="tab" show-arrows grow>
         <v-tab>Vue générale</v-tab>
-        <v-tab>Feuille d'ordre</v-tab>
-        <v-tab>Archives</v-tab>
+        <v-tab v-if="userIsInGame && selectedGame.running">Feuille d'ordre</v-tab>
+        <v-tab v-if="false">Archives</v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item>
           <v-row>
             <v-col cols="12" sm="6">
-              <v-card class="pa-3">
+              <v-card class="pa-3" outlined>
                 <v-card-title>Plans</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
@@ -152,7 +173,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="item in selectedGameTerritories" :key="item._id">
+                        <tr v-for="item in selectedGameTerritories" :key="item.name">
                           <td>{{ item.name }}</td>
                           <td>{{ item.ownerName != '' ? item.ownerName : 'Titans' }}</td>
                           <td>{{ displayPlanesForces(item) }}</td>
@@ -164,19 +185,43 @@
               </v-card>
             </v-col>
             <v-col cols="12" sm="6">
-              <v-card class="pa-3">
+              <v-card class="pa-3" outlined>
                 <v-card-title>Scores</v-card-title>
                 <v-divider></v-divider>
-                <v-card-text></v-card-text>
+                <v-card-text>
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th class="text-left">Panthéon</th>
+                          <th class="text-left">Joueur</th>
+                          <th class="text-left">Points de Victoire</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(item,index) in rankings" :key="index">
+                          <td>{{ item.pantheon.name }}</td>
+                          <td>{{ item.user.name }}</td>
+                          <td>
+                            {{ item.victoryPoints }}&nbsp;
+                            <v-icon small>fa-trophy</v-icon>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
+                </v-card-text>
               </v-card>
             </v-col>
           </v-row>
         </v-tab-item>
-        <v-tab-item></v-tab-item>
+        <v-tab-item>
+          <rotg-ordersheet />
+        </v-tab-item>
         <v-tab-item></v-tab-item>
       </v-tabs-items>
-    </div>
-    <v-dialog v-model="loading" hide-overlay persistent width="300">
+    </v-card>
+    <v-dialog v-model="loading" persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
           Chargement...
@@ -237,19 +282,24 @@
 import Vue from "vue";
 import store from "../../../store";
 import ROTGCounter from "../../../components/rotg/Counter.vue";
+import ROTGOrderSheet from "../../../components/rotg/OrderSheet.vue";
 import Player from "../../../model/rotg/Player.model";
 import Pantheon from "../../../model/rotg/Pantheon.model";
 import Game from "../../../model/rotg/Game.model";
+import OrderSheet from "../../../model/rotg/OrderSheet.model";
 import Territory from "../../../model/rotg/Territory.model";
+import Resources from "../../../model/rotg/Resources.model";
 
 export default Vue.extend({
   components: {
-    "rotg-counter": ROTGCounter
+    "rotg-counter": ROTGCounter,
+    "rotg-ordersheet": ROTGOrderSheet
   },
   name: "GameUI",
   created() {
     this.loading = true;
     this.fetchGame(this.$route.params.idGame);
+    store.commit("setResourcesSpent", new Resources());
   },
   computed: {
     userIsInGame: function() {
@@ -270,11 +320,33 @@ export default Vue.extend({
     dialogHeight: function() {
       return this.$vuetify.breakpoint.xs ? 400 : 800;
     },
-    currentPlayer: function() {
-      var player = store.getters.selectedGamePlayers.filter((p: Player) => {
-        return p.user._id == store.getters.currentUser._id;
+    currentPlayer: {
+      get: function() {
+        return store.getters.currentPlayer;
+      },
+      set: function(player: Player) {
+        store.commit("setCurrentPlayer", player);
+      }
+    },
+    currentOrderSheet: {
+      get: function() {
+        return store.getters.currentOrderSheet;
+      },
+      set: function(sheet: OrderSheet) {
+        store.commit("setCurrentOrderSheet", sheet);
+      }
+    },
+    resourcesSpent: function() {
+      return store.getters.resourcesSpent;
+    },
+    rankings: function() {
+      var players = store.getters.selectedGamePlayers;
+      var sortedPlayers = new Array<Player>();
+      players.sort((a: Player, b: Player) => {
+        return b.victoryPoints - a.victoryPoints;
       });
-      return player[0];
+      Object.assign(sortedPlayers, players);
+      return players;
     }
   },
   watch: {},
@@ -292,6 +364,19 @@ export default Vue.extend({
             return e.user._id;
           });
           this.getRemainingPantheons();
+          var player = store.getters.selectedGamePlayers.filter((p: Player) => {
+            return p.user._id == store.getters.currentUser._id;
+          });
+          store.commit(
+            "setCurrentPlayer",
+            player[0] ? player[0] : new Player()
+          );
+          var sheet = new OrderSheet();
+          sheet.gameID = this.selectedGame._id;
+          sheet.parameters.playerID = this.currentPlayer._id;
+          sheet.parameters.playerName = this.currentPlayer.user.name;
+          sheet.turn = this.selectedGame.turn;
+          Object.assign(this.currentOrderSheet, sheet);
         });
       }
     },
@@ -361,6 +446,12 @@ export default Vue.extend({
         result = "?";
       }
       return result;
+    },
+    manualOverride: function(){
+      this.loading = true;
+      store.dispatch("manualEnding", this.selectedGame._id).then(() => {
+        this.loading = false;
+      });
     }
   },
   data: () => ({

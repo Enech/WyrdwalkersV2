@@ -17,5 +17,8 @@ enum ResourceOrders {
     PROPH_INFILT,
     PROPH_SPY,
     ORI_GAMBLE,
-    ORI_OPU
+    ORI_OPU,
+    HAND_FATE
 }
+
+export default ResourceOrders;

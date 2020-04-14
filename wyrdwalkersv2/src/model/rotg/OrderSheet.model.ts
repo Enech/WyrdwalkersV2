@@ -9,6 +9,8 @@ export default class OrderSheet {
     public processTime: string;
     public ordersSent: number[];
     public parameters: OrderSheetParameter;
+    public turn: number; // Equals turnsSpent in Game Object
+    public sent: boolean;
 
     constructor() {
         this._id = "";
@@ -19,5 +21,7 @@ export default class OrderSheet {
         this.processed = false;
         this.ordersSent = new Array<number>();
         this.parameters = new OrderSheetParameter();
+        this.turn = 0;
+        this.sent = false;
     }
 }
