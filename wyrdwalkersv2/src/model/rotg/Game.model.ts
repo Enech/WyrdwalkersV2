@@ -8,6 +8,7 @@ export default class Game {
     public running: boolean;
     public locked: boolean;
     public turn: number;
+    public won: boolean;
 
     constructor(){
         this._id = "";
@@ -18,6 +19,7 @@ export default class Game {
         this.closed = false;
         this.running = false;
         this.locked = false;
+        this.won = false;
         this.turn = 0;
     }
 }

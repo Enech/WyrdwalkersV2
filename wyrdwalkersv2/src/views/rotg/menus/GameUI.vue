@@ -11,8 +11,46 @@
       </v-tooltip>
       <v-toolbar-title>{{selectedGame.name}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <rotg-counter />
+      <div>
+        <div class="subtitle-2" v-if="$vuetify.breakpoint.xs">Tour {{selectedGame.turn}} :</div>
+        <div class="subtitle-2" v-else>Fin du tour {{selectedGame.turn}} dans :</div>
+        <rotg-counter v-if="!gameLocked && !selectedGame.closed" />
+        <div v-else>
+          <v-tooltip bottom v-if="gameLocked && selectedGame.running">
+            <template v-slot:activator="{ on }">
+              <v-btn icon left v-on="on" color="red">
+                <v-icon>fa-lock</v-icon>
+              </v-btn>
+            </template>
+            <span>Tour en cours de calcul</span>
+          </v-tooltip>
+          <v-tooltip bottom v-if="gameLocked && selectedGame.closed && selectedGame.won">
+            <template v-slot:activator="{ on }">
+              <v-btn icon left v-on="on" color="green">
+                <v-icon>fa-handshake</v-icon>
+              </v-btn>
+            </template>
+            <span>Partie remportée par les dieux</span>
+          </v-tooltip>
+          <v-tooltip bottom v-if="gameLocked && selectedGame.closed && !selectedGame.won">
+            <template v-slot:activator="{ on }">
+              <v-btn icon left v-on="on" color="red">
+                <v-icon>fa-skull-crossbones</v-icon>
+              </v-btn>
+            </template>
+            <span>Partie remportée par les Titans</span>
+          </v-tooltip>
+        </div>
+      </div>
       <v-spacer></v-spacer>
+      <v-tooltip bottom v-if="selectedGame.turn > 1">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on" @click.stop="resolutionDialog = true;">
+            <v-icon>fa-balance-scale</v-icon>
+          </v-btn>
+        </template>
+        <span>Afficher la résolution du tour précédent</span>
+      </v-tooltip>
       <v-tooltip bottom v-if="selectedGame.running">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" @click.stop="manualOverride()">
@@ -29,7 +67,7 @@
         </template>
         <span>Rejoindre la partie</span>
       </v-tooltip>
-      <v-tooltip bottom v-if="userIsInGame && !selectedGame.running">
+      <v-tooltip bottom v-if="userIsInGame && !selectedGame.running && !selectedGame.closed">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" @click.stop="launchGame()">
             <v-icon>play_arrow</v-icon>
@@ -149,7 +187,7 @@
       <v-tabs v-model="tab" show-arrows grow>
         <v-tab>Vue générale</v-tab>
         <v-tab v-if="userIsInGame && selectedGame.running">Feuille d'ordre</v-tab>
-        <v-tab v-if="false">Archives</v-tab>
+        <v-tab v-if="userIsInGame && selectedGame.running">Archives</v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item>
@@ -218,7 +256,33 @@
         <v-tab-item>
           <rotg-ordersheet />
         </v-tab-item>
-        <v-tab-item></v-tab-item>
+        <v-tab-item>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">Tour</th>
+                  <th class="text-left">Envoyée le</th>
+                  <th class="text-left">Traitée</th>
+                  <th class="text-left">Détails</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item,index) in playerSheets" :key="index">
+                  <td>Tour {{ item.turn }}</td>
+                  <td>{{ item.dayOfSubmit}} {{item.timeOfSubmit}}</td>
+                  <td>
+                    <v-icon color="green" v-if="item.processed">fa-check</v-icon>
+                    <v-icon color="red" v-else>fa-times</v-icon>
+                  </td>
+                  <td>
+                    <v-btn color="blue" dark @click="openOrderSheetView(item)">Ouvrir</v-btn>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-tab-item>
       </v-tabs-items>
     </v-card>
     <v-dialog v-model="loading" persistent width="300">
@@ -275,6 +339,223 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="resolutionDialog" max-width="1000" persistent scrollable>
+      <v-card>
+        <v-card-title class="black white--text">
+          <span class="headline">Résolution du tour {{selectedGame.turn-1}}</span>
+          <v-spacer></v-spacer>
+          <v-btn text icon dark @click="closeResolutionDialog();">
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text :max-height="dialogHeight">
+          <v-row align-content="center" justify="center" v-if="loadingFate">
+            <v-col class="subtitle-1 text-center" cols="12">Chargement...</v-col>
+            <v-col cols="6">
+              <v-progress-linear color="blue accent-4" indeterminate rounded height="6"></v-progress-linear>
+            </v-col>
+          </v-row>
+          <v-row v-else>
+            <v-col cols="12">
+              <v-card class="pa-3" outlined>
+                <v-card-title>
+                  <v-icon left>fa-spider</v-icon>
+                  &nbsp;{{currentFateConsequence.name}}
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text v-html="currentFateConsequence.text"></v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-card class="pa-3" outlined>
+                <v-card-title>
+                  <v-icon left>fa-coins</v-icon>&nbsp;Gains en ressources
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th class="text-left">Ressource</th>
+                          <th class="text-left">Gain / Perte</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <v-icon small left>fa-gem</v-icon>&nbsp;Orichalque
+                          </td>
+                          <td>{{ currentPlayer.orichalcum - previousPlayer.orichalcum }}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <v-icon small left>fa-fist-raised</v-icon>&nbsp;Armée
+                          </td>
+                          <td>{{ currentPlayer.army - previousPlayer.army }}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <v-icon small left>fa-jedi</v-icon>&nbsp;Héroïsme
+                          </td>
+                          <td>{{ currentPlayer.heroism - previousPlayer.heroism }}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <v-icon small left>fa-eye</v-icon>&nbsp;Prophètes
+                          </td>
+                          <td>{{ currentPlayer.prophets - previousPlayer.prophets }}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <v-icon small left>fa-user-friends</v-icon>&nbsp;Population
+                          </td>
+                          <td>{{ currentPlayer.population - previousPlayer.population }}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <v-icon small left>fa-spider</v-icon>&nbsp;Liens du Destin
+                          </td>
+                          <td>{{ currentPlayer.fatebindings - previousPlayer.fatebindings }}</td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-card class="pa-3" outlined>
+                <v-card-title>
+                  <v-icon left>fa-spider</v-icon>&nbsp;Autres Bonus
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                  <v-row>
+                    <v-col cols="12" class="mb-3">
+                      Fiches d'Ordres visibles :
+                      <span
+                        v-if="currentPlayer.sheetsVisible.length == 0"
+                      >/</span>
+                      <div v-else>
+                        <v-btn color="blue" dark @click="fetchOrderSheet(currentPlayer.sheetsVisible[0])">
+                          <v-icon small left>fa-receipt</v-icon>#1
+                        </v-btn>
+                        <v-btn color="blue" dark @click="fetchOrderSheet(currentPlayer.sheetsVisible[1])">
+                          <v-icon small left>fa-receipt</v-icon>#2
+                        </v-btn>
+                      </div>
+                    </v-col>
+                    <v-col cols="12" class="mb-3">
+                      Forces des Titans visibles ce tour-ci :
+                      <span
+                        v-if="currentPlayer.titanForcesVisible"
+                      >
+                        <v-icon small left class="green--text">fa-check</v-icon>&nbsp; Oui
+                      </span>
+                      <span v-else>
+                        <v-icon small class="red--text">fa-times</v-icon>&nbsp; Non
+                      </span>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue" text @click="closeResolutionDialog()">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="orderSheetDialog" max-width="1000" persistent scrollable>
+      <v-card>
+        <v-card-title class="blue darken-4 white--text">
+          <span class="headline">
+            <v-icon left dark>fa-receipt</v-icon>
+            Feuille d'Ordre de {{viewedOrderSheet.parameters.playerName}} (Tour {{viewedOrderSheet.turn}})
+          </span>
+          <v-spacer></v-spacer>
+          <v-btn text icon dark @click="closeOrderSheetView();">
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text :max-height="dialogHeight">
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-card outlined>
+                <v-card-title>Ordres envoyés</v-card-title>
+                <v-card-text>
+                  <div v-for="(order,index) in viewedOrderSheet.ordersSent" :key="index">
+                    <span class="subtitle-1" v-html="getOrderNameFromNumber(order)"></span>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-card outlined>
+                <v-card-title>Cibles des ordres</v-card-title>
+                <v-card-text>
+                  <div class="subtitle-1" v-if="viewedOrderSheet.parameters.armySent > 0">
+                    Attaque du Plan
+                    <b>{{getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).name}}</b> avec
+                    <b>{{viewedOrderSheet.parameters.armySent}}</b>&nbsp;
+                    <v-icon small left>fa-fist-raised</v-icon>&nbsp;Armées
+                  </div>
+                  <div class="subtitle-1" v-if="viewedOrderSheet.parameters.populateTarget != ''">
+                    Habiter le Plan
+                    <b>{{getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).name}}</b>
+                  </div>
+                  <div class="subtitle-1" v-if="viewedOrderSheet.parameters.gambleTarget != ''">
+                    Anticipation de la
+                    <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'défaite' : 'victoire'}}</b>
+                    de l'attaque sur le Plan {{getObjectFromID(viewedOrderSheet.parameters.gambleTarget,selectedGameTerritories).name}}
+                  </div>
+                  <div
+                    class="subtitle-1"
+                    v-if="viewedOrderSheet.parameters.foreseeTargets.length > 0"
+                  >
+                    Demande de vue sur les Feuilles d'Ordre du tour {{viewedOrderSheet.turn-1}} des Panthéons :
+                    <ul>
+                      <li
+                        v-for="(target,index) in viewedOrderSheet.parameters.foreseeTargets"
+                        :key="index"
+                      >{{getObjectFromID(target,selectedGamePlayers).pantheon.name}}</li>
+                    </ul>
+                  </div>
+                  <div
+                    class="subtitle-1"
+                    v-if="viewedOrderSheet.parameters.handBonusPlanes.length > 0"
+                  >
+                    Main du Destin sur les Plans suivants :
+                    <ul>
+                      <li
+                        v-for="(bonus,index) in viewedOrderSheet.parameters.handBonusPlanes"
+                        :key="index"
+                      >
+                        {{getObjectFromID(bonus,selectedGameTerritories).name}} (
+                        <b>-1</b>&nbsp;
+                        <v-icon small left>fa-fist-raised</v-icon>Armée)
+                      </li>
+                      <li>
+                        {{getObjectFromID(viewedOrderSheet.parameters.handMalusPlane,selectedGameTerritories).name}} (
+                        <b>+3</b>&nbsp;
+                        <v-icon small left>fa-fist-raised</v-icon>Armées)
+                      </li>
+                    </ul>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue" text @click="closeOrderSheetView()">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -289,6 +570,7 @@ import Game from "../../../model/rotg/Game.model";
 import OrderSheet from "../../../model/rotg/OrderSheet.model";
 import Territory from "../../../model/rotg/Territory.model";
 import Resources from "../../../model/rotg/Resources.model";
+import ResourceOrders from "../../../model/rotg/enums/Orders.enum";
 
 export default Vue.extend({
   components: {
@@ -300,6 +582,27 @@ export default Vue.extend({
     this.loading = true;
     this.fetchGame(this.$route.params.idGame);
     store.commit("setResourcesSpent", new Resources());
+    setInterval(
+      function(context) {
+        var currentLock = context.selectedGame.locked;
+        if (context.permanentRequest) {
+          context.permanentRequest = false;
+          store
+            .dispatch("fetchROTGGame", context.$route.params.idGame)
+            .then((gameTab: any) => {
+              context.permanentRequest = true;
+              var game = gameTab[0];
+              if (game) {
+                if (currentLock && !game.locked) {
+                  context.fetchFateConsequences();
+                }
+              }
+            });
+        }
+      },
+      1000,
+      this
+    );
   },
   computed: {
     userIsInGame: function() {
@@ -328,6 +631,14 @@ export default Vue.extend({
         store.commit("setCurrentPlayer", player);
       }
     },
+    previousPlayer: {
+      get: function() {
+        return store.getters.previousPlayer;
+      },
+      set: function(player: Player) {
+        store.commit("setPreviousPlayer", player);
+      }
+    },
     currentOrderSheet: {
       get: function() {
         return store.getters.currentOrderSheet;
@@ -336,8 +647,16 @@ export default Vue.extend({
         store.commit("setCurrentOrderSheet", sheet);
       }
     },
-    resourcesSpent: function() {
-      return store.getters.resourcesSpent;
+    currentFateConsequence: function() {
+      return store.getters.currentFateConsequence;
+    },
+    resourcesSpent: {
+      get: function() {
+        return store.getters.resourcesSpent;
+      },
+      set: function(resources: Resources) {
+        store.commit("setResourcesSpent", resources);
+      }
     },
     rankings: function() {
       var players = store.getters.selectedGamePlayers;
@@ -347,6 +666,17 @@ export default Vue.extend({
       });
       Object.assign(sortedPlayers, players);
       return players;
+    },
+    gameLocked: function() {
+      return store.getters.selectedGame.locked;
+    },
+    playerSheets: {
+      get: function() {
+        return store.getters.playerSheets;
+      },
+      set: function(sheets: OrderSheet[]) {
+        store.commit("setPlayerSheets", sheets);
+      }
     }
   },
   watch: {},
@@ -380,6 +710,12 @@ export default Vue.extend({
         });
       }
     },
+    PlayNotification: function(url: string) {
+      if (url) {
+        var audio = new Audio(url);
+        audio.play();
+      }
+    },
     openRegisterPlayer: function() {
       this.loading = true;
       store.dispatch("fetchROTGGamePlayers", this.selectedGame._id).then(() => {
@@ -387,6 +723,7 @@ export default Vue.extend({
         this.takenPantheonsNames = this.selectedGamePlayers.map((e: Player) => {
           return e.pantheon.name;
         });
+        this.getRemainingPantheons();
         this.registerGameDialog = true;
       });
     },
@@ -447,21 +784,144 @@ export default Vue.extend({
       }
       return result;
     },
-    manualOverride: function(){
+    closeResolutionDialog: function() {
+      this.resolutionDialog = false;
+      this.fetchGame(this.$route.params.idGame);
+    },
+    fetchFateConsequences: function() {
+      this.resolutionDialog = true;
+      var wrapper = {
+        gameId: this.selectedGame._id,
+        playerId: this.currentPlayer._id
+      };
+      this.loadingFate = true;
+      store.commit("setPreviousPlayer", this.currentPlayer);
+      var promises = [
+        store.dispatch("fetchROTGFateConsequence", wrapper),
+        store.dispatch("fetchROTGGamePlayer", this.currentPlayer._id)
+      ];
+      Promise.all(promises).then(() => {
+        this.loadingFate = false;
+        this.PlayNotification("/ressources/sounds/time-is-now.mp3");
+        Object.assign(this.resourcesSpent, new Resources());
+      });
+    },
+    openOrderSheetView: function(orderSheet: OrderSheet) {
+      Object.assign(this.viewedOrderSheet, orderSheet);
+      this.orderSheetDialog = true;
+    },
+    closeOrderSheetView: function() {
+      Object.assign(this.viewedOrderSheet, new OrderSheet());
+      this.orderSheetDialog = false;
+    },
+    getOrderNameFromNumber: function(order: number) {
+      var result = "";
+      switch (order) {
+        case ResourceOrders.ORI_PROSP:
+          result = "<i class='fa fa-gem'></i>&nbsp;Prospérité";
+          break;
+        case ResourceOrders.ORI_INVEST:
+          result = "<i class='fa fa-gem'></i>&nbsp;Investissement";
+          break;
+        case ResourceOrders.ORI_INVENT:
+          result = "<i class='fa fa-gem'></i>&nbsp;Inventivité";
+          break;
+        case ResourceOrders.ARMY_ATTACK:
+          result = "<i class='fa fa-fist-raised'></i>&nbsp;Attaquer";
+          break;
+        case ResourceOrders.ARMY_STABI:
+          result = "<i class='fa fa-fist-raised'></i>&nbsp;Stabiliser";
+          break;
+        case ResourceOrders.HERO_GODBORN:
+          result = "<i class='fa fa-jedi'></i>&nbsp;Créer un Godborn";
+          break;
+        case ResourceOrders.HERO_EXPLO:
+          result =
+            "<i class='fa fa-jedi'></i>&nbsp;Exploration Risquée";
+          break;
+        case ResourceOrders.HERO_TEAM:
+          result = "<i class='fa fa-jedi'></i>&nbsp;Equipée Héroïque";
+          break;
+        case ResourceOrders.POP_PLAN:
+          result = "<i class='fa fa-user-friends'></i>&nbsp;Habiter";
+          break;
+        case ResourceOrders.POP_INFO:
+          result =
+            "<i class='fa fa-user-friends'></i>&nbsp;Informateurs";
+          break;
+        case ResourceOrders.FATE_CELEB:
+          result = "<i class='fa fa-spider'></i>&nbsp;Célébration";
+          break;
+        case ResourceOrders.FATE_RITUAL:
+          result = "<i class='fa fa-spider'></i>&nbsp;Destinée Epique";
+          break;
+        case ResourceOrders.FATE_GOSSIP:
+          result =
+            "<i class='fa fa-spider'></i>&nbsp;Ragots Cosmiques";
+          break;
+        case ResourceOrders.PROPH_FORESEE:
+          result = "<i class='fa fa-eye'></i>&nbsp;Prophétie";
+          break;
+        case ResourceOrders.PROPH_INFILT:
+          result = "<i class='fa fa-eye'></i>&nbsp;Infiltration";
+          break;
+        case ResourceOrders.PROPH_SPY:
+          result = "<i class='fa fa-eye'></i>&nbsp;Espionner";
+          break;
+        case ResourceOrders.ORI_GAMBLE:
+          result = "<i class='fa fa-gem'></i>&nbsp;Anticipation";
+          break;
+        case ResourceOrders.ORI_OPU:
+          result = "<i class='fa fa-gem'></i>&nbsp;Opulence";
+          break;
+        case ResourceOrders.HAND_FATE:
+          result = "<i class='fa fa-bolt'></i>&nbsp;Main du Destin";
+          break;
+        case ResourceOrders.POP_RECRUIT:
+          result =
+            "<i class='fa fa-user-friends'></i>&nbsp;Recrutement";
+          break;
+      }
+      return result;
+    },
+    getObjectFromID: function(id: string, source: any[]) {
+      var index = source.findIndex((e: any) => e._id == id);
+      if (index > -1) {
+        return source[index];
+      }
+    },
+    fetchOrderSheet(id: string) {
+      this.loading = true;
+      store.dispatch("fetchROTGOrderSheet", id).then((response: OrderSheet) => {
+        if (response) {
+          Object.assign(this.viewedOrderSheet, response);
+          this.loading = false;
+          this.orderSheetDialog = true;
+        }
+      });
+    },
+    manualOverride: function() {
       this.loading = true;
       store.dispatch("manualEnding", this.selectedGame._id).then(() => {
         this.loading = false;
+        this.fetchFateConsequences();
+        Object.assign(this.currentOrderSheet, new OrderSheet());
       });
     }
   },
   data: () => ({
     loading: false,
+    loadingFate: false,
     registeredUsers: new Array<string>(),
     takenPantheonsNames: new Array<string>(),
     registerGameDialog: false,
+    resolutionDialog: false,
     newPlayer: new Player(),
     pantheons: new Array<Pantheon>(),
     tab: 0,
+    permanentRequest: true,
+    viewedOrderSheet: new OrderSheet(),
+    orderSheetDialog: false,
     allPantheonsAvailable: [
       {
         name: "Aesir",

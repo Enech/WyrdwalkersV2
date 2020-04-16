@@ -25,6 +25,7 @@ import Player from '@/model/rotg/Player.model';
 import Territory from '@/model/rotg/Territory.model';
 import OrderSheet from '@/model/rotg/OrderSheet.model';
 import Resources from '@/model/rotg/Resources.model';
+import FateConsequence from '@/model/rotg/FateConsequence.model';
 
 Vue.use(Vuex)
 
@@ -69,9 +70,11 @@ const store = new Vuex.Store({
     selectedGamePlayers: new Array<Player>(),
     selectedGameTerritories: new Array<Territory>(),
     currentPlayer: new Player(),
+    previousPlayer: new Player(),
     currentOrderSheet: new OrderSheet(),
     playerSheets: new Array<OrderSheet>(),
-    resourcesSpent: new Resources()
+    resourcesSpent: new Resources(),
+    currentFateConsequence: new FateConsequence()
   },
   mutations: {
     initialiseStore(state) {
@@ -198,6 +201,9 @@ const store = new Vuex.Store({
     setCurrentPlayer(state, player: Player){
       state.currentPlayer = player;
     },
+    setPreviousPlayer(state, player: Player){
+      state.previousPlayer = player;
+    },
     setCurrentOrderSheet(state, sheet: OrderSheet){
       state.currentOrderSheet = sheet;
     },
@@ -206,6 +212,9 @@ const store = new Vuex.Store({
     },
     setPlayerSheets(state, sheets: OrderSheet[]){
       state.playerSheets = sheets;
+    },
+    setCurrentFateConsequence(state, fate: FateConsequence){
+      state.currentFateConsequence = fate;
     }
   },
   getters: {
@@ -246,9 +255,11 @@ const store = new Vuex.Store({
     selectedGamePlayers: state => state.selectedGamePlayers,
     selectedGameTerritories: state => state.selectedGameTerritories,
     currentPlayer: state => state.currentPlayer,
+    previousPlayer: state => state.previousPlayer,
     currentOrderSheet: state => state.currentOrderSheet,
     playerSheets: state => state.playerSheets,
-    resourcesSpent: state => state.resourcesSpent 
+    resourcesSpent: state => state.resourcesSpent,
+    currentFateConsequence: state => state.currentFateConsequence 
   },
   actions: {
     fetchEvents(context) {
@@ -1247,14 +1258,14 @@ const store = new Vuex.Store({
         return axios.get(`${process.env.VUE_APP_ROTGURL}games/${id}`)
           .then((response: any) => {
             var newError = new ErrorMessage();
-            if (!response.data) {
+            if (!response.data[0]) {
               newError.message = response.data.message;
               newError.type = "red";
               context.commit("setErrorMessage", newError);
             } else {
               context.commit("setSelectedGame", response.data[0]);
             }
-            resolve(response);
+            resolve(response.data);
           });
       });
     },
@@ -1340,6 +1351,22 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGGamePlayer(context, idPlayer: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}players/${idPlayer}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setCurrentPlayer", response.data[0]);
+            }
+            resolve(response.data[0]);
+          });
+      });
+    },
     addROTGPlayer(context, player: Player) {
       return new Promise((resolve) => {
         return axios.post(`${process.env.VUE_APP_ROTGURL}players/`, player)
@@ -1374,6 +1401,20 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGOrderSheet(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}orders/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response) {
+              newError.message = "Unable to fetch the requested sheet";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
     fetchROTGPlayerSheets(context, id: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}orders/player/${id}`)
@@ -1403,6 +1444,22 @@ const store = new Vuex.Store({
               newError.message = "Fiche d'Ordre envoyée";
               newError.type = "green";
               context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
+    fetchROTGFateConsequence(context, wrapper: any) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}games/fatebindings/${wrapper.gameId}/${wrapper.playerId}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response) {
+              newError.message = "Unable to fetch the player's fate consequence";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setCurrentFateConsequence", response.data);
             }
             resolve(response);
           });

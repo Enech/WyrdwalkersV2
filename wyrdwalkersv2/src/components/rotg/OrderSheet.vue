@@ -278,7 +278,7 @@
                     v-if="!orderInList(3)"
                     @click.stop="addOrder(3, sheet.parameters.armySent)"
                     block
-                    :disabled="disableOrder(3) || sheet.parameters.armySent <= 0 || currentPlayer.army < sheet.parameters.armySent"
+                    :disabled="disableOrder(3) || sheet.parameters.armySent <= 0 || currentPlayer.army < sheet.parameters.armySent || sheet.parameters.attackTarget == ''"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(3)">Annuler</v-btn>
                 </v-tab-item>
@@ -681,7 +681,7 @@
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-              <v-icon left>fa-bolt</v-icon>
+            <v-icon left>fa-bolt</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pa-2 title font-weight-thin">
             <span>Parfois le Destin a besoin de se faire un peu forcer la main...</span>
@@ -877,6 +877,7 @@ export default Vue.extend({
     this.godPlanes = this.selectedGameTerritories.filter((t: Territory) => {
       return t.owner != "";
     });
+    Object.assign(this.sheet, this.currentOrderSheet);
     Object.assign(this.localPlayer, this.currentPlayer);
     this.fetchMyOrderSheets();
   },
@@ -941,11 +942,11 @@ export default Vue.extend({
       Object.assign(sortedPlayers, players);
       return players;
     },
-    fateSortedTitanicPlanes: function(){
-        var result = this.titanicPlanes.filter((t: Territory) => {
-            return this.sheet.parameters.handBonusPlanes.indexOf(t._id) < 0;
-        });
-        return result;
+    fateSortedTitanicPlanes: function() {
+      var result = this.titanicPlanes.filter((t: Territory) => {
+        return this.sheet.parameters.handBonusPlanes.indexOf(t._id) < 0;
+      });
+      return result;
     }
   },
   watch: {},
@@ -1033,6 +1034,8 @@ export default Vue.extend({
       this.sendSheetDialog = false;
       this.loadingSend = true;
       this.currentOrderSheet.sent = true;
+      this.currentOrderSheet.timeOfSubmit = this.GetToday().time;
+      this.currentOrderSheet.dateOfSubmit = this.GetToday().date;
       store.dispatch("sendROTGOrderSheet", this.currentOrderSheet).then(() => {
         this.loadingSend = false;
         Object.assign(this.currentOrderSheet, new OrderSheet());
@@ -1059,6 +1062,21 @@ export default Vue.extend({
     },
     saveSheetInStore: function() {
       Object.assign(this.currentOrderSheet, this.sheet);
+    },
+    GetToday: function(){
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        var todayDate = dd + '/' + mm + '/' + yyyy;
+        var hours = Math.floor(today.getTime() / 1000 / 60 / 60);
+        var minutes = Math.floor(today.getTime() / 1000 / 60 - (60 * hours));
+        var todayTime = hours + ":" + minutes;
+
+        return {
+            date: todayDate,
+            time: todayTime
+        };
     }
   },
   data: () => ({
