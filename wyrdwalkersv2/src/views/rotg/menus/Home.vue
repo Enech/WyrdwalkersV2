@@ -23,7 +23,7 @@
             <br />
             <br />
             <div class="text-center mb-3">
-              <v-btn color="indigo lighten-1" class="white--text" href="https://discord.gg/CJf25BB" target="_blank">Rejoindre notre serveur discord</v-btn>
+              <v-btn color="indigo lighten-1" class="white--text" href="https://discord.gg/CJf25BB" target="_blank">Rejoindre le Discord</v-btn>
             </div>
             <div class="text-center">
               <v-btn color="blue" class="white--text" :to="{name: 'gamesROTG'}">Commencer une partie</v-btn>
@@ -38,7 +38,7 @@
             <br />
             <br />
             <div class="text-center">
-              <v-btn block color="blue" class="white--text">Pour les règles détaillées c'est par ici</v-btn>
+              <v-btn block color="blue" class="white--text">Voir les règles du jeu</v-btn>
             </div>
           </v-col>
         </v-row>

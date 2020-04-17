@@ -28,7 +28,6 @@
             :search="search"
             :sort-by="sortBy.toLowerCase()"
             :sort-desc="sortDesc"
-            hide-default-footer
           >
             <template v-slot:header>
               <v-row class="pa-3">
@@ -79,38 +78,6 @@
                     </v-list>
                   </v-card>
                 </v-col>
-              </v-row>
-            </template>
-
-            <template v-slot:footer>
-              <v-row class="mt-2 pa-3" align="center" justify="center">
-                <v-spacer></v-spacer>
-                <span class="grey--text">Items par page</span>
-                <v-menu offset-y>
-                  <template v-slot:activator="{ on }">
-                    <v-btn dark text color="primary" class="ml-2" v-on="on">
-                      {{ itemsPerPage }}
-                      <v-icon>mdi-chevron-down</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item
-                      v-for="(number, index) in itemsPerPageArray"
-                      :key="index"
-                      @click="updateItemsPerPage(number)"
-                    >
-                      <v-list-item-title>{{ number }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-
-                <span class="mr-4 grey--text">Page {{ page }} sur {{ numberOfPages }}</span>
-                <v-btn icon dark color="blue darken-3" class="mr-1" @click="formerPage">
-                  <v-icon>mdi-chevron-left</v-icon>
-                </v-btn>
-                <v-btn icon dark color="blue darken-3" class="ml-1" @click="nextPage">
-                  <v-icon>mdi-chevron-right</v-icon>
-                </v-btn>
               </v-row>
             </template>
           </v-data-iterator>

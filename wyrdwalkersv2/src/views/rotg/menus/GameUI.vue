@@ -11,38 +11,6 @@
       </v-tooltip>
       <v-toolbar-title>{{selectedGame.name}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <div>
-        <div class="subtitle-2" v-if="$vuetify.breakpoint.xs">Tour {{selectedGame.turn}} :</div>
-        <div class="subtitle-2" v-else>Fin du tour {{selectedGame.turn}} dans :</div>
-        <rotg-counter v-if="!gameLocked && !selectedGame.closed" />
-        <div v-else>
-          <v-tooltip bottom v-if="gameLocked && selectedGame.running">
-            <template v-slot:activator="{ on }">
-              <v-btn icon left v-on="on" color="red">
-                <v-icon>fa-lock</v-icon>
-              </v-btn>
-            </template>
-            <span>Tour en cours de calcul</span>
-          </v-tooltip>
-          <v-tooltip bottom v-if="gameLocked && selectedGame.closed && selectedGame.won">
-            <template v-slot:activator="{ on }">
-              <v-btn icon left v-on="on" color="green">
-                <v-icon>fa-handshake</v-icon>
-              </v-btn>
-            </template>
-            <span>Partie remportée par les dieux</span>
-          </v-tooltip>
-          <v-tooltip bottom v-if="gameLocked && selectedGame.closed && !selectedGame.won">
-            <template v-slot:activator="{ on }">
-              <v-btn icon left v-on="on" color="red">
-                <v-icon>fa-skull-crossbones</v-icon>
-              </v-btn>
-            </template>
-            <span>Partie remportée par les Titans</span>
-          </v-tooltip>
-        </div>
-      </div>
-      <v-spacer></v-spacer>
       <v-tooltip bottom v-if="selectedGame.turn > 1">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" @click.stop="resolutionDialog = true;">
@@ -75,6 +43,43 @@
         </template>
         <span>Lancer la partie</span>
       </v-tooltip>
+      <template v-slot:extension>
+        <v-spacer></v-spacer>
+        <div>
+          <div v-if="!gameLocked && !selectedGame.closed && selectedGame.running">
+            <div class="subtitle-2 text-center" v-if="$vuetify.breakpoint.xs">Tour {{selectedGame.turn}} :</div>
+            <div class="subtitle-2 text-center" v-else>Fin du tour {{selectedGame.turn}} dans :</div>
+            <rotg-counter />
+          </div>     
+          <div v-else>
+            <v-tooltip bottom v-if="gameLocked && selectedGame.running">
+              <template v-slot:activator="{ on }">
+                <v-btn icon left v-on="on" color="red">
+                  <v-icon>fa-lock</v-icon>
+                </v-btn>
+              </template>
+              <span>Tour en cours de calcul</span>
+            </v-tooltip>
+            <v-tooltip bottom v-if="gameLocked && selectedGame.closed && selectedGame.won">
+              <template v-slot:activator="{ on }">
+                <v-btn icon left v-on="on" color="green">
+                  <v-icon>fa-handshake</v-icon>
+                </v-btn>
+              </template>
+              <span>Partie remportée par les dieux</span>
+            </v-tooltip>
+            <v-tooltip bottom v-if="gameLocked && selectedGame.closed && !selectedGame.won">
+              <template v-slot:activator="{ on }">
+                <v-btn icon left v-on="on" color="red">
+                  <v-icon>fa-skull-crossbones</v-icon>
+                </v-btn>
+              </template>
+              <span>Partie remportée par les Titans</span>
+            </v-tooltip>
+          </div>
+        </div>
+        <v-spacer></v-spacer>
+      </template>
     </v-toolbar>
     <v-row class="mt-3" v-if="currentPlayer._id != '' && selectedGame.running">
       <v-col cols="4" sm="2">
@@ -270,7 +275,7 @@
               <tbody>
                 <tr v-for="(item,index) in playerSheets" :key="index">
                   <td>Tour {{ item.turn }}</td>
-                  <td>{{ item.dayOfSubmit}} {{item.timeOfSubmit}}</td>
+                  <td>{{item.dateOfSubmit}} à {{item.timeOfSubmit}}</td>
                   <td>
                     <v-icon color="green" v-if="item.processed">fa-check</v-icon>
                     <v-icon color="red" v-else>fa-times</v-icon>
@@ -438,10 +443,18 @@
                         v-if="currentPlayer.sheetsVisible.length == 0"
                       >/</span>
                       <div v-else>
-                        <v-btn color="blue" dark @click="fetchOrderSheet(currentPlayer.sheetsVisible[0])">
+                        <v-btn
+                          color="blue"
+                          dark
+                          @click="fetchOrderSheet(currentPlayer.sheetsVisible[0])"
+                        >
                           <v-icon small left>fa-receipt</v-icon>#1
                         </v-btn>
-                        <v-btn color="blue" dark @click="fetchOrderSheet(currentPlayer.sheetsVisible[1])">
+                        <v-btn
+                          color="blue"
+                          dark
+                          @click="fetchOrderSheet(currentPlayer.sheetsVisible[1])"
+                        >
                           <v-icon small left>fa-receipt</v-icon>#2
                         </v-btn>
                       </div>
@@ -588,7 +601,7 @@ export default Vue.extend({
         if (context.permanentRequest) {
           context.permanentRequest = false;
           store
-            .dispatch("fetchROTGGame", context.$route.params.idGame)
+            .dispatch("fetchROTGGame", context.selectedGame._id)
             .then((gameTab: any) => {
               context.permanentRequest = true;
               var game = gameTab[0];
@@ -802,7 +815,7 @@ export default Vue.extend({
       ];
       Promise.all(promises).then(() => {
         this.loadingFate = false;
-        this.PlayNotification("/ressources/sounds/time-is-now.mp3");
+        this.PlayNotification("/ressources/sounds/solemn.mp3");
         Object.assign(this.resourcesSpent, new Resources());
       });
     },
@@ -836,8 +849,7 @@ export default Vue.extend({
           result = "<i class='fa fa-jedi'></i>&nbsp;Créer un Godborn";
           break;
         case ResourceOrders.HERO_EXPLO:
-          result =
-            "<i class='fa fa-jedi'></i>&nbsp;Exploration Risquée";
+          result = "<i class='fa fa-jedi'></i>&nbsp;Exploration Risquée";
           break;
         case ResourceOrders.HERO_TEAM:
           result = "<i class='fa fa-jedi'></i>&nbsp;Equipée Héroïque";
@@ -846,8 +858,7 @@ export default Vue.extend({
           result = "<i class='fa fa-user-friends'></i>&nbsp;Habiter";
           break;
         case ResourceOrders.POP_INFO:
-          result =
-            "<i class='fa fa-user-friends'></i>&nbsp;Informateurs";
+          result = "<i class='fa fa-user-friends'></i>&nbsp;Informateurs";
           break;
         case ResourceOrders.FATE_CELEB:
           result = "<i class='fa fa-spider'></i>&nbsp;Célébration";
@@ -856,8 +867,7 @@ export default Vue.extend({
           result = "<i class='fa fa-spider'></i>&nbsp;Destinée Epique";
           break;
         case ResourceOrders.FATE_GOSSIP:
-          result =
-            "<i class='fa fa-spider'></i>&nbsp;Ragots Cosmiques";
+          result = "<i class='fa fa-spider'></i>&nbsp;Ragots Cosmiques";
           break;
         case ResourceOrders.PROPH_FORESEE:
           result = "<i class='fa fa-eye'></i>&nbsp;Prophétie";
@@ -878,8 +888,7 @@ export default Vue.extend({
           result = "<i class='fa fa-bolt'></i>&nbsp;Main du Destin";
           break;
         case ResourceOrders.POP_RECRUIT:
-          result =
-            "<i class='fa fa-user-friends'></i>&nbsp;Recrutement";
+          result = "<i class='fa fa-user-friends'></i>&nbsp;Recrutement";
           break;
       }
       return result;
@@ -904,7 +913,6 @@ export default Vue.extend({
       this.loading = true;
       store.dispatch("manualEnding", this.selectedGame._id).then(() => {
         this.loading = false;
-        this.fetchFateConsequences();
         Object.assign(this.currentOrderSheet, new OrderSheet());
       });
     }

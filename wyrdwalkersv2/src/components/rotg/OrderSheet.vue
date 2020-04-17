@@ -1069,9 +1069,9 @@ export default Vue.extend({
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
         var todayDate = dd + '/' + mm + '/' + yyyy;
-        var hours = Math.floor(today.getTime() / 1000 / 60 / 60);
-        var minutes = Math.floor(today.getTime() / 1000 / 60 - (60 * hours));
-        var todayTime = hours + ":" + minutes;
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var todayTime = (hours < 10 ? `0${hours}` : hours) + ":" + (minutes < 10 ? `0${minutes}` : minutes);
 
         return {
             date: todayDate,
