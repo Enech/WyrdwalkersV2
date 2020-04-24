@@ -9,10 +9,14 @@ export default class OrderSheetParameter {
     public foreseeTargets: string[];
     public handBonusPlanes: string[];
     public handMalusPlane: string;
+    public populationSent: number;
+    public gambleSent: number;
 
     constructor() {
         this.attackTarget = "";
         this.armySent = 0;
+        this.populationSent = 0;
+        this.gambleSent = 0;
         this.populateTarget = "";
         this.gambleTarget = "";
         this.gambleDefeat = false;

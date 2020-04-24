@@ -1,7 +1,7 @@
 enum ResourceOrders {
     ORI_PROSP,
     ORI_INVEST,
-    ORI_INVENT,
+    FATE_ALEA,
     ARMY_ATTACK,
     ARMY_STABI,
     HERO_GODBORN,
@@ -18,7 +18,13 @@ enum ResourceOrders {
     PROPH_SPY,
     ORI_GAMBLE,
     ORI_OPU,
-    HAND_FATE
+    HAND_FATE,
+    POP_CIVI,
+    PROPH_ORA,
+    PROPH_AUG,
+    PROPH_FUTUR,
+    PROPH_LEGEND,
+    HERO_APO
 }
 
 export default ResourceOrders;

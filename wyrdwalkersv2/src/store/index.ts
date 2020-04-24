@@ -72,7 +72,7 @@ const store = new Vuex.Store({
     currentPlayer: new Player(),
     previousPlayer: new Player(),
     currentOrderSheet: new OrderSheet(),
-    playerSheets: new Array<OrderSheet>(),
+    gameSheets: new Array<OrderSheet>(),
     resourcesSpent: new Resources(),
     currentFateConsequence: new FateConsequence()
   },
@@ -195,25 +195,25 @@ const store = new Vuex.Store({
     setSelectedGamePlayers(state, players: Player[]) {
       state.selectedGamePlayers = players;
     },
-    setSelectedGameTerritories(state, planes: Territory[]){
+    setSelectedGameTerritories(state, planes: Territory[]) {
       state.selectedGameTerritories = planes;
     },
-    setCurrentPlayer(state, player: Player){
+    setCurrentPlayer(state, player: Player) {
       state.currentPlayer = player;
     },
-    setPreviousPlayer(state, player: Player){
+    setPreviousPlayer(state, player: Player) {
       state.previousPlayer = player;
     },
-    setCurrentOrderSheet(state, sheet: OrderSheet){
+    setCurrentOrderSheet(state, sheet: OrderSheet) {
       state.currentOrderSheet = sheet;
     },
-    setResourcesSpent(state, resources: Resources){
+    setResourcesSpent(state, resources: Resources) {
       state.resourcesSpent = resources;
     },
-    setPlayerSheets(state, sheets: OrderSheet[]){
-      state.playerSheets = sheets;
+    setGameSheets(state, sheets: OrderSheet[]) {
+      state.gameSheets = sheets;
     },
-    setCurrentFateConsequence(state, fate: FateConsequence){
+    setCurrentFateConsequence(state, fate: FateConsequence) {
       state.currentFateConsequence = fate;
     }
   },
@@ -257,9 +257,9 @@ const store = new Vuex.Store({
     currentPlayer: state => state.currentPlayer,
     previousPlayer: state => state.previousPlayer,
     currentOrderSheet: state => state.currentOrderSheet,
-    playerSheets: state => state.playerSheets,
+    gameSheets: state => state.gameSheets,
     resourcesSpent: state => state.resourcesSpent,
-    currentFateConsequence: state => state.currentFateConsequence 
+    currentFateConsequence: state => state.currentFateConsequence
   },
   actions: {
     fetchEvents(context) {
@@ -1321,16 +1321,46 @@ const store = new Vuex.Store({
           });
       });
     },
+    deleteROTGGame(context, game: Game) {
+      return new Promise((resolve) => {
+        return axios.delete(`${process.env.VUE_APP_ROTGURL}games/${game._id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data.every((e: boolean) => e)) {
+              newError.message = "Echec dans la suppression de la partie. Des données liées peuvent encore subsister.";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              newError.message = "Partie supprimée";
+              newError.type = "green";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response);
+          });
+      });
+    },
     launchROTGGame(context, id: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}games/start/${id}`)
           .then((response: any) => {
             var newError = new ErrorMessage();
-            if(response.data){
-              newError.message = "Partie mise à jour";
+            if (response.data) {
+              newError.message = "Partie lancée";
               newError.type = "green";
               context.commit("setErrorMessage", newError);
             }
+            resolve(response.data);
+          });
+      });
+    },
+    fetchROTGGameInformations(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}games/informations/${id}`)
+          .then((response: any) => {
+            store.commit("setSelectedGamePlayers", response.data.players);
+            store.commit("setSelectedGame", response.data.game[0]);
+            store.commit("setSelectedGameTerritories", response.data.planes);
+            store.commit("setGameSheets", response.data.orders);
             resolve(response.data);
           });
       });
@@ -1364,6 +1394,34 @@ const store = new Vuex.Store({
               context.commit("setCurrentPlayer", response.data[0]);
             }
             resolve(response.data[0]);
+          });
+      });
+    },
+    updateROTGGamePlayer(context, player: Player) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_ROTGURL}players/${player._id}`, player)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data[0]);
+          });
+      });
+    },
+    readyROTGGamePlayer(context, player: Player) {
+      return new Promise((resolve) => {
+        return axios.put(`${process.env.VUE_APP_ROTGURL}players/ready/${player._id}`, player)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data);
           });
       });
     },
@@ -1410,22 +1468,6 @@ const store = new Vuex.Store({
               newError.message = "Unable to fetch the requested sheet";
               newError.type = "red";
               context.commit("setErrorMessage", newError);
-            }
-            resolve(response);
-          });
-      });
-    },
-    fetchROTGPlayerSheets(context, id: string) {
-      return new Promise((resolve) => {
-        return axios.get(`${process.env.VUE_APP_ROTGURL}orders/player/${id}`)
-          .then((response: any) => {
-            var newError = new ErrorMessage();
-            if (!response) {
-              newError.message = "Unable to fetch the player's sheets";
-              newError.type = "red";
-              context.commit("setErrorMessage", newError);
-            } else {
-              context.commit("setPlayerSheets", response.data);
             }
             resolve(response);
           });

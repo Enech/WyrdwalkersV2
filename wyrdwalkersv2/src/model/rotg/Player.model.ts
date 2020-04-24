@@ -18,6 +18,7 @@ export default class Player {
     public titanForcesVisible: boolean;
     public sheetsVisible: string[];
     public victoryPoints: number;
+    public turnReady: boolean;
 
     constructor() {
         this._id = "";
@@ -36,5 +37,6 @@ export default class Player {
         this.gameID = "";
         this.victoryPoints = 0;
         this.titanForcesVisible = false;
+        this.turnReady = false;
     }
 }

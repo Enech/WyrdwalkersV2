@@ -9,6 +9,9 @@ export default class Game {
     public locked: boolean;
     public turn: number;
     public won: boolean;
+    public timerMode: boolean;
+    public creatorUser: string;
+    public readyRequired: boolean;
 
     constructor(){
         this._id = "";
@@ -21,5 +24,8 @@ export default class Game {
         this.locked = false;
         this.won = false;
         this.turn = 0;
+        this.timerMode = false;
+        this.creatorUser = "";
+        this.readyRequired = false;
     }
 }

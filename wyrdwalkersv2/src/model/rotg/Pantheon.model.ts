@@ -5,6 +5,7 @@ export default class Pantheon {
     public description: string;
     public descriptionVO: string;
     public objective: number;
+    public picture: string;
 
     constructor() {
         this.name = "";
@@ -13,5 +14,6 @@ export default class Pantheon {
         this.description = "";
         this.descriptionVO = "";
         this.objective = -1;
+        this.picture = "";
     }
 }

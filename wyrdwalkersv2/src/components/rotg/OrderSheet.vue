@@ -1,11 +1,9 @@
 <template>
   <div class="mt-3">
-    <v-alert
-      dark
-      color="blue"
-      icon="mdi-information"
-      v-if="sheetSent"
-    >Votre Feuille d'Ordre a déjà été soumise pour ce tour</v-alert>
+    <v-alert dark color="blue" icon="mdi-information" v-if="sheetSent">
+      Votre&nbsp;
+      <v-icon small left>fa-receipt</v-icon>Feuille d'Ordre a déjà été soumise pour ce tour
+    </v-alert>
     <div v-else>
       <v-row align-content="center" justify="center" v-if="loadingSheets">
         <v-col class="subtitle-1 text-center" cols="12">Récupération des feuilles d'ordres</v-col>
@@ -16,7 +14,7 @@
       <v-expansion-panels hover popout inset dark v-else>
         <v-expansion-panel dark>
           <v-expansion-panel-header>
-            <v-icon left>fa-gem</v-icon>
+            <v-icon left :color="oriOrdered ? 'teal' : 'white'">fa-gem</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pa-1">
             <v-tabs dark v-model="tabOri" show-arrows :vertical="!$vuetify.breakpoint.xs">
@@ -24,9 +22,8 @@
               <v-tab>Opulence</v-tab>
               <v-tab>Investissement</v-tab>
               <v-tab>Anticipation</v-tab>
-              <v-tab>Inventivité</v-tab>
               <v-tabs-items dark v-model="tabOri" :vertical="!$vuetify.breakpoint.xs">
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous faites jouer vos alliances et vos vassaux pour obtenir des moyens</span>
                   <ul class="mb-3">
                     <li>
@@ -37,7 +34,7 @@
                     <li>
                       Gains :
                       <b>1</b>&nbsp;
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée,
+                      <v-icon small>fa-eye</v-icon>&nbsp;Prophète,
                       <b>1</b>&nbsp;
                       <v-icon small>fa-user-friends</v-icon>&nbsp;Population
                     </li>
@@ -52,18 +49,18 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(0)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
-                  <span>Vous ratissez massivement pour approvisionner vos troupes</span>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Vous râtissez massivement pour approvisionner vos troupes</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
-                      <b>5</b>&nbsp;
+                      <b>4</b>&nbsp;
                       <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
                     </li>
                     <li>
                       Gains :
                       <b>3</b>&nbsp;
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée,
+                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes,
                       <b>3</b>&nbsp;
                       <v-icon small>fa-user-friends</v-icon>&nbsp;Population
                     </li>
@@ -72,13 +69,13 @@
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(18)"
-                    @click.stop="addOrder(18,5)"
+                    @click.stop="addOrder(18,4)"
                     block
-                    :disabled="disableOrder(18) || currentPlayer.orichalcum < 5"
+                    :disabled="disableOrder(18) || currentPlayer.orichalcum < 4"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(18)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous investissez dans un plan économique à court terme</span>
                   <ul class="mb-3">
                     <li>
@@ -103,7 +100,7 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(1)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>
                     Vous faites un pari sur la victoire (ou la défaite) d'une attaque déclarée ce tour-ci sur un plan choisi.
                     <br />
@@ -111,46 +108,31 @@
                   </span>
                   <ul class="mb-3">
                     <li>
-                      Parier sur la victoire :
-                      <ul>
-                        <li>
-                          Coût :
-                          <b>1</b>&nbsp;
-                          <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
-                        </li>
-                        <li>
-                          Gains :
-                          <b>2</b>&nbsp;
-                          <v-icon small>fa-gem</v-icon>&nbsp;Orichalque (si l'attaque réussit)
-                          <br />
-                          <b>
-                            <u>OU</u>
-                          </b>&nbsp;
-                          <b>1</b>&nbsp;
-                          <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin (si l'attaque échoue)
-                        </li>
-                      </ul>
+                      Coût :
+                      <div style="width: 60px; display: inline-block">
+                        <v-text-field
+                          type="number"
+                          dense
+                          :readonly="disableOrder(17)"
+                          v-model="sheet.parameters.gambleSent"
+                          :full-width="false"
+                          :error="currentPlayer.orichalcum < sheet.parameters.gambleSent || sheet.parameters.gambleSent < 0"
+                          solo
+                          outlined
+                        ></v-text-field>
+                      </div>&nbsp;&nbsp;
+                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
                     </li>
                     <li>
-                      Parier sur la défaite :
-                      <ul>
-                        <li>
-                          Coût :
-                          <b>1</b>&nbsp;
-                          <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
-                        </li>
-                        <li>
-                          Gains :
-                          <b>3</b>&nbsp;
-                          <v-icon small>fa-gem</v-icon>&nbsp;Orichalque (si l'attaque échoue)
-                          <br />
-                          <b>
-                            <u>OU</u>
-                          </b>&nbsp;
-                          <b>2</b>&nbsp;
-                          <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin (si l'attaque réussit)
-                        </li>
-                      </ul>
+                      Gains :
+                      <b>{{sheet.parameters.gambleSent}}</b>&nbsp;
+                      <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire (si le pari est réussi)
+                      <br />
+                      <b>
+                        <u>OU</u>
+                      </b>&nbsp;
+                      <b>{{sheet.parameters.gambleSent}}</b>&nbsp;
+                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin (si le pari échoue)
                     </li>
                   </ul>
                   <div class="mt-3">
@@ -166,6 +148,7 @@
                       <v-select
                         v-model="sheet.parameters.gambleTarget"
                         :items="titanicPlanes"
+                        :disabled="sheet.parameters.gambleSent <= 0 || currentPlayer.orichalcum < sheet.parameters.gambleSent"
                         item-value="_id"
                         item-text="name"
                         outlined
@@ -177,38 +160,11 @@
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(17)"
-                    @click.stop="addOrder(17,1)"
+                    @click.stop="addOrder(17,sheet.parameters.gambleSent)"
                     block
-                    :disabled="disableOrder(17) || currentPlayer.orichalcum < 1"
+                    :disabled="disableOrder(17) || currentPlayer.orichalcum < sheet.parameters.gambleSent || sheet.parameters.gambleTarget == '' || sheet.parameters.gambleSent <= 0"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(17)">Annuler</v-btn>
-                </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
-                  <span>Vous investissez dans un plan économique à court terme.</span>
-                  <br />
-                  <i>Cette action n'est disponible que si vous figurez parmi les 3 derniers joueurs de la partie en terme de Points de Victoire (le dernier 3 joueurs ou moins).</i>
-                  <ul class="mb-3">
-                    <li>
-                      Coût :
-                      <b>6</b>&nbsp;
-                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
-                    </li>
-                    <li>
-                      Gains :
-                      <b>1D3</b>&nbsp; de chaque ressource (vous perdez
-                      <b>1D3</b>&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin)
-                    </li>
-                  </ul>
-                  <v-btn
-                    color="blue darken-4"
-                    class="white--text"
-                    v-if="!orderInList(2)"
-                    @click="addOrder(2,6)"
-                    block
-                    :disabled="disableOrder(2) || currentPlayer.orichalcum < 6 || playerIsFlop3()"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(2)">Annuler</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -216,14 +172,14 @@
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <v-icon left>fa-fist-raised</v-icon>
+            <v-icon left :color="armyOrdered ? 'teal' : 'white'">fa-fist-raised</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabArmy" show-arrows :vertical="!$vuetify.breakpoint.xs">
               <v-tab>Attaquer</v-tab>
               <v-tab>Stabiliser</v-tab>
               <v-tabs-items dark v-model="tabArmy" :vertical="!$vuetify.breakpoint.xs">
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous déployez vos troupes pour rejoindre le combat et tenter de vous emparer d'un plan contrôlé par les Titans</span>
                   <ul class="mb-3">
                     <li>
@@ -253,20 +209,26 @@
                           solo
                         ></v-select>
                       </div>
+                      <v-btn text color="blue" @click="resourcesDialog = true">
+                        ressources associées aux plans&nbsp;
+                        <v-icon small right>fa-info-circle</v-icon>
+                      </v-btn>
                     </li>
                     <li>
                       Gains : (si réussite de l'attaque)
                       <ul>
                         <li>
-                          <b>3</b>&nbsp;
-                          <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire si vous avez attaqué avec le plus de forces
+                          <b>5</b>&nbsp;
+                          <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire et
+                          <b>2</b>&nbsp;
+                          <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin si vous avez attaqué avec le plus de forces
                         </li>
                         <li>
-                          <b>2</b>&nbsp;
+                          <b>3</b>&nbsp;
                           <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire si vous êtes en deuxième position
                         </li>
                         <li>
-                          <b>1</b>&nbsp;
+                          <b>2</b>&nbsp;
                           <v-icon small>fa-trophy</v-icon>&nbsp;Point de Victoire si vous êtes en troisième position
                         </li>
                       </ul>
@@ -282,7 +244,7 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(3)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous déployez vos troupes pour pacifier les régions du cosmos les plus agitées.</span>
                   <ul class="mb-3">
                     <li>
@@ -312,25 +274,26 @@
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <v-icon left>fa-jedi</v-icon>
+            <v-icon left :color="heroOrdered ? 'teal' : 'white'">fa-jedi</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabHero" show-arrows :vertical="!$vuetify.breakpoint.xs">
               <v-tab>Godborn</v-tab>
               <v-tab>Exploration</v-tab>
               <v-tab>Equipée</v-tab>
+              <v-tab>Apothéose</v-tab>
               <v-tabs-items dark v-model="tabHero" :vertical="!$vuetify.breakpoint.xs">
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>En tant que {{currentPlayer.pantheon.leaderName}}, vous vous mêlez aux mortels pour enfanter un Godborn qui fera une excellente recrue pour votre armée.</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
-                      <b>3</b>&nbsp;
+                      <b>2</b>&nbsp;
                       <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
                     </li>
                     <li>
                       Gains :
-                      <b>3</b>&nbsp;
+                      <b>2</b>&nbsp;
                       <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée
                     </li>
                   </ul>
@@ -338,18 +301,18 @@
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(5)"
-                    @click="addOrder(5,3)"
+                    @click="addOrder(5,2)"
                     block
-                    :disabled="disableOrder(5) || currentPlayer.heroism < 3"
+                    :disabled="disableOrder(5) || currentPlayer.heroism < 2"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(5)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous envoyez une équipe en reconnaissance dans les plans titaniques.</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
-                      <b>4</b>&nbsp;
+                      <b>3</b>&nbsp;
                       <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
                     </li>
                     <li>Gains : Au tour suivant, vous pourrez voir les forces titaniques présentes sur les plans contrôlés par les Titans.</li>
@@ -358,14 +321,14 @@
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(6)"
-                    @click="addOrder(6,4)"
+                    @click="addOrder(6,3)"
                     block
-                    :disabled="disableOrder(6) || currentPlayer.heroism < 4"
+                    :disabled="disableOrder(6) || currentPlayer.heroism < 3"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(6)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
-                  <span>Vous, {{currentPlayer.pantheon.leaderName}}, accompagné(e) de vos alliés les plus téméraires, vous embarquez pour une équipée héroïque dans les terres titaniques pour ramener la gloir à votre Panthéon.</span>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Vous, {{currentPlayer.pantheon.leaderName}}, accompagné(e) de vos alliés les plus téméraires, vous embarquez pour une équipée héroïque dans les terres titaniques pour ramener la gloire à votre Panthéon.</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
@@ -388,21 +351,49 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(7)">Annuler</v-btn>
                 </v-tab-item>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Vous prenez un demi-dieu sous votre aile et faites en sorte qu'il devienne une divinité au sein du {{currentPlayer.pantheon.name}}</span>
+                  <ul class="mb-3">
+                    <li>
+                      Coût :
+                      <b>6</b>&nbsp;
+                      <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                    </li>
+                    <li>
+                      Gains :
+                      <b>1D4</b>&nbsp;
+                      <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire
+                    </li>
+                  </ul>
+                  <v-btn
+                    color="blue darken-4"
+                    class="white--text"
+                    v-if="!orderInList(25)"
+                    @click="addOrder(25,6)"
+                    block
+                    :disabled="disableOrder(25) || currentPlayer.heroism < 6"
+                  >Valider</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(25)">Annuler</v-btn>
+                </v-tab-item>
               </v-tabs-items>
             </v-tabs>
           </v-expansion-panel-content>
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <v-icon left>fa-eye</v-icon>
+            <v-icon left :color="prophOrdered ? 'teal' : 'white'">fa-eye</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabProph" show-arrows :vertical="!$vuetify.breakpoint.xs">
               <v-tab>Espionner</v-tab>
               <v-tab>Infiltration</v-tab>
               <v-tab>Prophétie</v-tab>
+              <v-tab>Oracles</v-tab>
+              <v-tab>Augures</v-tab>
+              <v-tab>Vision</v-tab>
+              <v-tab>Répartition</v-tab>
               <v-tabs-items dark v-model="tabProph" :vertical="!$vuetify.breakpoint.xs">
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous invoquez le pouvoir des Oracles pour être certain(e) que vos alliés ne vous jouent pas des tours en ces temps troublés.</span>
                   <ul class="mb-3">
                     <li>
@@ -411,7 +402,7 @@
                       <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
                     </li>
                     <li>
-                      Gains : Au tour suivant, vous pourrez voir les fiches d'ordre envoyées ce tour-ci de 2 joueurs parmi les suivants :
+                      Gains : Au tour suivant, vous pourrez voir les <v-icon small>fa-receipt</v-icon>&nbsp;Fiches d'Ordre de 2 joueurs, envoyées ce tour-ci :
                       <div style="width: 200px; display: inline-block">
                         <v-select
                           v-model="sheet.parameters.foreseeTargets"
@@ -429,47 +420,47 @@
                     dark
                     color="amber darken-3"
                     icon="mdi-fire"
-                    v-if="sheet.parameters.foreseeTargets.length != 4"
-                  >Veuillez choisir exactement 4 joueurs</v-alert>
+                    v-if="sheet.parameters.foreseeTargets.length != 2"
+                  >Veuillez choisir exactement 2 joueurs</v-alert>
                   <v-btn
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(16)"
                     @click="addOrder(16,2)"
                     block
-                    :disabled="disableOrder(16) || currentPlayer.prophets < 2 || sheet.parameters.foreseeTargets.length != 4"
+                    :disabled="disableOrder(16) || currentPlayer.prophets < 2 || sheet.parameters.foreseeTargets.length != 2"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(16)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Les Augures vous donnent un aperçu de l'avenir proche et vous permettent d'infiltrer des plans contrôlés par les titans avant que ceux-ci ne soient attaqués par les autres panthéons.</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
-                      <b>3</b>&nbsp;
+                      <b>4</b>&nbsp;
                       <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
                     </li>
                     <li>
                       Gains : Tous les plans attaqués à la fin de ce tour voient leurs armées divines augmentées de 1 en votre nom. Ceci ne consomme pas de ressource
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée. Si aucune attaque n'est déclenchée ce tour-ci, votre dépenses sera remboursée.
+                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée. Si aucune attaque n'est déclenchée ce tour-ci, votre dépense sera remboursée.
                     </li>
                   </ul>
                   <v-btn
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(15)"
-                    @click="addOrder(15,3)"
+                    @click="addOrder(15,4)"
                     block
-                    :disabled="disableOrder(15) || currentPlayer.prophets < 3"
+                    :disabled="disableOrder(15) || currentPlayer.prophets < 4"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(15)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
-                  <span>Les Augures vous donnent un aperçu de l'avenir proche et vous permettent d'infiltrer des plans contrôlés par les titans avant que ceux-ci ne soient attaqués par les autres panthéons.</span>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Vos Prophètes plongent leurs regards dans la Toile du Destin pour prédire les déplacements de troupes des Titans.</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
-                      <b>4</b>&nbsp;
+                      <b>3</b>&nbsp;
                       <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
                     </li>
                     <li>Gains : Au prochain tour, vous serez en mesure de voir les forces titaniques présentes sur les Plans contrôlés par les Titans.</li>
@@ -478,11 +469,109 @@
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(14)"
-                    @click="addOrder(14,4)"
+                    @click="addOrder(14,3)"
                     block
-                    :disabled="disableOrder(14) || currentPlayer.prophets < 4"
+                    :disabled="disableOrder(14) || currentPlayer.prophets < 3"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(14)">Annuler</v-btn>
+                </v-tab-item>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Vos prêtres récoltent un peu d'argent auprès de vos fidèles.</span>
+                  <ul class="mb-3">
+                    <li>
+                      Coût :
+                      <b>2</b>&nbsp;
+                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                    </li>
+                    <li>
+                      Gains :
+                      <b>2</b>&nbsp;
+                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                    </li>
+                  </ul>
+                  <v-btn
+                    color="blue darken-4"
+                    class="white--text"
+                    v-if="!orderInList(21)"
+                    @click="addOrder(21,2)"
+                    block
+                    :disabled="disableOrder(21) || currentPlayer.prophets < 2"
+                  >Valider</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(21)">Annuler</v-btn>
+                </v-tab-item>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Grâce à vos devins vos armées parviennent à rester plus en sécurité lorsqu'elles se déplacent. La plupart du temps en tout cas...</span>
+                  <ul class="mb-3">
+                    <li>
+                      Coût :
+                      <b>1</b>&nbsp;
+                      <v-icon small>fa-eye</v-icon>&nbsp;Prophète
+                    </li>
+                    <li>
+                      Gains :
+                      <b>1D3 - 1</b>&nbsp;
+                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armées
+                    </li>
+                  </ul>
+                  <v-btn
+                    color="blue darken-4"
+                    class="white--text"
+                    v-if="!orderInList(22)"
+                    @click="addOrder(22,1)"
+                    block
+                    :disabled="disableOrder(22) || currentPlayer.prophets < 1"
+                  >Valider</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(22)">Annuler</v-btn>
+                </v-tab-item>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Vos oracles et autres mediums cherchent à tout prix à vous éviter les retours du Destin. Mais celui-ci est mystérieux et la situation peut parfois déraper.</span>
+                  <ul class="mb-3">
+                    <li>
+                      Coût :
+                      <b>1</b>&nbsp;
+                      <v-icon small>fa-eye</v-icon>&nbsp;Prophète
+                    </li>
+                    <li>
+                      Gains : Une chance sur deux de gagner ou de perdre
+                      <b>1</b>&nbsp;
+                      <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                    </li>
+                  </ul>
+                  <v-btn
+                    color="blue darken-4"
+                    class="white--text"
+                    v-if="!orderInList(23)"
+                    @click="addOrder(23,1)"
+                    block
+                    :disabled="disableOrder(23) || currentPlayer.prophets < 1"
+                  >Valider</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(23)">Annuler</v-btn>
+                </v-tab-item>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Les arcanes du Destin peuvent s'avérer dangereuses si elles ne sont pas maitrisées. Vos prêtres partagent un peu de vos Liens du Destin avec vos fidèles pour vous éviter des conséquences désastreuses.</span>
+                  <ul class="mb-3">
+                    <li>
+                      Coût :
+                      <b>4</b>&nbsp;
+                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                    </li>
+                    <li>
+                      Gains : Vous gagnez
+                      <b>2</b>&nbsp;
+                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population et vous perdez
+                      <b>1</b>&nbsp;
+                      <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                    </li>
+                  </ul>
+                  <v-btn
+                    color="blue darken-4"
+                    class="white--text"
+                    v-if="!orderInList(24)"
+                    @click="addOrder(24,4)"
+                    block
+                    :disabled="disableOrder(24) || currentPlayer.prophets < 4"
+                  >Valider</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(24)">Annuler</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -490,21 +579,33 @@
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <v-icon left>fa-user-friends</v-icon>
+            <v-icon left :color="popOrdered ? 'teal' : 'white'">fa-user-friends</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabPop" show-arrows :vertical="!$vuetify.breakpoint.xs">
               <v-tab>Habiter</v-tab>
               <v-tab>Recrutement</v-tab>
               <v-tab>Informateurs</v-tab>
+              <v-tab>Civilisation</v-tab>
               <v-tabs-items dark v-model="tabPop" :vertical="!$vuetify.breakpoint.xs">
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous déplacez vos populations sur les plans contrôlés par vous et vos alliés</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
-                      <b>3</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                      <div style="width: 60px; display: inline-block">
+                        <v-text-field
+                          type="number"
+                          dense
+                          :readonly="disableOrder(8)"
+                          v-model="sheet.parameters.populationSent"
+                          :full-width="false"
+                          :error="currentPlayer.population < sheet.parameters.populationSent || sheet.parameters.populationSent < 0"
+                          solo
+                          outlined
+                        ></v-text-field>
+                      </div>&nbsp;
+                      <v-icon small>fa-user-friends</v-icon>&nbsp;Populations
                     </li>
                     <li>
                       Gains :
@@ -514,7 +615,7 @@
                           <div style="width: 200px; display: inline-block">
                             <v-select
                               v-model="sheet.parameters.populateTarget"
-                              :disabled="disableOrder(8) || currentPlayer.population < 3"
+                              :disabled="disableOrder(8) || sheet.parameters.populationSent <= 0"
                               :items="godPlanes"
                               item-value="_id"
                               item-text="name"
@@ -522,7 +623,7 @@
                               solo
                             ></v-select>
                           </div>&nbsp;gagne
-                          <b>2</b> de la
+                          <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.populationSent)/2)}}</b> de la
                           <v-btn text color="blue" @click="resourcesDialog = true">
                             ressource associée au plan&nbsp;
                             <v-icon small right>fa-info-circle</v-icon>
@@ -530,7 +631,7 @@
                         </li>
                         <li>
                           Vous gagnez
-                          <b>3</b> de cette même ressource
+                          <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : parseInt(sheet.parameters.populationSent)}}</b> de cette même ressource
                         </li>
                       </ul>
                     </li>
@@ -539,13 +640,13 @@
                     color="blue darken-4"
                     class="white--text"
                     v-if="!orderInList(8)"
-                    @click="addOrder(8,3)"
+                    @click="addOrder(8,sheet.parameters.populationSent)"
                     block
-                    :disabled="disableOrder(8) || currentPlayer.population < 3"
+                    :disabled="disableOrder(8) || currentPlayer.population < sheet.parameters.populationSent || sheet.parameters.populationSent <= 0 || isNaN(sheet.parameters.populationSent)"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(8)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous vantez les mérites de la guerre contre les Titans à vos populations pour recruter des troupes.</span>
                   <ul class="mb-3">
                     <li>
@@ -570,8 +671,32 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(9)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Des agents dormants infiltrés dans les populations du cosmos vous envoient les dernières informations sur la guerre.</span>
+                  <ul class="mb-3">
+                    <li>
+                      Coût :
+                      <b>2</b>&nbsp;
+                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                    </li>
+                    <li>
+                      Gains :
+                      <b>1D4</b>&nbsp;
+                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                    </li>
+                  </ul>
+                  <v-btn
+                    color="blue darken-4"
+                    class="white--text"
+                    v-if="!orderInList(10)"
+                    @click.stop="addOrder(10,2)"
+                    block
+                    :disabled="disableOrder(10) || currentPlayer.population < 2"
+                  >Valider</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(10)">Annuler</v-btn>
+                </v-tab-item>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>Vous menez votre population vers la grandeur en la guidant sur le chemin de la civilisation.</span>
                   <ul class="mb-3">
                     <li>
                       Coût :
@@ -580,19 +705,21 @@
                     </li>
                     <li>
                       Gains :
-                      <b>3</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <b>2D3</b>&nbsp;
+                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population et
+                      <b>3</b>
+                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armées
                     </li>
                   </ul>
                   <v-btn
                     color="blue darken-4"
                     class="white--text"
-                    v-if="!orderInList(10)"
-                    @click.stop="addOrder(10,4)"
+                    v-if="!orderInList(20)"
+                    @click.stop="addOrder(20,4)"
                     block
-                    :disabled="disableOrder(10) || currentPlayer.population < 4"
+                    :disabled="disableOrder(20) || currentPlayer.population < 4"
                   >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(10)">Annuler</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(20)">Annuler</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -600,15 +727,16 @@
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <v-icon left>fa-spider</v-icon>
+            <v-icon left :color="fateOrdered ? 'teal' : 'white'">fa-spider</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabFate" show-arrows :vertical="!$vuetify.breakpoint.xs">
               <v-tab>Célébration</v-tab>
               <v-tab>Destinée</v-tab>
               <v-tab>Ragots</v-tab>
+              <v-tab>Alea</v-tab>
               <v-tabs-items dark v-model="tabFate" :vertical="!$vuetify.breakpoint.xs">
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Alors que vous vous investissez de plus en plus dans cette guerre, vous organisez une célébration au sein du {{currentPlayer.pantheon.name}}, votre panthéon, pour oublier un peu cette période troublée l'espace d'un instant. Un mariage, une alliance politique, une naissance...vous prenez du recul par rapport au Destin...ou pas !</span>
                   <ul class="mb-3">
                     <li>Coût : Aucun</li>
@@ -629,7 +757,7 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(11)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Vous êtes {{currentPlayer.pantheon.leaderName}}, leader du mythique {{currentPlayer.pantheon.name}}. La Légende accumulée lors de cette guerre vous couvre de gloire...et vous met en valeur auprès du Destin.</span>
                   <ul class="mb-3">
                     <li>
@@ -652,7 +780,7 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(12)">Annuler</v-btn>
                 </v-tab-item>
-                <v-tab-item class="pa-2 title font-weight-thin">
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
                   <span>Les murmures se propagent à travers la Légende et recèlent moultes informations pour qui sait tendre l'oreille vers le Destin.</span>
                   <ul class="mb-3">
                     <li>
@@ -675,15 +803,47 @@
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(13)">Annuler</v-btn>
                 </v-tab-item>
+                <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
+                  <span>
+                    Acculé(e), il vous reste toujours l'option de franchir le Rubicon.
+                    <br />
+                    <i>
+                      Cet ordre n'est disponible que si vous faites partie des 3 derniers joueurs en nombre de &nbsp;
+                      <v-icon small>fa-trophy</v-icon>Points de Victoire
+                    </i>
+                  </span>
+                  <ul class="mb-3">
+                    <li>
+                      Coût : Vous gagnez 4&nbsp;
+                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin
+                    </li>
+                    <li>
+                      Gains :
+                      <b>2D3</b>&nbsp; de chaque autre ressource
+                    </li>
+                  </ul>
+                  <v-btn
+                    color="blue darken-4"
+                    class="white--text"
+                    v-if="!orderInList(2)"
+                    @click.stop="addOrder(2,4)"
+                    block
+                    :disabled="disableOrder(2)"
+                  >Valider</v-btn>
+                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(2)">Annuler</v-btn>
+                </v-tab-item>
               </v-tabs-items>
             </v-tabs>
           </v-expansion-panel-content>
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <v-icon left>fa-bolt</v-icon>
+            <v-icon
+              left
+              :color="sheet.ordersSent.indexOf(19) > -1 ? 'teal' : 'white'"
+            >fa-bolt</v-icon>
           </v-expansion-panel-header>
-          <v-expansion-panel-content class="pa-2 title font-weight-thin">
+          <v-expansion-panel-content class="pa-2 subtitle-1 font-weight-thin">
             <span>Parfois le Destin a besoin de se faire un peu forcer la main...</span>
             <br />
             <span>
@@ -751,12 +911,12 @@
             :loading="loadingSend"
             :disabled="sheet.ordersSent.length == 0"
           >
-            <v-icon left small>fa-paper-plane</v-icon>Envoyer ma fiche d'ordre
+            <v-icon left small>fa-paper-plane</v-icon>Envoyer ma feuille d'ordre
           </v-btn>
         </v-col>
       </v-row>
     </div>
-    <v-dialog v-model="resourcesDialog" persistent max-width="500">
+    <v-dialog v-model="resourcesDialog" max-width="500">
       <v-card>
         <v-card-title class="blue darken-4 white--text">Ressources associées aux Plans Cosmiques</v-card-title>
         <v-card-text>
@@ -877,9 +1037,11 @@ export default Vue.extend({
     this.godPlanes = this.selectedGameTerritories.filter((t: Territory) => {
       return t.owner != "";
     });
-    Object.assign(this.sheet, this.currentOrderSheet);
+    this.sheet.parameters.playerID = this.currentPlayer._id;
+    this.sheet.parameters.playerName = this.currentPlayer.user.name;
+    this.sheet.gameID = this.selectedGame._id;
+    this.sheet.turn = this.selectedGame.turn;
     Object.assign(this.localPlayer, this.currentPlayer);
-    this.fetchMyOrderSheets();
   },
   computed: {
     currentPlayer: {
@@ -917,18 +1079,21 @@ export default Vue.extend({
     },
     playerSheets: {
       get: function() {
-        return store.getters.playerSheets;
-      },
-      set: function(sheets: OrderSheet[]) {
-        store.commit("setPlayerSheets", sheets);
+        var gameSheets = store.getters.gameSheets;
+        return gameSheets.filter(
+          (sheet: OrderSheet) =>
+            sheet.parameters.playerID == store.getters.currentPlayer._id
+        );
       }
     },
     sheetSent: function() {
       var sheets = new Array<OrderSheet>();
       var gameTurn = store.getters.selectedGame.turn;
-      Object.assign(sheets, store.getters.playerSheets);
+      Object.assign(sheets, store.getters.gameSheets);
       var indexOfTurnSheet = sheets.findIndex(
-        (sheet: OrderSheet) => sheet.turn == gameTurn
+        (sheet: OrderSheet) =>
+          sheet.turn == gameTurn &&
+          sheet.parameters.playerID == store.getters.currentPlayer._id
       );
 
       return indexOfTurnSheet > -1;
@@ -947,55 +1112,75 @@ export default Vue.extend({
         return this.sheet.parameters.handBonusPlanes.indexOf(t._id) < 0;
       });
       return result;
+    },
+    oriOrdered: function() {
+      return this.ordersOri.some(
+        (r: number) =>
+          this.sheet.ordersSent.indexOf(r) >= 0
+      );
+    },
+    heroOrdered: function() {
+      return this.ordersHero.some(
+        (r: number) =>
+          this.sheet.ordersSent.indexOf(r) >= 0
+      );
+    },
+    armyOrdered: function() {
+      return this.ordersArmy.some(
+        (r: number) =>
+          this.sheet.ordersSent.indexOf(r) >= 0
+      );
+    },
+    popOrdered: function() {
+      return this.ordersPop.some(
+        (r: number) =>
+          this.sheet.ordersSent.indexOf(r) >= 0
+      );
+    },
+    prophOrdered: function() {
+      return this.ordersProph.some(
+        (r: number) =>
+          this.sheet.ordersSent.indexOf(r) >= 0
+      );
+    },
+    fateOrdered: function() {
+      return this.ordersFate.some(
+        (r: number) =>
+          this.sheet.ordersSent.indexOf(r) >= 0
+      );
     }
   },
-  watch: {},
-  methods: {
-    addOrderToList(num: number) {
-      if (this.currentOrderSheet.ordersSent.length < 6) {
-        this.currentOrderSheet.ordersSent.push(num);
+  watch: {
+    "selectedGame.turn": function(newTurn: number, oldTurn: number) {
+      if (newTurn > oldTurn) {
+        this.sheet.turn = newTurn;
+        this.sheet.parameters.playerID = this.currentPlayer._id;
+        this.sheet.parameters.playerName = this.currentPlayer.user.name;
+        this.sheet.gameID = this.selectedGame._id;
       }
-    },
+    }
+  },
+  methods: {
     orderInList: function(order: number) {
-      return this.currentOrderSheet.ordersSent.indexOf(order) > -1;
+      return this.sheet.ordersSent.indexOf(order) > -1;
     },
     disableOrder: function(order: number) {
-      var oriOrdered = this.ordersOri.some(
-        (r: number) => this.currentOrderSheet.ordersSent.indexOf(r) >= 0
-      );
-      var heroOrdered = this.ordersHero.some(
-        (r: number) => this.currentOrderSheet.ordersSent.indexOf(r) >= 0
-      );
-      var armyOrdered = this.ordersArmy.some(
-        (r: number) => this.currentOrderSheet.ordersSent.indexOf(r) >= 0
-      );
-      var popOrdered = this.ordersPop.some(
-        (r: number) => this.currentOrderSheet.ordersSent.indexOf(r) >= 0
-      );
-      var prophOrdered = this.ordersProph.some(
-        (r: number) => this.currentOrderSheet.ordersSent.indexOf(r) >= 0
-      );
-      var fateOrdered = this.ordersFate.some(
-        (r: number) => this.currentOrderSheet.ordersSent.indexOf(r) >= 0
-      );
-
       if (this.ordersOri.indexOf(order) > -1) {
-        return oriOrdered;
+        return this.oriOrdered;
       } else if (this.ordersArmy.indexOf(order) > -1) {
-        return armyOrdered;
+        return this.armyOrdered;
       } else if (this.ordersFate.indexOf(order) > -1) {
-        return fateOrdered;
+        return this.fateOrdered;
       } else if (this.ordersHero.indexOf(order) > -1) {
-        return heroOrdered;
+        return this.heroOrdered;
       } else if (this.ordersPop.indexOf(order) > -1) {
-        return popOrdered;
+        return this.popOrdered;
       } else if (this.ordersProph.indexOf(order) > -1) {
-        return prophOrdered;
+        return this.prophOrdered;
       }
     },
     addOrder: function(order: number, resources: number) {
       this.sheet.ordersSent.push(order);
-      Object.assign(this.currentOrderSheet, this.sheet);
 
       if (this.ordersOri.indexOf(order) > -1) {
         this.resourcesSpent.orichalcum = resources;
@@ -1012,9 +1197,7 @@ export default Vue.extend({
       }
     },
     removeOrder: function(order: number) {
-      Object.assign(this.sheet, this.currentOrderSheet);
       this.sheet.ordersSent.splice(this.sheet.ordersSent.indexOf(order), 1);
-      Object.assign(this.currentOrderSheet, this.sheet);
 
       if (this.ordersOri.indexOf(order) > -1) {
         this.resourcesSpent.orichalcum = 0;
@@ -1033,22 +1216,17 @@ export default Vue.extend({
     sendOrderSheet: function() {
       this.sendSheetDialog = false;
       this.loadingSend = true;
-      this.currentOrderSheet.sent = true;
-      this.currentOrderSheet.timeOfSubmit = this.GetToday().time;
-      this.currentOrderSheet.dateOfSubmit = this.GetToday().date;
-      store.dispatch("sendROTGOrderSheet", this.currentOrderSheet).then(() => {
+      this.sheet.parameters.playerID = this.currentPlayer._id;
+      this.sheet.parameters.playerName = this.currentPlayer.user.name;
+      this.sheet.gameID = this.selectedGame._id;
+      this.sheet.turn = this.selectedGame.turn;
+      this.sheet.sent = true;
+      this.sheet.timeOfSubmit = this.GetToday().time;
+      this.sheet.dayOfSubmit = this.GetToday().date;
+      store.commit("setPreviousPlayer", this.currentPlayer);
+      store.dispatch("sendROTGOrderSheet", this.sheet).then(() => {
         this.loadingSend = false;
-        Object.assign(this.currentOrderSheet, new OrderSheet());
-        this.fetchMyOrderSheets();
       });
-    },
-    fetchMyOrderSheets: function() {
-      this.loadingSheets = true;
-      store
-        .dispatch("fetchROTGPlayerSheets", this.currentPlayer._id)
-        .then(() => {
-          this.loadingSheets = false;
-        });
     },
     playerIsFlop3: function() {
       var nbPlayers = this.selectedGamePlayers.length;
@@ -1060,23 +1238,23 @@ export default Vue.extend({
         ? indexOfPlayer > indexFlop
         : indexOfPlayer >= indexFlop;
     },
-    saveSheetInStore: function() {
-      Object.assign(this.currentOrderSheet, this.sheet);
-    },
-    GetToday: function(){
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
-        var todayDate = dd + '/' + mm + '/' + yyyy;
-        var hours = today.getHours();
-        var minutes = today.getMinutes();
-        var todayTime = (hours < 10 ? `0${hours}` : hours) + ":" + (minutes < 10 ? `0${minutes}` : minutes);
+    GetToday: function() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, "0");
+      var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var yyyy = today.getFullYear();
+      var todayDate = dd + "/" + mm + "/" + yyyy;
+      var hours = today.getHours();
+      var minutes = today.getMinutes();
+      var todayTime =
+        (hours < 10 ? `0${hours}` : hours) +
+        ":" +
+        (minutes < 10 ? `0${minutes}` : minutes);
 
-        return {
-            date: todayDate,
-            time: todayTime
-        };
+      return {
+        date: todayDate,
+        time: todayTime
+      };
     }
   },
   data: () => ({
@@ -1100,8 +1278,7 @@ export default Vue.extend({
       OrdersEnum.ORI_PROSP,
       OrdersEnum.ORI_INVEST,
       OrdersEnum.ORI_GAMBLE,
-      OrdersEnum.ORI_OPU,
-      OrdersEnum.ORI_INVENT
+      OrdersEnum.ORI_OPU
     ],
     ordersArmy: [OrdersEnum.ARMY_ATTACK, OrdersEnum.ARMY_STABI],
     ordersHero: [
@@ -1112,17 +1289,23 @@ export default Vue.extend({
     ordersPop: [
       OrdersEnum.POP_INFO,
       OrdersEnum.POP_PLAN,
-      OrdersEnum.POP_RECRUIT
+      OrdersEnum.POP_RECRUIT,
+      OrdersEnum.POP_CIVI
     ],
     ordersProph: [
       OrdersEnum.PROPH_FORESEE,
       OrdersEnum.PROPH_INFILT,
-      OrdersEnum.PROPH_SPY
+      OrdersEnum.PROPH_SPY,
+      OrdersEnum.PROPH_ORA,
+      OrdersEnum.PROPH_AUG,
+      OrdersEnum.PROPH_FUTUR,
+      OrdersEnum.PROPH_LEGEND
     ],
     ordersFate: [
       OrdersEnum.FATE_CELEB,
       OrdersEnum.FATE_RITUAL,
-      OrdersEnum.FATE_GOSSIP
+      OrdersEnum.FATE_GOSSIP,
+      OrdersEnum.FATE_ALEA
     ]
   })
 });

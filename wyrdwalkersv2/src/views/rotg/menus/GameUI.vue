@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3" style="position:relative;">
-    <v-toolbar class="pl-3">
+    <v-toolbar class="pl-3" tile>
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn icon left v-on="on" href="/rotg/games">
@@ -9,7 +9,27 @@
         </template>
         <span>Revenir aux parties</span>
       </v-tooltip>
-      <v-toolbar-title>{{selectedGame.name}}</v-toolbar-title>
+      <v-toolbar-title>
+        {{selectedGame.name}}
+        <span v-if="selectedGame.turn > 0">(T{{selectedGame.turn}})</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-tooltip bottom v-if="selectedGame.won && selectedGame.closed">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on" color="green">
+            <v-icon>fa-handshake</v-icon>
+          </v-btn>
+        </template>
+        <span>Partie gagnée par les dieux</span>
+      </v-tooltip>
+      <v-tooltip bottom v-if="!selectedGame.won && selectedGame.closed">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on" color="red">
+            <v-icon>fa-skull-crossbones</v-icon>
+          </v-btn>
+        </template>
+        <span>Partie gagnée par les Titans</span>
+      </v-tooltip>
       <v-spacer></v-spacer>
       <v-tooltip bottom v-if="selectedGame.turn > 1">
         <template v-slot:activator="{ on }">
@@ -19,13 +39,24 @@
         </template>
         <span>Afficher la résolution du tour précédent</span>
       </v-tooltip>
-      <v-tooltip bottom v-if="selectedGame.running">
+      <v-tooltip bottom v-if="playerIsCreator && selectedGame.running && !selectedGame.timerMode">
         <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on" @click.stop="manualOverride()">
+          <v-btn icon v-on="on" @click.stop="openReadyToEndDialog()" :loading="loadingButton">
             <v-icon>alarm_on</v-icon>
           </v-btn>
         </template>
         <span>Finir le tour</span>
+      </v-tooltip>
+      <v-tooltip bottom v-if="selectedGame.running && selectedGame.timerMode">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on" class="blob">
+            <v-icon>fa-stopwatch</v-icon>
+          </v-btn>
+        </template>
+        <div>
+          <div class="subtitle-2 text-center">Fin du tour {{selectedGame.turn}} dans :</div>
+          <rotg-counter />
+        </div>
       </v-tooltip>
       <v-tooltip bottom v-if="registerAvailable()">
         <template v-slot:activator="{ on }">
@@ -35,52 +66,28 @@
         </template>
         <span>Rejoindre la partie</span>
       </v-tooltip>
-      <v-tooltip bottom v-if="userIsInGame && !selectedGame.running && !selectedGame.closed">
+      <v-tooltip
+        bottom
+        v-if="playerIsCreator && userIsInGame && !selectedGame.running && !selectedGame.closed"
+      >
         <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on" @click.stop="launchGame()">
+          <v-btn icon v-on="on" @click.stop="openReadyToEndDialog()" :loading="loadingButton">
             <v-icon>play_arrow</v-icon>
           </v-btn>
         </template>
         <span>Lancer la partie</span>
       </v-tooltip>
-      <template v-slot:extension>
-        <v-spacer></v-spacer>
-        <div>
-          <div v-if="!gameLocked && !selectedGame.closed && selectedGame.running">
-            <div class="subtitle-2 text-center" v-if="$vuetify.breakpoint.xs">Tour {{selectedGame.turn}} :</div>
-            <div class="subtitle-2 text-center" v-else>Fin du tour {{selectedGame.turn}} dans :</div>
-            <rotg-counter />
-          </div>     
-          <div v-else>
-            <v-tooltip bottom v-if="gameLocked && selectedGame.running">
-              <template v-slot:activator="{ on }">
-                <v-btn icon left v-on="on" color="red">
-                  <v-icon>fa-lock</v-icon>
-                </v-btn>
-              </template>
-              <span>Tour en cours de calcul</span>
-            </v-tooltip>
-            <v-tooltip bottom v-if="gameLocked && selectedGame.closed && selectedGame.won">
-              <template v-slot:activator="{ on }">
-                <v-btn icon left v-on="on" color="green">
-                  <v-icon>fa-handshake</v-icon>
-                </v-btn>
-              </template>
-              <span>Partie remportée par les dieux</span>
-            </v-tooltip>
-            <v-tooltip bottom v-if="gameLocked && selectedGame.closed && !selectedGame.won">
-              <template v-slot:activator="{ on }">
-                <v-btn icon left v-on="on" color="red">
-                  <v-icon>fa-skull-crossbones</v-icon>
-                </v-btn>
-              </template>
-              <span>Partie remportée par les Titans</span>
-            </v-tooltip>
-          </div>
-        </div>
-        <v-spacer></v-spacer>
-      </template>
     </v-toolbar>
+    <v-img
+      :height="100"
+      src="/ressources/rotg/galaxy-min.gif"
+      class="text-center align-center mt-3 pa-3"
+      v-if="currentPlayer.pantheon.name != ''"
+    >
+      <div
+        class="headline pa-3 bg-transparent-black white--text"
+      >Bienvenue, ô {{currentPlayer.pantheon.leaderName}} !</div>
+    </v-img>
     <v-row class="mt-3" v-if="currentPlayer._id != '' && selectedGame.running">
       <v-col cols="4" sm="2">
         <v-tooltip bottom>
@@ -93,8 +100,10 @@
                 <span
                   class="subtitle-1"
                   v-if="resourcesSpent.orichalcum > 0"
-                >(-{{resourcesSpent.orichalcum}})</span>
+                >({{displayRhesus(-1 * resourcesSpent.orichalcum)}})</span>
               </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text class="pa-1 text-right">+2 / tour</v-card-text>
             </v-card>
           </template>
           <span>Orichalque</span>
@@ -108,8 +117,13 @@
                 <v-icon left>fa-fist-raised</v-icon>
                 <v-spacer></v-spacer>
                 <span class="subtitle-1">{{currentPlayer.army}}</span>
-                <span class="subtitle-1" v-if="resourcesSpent.army > 0">(-{{resourcesSpent.army}})</span>
+                <span
+                  class="subtitle-1"
+                  v-if="resourcesSpent.army > 0"
+                >({{displayRhesus(-1 * resourcesSpent.army)}})</span>
               </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text class="pa-1 text-right">+0 / tour</v-card-text>
             </v-card>
           </template>
           <span>Armée</span>
@@ -126,8 +140,10 @@
                 <span
                   class="subtitle-1"
                   v-if="resourcesSpent.heroism > 0"
-                >(-{{resourcesSpent.heroism}})</span>
+                >({{displayRhesus(-1 * resourcesSpent.heroism) }})</span>
               </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text class="pa-1 text-right">+1 / tour</v-card-text>
             </v-card>
           </template>
           <span>Héroïsme</span>
@@ -144,8 +160,10 @@
                 <span
                   class="subtitle-1"
                   v-if="resourcesSpent.prophets > 0"
-                >(-{{resourcesSpent.prophets}})</span>
+                >({{displayRhesus(-1 * resourcesSpent.prophets)}})</span>
               </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text class="pa-1 text-right">+2 / tour</v-card-text>
             </v-card>
           </template>
           <span>Prophètes</span>
@@ -162,8 +180,10 @@
                 <span
                   class="subtitle-1"
                   v-if="resourcesSpent.population > 0"
-                >(-{{resourcesSpent.population}})</span>
+                >({{displayRhesus(-1 * resourcesSpent.population)}})</span>
               </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text class="pa-1 text-right">+2 / tour</v-card-text>
             </v-card>
           </template>
           <span>Population</span>
@@ -180,8 +200,10 @@
                 <span
                   class="subtitle-1"
                   v-if="resourcesSpent.fatebindings > 0"
-                >(+{{resourcesSpent.fatebindings}})</span>
+                >({{displayRhesus(resourcesSpent.fatebindings)}})</span>
               </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text class="pa-1 text-right">+0 / tour</v-card-text>
             </v-card>
           </template>
           <span>Liens du Destin</span>
@@ -190,9 +212,16 @@
     </v-row>
     <v-card class="mt-3 pa-3">
       <v-tabs v-model="tab" show-arrows grow>
-        <v-tab>Vue générale</v-tab>
-        <v-tab v-if="userIsInGame && selectedGame.running">Feuille d'ordre</v-tab>
-        <v-tab v-if="userIsInGame && selectedGame.running">Archives</v-tab>
+        <v-tab>
+          <v-icon left>fa-chess-bishop</v-icon>Vue générale
+        </v-tab>
+        <v-tab v-if="userIsInGame && selectedGame.running">
+          <v-icon left>fa-receipt</v-icon>Feuille d'ordre
+          <span v-if="currentOrderSheet.turn > 0">(T{{currentOrderSheet.turn}})</span>
+        </v-tab>
+        <v-tab v-if="userIsInGame && selectedGame.running">
+          <v-icon left>fa-archive</v-icon>Archives
+        </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item>
@@ -275,7 +304,7 @@
               <tbody>
                 <tr v-for="(item,index) in playerSheets" :key="index">
                   <td>Tour {{ item.turn }}</td>
-                  <td>{{item.dateOfSubmit}} à {{item.timeOfSubmit}}</td>
+                  <td>{{item.dayOfSubmit}} à {{item.timeOfSubmit}}</td>
                   <td>
                     <v-icon color="green" v-if="item.processed">fa-check</v-icon>
                     <v-icon color="red" v-else>fa-times</v-icon>
@@ -290,7 +319,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-    <v-dialog v-model="loading" persistent width="300">
+    <v-dialog v-model="loading" persistent width="300" hide-overlay>
       <v-card color="primary" dark>
         <v-card-text>
           Chargement...
@@ -311,7 +340,7 @@
           <v-data-iterator :items="pantheons" disable-pagination hide-default-footer>
             <template v-slot:default="props">
               <v-row>
-                <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6">
+                <v-col v-for="(item,index) in props.items" :key="index" cols="12" sm="6">
                   <v-card
                     height="300"
                     @click="assignPantheonToPlayer(item)"
@@ -432,13 +461,13 @@
             <v-col cols="12" sm="6">
               <v-card class="pa-3" outlined>
                 <v-card-title>
-                  <v-icon left>fa-spider</v-icon>&nbsp;Autres Bonus
+                  <v-icon left>fa-spider</v-icon>&nbsp;Autres Informations
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <v-row>
                     <v-col cols="12" class="mb-3">
-                      Fiches d'Ordres visibles :
+                      <v-icon small left>fa-receipt</v-icon>&nbsp;Fiches d'Ordres visibles :
                       <span
                         v-if="currentPlayer.sheetsVisible.length == 0"
                       >/</span>
@@ -469,6 +498,29 @@
                       <span v-else>
                         <v-icon small class="red--text">fa-times</v-icon>&nbsp; Non
                       </span>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-simple-table>
+                        <template v-slot:default>
+                          <thead>
+                            <tr>
+                              <th class="text-left">Plan attaqué</th>
+                              <th class="text-left">Joueurs attaquants</th>
+                              <th class="text-left">Résultat</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(attack,index) in attacksResults" :key="index">
+                              <td>{{attack.name}}</td>
+                              <td>{{ attack.nbPlayers }}</td>
+                              <td>
+                                <span v-if="attack.taken"><v-icon small left>mdi-crown</v-icon>&nbsp;Victoire</span>
+                                <span v-else><v-icon small left>mdi-sword-cross</v-icon>&nbsp;Défaite</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </template>
+                      </v-simple-table>
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -510,7 +562,10 @@
               <v-card outlined>
                 <v-card-title>Cibles des ordres</v-card-title>
                 <v-card-text>
-                  <div class="subtitle-1" v-if="viewedOrderSheet.parameters.armySent > 0">
+                  <div
+                    class="subtitle-1"
+                    v-if="viewedOrderSheet.parameters.armySent > 0 && viewedOrderSheet.parameters.attackTarget.length > 0"
+                  >
                     Attaque du Plan
                     <b>{{getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).name}}</b> avec
                     <b>{{viewedOrderSheet.parameters.armySent}}</b>&nbsp;
@@ -569,6 +624,41 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="readyPlayersDialog" max-width="1000" persistent scrollable hide-overlay>
+      <v-card>
+        <v-card-title class="blue darken-4 white--text">
+          <span class="headline">
+            <span v-if="!selectedGame.running">Lancement de la partie</span>
+            <span v-else>Fin du tour {{selectedGame.turn}}</span>
+            - Êtes-vous prêt(e) ?
+          </span>
+        </v-card-title>
+        <v-card-text :max-height="dialogHeight">
+          <v-list two-line>
+            <v-list-item v-for="(player,index) in selectedGamePlayers" :key="index">
+              <v-list-item-content>
+                <v-list-item-title>{{player.user.name}}</v-list-item-title>
+                <v-list-item-subtitle>{{player.pantheon.name}}</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-chip
+                  class="ma-2"
+                  color="green"
+                  text-color="white"
+                  v-if="player.turnReady"
+                >Prêt(e)</v-chip>
+                <v-chip class="ma-2" color="red" text-color="white" v-else>...</v-chip>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" text @click="unReadyPlayerOne()" :loading="loadingReadyButton">NON !</v-btn>
+          <v-btn color="green" text @click="readyPlayerOne()" :loading="loadingReadyButton">Prêt(e)</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -584,6 +674,7 @@ import OrderSheet from "../../../model/rotg/OrderSheet.model";
 import Territory from "../../../model/rotg/Territory.model";
 import Resources from "../../../model/rotg/Resources.model";
 import ResourceOrders from "../../../model/rotg/enums/Orders.enum";
+import AttackResult from "../../../model/rotg/AttackResult.model";
 
 export default Vue.extend({
   components: {
@@ -593,29 +684,31 @@ export default Vue.extend({
   name: "GameUI",
   created() {
     this.loading = true;
-    this.fetchGame(this.$route.params.idGame);
-    store.commit("setResourcesSpent", new Resources());
-    setInterval(
-      function(context) {
-        var currentLock = context.selectedGame.locked;
-        if (context.permanentRequest) {
-          context.permanentRequest = false;
-          store
-            .dispatch("fetchROTGGame", context.selectedGame._id)
-            .then((gameTab: any) => {
-              context.permanentRequest = true;
-              var game = gameTab[0];
-              if (game) {
-                if (currentLock && !game.locked) {
-                  context.fetchFateConsequences();
-                }
-              }
-            });
-        }
-      },
-      1000,
-      this
-    );
+    this.fetchGame(this.$route.params.idGame).then(() => {
+      this.loading = false;
+      store.commit("setResourcesSpent", new Resources());
+      if (!this.selectedGame.closed) {
+        this.intervalID = window.setInterval(
+          function(context: any) {
+            var currentLock = context.selectedGame.locked;
+            if (context.permanentRequest) {
+              context.permanentRequest = false;
+              context.fetchGame(context.$route.params.idGame).then(() => {
+                context.permanentRequest = true;
+              });
+            }
+          },
+          750,
+          this
+        );
+      }
+      if(this.selectedGame.turn > 1){
+        this.computeAttackResults();
+      }
+    });
+  },
+  destroyed() {
+    clearInterval(this.intervalID);
   },
   computed: {
     userIsInGame: function() {
@@ -685,43 +778,75 @@ export default Vue.extend({
     },
     playerSheets: {
       get: function() {
-        return store.getters.playerSheets;
-      },
-      set: function(sheets: OrderSheet[]) {
-        store.commit("setPlayerSheets", sheets);
+        var gameSheets = store.getters.gameSheets;
+        return gameSheets.filter(
+          (sheet: OrderSheet) =>
+            sheet.parameters.playerID == store.getters.currentPlayer._id
+        );
+      }
+    },
+    selectedGameSheets: function() {
+      return store.getters.gameSheets;
+    },
+    playerIsCreator: function() {
+      return (
+        store.getters.currentPlayer.user._id ==
+        store.getters.selectedGame.creatorUser
+      );
+    }
+  },
+  watch: {
+    "selectedGame.readyRequired": function(
+      newValue: boolean,
+      oldValue: boolean
+    ) {
+      if (newValue && !oldValue) {
+        this.readyPlayersDialog = true;
+      } else if (!newValue && oldValue && this.readyPlayersDialog) {
+        var allPlayersReady = this.selectedGamePlayers.every(
+          (player: Player) => player.turnReady
+        );
+        if (this.playerIsCreator && allPlayersReady) {
+          this.sendReadyResult();
+        }
+        this.loadingButton = false;
+        this.readyPlayersDialog = false;
+      }
+    },
+    "selectedGame.turn": function(newTurn: number, oldTurn: number) {
+      if (newTurn > oldTurn && oldTurn != 0) {
+        this.fetchFateConsequences();
       }
     }
   },
-  watch: {},
   methods: {
     fetchGame: function(gameId: string) {
-      if (gameId && gameId !== "") {
-        var promises = [
-          store.dispatch("fetchROTGGame", gameId),
-          store.dispatch("fetchROTGGamePlayers", gameId),
-          store.dispatch("fetchROTGGameTerritories", gameId)
-        ];
-        Promise.all(promises).then(() => {
-          this.loading = false;
-          this.registeredUsers = this.selectedGamePlayers.map((e: Player) => {
-            return e.user._id;
-          });
-          this.getRemainingPantheons();
-          var player = store.getters.selectedGamePlayers.filter((p: Player) => {
-            return p.user._id == store.getters.currentUser._id;
-          });
-          store.commit(
-            "setCurrentPlayer",
-            player[0] ? player[0] : new Player()
-          );
-          var sheet = new OrderSheet();
-          sheet.gameID = this.selectedGame._id;
-          sheet.parameters.playerID = this.currentPlayer._id;
-          sheet.parameters.playerName = this.currentPlayer.user.name;
-          sheet.turn = this.selectedGame.turn;
-          Object.assign(this.currentOrderSheet, sheet);
-        });
-      }
+      var obj = new Promise(resolve => {
+        if (gameId && gameId !== "") {
+          store
+            .dispatch("fetchROTGGameInformations", this.$route.params.idGame)
+            .then(() => {
+              this.registeredUsers = this.selectedGamePlayers.map(
+                (e: Player) => {
+                  return e.user._id;
+                }
+              );
+              this.getRemainingPantheons();
+              var player = store.getters.selectedGamePlayers.filter(
+                (p: Player) => {
+                  return p.user._id == store.getters.currentUser._id;
+                }
+              );
+              store.commit(
+                "setCurrentPlayer",
+                player[0] ? player[0] : new Player()
+              );
+              this.assignNewTurnOrderSheet();
+              resolve(true);
+            });
+        }
+      });
+      return obj;
     },
     PlayNotification: function(url: string) {
       if (url) {
@@ -733,9 +858,6 @@ export default Vue.extend({
       this.loading = true;
       store.dispatch("fetchROTGGamePlayers", this.selectedGame._id).then(() => {
         this.loading = false;
-        this.takenPantheonsNames = this.selectedGamePlayers.map((e: Player) => {
-          return e.pantheon.name;
-        });
         this.getRemainingPantheons();
         this.registerGameDialog = true;
       });
@@ -755,6 +877,9 @@ export default Vue.extend({
       );
     },
     getRemainingPantheons: function() {
+      this.takenPantheonsNames = this.selectedGamePlayers.map((e: Player) => {
+        return e.pantheon.name;
+      });
       this.pantheons = this.allPantheonsAvailable.filter(pantheon => {
         return this.takenPantheonsNames.indexOf(pantheon.name) < 0;
       });
@@ -774,17 +899,15 @@ export default Vue.extend({
       this.newPlayer.gameID = this.$route.params.idGame;
       this.loading = true;
       store.dispatch("addROTGPlayer", this.newPlayer).then(() => {
-        this.fetchGame(this.$route.params.idGame);
+        this.loading = false;
         this.resetNewPlayer();
       });
     },
     launchGame: function() {
       this.loading = true;
-      store
-        .dispatch("launchROTGGame", this.$route.params.idGame)
-        .then((response: Game) => {
-          this.fetchGame(this.$route.params.idGame);
-        });
+      store.dispatch("launchROTGGame", this.$route.params.idGame).then(() => {
+        this.loading = false;
+      });
     },
     displayPlanesForces: function(territory: Territory) {
       var result = "";
@@ -799,7 +922,6 @@ export default Vue.extend({
     },
     closeResolutionDialog: function() {
       this.resolutionDialog = false;
-      this.fetchGame(this.$route.params.idGame);
     },
     fetchFateConsequences: function() {
       this.resolutionDialog = true;
@@ -808,15 +930,12 @@ export default Vue.extend({
         playerId: this.currentPlayer._id
       };
       this.loadingFate = true;
-      store.commit("setPreviousPlayer", this.currentPlayer);
-      var promises = [
-        store.dispatch("fetchROTGFateConsequence", wrapper),
-        store.dispatch("fetchROTGGamePlayer", this.currentPlayer._id)
-      ];
-      Promise.all(promises).then(() => {
+      store.dispatch("fetchROTGFateConsequence", wrapper).then(() => {
         this.loadingFate = false;
-        this.PlayNotification("/ressources/sounds/solemn.mp3");
+        //this.PlayNotification("/ressources/sounds/thunder3.mp3");
         Object.assign(this.resourcesSpent, new Resources());
+        this.assignNewTurnOrderSheet();
+        this.computeAttackResults();
       });
     },
     openOrderSheetView: function(orderSheet: OrderSheet) {
@@ -835,9 +954,6 @@ export default Vue.extend({
           break;
         case ResourceOrders.ORI_INVEST:
           result = "<i class='fa fa-gem'></i>&nbsp;Investissement";
-          break;
-        case ResourceOrders.ORI_INVENT:
-          result = "<i class='fa fa-gem'></i>&nbsp;Inventivité";
           break;
         case ResourceOrders.ARMY_ATTACK:
           result = "<i class='fa fa-fist-raised'></i>&nbsp;Attaquer";
@@ -890,6 +1006,24 @@ export default Vue.extend({
         case ResourceOrders.POP_RECRUIT:
           result = "<i class='fa fa-user-friends'></i>&nbsp;Recrutement";
           break;
+        case ResourceOrders.POP_CIVI:
+          result = "<i class='fa fa-user-friends'></i>&nbsp;Civilisation";
+          break;
+        case ResourceOrders.PROPH_ORA:
+          result = "<i class='fa fa-eye'></i>&nbsp;Oracles prosélytes";
+          break;
+        case ResourceOrders.PROPH_AUG:
+          result = "<i class='fa fa-eye'></i>&nbsp;Augures";
+          break;
+        case ResourceOrders.PROPH_FUTUR:
+          result = "<i class='fa fa-eye'></i>&nbsp;Vision du futur";
+          break;
+        case ResourceOrders.PROPH_LEGEND:
+          result = "<i class='fa fa-eye'></i>&nbsp;Répartition de Légende";
+          break;
+        case ResourceOrders.FATE_ALEA:
+          result = "<i class='fa fa-spider'></i>&nbsp;Alea Jacta Est";
+          break;
       }
       return result;
     },
@@ -913,11 +1047,104 @@ export default Vue.extend({
       this.loading = true;
       store.dispatch("manualEnding", this.selectedGame._id).then(() => {
         this.loading = false;
-        Object.assign(this.currentOrderSheet, new OrderSheet());
       });
+    },
+    displayRhesus: function(quantity: number) {
+      var result = "";
+      if (quantity < 0) {
+        result = `-${quantity}`;
+      } else {
+        result = `+${quantity}`;
+      }
+      return result;
+    },
+    assignNewTurnOrderSheet: function() {
+      var sheet = new OrderSheet();
+      sheet.gameID = this.selectedGame._id;
+      sheet.parameters.playerID = this.currentPlayer._id;
+      sheet.parameters.playerName = this.currentPlayer.user.name;
+      sheet.turn = this.selectedGame.turn;
+      Object.assign(this.currentOrderSheet, sheet);
+    },
+    setParallaxHeight: function() {
+      if (document) {
+        var container = document.getElementById("parallax-container");
+        if (container) {
+          this.parallaxHeight = container.clientHeight;
+        }
+      }
+    },
+    readyPlayerOne: function() {
+      this.currentPlayer.turnReady = true;
+      this.loadingReadyButton = true;
+      store.dispatch("readyROTGGamePlayer", this.currentPlayer).then(() => {
+        this.loadingReadyButton = false;
+      });
+    },
+    unReadyPlayerOne: function() {
+      this.currentPlayer.turnReady = false;
+      this.loadingReadyButton = true;
+      store.dispatch("readyROTGGamePlayer", this.currentPlayer).then(() => {
+        this.loadingReadyButton = false;
+      });
+    },
+    openReadyToEndDialog: function() {
+      this.loadingButton = true;
+      var game = new Game();
+      Object.assign(game, this.selectedGame);
+      game.readyRequired = true;
+      store.dispatch("updateROTGGame", game);
+    },
+    sendReadyResult: function() {
+      if (!this.selectedGame.running) {
+        this.launchGame();
+      } else {
+        this.manualOverride();
+      }
+    },
+    computeAttackResults: function() {
+      Object.assign(this.attacksResults, new Array<AttackResult>());
+      var previousTurn = this.selectedGame.turn - 1;
+      var previousSheets = this.selectedGameSheets.filter(
+        (sheet: OrderSheet) => {
+          return sheet.turn == previousTurn;
+        }
+      );
+      var attackSheets = previousSheets.filter((sheet: OrderSheet) => {
+        return sheet.ordersSent.indexOf(ResourceOrders.ARMY_ATTACK) > -1;
+      });
+      var infiltratedSheets = previousSheets.filter((sheet: OrderSheet) => {
+        return sheet.ordersSent.indexOf(ResourceOrders.PROPH_INFILT) > -1;
+      });
+      var planesAttacked = attackSheets.map((e: OrderSheet) => {
+        return e.parameters.attackTarget;
+      });
+      var processed = [];
+      for (var i = 0; i < planesAttacked.length; i++) {
+        var planeId = planesAttacked[i];
+        if (processed.indexOf(planeId) > -1) {
+          continue;
+        } else {
+          processed.push(planeId);
+          var result = new AttackResult ();
+          var plane = this.getObjectFromID(planeId, this.selectedGameTerritories);
+          if(plane){
+            var obj = {
+            name: plane.name,
+            nameVO: plane.nameVO,
+            nbPlayers: planesAttacked.filter((x: any) => {return x == planeId}).length,
+            infiltrated: infiltratedSheets.length > 0,
+            taken: plane.owner != ""
+          };
+          Object.assign(result,obj);
+          this.attacksResults.push(result);
+          }
+        }
+      }
     }
   },
   data: () => ({
+    intervalID: 0,
     loading: false,
     loadingFate: false,
     registeredUsers: new Array<string>(),
@@ -930,6 +1157,11 @@ export default Vue.extend({
     permanentRequest: true,
     viewedOrderSheet: new OrderSheet(),
     orderSheetDialog: false,
+    readyPlayersDialog: false,
+    parallaxHeight: 300,
+    loadingButton: false,
+    loadingReadyButton: false,
+    attacksResults: new Array<AttackResult>(),
     allPantheonsAvailable: [
       {
         name: "Aesir",
@@ -939,7 +1171,8 @@ export default Vue.extend({
           "Les dieux scandinaves. Fiers, un brin brutaux, ils ont le sens de la famille et cherchent en permanence à échapper au Destin. Il faut dire qu'ils sont condamnés à périr le jour de Ragnarök...",
         descriptionVO:
           "The Scandinavian Gods. Proud, a tad brutish, they have a sense of family and always try to defy Fate. After all, they are condemned to all perish on the day of Ragnarök...",
-        objective: -1
+        objective: -1,
+        picture: "/ressources/rotg/aesir.jpg"
       },
       {
         name: "Amatsukami",
@@ -949,7 +1182,8 @@ export default Vue.extend({
           "Les dieux japonais. Un brin isolés et portés sur les traditions, ils ont su tisser des alliances leur assurant protection contre les titans les plus envieux de leurs ressources.",
         descriptionVO:
           "The Japanese Gods. A tad isolated and focused on tradition, they have managed to weave alliances ensuring their safety against the Titans most envious of their resources.",
-        objective: -1
+        objective: -1,
+        picture: "/ressources/rotg/aesir.jpg"
       },
       {
         name: "Ayllus",
@@ -959,7 +1193,8 @@ export default Vue.extend({
           "Les dieux incas. Isolés des affaires du monde et peu influents dans la géopilitique divine, le panthéon inca est jeune, dynamique et est mené par un leader protecteur et énergique.",
         descriptionVO:
           "The Incan Gods. Isolated from worldly matters and with limited influence in Divine Geopolitics, the Inca Pantheon is nevertheless young, dynamic and led by a protective and energetic leader.",
-        objective: -1
+        objective: -1,
+        picture: "http://i.imgur.com/ijxPa1y.jpg"
       },
       {
         name: "Bureaucratie Céleste",
@@ -969,7 +1204,8 @@ export default Vue.extend({
           "Les dieux chinois. Le nom du panthéon se suffit à lui seul. Oubliez l'individualisme avec ces dieux. Chaque membre du panthéon (et ils sont très nombreux !) est un maillon dans la chaïne. Véritable rouleau compresseur de la politique divine, rien ne lui résiste vraiment. Pas même le Destin...",
         descriptionVO:
           "The Chinese Gods. Exactly what their name suggests. Forget individualism with these Gods. Each member of this Pantheon (and there are many of them!) is a link in the chain. Steamroller of divine politics, nothing really resists the Bureaucracy. Not even Fate...",
-        objective: -1
+        objective: -1,
+        picture: "http://i.imgur.com/3Z4KfxG.jpg"
       },
       {
         name: "Deva",
@@ -979,7 +1215,8 @@ export default Vue.extend({
           "Les dieux hindous. Créé par l'extrêmement puissant Trimurti (Brahma, Vishnu et Shiva), le Deva fait partie des plus vieux panthéons et contient donc les divinités les plus anciennes et les plus sages. En revanche, leur puissance les a amené à prendre de plus en plus de recul par rapport aux affaires du monde...",
         descriptionVO:
           "The Hindu Gods. Created by the extremely powerful Trimurti (Brahma, Vishnu and Shiva), the Deva is among the oldest Pantheons and includes some of the eldest and wisest deities. However, their power has led them to take more and more distance from the World...",
-        objective: -1
+        objective: -1,
+        picture: "http://i.imgur.com/pRXECKx.jpg"
       },
       {
         name: "K'Asunel",
@@ -989,7 +1226,9 @@ export default Vue.extend({
           "Les dieux mayas. Fanatiquement anti-titans, les dieux mayas vivent selon les préceptes des quatres accords toltèques. Ils croient dans les principes édictés dans l'Hunab Ku, ce qui fait d'eux le seul panthéon de dieux croyants.",
         descriptionVO:
           "The Mayan Gods. Fanatically anti-Titans, the Mayan Gods live under the precepts of the Four Toltec Accords. They believe in the precepts of the Hunab Ku, which makes them the only Pantheon of Gods who are themselves religious.",
-        objective: -1
+        objective: -1,
+        picture:
+          "https://cdna.artstation.com/p/assets/images/images/000/158/432/large/renju-mv-mayan-dance-atrstation.jpg?1443931069"
       },
       {
         name: "Neter",
@@ -999,7 +1238,8 @@ export default Vue.extend({
           "Les dieux égyptiens et un des plus vieux panthéons. Avec le Deva et le Théoï il fait partie du trio de tête des panthéons en terme de richesses, de puissance militaire et de sagesse millénaire. Très ordonnés, les dieux égyptiens croient fermement en Ma'at - le principe d'équilibre cosmique - et l'appliquent à travers des valeurs comme la Justice, la Vérité et l'Ordre.",
         descriptionVO:
           "The Egyptian Gods and one of the oldest Pantheons. With the Deva and the Theoi, they are amongst the three greatest Pantheons in terms of wealth, military might and ancient wisdom. Very orderly, the Egyptian Gods believe firmly in Ma’at - the principle of cosmic balance - and apply it through promoting values like Justice, Truth and Order.",
-        objective: -1
+        objective: -1,
+        picture: "http://i.imgur.com/U7KkFLG.jpg"
       },
       {
         name: "Nga Tama a Rangi",
@@ -1009,7 +1249,8 @@ export default Vue.extend({
           "Les dieux maoris. Composé des enfants directs de Gaïa et Ouranos, les membres du Nga Tama a Rangi comptent parmis les plus vieilles divinités du cosmos - plus vieux que certains titans - mais ne fait pas partie des panthéons les plus puissants. Ayant préféré l'exil après la première guerre contre les titans, les dieux maoris se concentrent désormais sur des problèmes plus locaux et moins ambitieux.",
         descriptionVO:
           "The Maori Gods. Made up of children of Gaïa and Ouranos, the members of the Nga Tama a Rangi are amongst the oldest deities of the Cosmos - older than some Titans - but are not amongst the strongest Pantheons. Having chosen exile after the first war against the Titans, the Maori Gods are now focused on local and less ambitious problems.",
-        objective: -1
+        objective: -1,
+        picture: "http://i.imgur.com/y82Yv7Q.jpg"
       },
       {
         name: "Orisha",
@@ -1019,17 +1260,19 @@ export default Vue.extend({
           "Les dieux africains. Réunissant deux générations majeures de divinités et beaucoup plus concentrés sur les affaires du Monde et des humains, les Orishas font parti des dieux les moins belliqueux et ambitieux, même si leur force est reconnue à travers le cosmos. Leur pacifisme n'a pas été toujours présent et il y a quelques siècles encore, l'Orisha était considéré comme le panthéon le plus guerrier de l'univers pendant plusieurs millénaires.",
         descriptionVO:
           "The African gods. Bringing together two major generations of deities and much more focused on the affairs of the World and humans, the Orisha are among the least belligerent and ambitious gods, even if their strength is recognized throughout the Cosmos. Their pacifism was not always this way and until a few centuries ago, the Orisha was considered the most warlike pantheon in the universe for several millennia. It's the kind of thing that doesn't magically fade...",
-        objective: -1
+        objective: -1,
+        picture: "http://i.imgur.com/xsjRnhT.jpg"
       },
       {
         name: "Teotl",
         nameVO: "Teotl",
-        leaderName: "Hitzilopochtli",
+        leaderName: "Huitzilopochtli",
         description:
           "Les dieux aztèques. Grands adeptes de la magie du sang, les dieux aztèques ont des traditions que d'aucuns considèrent violentes. Ce sont de fiers combattants et des conquérants. Malheureusement leur impulsivité poussée à l'extrême limite le nombre de leurs alliés, mais ils n'hésitent pas à mettre leurs compétences martiales et leur soif de sang à profit pour la cause des dieux contre les titans.",
         descriptionVO:
           "The Aztec Gods. Great practitioners of blood magic, the Aztec Gods have traditions that some consider violent. They are proud fighters and conquerors. Unfortunately their extreme impulsiveness limits the number of their allies, but they do not hesitate to put their martial skills and their thirst for blood to bear for the cause of the gods against the Titans.",
-        objective: -1
+        objective: -1,
+        picture: "http://i.imgur.com/9veIxlL.png"
       },
       {
         name: "Théoï",
@@ -1039,7 +1282,9 @@ export default Vue.extend({
           "Les dieux grecs. Figurant parmi les panthéons les plus connus, les Olympiens sont menés par Zeus et sont une des principales forces motrices du cosmos. Ils regroupent suffisamment d'atouts dans tous les domaines pour assoir leur puissance sur d'autres panthéons. Mais même les tout-puissants ont une faiblesse. La leur ? Leur égo et leur arrogance surdimensionnée.",
         descriptionVO:
           "The Greek Gods. One of the most famous Pantheons, the Olympians are led by Zeus and are one of the main driving forces of the Cosmos. They bring together enough assets in all areas to assuage their power on other Pantheons. But even the all-powerful have a weakness. Theirs ? Their oversized ego and arrogance.",
-        objective: -1
+        objective: -1,
+        picture:
+          "https://i.pinimg.com/564x/f0/34/88/f034883909cead1826069084aecfeccc.jpg"
       },
       {
         name: "Tuatha Dé Danann",
@@ -1049,7 +1294,9 @@ export default Vue.extend({
           "Les dieux celtes. Sans doute les divinités les plus proches de la Nature. Tous sont des maitres druides avant tout. Mais les prendre pour des hippies cosmiques serait une grave erreur. Les Enfants de Danu font parti des panthéons les plus combattifs et fiers du cosmos et leurs talents combinés à leur sagesse ancestrale font d'eux des atouts vitaux contre les titans.",
         descriptionVO:
           "The Celtic Gods. Without doubt the deities closest to Nature. They are all Master Druid above all. But to mistake them for cosmic hippies would be a big mistake. The Children of Danu are among the most combative and proud pantheons of the Cosmos and their talents combined with their ancestral wisdom make them vital assets against the Titans.",
-        objective: -1
+        objective: -1,
+        picture:
+          "https://i.pinimg.com/564x/36/73/91/367391eaadadf2309cb4b75f8c45f836.jpg"
       }
     ]
   }),
@@ -1083,3 +1330,33 @@ export default Vue.extend({
   }
 });
 </script>
+<style scoped>
+.blob {
+  border-radius: 50%;
+  margin: 10px;
+  height: 20px;
+  width: 20px;
+
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.bg-transparent-black {
+  background-color: rgba(0, 0, 0, 0.31);
+}
+</style>

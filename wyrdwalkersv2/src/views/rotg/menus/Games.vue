@@ -1,21 +1,14 @@
 <template>
   <div class="pa-3">
-    <v-card class="pa-1 mb-3">
-        <v-card-title>
-            <span>Fin du tour actuel dans</span>
-            <v-spacer></v-spacer>
-            <rotg-counter />
-        </v-card-title>
-    </v-card>
     <v-alert
-        border="left"
-        colored-border
-        type="warning"
-        elevation="2"
-        width="100%"
-        class="mb-3"
-        v-if="currentUser._id == ''"
-      >Vous devez posséder un compte sur le site pour jouer à Rise of The Gods</v-alert>
+      border="left"
+      colored-border
+      type="warning"
+      elevation="2"
+      width="100%"
+      class="mb-3"
+      v-if="currentUser._id == ''"
+    >Vous devez posséder un compte sur le site pour jouer à Rise of The Gods</v-alert>
     <v-card class="pa-3">
       <v-card-title>Parties en cours</v-card-title>
       <v-divider></v-divider>
@@ -48,10 +41,19 @@
               <v-row>
                 <v-col v-for="item in props.items" :key="item.name" cols="12" sm="6" md="4" lg="3">
                   <v-card>
-                    <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
-
+                    <v-card-title class="subheading font-weight-bold">
+                      {{ item.name }}
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="red"
+                        @click.stop="openDeleteDialog(item);"
+                        v-if="currentUser.rights.isAdmin || currentUser._id == item.creatorUser"
+                      >
+                        <v-icon>fa-trash</v-icon>
+                      </v-btn>
+                    </v-card-title>
                     <v-divider></v-divider>
-
                     <v-list dense>
                       <v-list-item>
                         <v-list-item-content>Joueurs :</v-list-item-content>
@@ -66,10 +68,16 @@
                         <v-list-item-content class="align-end">{{ item.closed ? 'Oui' : 'Non' }}</v-list-item-content>
                       </v-list-item>
                       <v-list-item>
+                        <v-list-item-content>Mode :</v-list-item-content>
+                        <v-list-item-content
+                          class="align-end"
+                        >{{ item.timerMode ? 'Chronomètre' : 'Plateau' }}</v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
                         <v-list-item-content class="align-center">
                           <v-btn
                             color="blue darken-4"
-                            dark
+                            class="white--text"
                             :disabled="disableJoinButton(item)"
                             @click.stop="goToGamePage(item._id)"
                           >Entrer</v-btn>
@@ -94,12 +102,12 @@
         <v-dialog v-model="dialog" max-width="1000px" persistent>
           <template v-slot:activator="{ on }">
             <div class="text-center mt-3">
-              <v-btn
-                color="deep-purple darken-4"
-                class="white--text"
-                v-on="on"
-                :disabled="disableGameCreation"
-              >Nouvelle partie</v-btn>
+              <v-btn color="deep-purple darken-4 mr-1" class="white--text" v-on="on">
+                <v-icon left small>fa-plus</v-icon>Nouvelle partie
+              </v-btn>
+              <v-btn color="light-blue" class="white--text" @click.stop="fetchAndResetGames()" v-if="false">
+                <v-icon left small>fa-sync</v-icon>Rafraichir
+              </v-btn>
             </div>
           </template>
           <v-card>
@@ -113,11 +121,23 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="8">
+                  <v-col cols="12" sm="8">
                     <v-text-field v-model="editedItem.name" label="Nom de la partie"></v-text-field>
+                    <v-btn @click="getRandomOperationName()">Nom aléatoire</v-btn>
+                  </v-col>
+                  <v-col cols="12" sm="4">
+                    <v-radio-group v-model="editedItem.timerMode" column>
+                      <v-radio label="Mode plateau" :value="false" color="red"></v-radio>
+                      <v-radio label="Mode chronomètre" :value="true" color="black"></v-radio>
+                    </v-radio-group>
                   </v-col>
                   <v-col cols="12">
-                    <v-btn @click="getRandomOperationName()">Nom aléatoire</v-btn>
+                    <div>
+                      <u>Mode plateau :</u> Le calcul des tours est déclenché manuellement. Idéal pour une partie ambiance jeu de plateau à plusieurs.
+                    </div>
+                    <div>
+                      <u>Mode chronomètre :</u> Le calcul des tours est déclenché automatiquement tous les jours entre 22h et 23h GMT. Idéal pour une partie étalée dans le temps.
+                    </div>
                   </v-col>
                 </v-row>
               </v-container>
@@ -134,15 +154,6 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-alert
-          class="mt-3 text-center"
-          border="left"
-          colored-border
-          type="error"
-          elevation="2"
-          width="100%"
-          v-if="disableGameCreation"
-        >La création de partie est disponible à partir de 23h GMT jusqu'au lendemain 21h GMT</v-alert>
       </div>
     </v-card>
     <v-dialog v-model="loading" hide-overlay persistent width="300">
@@ -153,20 +164,30 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="deleteDialog" persistent max-width="500">
+      <v-card>
+        <v-card-title class="red white--text">Suppression d'une partie - {{gameToDelete.name}}</v-card-title>
+        <v-card-text>
+          Attention, vous êtes sur le point de supprimer une partie. Cette action et définitive et supprimera toutes les données liées à cette partie : Feuilles d'Ordre, Joueurs et Territoires.
+          <br />Etes-vous sûr de vouloir continuer ?
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" text @click="closeDeleteDialog();">Annuler</v-btn>
+          <v-btn color="blue" text @click="deleteGame();">Tout supprimer</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
-import ROTGCounter from "../../../components/rotg/Counter.vue";
 import Game from "../../../model/rotg/Game.model";
 import router from "../../../router";
 
 export default Vue.extend({
-  components: {
-    "rotg-counter": ROTGCounter
-  },
   name: "ROTGHome",
   created: function() {
     this.loading = true;
@@ -186,6 +207,14 @@ export default Vue.extend({
     },
     currentUser: function() {
       return store.getters.currentUser;
+    },
+    selectedGame: {
+      get: function() {
+        return store.getters.selectedGame;
+      },
+      set: function(game: Game) {
+        Object.assign(store.getters.selectedGame, game);
+      }
     }
   },
   methods: {
@@ -203,6 +232,7 @@ export default Vue.extend({
       var endDate = new Date();
       endDate.setDate(new Date(this.editedItem.startDate).getDate() + 7);
       this.editedItem.endDate = endDate.toString();
+      this.editedItem.creatorUser = this.currentUser._id;
       store.dispatch("addROTGGame", this.editedItem).then(() => {
         this.closeDialog();
         Object.assign(this.editedItem, new Game());
@@ -230,14 +260,30 @@ export default Vue.extend({
       this.itemsPerPage = number;
     },
     disableJoinButton: function(game: Game) {
-      return (
-        game.playersIds.length > 12 ||
-        game.closed ||
-        this.currentUser._id == ""
-      );
+      return game.playersIds.length > 12 || this.currentUser._id == "";
     },
-    goToGamePage(gameId: string){
-        router.push({ name: 'gameUI', params: { idGame: gameId } });
+    goToGamePage(gameId: string) {
+      router.push({ name: "gameUI", params: { idGame: gameId } });
+    },
+    openDeleteDialog: function(game: Game) {
+      Object.assign(this.gameToDelete, game);
+      this.deleteDialog = true;
+    },
+    closeDeleteDialog: function() {
+      this.deleteDialog = false;
+      Object.assign(this.gameToDelete, new Game());
+    },
+    deleteGame: function() {
+      this.loading = true;
+      store.dispatch("deleteROTGGame", this.gameToDelete).then(() => {
+        this.fetchGames();
+      });
+      this.closeDeleteDialog();
+    },
+    fetchAndResetGames: function() {
+      this.loading = true;
+      this.fetchGames();
+      Object.assign(this.selectedGame, new Game());
     }
   },
   watch: {
@@ -257,6 +303,7 @@ export default Vue.extend({
     numberOfPages: 0,
     loading: false,
     dialog: false,
+    deleteDialog: false,
     editedItem: new Game(),
     itemsPerPageArray: [4, 8, 12, 20],
     search: "",
@@ -265,6 +312,7 @@ export default Vue.extend({
     page: 1,
     itemsPerPage: 4,
     sortBy: "name",
+    gameToDelete: new Game(),
     namesArray: [
       "Delphi",
       "Olympus",
