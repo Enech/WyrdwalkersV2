@@ -828,7 +828,7 @@
                     v-if="!orderInList(2)"
                     @click.stop="addOrder(2,4)"
                     block
-                    :disabled="disableOrder(2)"
+                    :disabled="disableOrder(2) || playerIsFlop3()"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(2)">Annuler</v-btn>
                 </v-tab-item>
@@ -1230,13 +1230,11 @@ export default Vue.extend({
     },
     playerIsFlop3: function() {
       var nbPlayers = this.selectedGamePlayers.length;
-      var indexFlop = nbPlayers > 3 ? nbPlayers - 4 : nbPlayers - 1;
+      var indexFlop = nbPlayers - 1;
       var indexOfPlayer = this.rankings.findIndex(
         (player: Player) => player._id == this.currentPlayer._id
       );
-      return nbPlayers > 3
-        ? indexOfPlayer > indexFlop
-        : indexOfPlayer >= indexFlop;
+      return indexOfPlayer == indexFlop;
     },
     GetToday: function() {
       var today = new Date();
