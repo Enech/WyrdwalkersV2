@@ -685,16 +685,17 @@
           <v-icon left>mdi-emoticon-sad</v-icon>&nbsp;Partie perdue !
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
-            <v-icon>fa-close</v-icon>
+            <v-icon>fa-times</v-icon>
           </v-btn>
         </v-card-title>
         <v-card-title class="teal darken-4 white--text" v-else>
           <v-icon left>mdi-emoticon-happy</v-icon>&nbsp;Partie remportée !
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
-            <v-icon>fa-close</v-icon>
+            <v-icon>fa-times</v-icon>
           </v-btn>
         </v-card-title>
+        <v-divider></v-divider>
         <v-card-text :max-height="dialogHeight" v-if="!selectedGame.won && selectedGame.closed">
           Vous n'avez pas réussi à terminer la guerre à temps. Les Titans possèdent encore suffisamment de forces pour vous défier dans un futur proche et les humains n'ont jamais été autant en danger qu'en ce moment.
           <br />Heureusement, un nouveau leader des dieux a émergé de cette situation :
@@ -901,6 +902,7 @@ export default Vue.extend({
                   this.fetchGame(this.selectedGame._id);
                 }, offsetTime);
               }
+              this.loading = false;
               resolve(true);
             });
         }
