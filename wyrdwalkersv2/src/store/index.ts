@@ -1357,10 +1357,10 @@ const store = new Vuex.Store({
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}games/informations/${id}`)
           .then((response: any) => {
-            store.commit("setSelectedGamePlayers", response.data.players);
-            store.commit("setSelectedGame", response.data.game[0]);
-            store.commit("setSelectedGameTerritories", response.data.planes);
-            store.commit("setGameSheets", response.data.orders);
+            context.commit("setSelectedGamePlayers", response.data.players);
+            context.commit("setSelectedGame", response.data.game[0]);
+            context.commit("setSelectedGameTerritories", response.data.planes);
+            context.commit("setGameSheets", response.data.orders);
             resolve(response.data);
           });
       });
@@ -1469,7 +1469,23 @@ const store = new Vuex.Store({
               newError.type = "red";
               context.commit("setErrorMessage", newError);
             }
-            resolve(response);
+            resolve(response.data);
+          });
+      });
+    },
+    fetchROTGGameOrderSheets(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}orders/game/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response) {
+              newError.message = "Unable to fetch the requested sheets";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            } else {
+              context.commit("setGameSheets", response.data);
+            }
+            resolve(response.data);
           });
       });
     },
@@ -1486,8 +1502,9 @@ const store = new Vuex.Store({
               newError.message = "Fiche d'Ordre envoyée";
               newError.type = "green";
               context.commit("setErrorMessage", newError);
+              context.commit("setGameSheets", response.data);
             }
-            resolve(response);
+            resolve(response.data);
           });
       });
     },

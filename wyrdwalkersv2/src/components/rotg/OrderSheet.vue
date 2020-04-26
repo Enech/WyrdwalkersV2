@@ -1,8 +1,8 @@
 <template>
   <div class="mt-3">
-    <v-alert dark color="blue" icon="mdi-information" v-if="sheetSent">
+    <v-alert dark color="blue" icon="mdi-information" v-if="currentPlayer.sheetSent">
       Votre&nbsp;
-      <v-icon small left>fa-receipt</v-icon>Feuille d'Ordre a déjà été soumise pour ce tour
+      <v-icon small>fa-receipt</v-icon>Feuille d'Ordre a déjà été soumise pour ce tour
     </v-alert>
     <div v-else>
       <v-row align-content="center" justify="center" v-if="loadingSheets">
@@ -125,13 +125,13 @@
                     </li>
                     <li>
                       Gains :
-                      <b>{{sheet.parameters.gambleSent}}</b>&nbsp;
+                      <b>{{isNaN(parseInt(sheet.parameters.gambleSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.gambleSent)/2)}}</b>&nbsp;
                       <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire (si le pari est réussi)
                       <br />
                       <b>
                         <u>OU</u>
                       </b>&nbsp;
-                      <b>{{sheet.parameters.gambleSent}}</b>&nbsp;
+                      <b>{{isNaN(parseInt(sheet.parameters.gambleSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.gambleSent))}}</b>&nbsp;
                       <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin (si le pari échoue)
                     </li>
                   </ul>
@@ -153,7 +153,14 @@
                         item-text="name"
                         outlined
                         solo
-                      ></v-select>
+                      >
+                        <template v-slot:selection="{ item }">
+                          <span v-html="item.name"></span>
+                        </template>
+                        <template v-slot:item="{ item }">
+                          <span v-html="item.name"></span>
+                        </template>
+                      </v-select>
                     </div>
                   </div>
                   <v-btn
@@ -207,7 +214,14 @@
                           :error="currentPlayer.army < sheet.parameters.armySent"
                           outlined
                           solo
-                        ></v-select>
+                        >
+                          <template v-slot:selection="{ item }">
+                            <span v-html="item.name"></span>
+                          </template>
+                          <template v-slot:item="{ item }">
+                            <span v-html="item.name"></span>
+                          </template>
+                        </v-select>
                       </div>
                       <v-btn text color="blue" @click="resourcesDialog = true">
                         ressources associées aux plans&nbsp;
@@ -402,7 +416,8 @@
                       <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
                     </li>
                     <li>
-                      Gains : Au tour suivant, vous pourrez voir les <v-icon small>fa-receipt</v-icon>&nbsp;Fiches d'Ordre de 2 joueurs, envoyées ce tour-ci :
+                      Gains : Au tour suivant, vous pourrez voir les
+                      <v-icon small>fa-receipt</v-icon>&nbsp;Fiches d'Ordre de 2 joueurs, envoyées ce tour-ci :
                       <div style="width: 200px; display: inline-block">
                         <v-select
                           v-model="sheet.parameters.foreseeTargets"
@@ -621,7 +636,14 @@
                               item-text="name"
                               outlined
                               solo
-                            ></v-select>
+                            >
+                              <template v-slot:selection="{ item }">
+                                <span v-html="item.name"></span>
+                              </template>
+                              <template v-slot:item="{ item }">
+                                <span v-html="item.name"></span>
+                              </template>
+                            </v-select>
                           </div>&nbsp;gagne
                           <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.populationSent)/2)}}</b> de la
                           <v-btn text color="blue" @click="resourcesDialog = true">
@@ -828,7 +850,7 @@
                     v-if="!orderInList(2)"
                     @click.stop="addOrder(2,4)"
                     block
-                    :disabled="disableOrder(2) || playerIsFlop3()"
+                    :disabled="disableOrder(2) || !playerIsFlop3()"
                   >Valider</v-btn>
                   <v-btn block color="red darken-4" v-else @click.stop="removeOrder(2)">Annuler</v-btn>
                 </v-tab-item>
@@ -838,10 +860,7 @@
         </v-expansion-panel>
         <v-expansion-panel>
           <v-expansion-panel-header>
-            <v-icon
-              left
-              :color="sheet.ordersSent.indexOf(19) > -1 ? 'teal' : 'white'"
-            >fa-bolt</v-icon>
+            <v-icon left :color="sheet.ordersSent.indexOf(19) > -1 ? 'teal' : 'white'">fa-bolt</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pa-2 subtitle-1 font-weight-thin">
             <span>Parfois le Destin a besoin de se faire un peu forcer la main...</span>
@@ -863,7 +882,14 @@
                     outlined
                     solo
                     multiple
-                  ></v-select>
+                  >
+                    <template v-slot:selection="{ item }">
+                      <span v-html="item.name"></span>
+                    </template>
+                    <template v-slot:item="{ item }">
+                      <span v-html="item.name"></span>
+                    </template>
+                  </v-select>
                 </div>
                 <v-alert
                   dark
@@ -884,7 +910,14 @@
                     item-text="name"
                     outlined
                     solo
-                  ></v-select>
+                  >
+                    <template v-slot:selection="{ item }">
+                      <span v-html="item.name"></span>
+                    </template>
+                    <template v-slot:item="{ item }">
+                      <span v-html="item.name"></span>
+                    </template>
+                  </v-select>
                 </div>
               </li>
             </ul>
@@ -1086,27 +1119,6 @@ export default Vue.extend({
         );
       }
     },
-    sheetSent: function() {
-      var sheets = new Array<OrderSheet>();
-      var gameTurn = store.getters.selectedGame.turn;
-      Object.assign(sheets, store.getters.gameSheets);
-      var indexOfTurnSheet = sheets.findIndex(
-        (sheet: OrderSheet) =>
-          sheet.turn == gameTurn &&
-          sheet.parameters.playerID == store.getters.currentPlayer._id
-      );
-
-      return indexOfTurnSheet > -1;
-    },
-    rankings: function() {
-      var players = store.getters.selectedGamePlayers;
-      var sortedPlayers = new Array<Player>();
-      players.sort((a: Player, b: Player) => {
-        return b.victoryPoints - a.victoryPoints;
-      });
-      Object.assign(sortedPlayers, players);
-      return players;
-    },
     fateSortedTitanicPlanes: function() {
       var result = this.titanicPlanes.filter((t: Territory) => {
         return this.sheet.parameters.handBonusPlanes.indexOf(t._id) < 0;
@@ -1115,38 +1127,32 @@ export default Vue.extend({
     },
     oriOrdered: function() {
       return this.ordersOri.some(
-        (r: number) =>
-          this.sheet.ordersSent.indexOf(r) >= 0
+        (r: number) => this.sheet.ordersSent.indexOf(r) >= 0
       );
     },
     heroOrdered: function() {
       return this.ordersHero.some(
-        (r: number) =>
-          this.sheet.ordersSent.indexOf(r) >= 0
+        (r: number) => this.sheet.ordersSent.indexOf(r) >= 0
       );
     },
     armyOrdered: function() {
       return this.ordersArmy.some(
-        (r: number) =>
-          this.sheet.ordersSent.indexOf(r) >= 0
+        (r: number) => this.sheet.ordersSent.indexOf(r) >= 0
       );
     },
     popOrdered: function() {
       return this.ordersPop.some(
-        (r: number) =>
-          this.sheet.ordersSent.indexOf(r) >= 0
+        (r: number) => this.sheet.ordersSent.indexOf(r) >= 0
       );
     },
     prophOrdered: function() {
       return this.ordersProph.some(
-        (r: number) =>
-          this.sheet.ordersSent.indexOf(r) >= 0
+        (r: number) => this.sheet.ordersSent.indexOf(r) >= 0
       );
     },
     fateOrdered: function() {
       return this.ordersFate.some(
-        (r: number) =>
-          this.sheet.ordersSent.indexOf(r) >= 0
+        (r: number) => this.sheet.ordersSent.indexOf(r) >= 0
       );
     }
   },
@@ -1225,16 +1231,37 @@ export default Vue.extend({
       this.sheet.dayOfSubmit = this.GetToday().date;
       store.commit("setPreviousPlayer", this.currentPlayer);
       store.dispatch("sendROTGOrderSheet", this.sheet).then(() => {
+        Object.assign(this.sheet, new OrderSheet());
         this.loadingSend = false;
       });
     },
     playerIsFlop3: function() {
-      var nbPlayers = this.selectedGamePlayers.length;
-      var indexFlop = nbPlayers - 1;
-      var indexOfPlayer = this.rankings.findIndex(
-        (player: Player) => player._id == this.currentPlayer._id
-      );
-      return indexOfPlayer == indexFlop;
+      var pv = -1;
+      var scoreGroups = [];
+      var result = false;
+      for (var i = 0; i < this.selectedGamePlayers.length; i++) {
+        var player = this.selectedGamePlayers[i];
+        if (player.victoryPoints != pv) {
+          pv = player.victoryPoints;
+          scoreGroups.push([player]);
+        } else {
+          scoreGroups[scoreGroups.length - 1].push(player);
+        }
+      }
+
+      if (scoreGroups.length > 1) {
+        var playerInside = scoreGroups[scoreGroups.length - 1].filter(
+          (p: Player) => p._id == this.currentPlayer._id
+        );
+        if (playerInside.length == 1) {
+          result = true;
+        } else {
+          result = false;
+        }
+      } else {
+        result = false;
+      }
+      return result;
     },
     GetToday: function() {
       var today = new Date();
@@ -1282,7 +1309,8 @@ export default Vue.extend({
     ordersHero: [
       OrdersEnum.HERO_GODBORN,
       OrdersEnum.HERO_EXPLO,
-      OrdersEnum.HERO_TEAM
+      OrdersEnum.HERO_TEAM,
+      OrdersEnum.HERO_APO
     ],
     ordersPop: [
       OrdersEnum.POP_INFO,

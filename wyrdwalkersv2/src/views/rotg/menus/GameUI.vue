@@ -3,7 +3,7 @@
     <v-toolbar class="pl-3" tile>
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn icon left v-on="on" href="/rotg/games">
+          <v-btn icon left v-on="on" @click="backToGamesList()">
             <v-icon>arrow_back</v-icon>
           </v-btn>
         </template>
@@ -81,7 +81,7 @@
     <v-img
       :height="100"
       src="/ressources/rotg/galaxy-min.gif"
-      class="text-center align-center mt-3 pa-3"
+      class="text-center align-center pa-3 mt-3"
       v-if="currentPlayer.pantheon.name != ''"
     >
       <div
@@ -217,7 +217,7 @@
         </v-tab>
         <v-tab v-if="userIsInGame && selectedGame.running">
           <v-icon left>fa-receipt</v-icon>Feuille d'ordre
-          <span v-if="currentOrderSheet.turn > 0">(T{{currentOrderSheet.turn}})</span>
+          <span v-if="selectedGame.turn > 0">(T{{selectedGame.turn}})</span>
         </v-tab>
         <v-tab v-if="userIsInGame && selectedGame.running">
           <v-icon left>fa-archive</v-icon>Archives
@@ -246,7 +246,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="item in selectedGameTerritories" :key="item.name">
-                          <td>{{ item.name }}</td>
+                          <td v-html="item.name"></td>
                           <td>{{ item.ownerName != '' ? item.ownerName : 'Titans' }}</td>
                           <td>{{ displayPlanesForces(item) }}</td>
                         </tr>
@@ -261,7 +261,7 @@
                 <v-card-title>Scores</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
-                  <v-simple-table>
+                  <v-simple-table v-if="selectedGamePlayers.length > 0">
                     <template v-slot:default>
                       <thead>
                         <tr>
@@ -282,6 +282,7 @@
                       </tbody>
                     </template>
                   </v-simple-table>
+                  <span class="subtitle-1" v-else>Aucune donnée à afficher</span>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -452,6 +453,12 @@
                           </td>
                           <td>{{ currentPlayer.fatebindings - previousPlayer.fatebindings }}</td>
                         </tr>
+                        <tr>
+                          <td>
+                            <v-icon small left>fa-trophy</v-icon>&nbsp;Points de Victoire
+                          </td>
+                          <td>{{ currentPlayer.victoryPoints - previousPlayer.victoryPoints }}</td>
+                        </tr>
                       </tbody>
                     </template>
                   </v-simple-table>
@@ -514,8 +521,12 @@
                               <td>{{attack.name}}</td>
                               <td>{{ attack.nbPlayers }}</td>
                               <td>
-                                <span v-if="attack.taken"><v-icon small left>mdi-crown</v-icon>&nbsp;Victoire</span>
-                                <span v-else><v-icon small left>mdi-sword-cross</v-icon>&nbsp;Défaite</span>
+                                <span v-if="attack.taken">
+                                  <v-icon small left>mdi-crown</v-icon>&nbsp;Victoire
+                                </span>
+                                <span v-else>
+                                  <v-icon small left>mdi-sword-cross</v-icon>&nbsp;Défaite
+                                </span>
                               </td>
                             </tr>
                           </tbody>
@@ -567,18 +578,25 @@
                     v-if="viewedOrderSheet.parameters.armySent > 0 && viewedOrderSheet.parameters.attackTarget.length > 0"
                   >
                     Attaque du Plan
-                    <b>{{getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).name}}</b> avec
+                    <span class="font-weight-bold"
+                      v-html="getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).name"
+                    ></span> avec
                     <b>{{viewedOrderSheet.parameters.armySent}}</b>&nbsp;
                     <v-icon small left>fa-fist-raised</v-icon>&nbsp;Armées
                   </div>
                   <div class="subtitle-1" v-if="viewedOrderSheet.parameters.populateTarget != ''">
                     Habiter le Plan
-                    <b>{{getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).name}}</b>
+                    <span class="font-weight-bold"
+                      v-html="getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).name"
+                    ></span>
                   </div>
                   <div class="subtitle-1" v-if="viewedOrderSheet.parameters.gambleTarget != ''">
                     Anticipation de la
                     <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'défaite' : 'victoire'}}</b>
-                    de l'attaque sur le Plan {{getObjectFromID(viewedOrderSheet.parameters.gambleTarget,selectedGameTerritories).name}}
+                    de l'attaque sur le Plan
+                    <span class="font-weight-bold"
+                      v-html="getObjectFromID(viewedOrderSheet.parameters.gambleTarget,selectedGameTerritories).name"
+                    ></span>
                   </div>
                   <div
                     class="subtitle-1"
@@ -602,12 +620,14 @@
                         v-for="(bonus,index) in viewedOrderSheet.parameters.handBonusPlanes"
                         :key="index"
                       >
-                        {{getObjectFromID(bonus,selectedGameTerritories).name}} (
+                        <span v-html="getObjectFromID(bonus,selectedGameTerritories).name"></span> (
                         <b>-1</b>&nbsp;
                         <v-icon small left>fa-fist-raised</v-icon>Armée)
                       </li>
                       <li>
-                        {{getObjectFromID(viewedOrderSheet.parameters.handMalusPlane,selectedGameTerritories).name}} (
+                        <span
+                          v-html="getObjectFromID(viewedOrderSheet.parameters.handMalusPlane,selectedGameTerritories).name"
+                        ></span> (
                         <b>+3</b>&nbsp;
                         <v-icon small left>fa-fist-raised</v-icon>Armées)
                       </li>
@@ -659,12 +679,50 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="finalDialog" max-width="1000" persistent scrollable hide-overlay>
+      <v-card>
+        <v-card-title class="red darken-4 white--text" v-if="!selectedGame.won">
+          <v-icon left>mdi-emoticon-sad</v-icon>&nbsp;Partie perdue !
+          <v-spacer></v-spacer>
+          <v-btn text class="white--text" @click="finalDialog = false;">
+            <v-icon>fa-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-title class="teal darken-4 white--text" v-else>
+          <v-icon left>mdi-emoticon-happy</v-icon>&nbsp;Partie remportée !
+          <v-spacer></v-spacer>
+          <v-btn text class="white--text" @click="finalDialog = false;">
+            <v-icon>fa-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text :max-height="dialogHeight" v-if="!selectedGame.won && selectedGame.closed">
+          Vous n'avez pas réussi à terminer la guerre à temps. Les Titans possèdent encore suffisamment de forces pour vous défier dans un futur proche et les humains n'ont jamais été autant en danger qu'en ce moment.
+          <br />Heureusement, un nouveau leader des dieux a émergé de cette situation :
+          <b>{{rankings[0].pantheon.leaderName}}</b>
+          , chef du {{rankings[0].pantheon.name}}. Puisse-t-il mener les dieux et les humains vers la paix et la sécurité.
+        </v-card-text>
+        <v-card-text :max-height="dialogHeight" v-if="selectedGame.won && selectedGame.closed">
+          Grâce à vos efforts communs, vous êtes parvenus à terminer cette guerre une bonne fois pour toute. Kronus est enfermé au Tartare et le reste des Titans qui le suivaient se sont rendus devant votre domination commune.
+          <br />Les dieux sont dorénavant unis sous une seule bannière dans la lutte contre les Titans : celle de
+          <b>{{rankings[0].pantheon.leaderName}}</b>
+          et de son Panthéon le {{rankings[0].pantheon.name}}.
+          <br />
+          <br />
+          <span class="headline uppercase">Gloire aux dieux !</span>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn :color="selectedGame.won ? 'teal' : 'red'" text @click="finalDialog = false">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import store from "../../../store";
+import router from "../../../router";
 import ROTGCounter from "../../../components/rotg/Counter.vue";
 import ROTGOrderSheet from "../../../components/rotg/OrderSheet.vue";
 import Player from "../../../model/rotg/Player.model";
@@ -686,23 +744,9 @@ export default Vue.extend({
     this.loading = true;
     this.fetchGame(this.$route.params.idGame).then(() => {
       this.loading = false;
+      store.dispatch("fetchROTGGameTerritories", this.selectedGame._id);
       store.commit("setResourcesSpent", new Resources());
-      if (!this.selectedGame.closed) {
-        this.intervalID = window.setInterval(
-          function(context: any) {
-            var currentLock = context.selectedGame.locked;
-            if (context.permanentRequest) {
-              context.permanentRequest = false;
-              context.fetchGame(context.$route.params.idGame).then(() => {
-                context.permanentRequest = true;
-              });
-            }
-          },
-          750,
-          this
-        );
-      }
-      if(this.selectedGame.turn > 1){
+      if (this.selectedGame.turn > 1) {
         this.computeAttackResults();
       }
     });
@@ -745,14 +789,6 @@ export default Vue.extend({
         store.commit("setPreviousPlayer", player);
       }
     },
-    currentOrderSheet: {
-      get: function() {
-        return store.getters.currentOrderSheet;
-      },
-      set: function(sheet: OrderSheet) {
-        store.commit("setCurrentOrderSheet", sheet);
-      }
-    },
     currentFateConsequence: function() {
       return store.getters.currentFateConsequence;
     },
@@ -772,9 +808,6 @@ export default Vue.extend({
       });
       Object.assign(sortedPlayers, players);
       return players;
-    },
-    gameLocked: function() {
-      return store.getters.selectedGame.locked;
     },
     playerSheets: {
       get: function() {
@@ -811,37 +844,63 @@ export default Vue.extend({
         }
         this.loadingButton = false;
         this.readyPlayersDialog = false;
+        this.loading = true;
       }
     },
     "selectedGame.turn": function(newTurn: number, oldTurn: number) {
-      if (newTurn > oldTurn && oldTurn != 0) {
-        this.fetchFateConsequences();
+      if (newTurn > oldTurn) {
+        this.loading = false;
+        if (oldTurn != 0) {
+          this.fetchFateConsequences();
+        }
+      }
+    },
+    "selectedGame.closed": function(newValue: boolean, oldValue: boolean) {
+      if (newValue && !oldValue) {
+        this.finalDialog = true;
       }
     }
   },
   methods: {
     fetchGame: function(gameId: string) {
       var obj = new Promise(resolve => {
-        if (gameId && gameId !== "") {
+        if (gameId && gameId !== "" && this.$route.params.idGame) {
           store
             .dispatch("fetchROTGGameInformations", this.$route.params.idGame)
             .then(() => {
+              var offsetTime = 1000;
+              if (!this.selectedGame.running) {
+                this.getRemainingPantheons();
+                offsetTime = 250;
+              }
+              if (
+                this.selectedGame.running &&
+                !this.selectedGame.readyRequired
+              ) {
+                offsetTime = 1500;
+              } else if (
+                this.selectedGame.running &&
+                this.selectedGame.readyRequired
+              ) {
+                offsetTime = 250;
+              }
               this.registeredUsers = this.selectedGamePlayers.map(
                 (e: Player) => {
                   return e.user._id;
                 }
               );
-              this.getRemainingPantheons();
-              var player = store.getters.selectedGamePlayers.filter(
-                (p: Player) => {
-                  return p.user._id == store.getters.currentUser._id;
-                }
-              );
+              var player = this.selectedGamePlayers.filter((p: Player) => {
+                return p.user._id == this.currentUser._id;
+              });
               store.commit(
                 "setCurrentPlayer",
                 player[0] ? player[0] : new Player()
               );
-              this.assignNewTurnOrderSheet();
+              if (!this.selectedGame.closed) {
+                setTimeout(() => {
+                  this.fetchGame(this.selectedGame._id);
+                }, offsetTime);
+              }
               resolve(true);
             });
         }
@@ -905,8 +964,12 @@ export default Vue.extend({
     },
     launchGame: function() {
       this.loading = true;
-      store.dispatch("launchROTGGame", this.$route.params.idGame).then(() => {
-        this.loading = false;
+      store.dispatch("launchROTGGame", this.selectedGame._id).then(() => {
+        store
+          .dispatch("fetchROTGGameTerritories", this.selectedGame._id)
+          .then(() => {
+            this.loading = false;
+          });
       });
     },
     displayPlanesForces: function(territory: Territory) {
@@ -922,6 +985,7 @@ export default Vue.extend({
     },
     closeResolutionDialog: function() {
       this.resolutionDialog = false;
+      Object.assign(this.attacksResults, new Array<AttackResult>());
     },
     fetchFateConsequences: function() {
       this.resolutionDialog = true;
@@ -934,7 +998,6 @@ export default Vue.extend({
         this.loadingFate = false;
         //this.PlayNotification("/ressources/sounds/thunder3.mp3");
         Object.assign(this.resourcesSpent, new Resources());
-        this.assignNewTurnOrderSheet();
         this.computeAttackResults();
       });
     },
@@ -1035,18 +1098,24 @@ export default Vue.extend({
     },
     fetchOrderSheet(id: string) {
       this.loading = true;
-      store.dispatch("fetchROTGOrderSheet", id).then((response: OrderSheet) => {
-        if (response) {
-          Object.assign(this.viewedOrderSheet, response);
-          this.loading = false;
-          this.orderSheetDialog = true;
-        }
-      });
+      store
+        .dispatch("fetchROTGOrderSheet", id)
+        .then((response: OrderSheet[]) => {
+          if (response) {
+            Object.assign(this.viewedOrderSheet, response[0]);
+            this.loading = false;
+            this.orderSheetDialog = true;
+          }
+        });
     },
     manualOverride: function() {
       this.loading = true;
       store.dispatch("manualEnding", this.selectedGame._id).then(() => {
-        this.loading = false;
+        store
+          .dispatch("fetchROTGGameTerritories", this.selectedGame._id)
+          .then(() => {
+            this.loading = false;
+          });
       });
     },
     displayRhesus: function(quantity: number) {
@@ -1057,14 +1126,6 @@ export default Vue.extend({
         result = `+${quantity}`;
       }
       return result;
-    },
-    assignNewTurnOrderSheet: function() {
-      var sheet = new OrderSheet();
-      sheet.gameID = this.selectedGame._id;
-      sheet.parameters.playerID = this.currentPlayer._id;
-      sheet.parameters.playerName = this.currentPlayer.user.name;
-      sheet.turn = this.selectedGame.turn;
-      Object.assign(this.currentOrderSheet, sheet);
     },
     setParallaxHeight: function() {
       if (document) {
@@ -1126,21 +1187,30 @@ export default Vue.extend({
           continue;
         } else {
           processed.push(planeId);
-          var result = new AttackResult ();
-          var plane = this.getObjectFromID(planeId, this.selectedGameTerritories);
-          if(plane){
+          var result = new AttackResult();
+          var plane = this.getObjectFromID(
+            planeId,
+            this.selectedGameTerritories
+          );
+          if (plane) {
             var obj = {
-            name: plane.name,
-            nameVO: plane.nameVO,
-            nbPlayers: planesAttacked.filter((x: any) => {return x == planeId}).length,
-            infiltrated: infiltratedSheets.length > 0,
-            taken: plane.owner != ""
-          };
-          Object.assign(result,obj);
-          this.attacksResults.push(result);
+              name: plane.name,
+              nameVO: plane.nameVO,
+              nbPlayers: planesAttacked.filter((x: any) => {
+                return x == planeId;
+              }).length,
+              infiltrated: infiltratedSheets.length > 0,
+              taken: plane.owner != ""
+            };
+            Object.assign(result, obj);
+            this.attacksResults.push(result);
           }
         }
       }
+    },
+    backToGamesList: function() {
+      clearInterval(this.intervalID);
+      router.push({ name: "gamesROTG" });
     }
   },
   data: () => ({
@@ -1161,6 +1231,7 @@ export default Vue.extend({
     parallaxHeight: 300,
     loadingButton: false,
     loadingReadyButton: false,
+    finalDialog: false,
     attacksResults: new Array<AttackResult>(),
     allPantheonsAvailable: [
       {
