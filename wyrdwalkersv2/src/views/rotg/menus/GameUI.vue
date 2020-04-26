@@ -518,7 +518,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(attack,index) in attacksResults" :key="index">
-                              <td>{{attack.name}}</td>
+                              <td v-html="attack.name"></td>
                               <td>{{ attack.nbPlayers }}</td>
                               <td>
                                 <span v-if="attack.taken">
@@ -682,27 +682,27 @@
     <v-dialog v-model="finalDialog" max-width="1000" persistent scrollable hide-overlay>
       <v-card>
         <v-card-title class="red darken-4 white--text" v-if="!selectedGame.won">
-          <v-icon left>mdi-emoticon-sad</v-icon>&nbsp;Partie perdue !
+          <v-icon left class="white--text">mdi-emoticon-sad</v-icon>&nbsp;Partie perdue !
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
             <v-icon>fa-times</v-icon>
           </v-btn>
         </v-card-title>
         <v-card-title class="teal darken-4 white--text" v-else>
-          <v-icon left>mdi-emoticon-happy</v-icon>&nbsp;Partie remportée !
+          <v-icon left class="white--text">mdi-emoticon-happy</v-icon>&nbsp;Partie remportée !
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
             <v-icon>fa-times</v-icon>
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text :max-height="dialogHeight" v-if="!selectedGame.won && selectedGame.closed">
+        <v-card-text :max-height="dialogHeight" v-if="!selectedGame.won && selectedGame.closed" class="pt-3">
           Vous n'avez pas réussi à terminer la guerre à temps. Les Titans possèdent encore suffisamment de forces pour vous défier dans un futur proche et les humains n'ont jamais été autant en danger qu'en ce moment.
           <br />Heureusement, un nouveau leader des dieux a émergé de cette situation :
           <b>{{rankings[0].pantheon.leaderName}}</b>
-          , chef du {{rankings[0].pantheon.name}}. Puisse-t-il mener les dieux et les humains vers la paix et la sécurité.
+          , chef du {{rankings[0].pantheon.name}}. Puisse son leadership mener les dieux et les humains vers la paix et la sécurité.
         </v-card-text>
-        <v-card-text :max-height="dialogHeight" v-if="selectedGame.won && selectedGame.closed">
+        <v-card-text :max-height="dialogHeight" v-if="selectedGame.won && selectedGame.closed" class="pt-3">
           Grâce à vos efforts communs, vous êtes parvenus à terminer cette guerre une bonne fois pour toute. Kronus est enfermé au Tartare et le reste des Titans qui le suivaient se sont rendus devant votre domination commune.
           <br />Les dieux sont dorénavant unis sous une seule bannière dans la lutte contre les Titans : celle de
           <b>{{rankings[0].pantheon.leaderName}}</b>
@@ -987,7 +987,6 @@ export default Vue.extend({
     },
     closeResolutionDialog: function() {
       this.resolutionDialog = false;
-      Object.assign(this.attacksResults, new Array<AttackResult>());
     },
     fetchFateConsequences: function() {
       this.resolutionDialog = true;
@@ -1166,7 +1165,7 @@ export default Vue.extend({
       }
     },
     computeAttackResults: function() {
-      Object.assign(this.attacksResults, new Array<AttackResult>());
+      this.attacksResults = new Array<AttackResult>();
       var previousTurn = this.selectedGame.turn - 1;
       var previousSheets = this.selectedGameSheets.filter(
         (sheet: OrderSheet) => {

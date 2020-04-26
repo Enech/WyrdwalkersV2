@@ -1534,6 +1534,7 @@ const store = new Vuex.Store({
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}games/endturn/${id}`)
           .then((response: any) => {
+            store.commit("setSelectedGame", response.data);
             resolve(response);
           });
       });
