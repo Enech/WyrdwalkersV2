@@ -578,7 +578,8 @@
                     v-if="viewedOrderSheet.parameters.armySent > 0 && viewedOrderSheet.parameters.attackTarget.length > 0"
                   >
                     Attaque du Plan
-                    <span class="font-weight-bold"
+                    <span
+                      class="font-weight-bold"
                       v-html="getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).name"
                     ></span> avec
                     <b>{{viewedOrderSheet.parameters.armySent}}</b>&nbsp;
@@ -586,7 +587,8 @@
                   </div>
                   <div class="subtitle-1" v-if="viewedOrderSheet.parameters.populateTarget != ''">
                     Habiter le Plan
-                    <span class="font-weight-bold"
+                    <span
+                      class="font-weight-bold"
                       v-html="getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).name"
                     ></span>
                   </div>
@@ -594,7 +596,8 @@
                     Anticipation de la
                     <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'défaite' : 'victoire'}}</b>
                     de l'attaque sur le Plan
-                    <span class="font-weight-bold"
+                    <span
+                      class="font-weight-bold"
                       v-html="getObjectFromID(viewedOrderSheet.parameters.gambleTarget,selectedGameTerritories).name"
                     ></span>
                   </div>
@@ -696,13 +699,21 @@
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text :max-height="dialogHeight" v-if="!selectedGame.won && selectedGame.closed" class="pt-3">
+        <v-card-text
+          :max-height="dialogHeight"
+          v-if="!selectedGame.won && selectedGame.closed"
+          class="pt-3"
+        >
           Vous n'avez pas réussi à terminer la guerre à temps. Les Titans possèdent encore suffisamment de forces pour vous défier dans un futur proche et les humains n'ont jamais été autant en danger qu'en ce moment.
           <br />Heureusement, un nouveau leader des dieux a émergé de cette situation :
           <b>{{rankings[0].pantheon.leaderName}}</b>
           , chef du {{rankings[0].pantheon.name}}. Puisse son leadership mener les dieux et les humains vers la paix et la sécurité.
         </v-card-text>
-        <v-card-text :max-height="dialogHeight" v-if="selectedGame.won && selectedGame.closed" class="pt-3">
+        <v-card-text
+          :max-height="dialogHeight"
+          v-if="selectedGame.won && selectedGame.closed"
+          class="pt-3"
+        >
           Grâce à vos efforts communs, vous êtes parvenus à terminer cette guerre une bonne fois pour toute. Kronus est enfermé au Tartare et le reste des Titans qui le suivaient se sont rendus devant votre domination commune.
           <br />Les dieux sont dorénavant unis sous une seule bannière dans la lutte contre les Titans : celle de
           <b>{{rankings[0].pantheon.leaderName}}</b>
@@ -996,10 +1007,16 @@ export default Vue.extend({
       };
       this.loadingFate = true;
       store.dispatch("fetchROTGFateConsequence", wrapper).then(() => {
-        this.loadingFate = false;
         //this.PlayNotification("/ressources/sounds/thunder3.mp3");
         Object.assign(this.resourcesSpent, new Resources());
-        this.computeAttackResults();
+        var promises = [
+          store.dispatch("fetchROTGGameTerritories", this.selectedGame._id),
+          store.dispatch("fetchROTGGamePlayers", this.selectedGame._id)
+        ];
+          Promise.all(promises).then(() => {
+            this.computeAttackResults();
+            this.loadingFate = false;
+          });
       });
     },
     openOrderSheetView: function(orderSheet: OrderSheet) {

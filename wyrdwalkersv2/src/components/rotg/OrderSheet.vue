@@ -727,9 +727,11 @@
                     </li>
                     <li>
                       Gains :
-                      <b>2D3</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population et
-                      <b>3</b>
+                      <b>1D3</b>&nbsp;
+                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population, 
+                      <b>1D3</b>&nbsp;
+                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque et
+                      <b>3</b>&nbsp;
                       <v-icon small>fa-fist-raised</v-icon>&nbsp;Armées
                     </li>
                   </ul>
@@ -1064,12 +1066,6 @@ import Resources from "../../model/rotg/Resources.model";
 export default Vue.extend({
   name: "ROTGOrderSheet",
   created() {
-    this.titanicPlanes = this.selectedGameTerritories.filter((t: Territory) => {
-      return t.owner == "";
-    });
-    this.godPlanes = this.selectedGameTerritories.filter((t: Territory) => {
-      return t.owner != "";
-    });
     this.sheet.parameters.playerID = this.currentPlayer._id;
     this.sheet.parameters.playerName = this.currentPlayer.user.name;
     this.sheet.gameID = this.selectedGame._id;
@@ -1163,6 +1159,14 @@ export default Vue.extend({
         this.sheet.parameters.playerID = this.currentPlayer._id;
         this.sheet.parameters.playerName = this.currentPlayer.user.name;
         this.sheet.gameID = this.selectedGame._id;
+        this.titanicPlanes = this.selectedGameTerritories.filter(
+          (t: Territory) => {
+            return t.owner == "";
+          }
+        );
+        this.godPlanes = this.selectedGameTerritories.filter((t: Territory) => {
+          return t.owner != "";
+        });
       }
     }
   },

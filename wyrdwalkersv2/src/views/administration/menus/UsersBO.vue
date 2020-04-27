@@ -101,6 +101,7 @@ export default Vue.extend({
     },
     triggerActivation: function(user: User, activate: boolean) {
       user.isActivated = activate;
+      user.rights.isUser = activate;
       this.updateUser(user);
     }
   },
