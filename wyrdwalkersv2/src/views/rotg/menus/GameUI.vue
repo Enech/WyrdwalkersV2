@@ -228,7 +228,9 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-card class="pa-3" outlined>
-                <v-card-title>Plans</v-card-title>
+                <v-card-title>
+                  <v-icon small>fa-receipt</v-icon>&nbsp;Plans Cosmiques
+                </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <span
@@ -1013,10 +1015,10 @@ export default Vue.extend({
           store.dispatch("fetchROTGGameTerritories", this.selectedGame._id),
           store.dispatch("fetchROTGGamePlayers", this.selectedGame._id)
         ];
-          Promise.all(promises).then(() => {
-            this.computeAttackResults();
-            this.loadingFate = false;
-          });
+        Promise.all(promises).then(() => {
+          this.computeAttackResults();
+          this.loadingFate = false;
+        });
       });
     },
     openOrderSheetView: function(orderSheet: OrderSheet) {

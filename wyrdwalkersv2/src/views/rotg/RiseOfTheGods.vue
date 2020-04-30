@@ -40,6 +40,12 @@
             <v-icon small>fa-home</v-icon>
           </v-list-item-action>
         </v-list-item>
+        <v-list-item :to="{name:'ROTGRules'}">
+          <v-list-item-title>Règles du jeu</v-list-item-title>
+          <v-list-item-action>
+            <v-icon small>mdi-book-open-outline</v-icon>
+          </v-list-item-action>
+        </v-list-item>
         <v-list-item :to="{name:'gamesROTG'}">
           <v-list-item-title>Parties en cours</v-list-item-title>
           <v-list-item-action>

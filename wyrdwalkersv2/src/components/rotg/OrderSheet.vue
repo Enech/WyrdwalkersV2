@@ -728,7 +728,7 @@
                     <li>
                       Gains :
                       <b>1D3</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population, 
+                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population,
                       <b>1D3</b>&nbsp;
                       <v-icon small>fa-gem</v-icon>&nbsp;Orichalque et
                       <b>3</b>&nbsp;
@@ -1159,15 +1159,17 @@ export default Vue.extend({
         this.sheet.parameters.playerID = this.currentPlayer._id;
         this.sheet.parameters.playerName = this.currentPlayer.user.name;
         this.sheet.gameID = this.selectedGame._id;
-        this.titanicPlanes = this.selectedGameTerritories.filter(
-          (t: Territory) => {
-            return t.owner == "";
-          }
-        );
-        this.godPlanes = this.selectedGameTerritories.filter((t: Territory) => {
-          return t.owner != "";
-        });
       }
+    },
+    selectedGameTerritories: function() {
+      this.titanicPlanes = this.selectedGameTerritories.filter(
+        (t: Territory) => {
+          return t.owner == "";
+        }
+      );
+      this.godPlanes = this.selectedGameTerritories.filter((t: Territory) => {
+        return t.owner != "";
+      });
     }
   },
   methods: {

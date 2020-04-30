@@ -253,6 +253,11 @@ const routes = [
         path: 'game/:idGame',
         name: 'gameUI',
         component: () => import('../views/rotg/menus/GameUI.vue')
+      },
+      {
+        path: 'rules',
+        name: 'ROTGRules',
+        component: () => import('../views/rotg/menus/Rules.vue')
       }
     ]
   },

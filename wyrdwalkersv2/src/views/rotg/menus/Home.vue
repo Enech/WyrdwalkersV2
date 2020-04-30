@@ -2,7 +2,9 @@
   <div class="pa-3">
     <v-card class="pa-3">
       <v-card-text>
-        <div class="display-3 text-center">Rise of The Gods</div>
+        <div class="display-3 text-center">
+          <v-badge color="blue" content="BETA">Rise of The Gods</v-badge>
+        </div>
         <div
           class="display-1 font-weight-thin text-center"
         >Le premier jeu en ligne dans l'univers Wyrdwalkers</div>
@@ -23,7 +25,12 @@
             <br />
             <br />
             <div class="text-center mb-3">
-              <v-btn color="indigo lighten-1" class="white--text" href="https://discord.gg/CJf25BB" target="_blank">Rejoindre le Discord</v-btn>
+              <v-btn
+                color="indigo lighten-1"
+                class="white--text"
+                href="https://discord.gg/CJf25BB"
+                target="_blank"
+              >Rejoindre le Discord</v-btn>
             </div>
             <div class="text-center">
               <v-btn color="blue" class="white--text" :to="{name: 'gamesROTG'}">Commencer une partie</v-btn>
@@ -38,7 +45,12 @@
             <br />
             <br />
             <div class="text-center">
-              <v-btn block color="blue" class="white--text">Voir les règles du jeu</v-btn>
+              <v-btn
+                block
+                color="blue"
+                class="white--text"
+                :to="{name:'ROTGRules'}"
+              >Voir les règles du jeu</v-btn>
             </div>
           </v-col>
         </v-row>
@@ -54,8 +66,7 @@ import ROTGCounter from "../../../components/rotg/Counter.vue";
 
 export default Vue.extend({
   name: "ROTGHome",
-  created: function() {
-  },
+  created: function() {},
   computed: {
     currentUser: function() {
       return store.getters.currentUser;
