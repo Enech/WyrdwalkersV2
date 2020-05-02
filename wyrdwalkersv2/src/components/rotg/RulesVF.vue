@@ -14,7 +14,7 @@
               </div>
               <div class="panel-body">
                 <p>
-                  Bonjour puissante Divinité, et bienvenue sur
+                  Bonjour puissante Divinité et bienvenue sur
                   <i>Rise of the Gods</i> !
                   <br />Cette expérience sur navigateur en tour par tour est un jeu à la fois compétitif et collaboratif où vous incarnerez un des 12 panthéons du multivers Wyrdwalkers. Vous pourrez jouer avec 11 autres personnes maximum pour reconquérir le Cosmos lors des évènements mythiques de la Seconde Titanomachie. Chaque jour, vous enverrez vos instructions par l’intermédiaire d’une
                   <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d’Ordre comme chaque autre joueur. Grâce à ces ordres, vous pourrez avancer vers l'objectif commun de vaincre les Titans mais aussi de vous tailler une part du gâteau plus grande que celles de vos rivaux.
@@ -71,7 +71,7 @@
                             <b>plateau</b>
                           </strong>
                         </div>
-                        <p>Les fins de tours sont déclenchées manuellement et le résultat est donné immédiatement. C'est le mode de jeu idéal si vous voulez faire une partie rapide entre amis à la manière d'un jeu de société. Temps de jeu estimé : ~1h30 à 4 joueurs.</p>
+                        <p>Les fins de tours sont déclenchées manuellement et le résultat est donné immédiatement. C'est le mode de jeu idéal si vous voulez faire une partie rapide entre amis à la manière d'un jeu de société. (Temps de jeu estimé indicatif à 4 joueurs : ~1h30).</p>
                       </li>
                       <li>
                         <div class="list-title">
@@ -105,7 +105,10 @@
                         <p>
                           Une fois sur l'interface de votre partie, cliquez sur le symbole&nbsp;
                           <v-icon>fa-dungeon</v-icon>&nbsp;pour vous inscrire dans la partie en choisissant le Panthéon que vous désirez incarner. Tous les joueurs désirant participer à la partie doivent choisir un Panthéon avant de la lancer.
+                          <br />
                           <b>Il est impossible de rejoindre une partie en cours une fois lancée.</b>
+                          <br />
+                          <b>Le Panthéon que vous choisirez n'a pas d'influence sur la partie.</b>
                         </p>
                       </li>
                       <li>
@@ -131,16 +134,17 @@
                           <strong>Remplissage et envoi des ordres</strong>
                         </div>
                         <p>
-                          Pour chaque ressource est disponible une liste d'ordres parmi laquelle il vous faut en choisir un au maximum à chaque tour. Cliquez sur le bouton "Valider" de chaque ordre que vous choisirez pour chaque ressource. Lorsqu'une ressource possède déjà un ordre validé, son icône devient verte sur la
-                          <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre. Une fois cela fait, votre fiche en appuyant sur le bouton "Envoyer ma Fiche d'Ordre".
+                          Pour chaque ressource est disponible une liste d'ordres parmi laquelle il vous faut en choisir un au maximum à chaque tour.
+                          <u>Cliquez sur le bouton "Valider"</u> de chaque ordre que vous choisirez pour chaque ressource. Lorsqu'une ressource possède déjà un ordre validé, son icône devient verte sur la
+                          <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre. Une fois cela fait, envoyez votre fiche en appuyant sur le bouton "Envoyer ma Fiche d'Ordre".
+                          <b>L'envoi de votre fiche est définitif, pensez bien à vérifier que vos ordres passés sont bien validés avant d'envoyer votre fiche.</b>
                         </p>
                       </li>
                       <li>
                         <div class="list-title">
                           <v-icon small left>fa-circle</v-icon>&nbsp;
                           <strong>Déclenchez/Attendez la fin du tour</strong>
-                        </div>
-                        Suivant votre mode de jeu, attendez la fin du tour programmée ou bien déclenchez-la en cliquant sur le bouton
+                        </div>Suivant votre mode de jeu, attendez la fin du tour programmée ou bien déclenchez-la en cliquant sur le bouton
                         <v-icon>alarm_on</v-icon>.
                         <br />Les ordres envoyés sont appliqués de la manière suivante : (voir Annexes pour la résolution détaillée)
                         <ul>
@@ -163,9 +167,9 @@
                           <strong>Conséquence du Destin</strong>
                         </div>
                         <p>
-                          Une fois le tour traité, une fenêtre s'affiche pour vous montrer les informations pertinentes du tour qui vient de s'écouler : les attaques qui ont été lancées, les bonus dont vous jouissez pour le tour qui vient, les ressources que vous avez gagné et/ou perdu et...une Conséquence du Destin. Automatiquement après chaque tour, une Conséquence du Destin vous sera assignée aléatoirement parmi les 8 possibles. Quatre d'entre elles sont neutres et les quatre autres vous seront plus ou moins détrimentaires en fonction du nombre de
-                          <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin que vous aurez accumulé à la fin du tour.<br>
-                          Le détail des Conséquences du Destin possibles se trouve en Annexes.
+                          Une fois le tour traité, une fenêtre s'affiche pour vous montrer les informations pertinentes du tour qui vient de s'écouler : les attaques qui ont été lancées, les bonus dont vous jouissez pour le tour qui vient, les ressources que vous avez gagnées et/ou perdues et...une Conséquence du Destin. Automatiquement après chaque tour, une Conséquence du Destin vous sera assignée aléatoirement parmi les 8 possibles. Quatre d'entre elles sont neutres et les quatre autres vous seront plus ou moins détrimentaires en fonction du nombre de
+                          <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin que vous aurez accumulés à la fin du tour.
+                          <br />Le détail des Conséquences du Destin possibles se trouve en Annexes.
                         </p>
                       </li>
                     </ul>
@@ -179,6 +183,17 @@
               </div>
               <div class="panel-body">
                 <bloc-1>
+                  <titre>Terminologie</titre>
+                  <content>
+                    <p>
+                      Dans <i>Rise of the Gods</i> certains termes sont directement empruntés à l'univers rôlistes. En particulier, vous verrez beaucoup de "1D6", "2D3" etc. Si vous êtes déjà familiers avec ces termes, vous pouvez passer ce paragraphe. Sinon, voici quelques explications.<br>
+                      <br>
+                      De manière très simple un D6 représente un dé à 6 faces. Les résultats de 1D6 représentent donc un lancer d'un dé à 6 faces et peuvent donc varier aléatoirement entre 1 et 6. De même, 2D6 représente un lancer de deux dés à 6 faces et les résultats varient aléatoirement entre 2 et 12.<br>
+                      En suivant ce même principe, 1D3 donne des résultats entre 1 et 3, 1D4 donne des résultats entre 1 et 4 et 1D10 donne des résultats entre 1 et 10.
+                    </p>
+                  </content>
+                </bloc-1>
+                <bloc-1>
                   <titre>Les Ressources</titre>
                   <content>
                     <p>
@@ -191,9 +206,7 @@
                           <v-icon small left>fa-gem</v-icon>&nbsp;
                           <strong>L'Orichalque</strong>
                         </div>
-                        <p>
-                          La monnaie des Dieux et donc le nerf de la guerre. Cette ressource est polyvalente et permet de s'adapter rapidement à toutes les situations.
-                        </p>
+                        <p>La monnaie des Dieux et donc le nerf de la guerre. Cette ressource est polyvalente et permet de s'adapter rapidement à toutes les situations.</p>
                       </li>
                       <li>
                         <div class="list-title">
@@ -201,7 +214,7 @@
                           <strong>L'Armée</strong>
                         </div>
                         <p>
-                          Vos troupes sur le champs de bataille et donc la source de toutes vos attaques. C'est principalement grâce à cette ressource que vous pourrez remporter les
+                          Vos troupes sur le champ de bataille et donc la source de toutes vos attaques. C'est principalement grâce à cette ressource que vous pourrez remporter les
                           <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire nécessaires pour remporter la partie.
                         </p>
                       </li>
@@ -210,35 +223,28 @@
                           <v-icon small left>fa-jedi</v-icon>&nbsp;
                           <strong>L'Héroïsme</strong>
                         </div>
-                        <p>
-                          Cette ressource vous donne l'opportunité de retourner les situations, de changer de stratégie en cours de route et de faire face à l'inattendu.</p>
+                        <p>Cette ressource vous donne l'opportunité de retourner les situations, de changer de stratégie en cours de route et de faire face à l'inattendu.</p>
                       </li>
                       <li>
                         <div class="list-title">
                           <v-icon small left>fa-eye</v-icon>&nbsp;
                           <strong>Les Prophètes</strong>
                         </div>
-                        <p>
-                          La ressource qui vous permet d'observer les coulisses de la guerre en déchiffrant les aléas du futur, en espionnant vos alliés ou en vous permettant de vous informer sur la situation des Titans.
-                        </p>
+                        <p>La ressource qui vous permet d'observer les coulisses de la guerre en déchiffrant les aléas du futur, en espionnant vos alliés ou en vous permettant de vous informer sur la situation des Titans.</p>
                       </li>
                       <li>
                         <div class="list-title">
                           <v-icon small left>fa-user-friends</v-icon>&nbsp;
                           <strong>La Population</strong>
                         </div>
-                        <p>
-                          Ce sont les humains de tous bords et les créatures magiques sous l'influence de votre Panthéon. Cette ressource est comme un matériau brut qui vous permettra de stabiliser votre puissance.
-                        </p>
+                        <p>Ce sont les humains de tous bords et les créatures magiques sous l'influence de votre Panthéon. Cette ressource est comme un matériau brut qui vous permettra de stabiliser votre puissance.</p>
                       </li>
                       <li>
                         <div class="list-title">
                           <v-icon small left>fa-spider</v-icon>&nbsp;
                           <strong>Les Liens du Destin</strong>
                         </div>
-                        <p>
-                          La mesure de votre implication dans le Cosmos. A mesure que vous crééz votre Légende vous perturbez les plans du Destin et celui-ci n'aime pas ça. Contrairement aux autres ressources, il est conseillé de ne pas faire grimper celle-ci trop haut, ou bien les Conséquences du Destin que vous subissez chaque tour risquent bien de vous mettre hors jeu avec le passage inopiné d'un dragon volant votre argent et tuant votre population...
-                        </p>
+                        <p>La mesure de votre implication dans le Cosmos. A mesure que vous créez votre Légende vous perturbez les plans du Destin et celui-ci n'aime pas ça. Contrairement aux autres ressources, il est conseillé de ne pas faire grimper celle-ci trop haut, ou bien les Conséquences du Destin que vous subissez chaque tour risquent bien de vous mettre hors jeu avec le passage inopiné d'un dragon volant votre argent et tuant votre population...</p>
                       </li>
                     </ul>
                   </content>
@@ -250,7 +256,7 @@
                   </titre>
                   <content>
                     Chaque partie comporte 10
-                    <v-icon small>mdi-layers-triple</v-icon>&nbsp;Plans Cosmiques. Au lancement, chacun d'entre eux est aux mains des Titans. L'objectif des joueurs est d'en contrôler, si ce n'est le maximum, les plus stratégiques suivant la situation de la partie. Chaque Plan possède un nombre de forces titaniques que les dieux devront surpasser pour parvenir à le conquérir. Au départ, chaque Plan commence avec
+                    <v-icon small>mdi-layers-triple</v-icon>&nbsp;Plans Cosmiques. Au lancement, chacun d'entre eux est aux mains des Titans. L'objectif des joueurs est d'en contrôler, si ce n'est le maximum, les plus stratégiques suivant la situation de la partie. Chaque Plan possède un nombre de forces titaniques que les dieux - donc vous, les joueurs - devront surpasser pour parvenir à le conquérir. Au départ, chaque Plan commence avec
                     <b>1D3 + 2</b> forces titaniques. Puis ces forces augmentent au fur et à mesure des tours et des conquêtes effectuées par les joueurs, jusqu'à ce que le Plan soit conquis.
                     <ul>
                       <li>
@@ -272,11 +278,14 @@
                     <p>
                       Chaque ressource dispose d'une liste d'ordre qui lui sont spécifiques. A chaque tour, un joueur peut choisir au maximum un ordre pour chaque ressource. Il existe aussi un ordre supplémentaire, associé à aucune ressource : la
                       <v-icon small>fa-bolt</v-icon>&nbsp;Main du Destin.
-                      <br>
-                      <br>
-                      Par exemple, la ressource <v-icon small>fa-gem</v-icon>&nbsp;Orichalque est associée à 4 ordres différents : Prospérité, Opulence, Investissement et Anticipation. A chaque tour, vous pouvez en choisir au plus un d'entre eux à envoyer dans votre <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre (du moment que vous possédez suffisamment de ressources). Il en va de même pour toutes les autres ressources.<br>
-                      <br>
-                      Pour envoyer une <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre, il vous faut valider au minimum un seul ordre au total. Si vous n'envoyez pas de <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre pour le tour en cours, aucune action ne sera effectuée en votre nom et vous aurez passé votre tour (vos revenus vous seront tout de même attribués).
+                      <br />
+                      <br />Par exemple, la ressource
+                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque est associée à 4 ordres différents : Prospérité, Opulence, Investissement et Anticipation. A chaque tour, vous pouvez en choisir au plus un d'entre eux à envoyer dans votre
+                      <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre (du moment que vous possédez suffisamment de ressources). Il en va de même pour toutes les autres ressources.
+                      <br />
+                      <br />Pour envoyer une
+                      <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre, il vous faut valider au minimum un seul ordre pour toute votre fiche. Si vous n'envoyez pas de
+                      <v-icon small>fa-receipt</v-icon>&nbsp;Fiche d'Ordre pour le tour en cours, aucune action ne sera effectuée en votre nom et vous aurez passé votre tour (vos revenus vous seront tout de même attribués).
                     </p>
                   </content>
                 </bloc-1>
@@ -285,7 +294,7 @@
           </v-tab-item>
           <v-tab-item>
             <v-row>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-card class="pa-3" outlined>
                   <v-card-title>Panthéons disponibles</v-card-title>
                   <v-divider></v-divider>
@@ -313,11 +322,11 @@
                           </tr>
                           <tr>
                             <td>Bureaucratie Céleste</td>
-                            <td>Les dieux chinois. Organisés, efficaces et sans mercie à la fois contre les Titans ou le Destin</td>
+                            <td>Les dieux chinois. Organisés, efficaces et sans merci à la fois contre les Titans ou le Destin</td>
                           </tr>
                           <tr>
                             <td>Deva</td>
-                            <td>Les dieux hindous. Anciens, sages et immensément puissants mais peu haitués à s'occuper des affaires du Monde</td>
+                            <td>Les dieux hindous. Anciens, sages et immensément puissants mais peu habitués à s'occuper des affaires du Monde</td>
                           </tr>
                           <tr>
                             <td>K'Asunel</td>
@@ -325,7 +334,7 @@
                           </tr>
                           <tr>
                             <td>Neter</td>
-                            <td>Les dieux égyptiens. Puuissants, organisés et portés sur les arcanes mais un brin mystérieux et rigides</td>
+                            <td>Les dieux égyptiens. Puissants, organisés et portés sur les arcanes mais un brin mystérieux et rigides</td>
                           </tr>
                           <tr>
                             <td>Nga Tama a Rangi</td>
@@ -337,7 +346,7 @@
                           </tr>
                           <tr>
                             <td>Teotl</td>
-                            <td>Les dieux aztèques. Combattants violents et conquérants adeptes de la magie du sang</td>
+                            <td>Les dieux aztèques. Combattants violents et conquérants, adeptes de la magie du sang</td>
                           </tr>
                           <tr>
                             <td>Theoi</td>
@@ -345,7 +354,7 @@
                           </tr>
                           <tr>
                             <td>Tuatha Dé Danann</td>
-                            <td>Les dieux celttes. Fiers, combatifs et proches de la nature</td>
+                            <td>Les dieux celtes. Fiers, combatifs et proches de la nature</td>
                           </tr>
                         </tbody>
                       </template>
@@ -353,7 +362,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" md="6">
                 <v-card class="pa-3" outlined>
                   <v-card-title>Conséquences du Destin</v-card-title>
                   <v-divider></v-divider>
@@ -396,7 +405,7 @@
                             <td>Vous perdez X d'Orichalque et X de Population, où X est votre nombre de Liens du Destin</td>
                           </tr>
                           <tr>
-                            <td>Pertubation de la Légende</td>
+                            <td>Perturbation de la Légende</td>
                             <td>Tous les joueurs gagnent mystérieusement 1 Lien du Destin par votre faute. A vous de leur avouer...ou pas !</td>
                           </tr>
                         </tbody>
@@ -405,7 +414,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" sm="5">
+              <v-col cols="12" md="5">
                 <v-card class="pa-3" outlined>
                   <v-card-title>Traitement d'un tour de jeu</v-card-title>
                   <v-divider></v-divider>
@@ -442,7 +451,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" sm="2">
+              <v-col cols="12" md="2">
                 <v-card class="pa-3" outlined>
                   <v-card-title>Victoire Globale</v-card-title>
                   <v-divider></v-divider>
@@ -512,7 +521,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" sm="2">
+              <v-col cols="12" md="2">
                 <v-card class="pa-3" outlined>
                   <v-card-title>Revenus de base</v-card-title>
                   <v-divider></v-divider>
@@ -527,27 +536,39 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <td><v-icon small>fa-gem</v-icon>&nbsp;Orichalque</td>
+                            <td>
+                              <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                            </td>
                             <td>+2</td>
                           </tr>
                           <tr>
-                            <td><v-icon small>fa-fist-raised</v-icon>&nbsp;Armée</td>
+                            <td>
+                              <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée
+                            </td>
                             <td>+0</td>
                           </tr>
                           <tr>
-                            <td><v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme</td>
+                            <td>
+                              <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                            </td>
                             <td>+1</td>
                           </tr>
                           <tr>
-                            <td><v-icon small>fa-eye</v-icon>&nbsp;Prophètes</td>
+                            <td>
+                              <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                            </td>
                             <td>+2</td>
                           </tr>
                           <tr>
-                            <td><v-icon small>fa-user-friends</v-icon>&nbsp;Population</td>
+                            <td>
+                              <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                            </td>
                             <td>+2</td>
                           </tr>
                           <tr>
-                            <td><v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin</td>
+                            <td>
+                              <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin
+                            </td>
                             <td>+0</td>
                           </tr>
                         </tbody>
@@ -556,7 +577,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" sm="3">
+              <v-col cols="12" md="3">
                 <v-card class="pa-3" outlined>
                   <v-card-title>Plans / Ressources</v-card-title>
                   <v-divider></v-divider>
@@ -694,7 +715,9 @@
                                 <v-icon small>mdi-layers-triple</v-icon>&nbsp;Plans Cosmiques que vous contrôlez ce tour-ci.
                               </li>
                             </ul>
-                            <i><u>Exemple:</u> Si vous contrôlez 2 Plans ce tour-ci, en dépensant 2 Orichalque vous obtiendrez 5 Orichalque le tour prochain.</i>
+                            <i>
+                              <u>Exemple:</u> Si vous contrôlez 2 Plans ce tour-ci, en dépensant 2 Orichalque vous obtiendrez 5 Orichalque le tour prochain.
+                            </i>
                             <p></p>
                           </content>
                         </bloc-3>
@@ -1130,7 +1153,10 @@
                             <v-icon small>mdi-layers-triple</v-icon>&nbsp;Plan Cosmique où augmenter les forces titaniques de 3 Armées
                           </li>
                         </ul>
-                        <i><u>Exemple:</u> A la fin de votre tour, vous pouvez décider de diminuer de 1 les forces titaniques sur les Plans de Fairie, du Mont Olympe et du Monde...tout en augmentant de 3 les forces titaniques présentes sur Aunu. <b>Cet ordre n'est applicable que sur des Plans contrôlés par les Titans.</b></i>
+                        <i>
+                          <u>Exemple:</u> A la fin de votre tour, vous pouvez décider de diminuer de 1 les forces titaniques sur les Plans de Fairie, du Mont Olympe et du Monde...tout en augmentant de 3 les forces titaniques présentes sur Aunu.
+                          <b>Cet ordre n'est applicable que sur des Plans contrôlés par les Titans.</b>
+                        </i>
                       </content>
                     </bloc-1>
                   </v-card-text>
