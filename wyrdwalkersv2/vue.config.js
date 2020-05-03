@@ -307,14 +307,14 @@ module.exports = {
         ],
         renderer: new Renderer({
           ignoreJSErrors: true,
-          headless: true,
+          headless: false,
           inject: {},
           devtools: false,
           renderAfterElementExists: "#app-content-custom",
           navigationOptions: {
             timeout: 0
           },
-          maxConcurrentRoutes: 0
+          maxConcurrentRoutes: 10
         })
       })
     ] : []

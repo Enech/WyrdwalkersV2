@@ -5,23 +5,14 @@
         <div class="display-3 text-center">
           <v-badge color="blue" content="BETA">Rise of The Gods</v-badge>
         </div>
-        <div
-          class="display-1 font-weight-thin text-center"
-        >Le premier jeu en ligne dans l'univers Wyrdwalkers</div>
+        <div class="display-1 font-weight-thin text-center">{{$t("rotg.content.home.subtitle")}}</div>
       </v-card-text>
-      <v-card-text
-        class="subtitle-1"
-      >Alentours de 1200 avant Jésus-Christ. Zeus se lève contre son père Kronus, devenu Titan de l’Ordre et du Contrôle et un véritable tyran cosmique. Menant les dieux à la bataille contre les titans, le jeune dieu grec a réussi à retrouver sa fratrie dévorée par Kronus et mène désormais une guerre acharnée pour faire reculer les ennemis de l’humanité. Après maints sacrifices effroyables, Zeus est parvenu à enfermer son père dans le Tartare. Mais il reste encore beaucoup de ses fidèles à éradiquer. La victoire semble proche et les plans cosmiques encore aux mains des titans peuvent tomber sous votre influence si tous les panthéons unissent leurs forces. D’une certaine manière, vous préparez déjà la fin de la guerre et votre place dans cet univers nouveau.</v-card-text>
+      <v-card-text class="subtitle-1">{{$t("rotg.content.home.presentation")}}</v-card-text>
       <v-divider></v-divider>
       <v-card-subtitle class="subtitle-1">
         <v-row>
           <v-col cols="12" sm="6">
-            Cette expérience sur navigateur en tour par tour est un jeu à la fois compétitif et collaboratif où vous prendrez les rênes d'un des 12 panthéons de l'univers Wyrdwalkers.
-            <br />Dans chaque partie, vous pourrez jouer avec 11 autres personnes maximum pour reconquérir le cosmos lors des évènements mythiques de la
-            <a
-              href="https://wyrdwalkers.com/wiki/lore/seconde-titanomachie"
-              target="_blank"
-            >Seconde Titanomachie</a>.
+            <span v-html="$t('rotg.content.home.description')"></span>
             <br />
             <br />
             <div class="text-center mb-3">
@@ -30,18 +21,19 @@
                 class="white--text"
                 href="https://discord.gg/CJf25BB"
                 target="_blank"
-              >Rejoindre le Discord</v-btn>
+              >{{$t("rotg.common.buttons.discord")}}</v-btn>
             </div>
             <div class="text-center">
-              <v-btn color="blue" class="white--text" :to="{name: 'gamesROTG'}">Commencer une partie</v-btn>
+              <v-btn
+                color="blue"
+                class="white--text"
+                :to="{name: 'gamesROTG'}"
+              >{{$t("rotg.common.buttons.goToGames")}}</v-btn>
             </div>
           </v-col>
           <v-col cols="12" sm="6">
-            <div class="headline">But du jeu</div>
-            <div>
-              Il est simple : obtenir un maximum de Points de Victoire en 7 tours de jeu. Ces points sont obtenus en conquérant des plans cosmiques occupés par les titans. Pour conquérir ces plans occupés, vous devrez dépenser des ressources intelligemment à travers des ordres compilés dans une
-              <b>Fiche d’Ordre</b> quotidienne. Il faudra surtout vous concerter avec les autres joueurs pour que vos rares ressources soient dépensées judicieusement ! Le but n'est pas de gagner seul.e mais de parvenir ensemble à écraser les titans, tout en vous taillant une part du gâteau.
-            </div>
+            <div class="headline">{{$t("rotg.content.home.goal.title")}}</div>
+            <div v-html="$t('rotg.content.home.goal.text')"></div>
             <br />
             <br />
             <div class="text-center">
@@ -50,7 +42,7 @@
                 color="blue"
                 class="white--text"
                 :to="{name:'ROTGRules'}"
-              >Voir les règles du jeu</v-btn>
+              >{{$t("rotg.common.buttons.goToRules")}}</v-btn>
             </div>
           </v-col>
         </v-row>

@@ -547,5 +547,46 @@
         "button": "Go"
       }
     }
+  },
+  "rotg": {
+    "common":{
+      "ressources":{
+        "orichalcum": "Orichalcum",
+        "army": "Army",
+        "heroism": "Heroism",
+        "prophets": "Prophets",
+        "population": "Population",
+        "fatebindings": "Fate Bindings",
+        "victoryPoints": "Victory Points"
+      },
+      "buttons":{
+        "discord": "Join Discord",
+        "goToGames": "Start a game",
+        "goToRules": "Go to the detailed rules",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "send": "Send",
+        "sendOrderSheet": "Send my Order Sheet",
+        "joinGame": "Join the game",
+        "startGame": "Start the game",
+        "endTurn": "End turn"
+      }
+    },
+    "menus":{
+      "home": "Home",
+      "rules": "Game rules",
+      "games": "Active games"
+    },
+    "content":{
+      "home": {
+        "subtitle": "The first online game in the Wyrdwalkers universe",
+        "presentation": "We are around -1200 BC. Zeus rose against his father Kronus, who became the Titan of Order and Control and a true cosmic tyrant. Leading the gods to war against the Titans, the young greek god managed to reunite with his siblings previously devoured by Kronus and has waged a merciless war against the enemies of humanity. After multiple unspeakable sacrifices, Zeus managed to lock his father into Tartarus. But many of his followers still remain. Victory is at hand and the cosmic planes still controlled by the Titans can fall under the gods' influence if all pantheons unite their strength. In a way,the gods are already preparing the aftermath of the war.",
+        "description": "This turn by turn browser game is a game that is both competitive and collaborative where you will be playing one of the 12 Pantheons from the Wyrdwalkers Universe.<br />In each game, you can play with up to 11 other people to conquer the Cosmos during the legendary events of the <a href='https://wyrdwalkers.com/wiki/lore/seconde-titanomachie' target='_blank'>Second Titanomachy</a>.",
+        "goal":{
+          "title": "Game goal",
+          "text": "It is simple : get a maximum of Victory Points in 7 game turns. Thos points are obtained by conquering cosmic planes occupied by the Titans. To conquer those occupied planes, you will need to spend your resources wisely through orders compiled into an <b><i class='fa fa-receipt'></i>&nbsp;Order Sheet</b>. It will especially be necessary to consult with the other players so your resources are spent judiciously ! The goal is not to win by yourself but to manage together to crush the titans while getting yourshare of the Cosmos."
+        }
+      }
+    }
   }
 }
