@@ -35,19 +35,19 @@
       <v-divider color="white"></v-divider>
       <v-list>
         <v-list-item :to="{name:'homeROTG'}">
-          <v-list-item-title>Accueil</v-list-item-title>
+          <v-list-item-title>{{$t('rotg.menus.home')}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-home</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-item :to="{name:'ROTGRules'}">
-          <v-list-item-title>Règles du jeu</v-list-item-title>
+          <v-list-item-title>{{$t('rotg.menus.rules')}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>mdi-book-open-outline</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-item :to="{name:'gamesROTG'}">
-          <v-list-item-title>Parties en cours</v-list-item-title>
+          <v-list-item-title>{{$t('rotg.menus.games')}}</v-list-item-title>
           <v-list-item-action>
             <v-icon small>fa-gamepad</v-icon>
           </v-list-item-action>
