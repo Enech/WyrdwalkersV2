@@ -629,7 +629,7 @@
         "welcome": "Welcome, ô",
         "planes": "Cosmic Planes",
         "turnResult": {
-          "title": "Turn results",
+          "title": "Results of turn",
           "earnings": "Resources earnings",
           "resource": "Resource",
           "gainLoss": "Earning / Loss",
