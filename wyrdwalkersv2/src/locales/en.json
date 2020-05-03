@@ -553,14 +553,15 @@
       "yes": "Oui",
       "no": "Non",
       "loading": "Chargement...",
-      "ressources":{
+      "resources":{
         "orichalcum": "Orichalcum",
         "army": "Army",
         "heroism": "Heroism",
         "prophets": "Prophets",
         "population": "Population",
         "fatebindings": "Fate Bindings",
-        "victoryPoints": "Victory Points"
+        "victoryPoints": "Victory Points",
+        "byTurn": "/ turn"
       },
       "buttons":{
         "discord": "Join Discord",
@@ -615,6 +616,227 @@
           "title": "Delete game",
           "text": "Warning, you are about to delete a game. This action is final and will delete all data related to this game: Order Sheets, Players and Territories.<br />Are you sure you want to continue ?",
           "deleteButton": "Delete all"
+        }
+      },
+      "ui":{
+        "noData": "No data to display",
+        "back": "Back to the games",
+        "won": "Game won by the gods",
+        "lost": "Game won by the Titans",
+        "lastTurn": "Show last turn resolution",
+        "timerText1": "End of turn",
+        "timerText2": "in:",
+        "welcome": "Welcome, ô",
+        "planes": "Cosmic Planes",
+        "turnResult": {
+          "title": "Turn results",
+          "earnings": "Resources earnings",
+          "resource": "Resource",
+          "gainLoss": "Earning / Loss",
+          "otherInformation": "Other information",
+          "sheetsVisible": "Order Sheets visible:",
+          "titansVisible": "Titans forces visible this turn:",
+          "attackedPlane": "Attacked Plane",
+          "attackingPlayers": "Attacking Players",
+          "attackResult": "Result",
+          "victory": "Victory",
+          "defeat": "Defeat"
+        },
+        "orderSheetDialog":{
+          "title1": "Order Sheet of",
+          "title2": "Turn",
+          "sentOrders":"Orders sent",
+          "ordersTargets": "Orders targets"
+        },
+        "readyDialog":{
+          "launchTitle": "Game launch",
+          "endTurnTitle": "End of turn",
+          "readyTitle": "Are you ready?",
+          "ready": "Ready",
+          "notReady": "NO !"
+        },
+        "endgameDialog": {
+          "wonTitle": "Game won !",
+          "lostTitle": "Game lost !",
+          "lostText1": "You did not mnage to end the war in time. The Titans still have enough power to challenge you in a near future and humans never have been as much in danger as they are now.<br />Fortunately, a new leader of the gods rose from this situation:",
+          "lostText2": "leader of the",
+          "lostText3": "May their leadership lead the gods and humans toward peace and security.",
+          "wonText1": "Thanks to you joint efforts, you managed to end this war onece and for all. Kronus is locked up in Tartarus and the rest of the Titans who followed him surrendered before the domination of the gods.<br />The gods are now united under one leadership in the fight against the Titans: the one of",
+          "wonText2": "and of their Pantheon, the",
+          "wonText3": "Glory to the Gods!"
+        },
+        "generalView":{
+          "title": "General view",
+          "plane": "Plane",
+          "owner": "Owner",
+          "pantheon": "Pantheon",
+          "player": "Player",
+          "victoryPoints": "Victory Points"
+        },
+        "orderSheet":{
+          "title": "Order Sheet",
+          "cost": "Cost: ",
+          "gains": "Gains: ",
+          "fateHandError": "Please choose exactly 3 Cosmic Planes",
+          "planesResources":{
+            "title": "Resources associated to the Cosmic Planes",
+            "plane": "Plane",
+            "resource": "Resource"
+          },
+          "warningDialog":{
+            "title": "Warning",
+            "text": "Sending the Order Sheet for this turn is final. Are you sure you want to send it now?"
+          },
+          "orders": {
+            "orichalcum":{
+              "prosperity":{
+                "title": "Prosperity",
+                "short": "Prosperity",
+                "description": "You use your alliances and your vassals to obtain means"
+              },
+              "opulence":{
+                "title": "Opulence",
+                "short": "Opulence",
+                "description": "You spend lavishly to attract more people under your influence"
+              },
+              "investment":{
+                "title": "Investment",
+                "short": "Investment",
+                "description": "You invest in a short-term economic plan for the next decades"
+              },
+              "anticipation":{
+                "title": "Anticipation",
+                "short": "Anticipation",
+                "description": "You place a bet on the victory (or defeat) of an attack declared this turn on a chosen Plane.<br /><i>If no attack is declared, you will be reimbursed of your expenditure.</i>"
+              }
+            },
+            "army":{
+              "attack":{
+                "title": "Attack",
+                "short": "Attack",
+                "description": "You deploy your troops to join the fight and try to take over a Plane controlled by the Titans"
+              },
+              "stabilize":{
+                "title": "Stabilize",
+                "short": "Stabilize",
+                "description": "You deploy your troops to pacify the most turbulent regions of the cosmos."
+              }
+            },
+            "heroism":{
+              "godborn":{
+                "title": "Make a Godborn",
+                "short": "Godborn",
+                "description": "you blend with mortals to give birth to a Godborn who will make an excellent recruit for your army."
+              },
+              "exploration":{
+                "title": "Risky Exploration",
+                "short": "Exploration",
+                "description": "You send a team to scout out the titanic Planes"
+              },
+              "adventure":{
+                "title": "Epic Call to Adventure",
+                "short": "Epic Call",
+                "description": "accompanied by your most daring allies, embark on a heroic journey in the Titanic lands to bring glory to your Pantheon."
+              },
+              "apotheosis":{
+                "title": "Apotheosis",
+                "short": "Apotheosis",
+                "description": "You take a demi-god(dess) under your tutelage and make sure they become a deity among the"
+              }
+            },
+            "prophets":{
+              "spy":{
+                "title": "Spy",
+                "short": "Spy",
+                "description": "You invoke the power of the Oracles to be certain that your allies are not playing tricks on you in these troubled times.",
+                "error": "Please select exactly 2 players/pantheons"
+              },
+              "infiltrate":{
+                "title": "Infiltrate",
+                "short": "Infiltrate",
+                "description": "The Auguries give you a glimpse of the near future and allow you to infiltrate planes controlled by the Titans before they are attacked by the other Pantheons."
+              },
+              "prophecy":{
+                "title": "Prophecy",
+                "short": "Prophecy",
+                "description": "Your Prophets look into the Web of Fate to predict the movement of Titan troops."
+              },
+              "oracles":{
+                "title": "Proselyte Oracles",
+                "short": "Proselytism",
+                "description": "Your priests collect a little money from your faithful."
+              },
+              "augurs":{
+                "title": "Auguries",
+                "short": "Auguries",
+                "description": "Thanks to your soothsayers your armies manage to stay safer when they move. Most of the time anyway..."
+              },
+              "vision":{
+                "title": "Vision of the Future",
+                "short": "Vision",
+                "description": "Your oracles and other mediums seek at all costs to avoid the backlash of Fate. But destiny is mysterious and the situation can sometimes get out of hand."
+              },
+              "redistribution":{
+                "title": "Legend Redistribution",
+                "short": "Redistribution",
+                "description": "The mysteries of Fate can be dangerous if they are not mastered. Your priests share some of your Fate Bindings with your followers to avoid disastrous consequences."
+              }
+            },
+            "population":{
+              "settle":{
+                "title": "Settle a Plane",
+                "short": "Settle",
+                "description": "You move your populations on Planes controlled by you and your allies"
+              },
+              "recruitment":{
+                "title": "Recruitment",
+                "short": "Recruitment",
+                "description": "You are promoting the merits of the war against the Titans to your people to recruit troops."
+              },
+              "informants":{
+                "title": "Informants",
+                "short": "Informants",
+                "description": "Sleeper agents infiltrated the populations of the cosmos send you the latest information on the war."
+              },
+              "civilization":{
+                "title": "Civilization",
+                "short": "Civilization",
+                "description": "You lead your people to greatness by guiding them on the path of civilization."
+              }
+            },
+            "fatebindings":{
+              "celebration":{
+                "title": "Celebration",
+                "short": "Celebration",
+                "description1": "As you get more and more involved in this war, you organize a celebration within the",
+                "description2": ", your Pantheon, to forget this troubled period for a moment. A marriage, a political alliance, a birth: you step back from the Web of Fate...or not!"
+              },
+              "destiny":{
+                "title": "Epic Destiny",
+                "short": "Destiny",
+                "description": "The legend accumulated during this war covers you with glory ... and makes your Destiny shine."
+              },
+              "gossips":{
+                "title": "Mythical Gossips",
+                "short": "Gossips",
+                "description": "The whispers spread through the Legend and contain a lot of information for those who know how to listen to Fate."
+              },
+              "alea":{
+                "title": "Alea Jacta Est",
+                "short": "Alea",
+                "description": "Cornered, you still have the option of crossing the Rubicon."
+              }
+            }
+          }
+        },
+        "archives":{
+          "title": "Archives",
+          "turn": "Turn",
+          "sent": "Sent on",
+          "timeSeparator": "at",
+          "processed": "Processed",
+          "details": "Details",
+          "open": "Open"
         }
       }
     }

@@ -553,14 +553,15 @@
       "yes": "Oui",
       "no": "Non",
       "loading": "Chargement...",
-      "ressources":{
+      "resources":{
         "orichalcum": "Orichalque",
         "army": "Armée",
         "heroism": "Héroïsme",
         "prophets": "Prophètes",
         "population": "Population",
         "fatebindings": "Liens du Destin",
-        "victoryPoints": "Points de Victoire"
+        "victoryPoints": "Points de Victoire",
+        "byTurn": "/ tour"
       },
       "buttons":{
         "discord": "Rejoindre le Discord",
@@ -615,6 +616,227 @@
           "title": "Suppression d'une partie",
           "text": "Attention, vous êtes sur le point de supprimer une partie. Cette action et définitive et supprimera toutes les données liées à cette partie : Feuilles d'Ordre, Joueurs et Territoires.<br />Etes-vous sûr de vouloir continuer ?",
           "deleteButton": "Tout supprimer"
+        }
+      },
+      "ui":{
+        "noData": "Aucune donnée à afficher",
+        "back": "Revenir aux parties",
+        "won": "Partie gagnée par les dieux",
+        "lost": "Partie gagnée par les Titans",
+        "lastTurn": "Afficher la résolution du tour précédent",
+        "timerText1": "Fin du tour",
+        "timerText2": "dans :",
+        "welcome": "Bienvenue, ô",
+        "planes": "Plans Cosmiques",
+        "turnResult": {
+          "title": "Résolution du tour",
+          "earnings": "Gains en ressources",
+          "resource": "Ressource",
+          "gainLoss": "Gain / Perte",
+          "otherInformation": "Autres informations",
+          "sheetsVisible": "Fiches d'Ordre visibles :",
+          "titansVisible": "Forces des Titans visibles ce tour-ci :",
+          "attackedPlane": "Plan attaqué",
+          "attackingPlayers": "Joueurs attaquants",
+          "attackResult": "Résultat",
+          "victory": "Victoire",
+          "defeat": "Défaite"
+        },
+        "orderSheetDialog":{
+          "title1": "Feuille d'Ordre de",
+          "title2": "Tour",
+          "sentOrders":"Ordres envoyés",
+          "ordersTargets": "Cibles des ordres"
+        },
+        "readyDialog":{
+          "launchTitle": "Lancement de la partie",
+          "endTurnTitle": "Fin du tour",
+          "readyTitle": "Êtes-vous prêt(e) ?",
+          "ready": "Prêt(e)",
+          "notReady": "NON !"
+        },
+        "endgameDialog": {
+          "wonTitle": "Partie remportée !",
+          "lostTitle": "Partie perdue !",
+          "lostText1": "Vous n'avez pas réussi à terminer la guerre à temps. Les Titans possèdent encore suffisamment de forces pour vous défier dans un futur proche et les humains n'ont jamais été autant en danger qu'en ce moment.<br />Heureusement, un nouveau leader des dieux a émergé de cette situation :",
+          "lostText2": "chef du",
+          "lostText3": "Puisse son leadership mener les dieux et les humains vers la paix et la sécurité.",
+          "wonText1": "Grâce à vos efforts communs, vous êtes parvenus à terminer cette guerre une bonne fois pour toute. Kronus est enfermé au Tartare et le reste des Titans qui le suivaient se sont rendus devant votre domination commune.<br />Les dieux sont dorénavant unis sous une seule bannière dans la lutte contre les Titans : celle de",
+          "wonText2": "et de son Panthéon le",
+          "wonText3": "Gloire aux dieux !"
+        },
+        "generalView":{
+          "title": "Vue générale",
+          "plane": "Plan",
+          "owner": "Propriétaire",
+          "pantheon": "Panthéon",
+          "player": "Joueur",
+          "victoryPoints": "Points de Victoire"
+        },
+        "orderSheet":{
+          "title": "Feuille d'Ordre",
+          "cost": "Coût : ",
+          "gains": "Gains : ",
+          "fateHandError": "Veuillez choisir exactement 3 Plans Cosmiques",
+          "planesResources":{
+            "title": "Ressources associées aux Plans Cosmiques",
+            "plane": "Plan",
+            "resource": "Ressource"
+          },
+          "warningDialog":{
+            "title": "Attention",
+            "text": "L'envoi de la fiche d'ordre pour ce tour est définitif. Êtes-vous sûr(e) de vouloir l'envoyer maintenant ?"
+          },
+          "orders": {
+            "orichalcum":{
+              "prosperity":{
+                "title": "Prospérité",
+                "short": "Prospérité",
+                "description": "Vous faites jouer vos alliances et vos vassaux pour obtenir des moyens"
+              },
+              "opulence":{
+                "title": "Opulence",
+                "short": "Opulence",
+                "description": "Vous râtissez massivement pour attirer plus de monde sous votre influence"
+              },
+              "investment":{
+                "title": "Investissement",
+                "short": "Investissement",
+                "description": "Vous investissez dans un plan économique à court terme de quelques décennies"
+              },
+              "anticipation":{
+                "title": "Anticipation",
+                "short": "Anticipation",
+                "description": "Vous faites un pari sur la victoire (ou la défaite) d'une attaque déclarée ce tour-ci sur un plan choisi.<br /><i>Si aucune attaque n'est déclarée, vous serez remboursé(e) de votre dépense.</i>"
+              }
+            },
+            "army":{
+              "attack":{
+                "title": "Attaquer",
+                "short": "Attaquer",
+                "description": "Vous déployez vos troupes pour rejoindre le combat et tenter de vous emparer d'un plan contrôlé par les Titans"
+              },
+              "stabilize":{
+                "title": "Stabiliser",
+                "short": "Stabiliser",
+                "description": "Vous déployez vos troupes pour pacifier les régions du cosmos les plus agitées"
+              }
+            },
+            "heroism":{
+              "godborn":{
+                "title": "Créer un Godborn",
+                "short": "Godborn",
+                "description": "vous vous mêlez aux mortels pour enfanter un Godborn qui fera une excellente recrue pour votre armée."
+              },
+              "exploration":{
+                "title": "Exploration Risquée",
+                "short": "Exploration",
+                "description": "Vous envoyez une équipe en reconnaissance dans les plans titaniques."
+              },
+              "adventure":{
+                "title": "Equipée Héroîque",
+                "short": "Equipée",
+                "description": "accompagné(e) de vos alliés les plus téméraires, vous embarquez pour une équipée héroïque dans les terres titaniques pour ramener la gloire à votre Panthéon."
+              },
+              "apotheosis":{
+                "title": "Apothéose",
+                "short": "Apothéose",
+                "description": "Vous prenez un demi-dieu sous votre aile et faites en sorte qu'il devienne une divinité au sein du"
+              }
+            },
+            "prophets":{
+              "spy":{
+                "title": "Espionner",
+                "short": "Espionner",
+                "description": "Vous invoquez le pouvoir des Oracles pour être certain(e) que vos alliés ne vous jouent pas des tours en ces temps troublés.",
+                "error": "Veuillez choisir exactement 2 joueurs/panthéons"
+              },
+              "infiltrate":{
+                "title": "Infiltration",
+                "short": "Infiltration",
+                "description": "Les Augures vous donnent un aperçu de l'avenir proche et vous permettent d'infiltrer des plans contrôlés par les titans avant que ceux-ci ne soient attaqués par les autres panthéons."
+              },
+              "prophecy":{
+                "title": "Prophétie",
+                "short": "Prophétie",
+                "description": "Vos Prophètes plongent leurs regards dans la Toile du Destin pour prédire les déplacements de troupes des Titans."
+              },
+              "oracles":{
+                "title": "Oracles Prosélytes",
+                "short": "Prosélytes",
+                "description": "Vos prêtres récoltent un peu d'argent auprès de vos fidèles."
+              },
+              "augurs":{
+                "title": "Augures",
+                "short": "Augures",
+                "description": "Grâce à vos devins vos armées parviennent à rester plus en sécurité lorsqu'elles se déplacent. La plupart du temps en tout cas..."
+              },
+              "vision":{
+                "title": "Vision du Futur",
+                "short": "Vision",
+                "description": "Vos oracles et autres mediums cherchent à tout prix à vous éviter les retours du Destin. Mais celui-ci est mystérieux et la situation peut parfois déraper."
+              },
+              "redistribution":{
+                "title": "Répartition de Légende",
+                "short": "Répartition",
+                "description": "Les arcanes du Destin peuvent s'avérer dangereuses si elles ne sont pas maitrisées. Vos prêtres partagent un peu de vos Liens du Destin avec vos fidèles pour vous éviter des conséquences désastreuses."
+              }
+            },
+            "population":{
+              "settle":{
+                "title": "Habiter un Plan",
+                "short": "Habiter",
+                "description": "Vous déplacez vos populations sur les plans contrôlés par vous et vos alliés."
+              },
+              "recruitment":{
+                "title": "Recrutement",
+                "short": "Recrutement",
+                "description": "Vous vantez les mérites de la guerre contre les Titans à vos populations pour recruter des troupes."
+              },
+              "informants":{
+                "title": "Informateurs",
+                "short": "Informateurs",
+                "description": "Des agents dormants infiltrés dans les populations du cosmos vous envoient les dernières informations sur la guerre."
+              },
+              "civilization":{
+                "title": "Civilisation",
+                "short": "Civilisation",
+                "description": "Vous menez votre population vers la grandeur en la guidant sur le chemin de la civilisation."
+              }
+            },
+            "fatebindings":{
+              "celebration":{
+                "title": "Célébration",
+                "short": "Célébration",
+                "description1": "Alors que vous vous investissez de plus en plus dans cette guerre, vous organisez une célébration au sein du",
+                "description2": ", votre panthéon, pour oublier un peu cette période troublée l'espace d'un instant. Un mariage, une alliance politique, une naissance : vous prenez du recul par rapport au Destin...ou pas !"
+              },
+              "destiny":{
+                "title": "Destinée Epique",
+                "short": "Destinée",
+                "description": "La Légende accumulée lors de cette guerre vous couvre de gloire...et vous met en valeur auprès du Destin."
+              },
+              "gossips":{
+                "title": "Ragots Mythiques",
+                "short": "Ragots",
+                "description": "Les murmures se propagent à travers la Légende et recèlent moultes informations pour qui sait tendre l'oreille vers le Destin."
+              },
+              "alea":{
+                "title": "Alea Jacta Est",
+                "short": "Alea",
+                "description": "Acculé(e), il vous reste toujours l'option de franchir le Rubicon."
+              }
+            }
+          }
+        },
+        "archives":{
+          "title": "Archives",
+          "turn": "Tour",
+          "sent": "Envoyé le",
+          "timeSeparator": "à",
+          "processed": "Traitée",
+          "details": "Détails",
+          "open": "Ouvrir"
         }
       }
     }

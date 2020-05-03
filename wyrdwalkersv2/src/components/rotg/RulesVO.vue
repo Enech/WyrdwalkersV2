@@ -925,7 +925,7 @@
                           </content>
                         </bloc-3>
                         <bloc-3>
-                          <titre>Beneficient Oracles</titre>
+                          <titre>Proselyte Oracles</titre>
                           <content>
                             <ul>
                               <li>
@@ -941,7 +941,7 @@
                           </content>
                         </bloc-3>
                         <bloc-3>
-                          <titre>Augury</titre>
+                          <titre>Auguries</titre>
                           <content>
                             <ul>
                               <li>

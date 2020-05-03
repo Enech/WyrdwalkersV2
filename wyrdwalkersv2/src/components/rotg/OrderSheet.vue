@@ -1,42 +1,49 @@
 <template>
   <div class="mt-3">
     <v-alert dark color="blue" icon="mdi-information" v-if="currentPlayer.sheetSent">
-      Votre&nbsp;
-      <v-icon small>fa-receipt</v-icon>Feuille d'Ordre a déjà été soumise pour ce tour
+      <span v-if="localeFR">
+        Votre&nbsp;
+        <v-icon small>fa-receipt</v-icon>Feuille d'Ordre a déjà été soumise pour ce tour
+      </span>
+      <span v-else>
+        Your&nbsp;
+        <v-icon small>fa-receipt</v-icon>Order Sheet has already been submited for this turn
+      </span>
     </v-alert>
     <div v-else>
-      <v-row align-content="center" justify="center" v-if="loadingSheets">
-        <v-col class="subtitle-1 text-center" cols="12">Récupération des feuilles d'ordres</v-col>
-        <v-col cols="6">
-          <v-progress-linear color="blue accent-4" indeterminate rounded height="6"></v-progress-linear>
-        </v-col>
-      </v-row>
-      <v-expansion-panels hover popout inset dark v-else>
+      <v-expansion-panels hover popout dark>
         <v-expansion-panel dark>
           <v-expansion-panel-header>
             <v-icon left :color="oriOrdered ? 'teal' : 'white'">fa-gem</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pa-1">
             <v-tabs dark v-model="tabOri" show-arrows :vertical="!$vuetify.breakpoint.xs">
-              <v-tab>Prospérité</v-tab>
-              <v-tab>Opulence</v-tab>
-              <v-tab>Investissement</v-tab>
-              <v-tab>Anticipation</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.orichalcum.prosperity.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.orichalcum.opulence.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.orichalcum.investment.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.orichalcum.anticipation.short")}}</v-tab>
               <v-tabs-items dark v-model="tabOri" :vertical="!$vuetify.breakpoint.xs">
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous faites jouer vos alliances et vos vassaux pour obtenir des moyens</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.orichalcum.prosperity.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.orichalcum.prosperity.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                      <v-icon small>fa-gem</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.orichalcum")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>1</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophète,
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}},
                       <b>1</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                      <v-icon small>fa-user-friends</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.population")}}
                     </li>
                   </ul>
                   <v-btn
@@ -46,23 +53,35 @@
                     @click.stop="addOrder(0,2)"
                     block
                     :disabled="disableOrder(0) || currentPlayer.orichalcum < 2"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(0)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(0)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous râtissez massivement pour approvisionner vos troupes</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.orichalcum.opulence.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.orichalcum.opulence.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>4</b>&nbsp;
-                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                      <v-icon small>fa-gem</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.orichalcum")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>3</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes,
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}},
                       <b>3</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                      <v-icon small>fa-user-friends</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.population")}}
                     </li>
                   </ul>
                   <v-btn
@@ -72,22 +91,36 @@
                     @click.stop="addOrder(18,4)"
                     block
                     :disabled="disableOrder(18) || currentPlayer.orichalcum < 4"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(18)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(18)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous investissez dans un plan économique à court terme</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.orichalcum.investment.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.orichalcum.investment.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                      <v-icon small>fa-gem</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.orichalcum")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>3</b>&nbsp;
                       <v-icon small>fa-gem</v-icon>
-                      &nbsp;Orichalque + {{currentPlayer.territories.length}} (Plans que vous contrôlez ce tour-ci).
+                      &nbsp;{{$t("rotg.common.resources.orichalcum")}} + {{currentPlayer.territories.length}}&nbsp;
+                      <span
+                        v-if="localeFR"
+                      >(Plans que vous contrôlez ce tour-ci).</span>
+                      <span v-else>(Planes under your control this turn).</span>
                     </li>
                   </ul>
                   <v-btn
@@ -97,18 +130,25 @@
                     @click.stop="addOrder(1,2)"
                     block
                     :disabled="disableOrder(1) || currentPlayer.orichalcum < 2"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(1)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(1)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>
-                    Vous faites un pari sur la victoire (ou la défaite) d'une attaque déclarée ce tour-ci sur un plan choisi.
-                    <br />
-                    <i>Si aucune attaque n'est déclarée, vous serez remboursé(e) de votre dépense.</i>
-                  </span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.orichalcum.anticipation.title")}}</div>
+                  <span
+                    v-html="$t('rotg.content.ui.orderSheet.orders.orichalcum.anticipation.description')"
+                  ></span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <div style="width: 60px; display: inline-block">
                         <v-text-field
                           type="number"
@@ -121,18 +161,32 @@
                           outlined
                         ></v-text-field>
                       </div>&nbsp;&nbsp;
-                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                      <v-icon small>fa-gem</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.orichalcum")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>{{isNaN(parseInt(sheet.parameters.gambleSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.gambleSent)/2)}}</b>&nbsp;
-                      <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire (si le pari est réussi)
-                      <br />
-                      <b>
-                        <u>OU</u>
-                      </b>&nbsp;
-                      <b>{{isNaN(parseInt(sheet.parameters.gambleSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.gambleSent))}}</b>&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin (si le pari échoue)
+                      <span v-if="localeFR">
+                        <v-icon small>fa-trophy</v-icon>
+                        &nbsp;{{$t("rotg.common.resources.victoryPoints")}} (si le pari est réussi)
+                        <br />
+                        <b>
+                          <u>OU</u>
+                        </b>&nbsp;
+                        <b>{{isNaN(parseInt(sheet.parameters.gambleSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.gambleSent))}}</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin (si le pari échoue)
+                      </span>
+                      <span v-else>
+                        <v-icon small>fa-trophy</v-icon>
+                        &nbsp;{{$t("rotg.common.resources.victoryPoints")}} (if the bet is successful)
+                        <br />
+                        <b>
+                          <u>OR</u>
+                        </b>&nbsp;
+                        <b>{{isNaN(parseInt(sheet.parameters.gambleSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.gambleSent))}}</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Bindings (if the bet is unsuccessful)
+                      </span>
                     </li>
                   </ul>
                   <div class="mt-3">
@@ -142,6 +196,14 @@
                         :label="`Parier sur la ${sheet.parameters.gambleDefeat ? 'défaite' : 'victoire'} de l'attaque sur le Plan `"
                         color="blue"
                         class="title"
+                        v-if="localeFR"
+                      ></v-switch>
+                      <v-switch
+                        v-model="sheet.parameters.gambleDefeat"
+                        :label="`Bet on the ${sheet.parameters.gambleDefeat ? 'defeat' : 'victory'} of the attack on the Plane `"
+                        color="blue"
+                        class="title"
+                        v-else
                       ></v-switch>
                     </div>
                     <div style="width: 200px; display: inline-block">
@@ -155,10 +217,10 @@
                         solo
                       >
                         <template v-slot:selection="{ item }">
-                          <span v-html="item.name"></span>
+                          <span v-html="localeFR ? item.name : item.nameVO"></span>
                         </template>
                         <template v-slot:item="{ item }">
-                          <span v-html="item.name"></span>
+                          <span v-html="localeFR ? item.name : item.nameVO"></span>
                         </template>
                       </v-select>
                     </div>
@@ -170,8 +232,13 @@
                     @click.stop="addOrder(17,sheet.parameters.gambleSent)"
                     block
                     :disabled="disableOrder(17) || currentPlayer.orichalcum < sheet.parameters.gambleSent || sheet.parameters.gambleTarget == '' || sheet.parameters.gambleSent <= 0"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(17)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(17)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -183,14 +250,16 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabArmy" show-arrows :vertical="!$vuetify.breakpoint.xs">
-              <v-tab>Attaquer</v-tab>
-              <v-tab>Stabiliser</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.army.attack.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.army.stabilize.short")}}</v-tab>
               <v-tabs-items dark v-model="tabArmy" :vertical="!$vuetify.breakpoint.xs">
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous déployez vos troupes pour rejoindre le combat et tenter de vous emparer d'un plan contrôlé par les Titans</span>
-                  <ul class="mb-3">
+                  <div class="title">{{$t("rotg.content.ui.orderSheet.orders.army.attack.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.army.attack.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <div style="width: 60px; display: inline-block">
                         <v-text-field
                           type="number"
@@ -203,7 +272,10 @@
                           outlined
                         ></v-text-field>
                       </div>&nbsp;
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armées pour attaquer
+                      <v-icon small>fa-fist-raised</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.army")}}
+                      <span v-if="localeFR">pour attaquer</span>
+                      <span v-else>to attack</span>
                       <div style="width: 200px; display: inline-block">
                         <v-select
                           v-model="sheet.parameters.attackTarget"
@@ -216,34 +288,54 @@
                           solo
                         >
                           <template v-slot:selection="{ item }">
-                            <span v-html="item.name"></span>
+                            <span v-html="localeFR ? item.name : item.nameVO"></span>
                           </template>
                           <template v-slot:item="{ item }">
-                            <span v-html="item.name"></span>
+                            <span v-html="localeFR ? item.name : item.nameVO"></span>
                           </template>
                         </v-select>
                       </div>
-                      <v-btn text color="blue" @click="resourcesDialog = true">
-                        ressources associées aux plans&nbsp;
-                        <v-icon small right>fa-info-circle</v-icon>
-                      </v-btn>
                     </li>
                     <li>
-                      Gains : (si réussite de l'attaque)
-                      <ul>
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
+                      <span
+                        v-if="localeFR"
+                      >(si réussite de l'attaque)</span>
+                      <span v-else>(if the attack is successful)</span>
+                      <ul v-if="localeFR">
                         <li>
                           <b>5</b>&nbsp;
-                          <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire et
+                          <v-icon small>fa-trophy</v-icon>
+                          &nbsp;{{$t("rotg.common.resources.victoryPoints")}} et
                           <b>2</b>&nbsp;
                           <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin si vous avez attaqué avec le plus de forces
                         </li>
                         <li>
                           <b>3</b>&nbsp;
-                          <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire si vous êtes en deuxième position
+                          <v-icon small>fa-trophy</v-icon>
+                          &nbsp;{{$t("rotg.common.resources.victoryPoints")}} si vous êtes en deuxième position
                         </li>
                         <li>
                           <b>2</b>&nbsp;
                           <v-icon small>fa-trophy</v-icon>&nbsp;Point de Victoire si vous êtes en troisième position
+                        </li>
+                      </ul>
+                      <ul v-else>
+                        <li>
+                          <b>5</b>&nbsp;
+                          <v-icon small>fa-trophy</v-icon>
+                          &nbsp;{{$t("rotg.common.resources.victoryPoints")}} and
+                          <b>2</b>&nbsp;
+                          <v-icon small>fa-spider</v-icon>&nbsp;Fate Bindings if you attacked with the highest forces
+                        </li>
+                        <li>
+                          <b>3</b>&nbsp;
+                          <v-icon small>fa-trophy</v-icon>
+                          &nbsp;{{$t("rotg.common.resources.victoryPoints")}} if you attacked wit the second highest forces
+                        </li>
+                        <li>
+                          <b>2</b>&nbsp;
+                          <v-icon small>fa-trophy</v-icon>&nbsp;Victory Point if you attacked with the third highest forces
                         </li>
                       </ul>
                     </li>
@@ -255,21 +347,38 @@
                     @click.stop="addOrder(3, sheet.parameters.armySent)"
                     block
                     :disabled="disableOrder(3) || sheet.parameters.armySent <= 0 || currentPlayer.army < sheet.parameters.armySent || sheet.parameters.attackTarget == ''"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(3)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(3)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous déployez vos troupes pour pacifier les régions du cosmos les plus agitées.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.army.stabilize.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.army.stabilize.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>4</b>&nbsp;
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armées
+                      <v-icon small>fa-fist-raised</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.army")}}
                     </li>
                     <li>
-                      Gains : Vous perdez
-                      <b>2</b>&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.gains")}} Vous perdez
+                        <b>2</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.gains")}} You lose
+                        <b>2</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Bindings
+                      </span>
                     </li>
                   </ul>
                   <v-btn
@@ -279,8 +388,13 @@
                     @click.stop="addOrder(4,4)"
                     block
                     :disabled="disableOrder(4) || currentPlayer.army < 4"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(4)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(4)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -292,23 +406,34 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabHero" show-arrows :vertical="!$vuetify.breakpoint.xs">
-              <v-tab>Godborn</v-tab>
-              <v-tab>Exploration</v-tab>
-              <v-tab>Equipée</v-tab>
-              <v-tab>Apothéose</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.heroism.godborn.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.heroism.exploration.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.heroism.adventure.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.heroism.apotheosis.short")}}</v-tab>
               <v-tabs-items dark v-model="tabHero" :vertical="!$vuetify.breakpoint.xs">
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>En tant que {{currentPlayer.pantheon.leaderName}}, vous vous mêlez aux mortels pour enfanter un Godborn qui fera une excellente recrue pour votre armée.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.heroism.godborn.title")}}</div>
+                  <span>
+                    <span v-if="localeFR">En tant que</span>
+                    <span v-else>As</span>
+                    {{currentPlayer.pantheon.leaderName}},&nbsp;
+                    {{$t("rotg.content.ui.orderSheet.orders.heroism.godborn.description")}}
+                  </span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                      <v-icon small>fa-jedi</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.heroism")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée
+                      <v-icon small>fa-fist-raised</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.army")}}
                     </li>
                   </ul>
                   <v-btn
@@ -318,18 +443,36 @@
                     @click="addOrder(5,2)"
                     block
                     :disabled="disableOrder(5) || currentPlayer.heroism < 2"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(5)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(5)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous envoyez une équipe en reconnaissance dans les plans titaniques.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.heroism.exploration.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.heroism.exploration.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>3</b>&nbsp;
-                      <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                      <v-icon small>fa-jedi</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.heroism")}}
                     </li>
-                    <li>Gains : Au tour suivant, vous pourrez voir les forces titaniques présentes sur les plans contrôlés par les Titans.</li>
+                    <li>
+                      {{$t("rotg.content.ui.orderSheet.gains")}}&nbsp;
+                      <span
+                        v-if="localeFR"
+                      >Au tour suivant, vous pourrez voir les forces titaniques présentes sur les plans contrôlés par les Titans.</span>
+                      <span
+                        v-else
+                      >In the next turn, you will be able to see the titanic forces present on the Planes controlled by the Titans.</span>
+                    </li>
                   </ul>
                   <v-btn
                     color="blue darken-4"
@@ -338,21 +481,37 @@
                     @click="addOrder(6,3)"
                     block
                     :disabled="disableOrder(6) || currentPlayer.heroism < 3"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(6)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(6)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous, {{currentPlayer.pantheon.leaderName}}, accompagné(e) de vos alliés les plus téméraires, vous embarquez pour une équipée héroïque dans les terres titaniques pour ramener la gloire à votre Panthéon.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.heroism.adventure.title")}}</div>
+                  <span>
+                    <span v-if="localeFR">Vous,</span>
+                    <span v-else>You,</span>
+                    {{currentPlayer.pantheon.leaderName}},&nbsp;
+                    {{$t("rotg.content.ui.orderSheet.orders.heroism.adventure.description")}}
+                  </span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>3</b>&nbsp;
-                      <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                      <v-icon small>fa-jedi</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.heroism")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>2D3</b>&nbsp;
-                      <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                      <v-icon small>fa-jedi</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.heroism")}}
                     </li>
                   </ul>
                   <v-btn
@@ -362,21 +521,32 @@
                     @click="addOrder(7,3)"
                     block
                     :disabled="disableOrder(7) || currentPlayer.heroism < 3"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(7)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(7)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous prenez un demi-dieu sous votre aile et faites en sorte qu'il devienne une divinité au sein du {{currentPlayer.pantheon.name}}</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.heroism.apotheosis.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.heroism.apotheosis.description")}} {{localeFR ? currentPlayer.pantheon.name : currentPlayer.pantheon.nameVO}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>6</b>&nbsp;
-                      <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                      <v-icon small>fa-jedi</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.heroism")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>1D4</b>&nbsp;
-                      <v-icon small>fa-trophy</v-icon>&nbsp;Points de Victoire
+                      <v-icon small>fa-trophy</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.victoryPoints")}}
                     </li>
                   </ul>
                   <v-btn
@@ -386,8 +556,13 @@
                     @click="addOrder(25,6)"
                     block
                     :disabled="disableOrder(25) || currentPlayer.heroism < 6"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(25)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(25)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -399,25 +574,35 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabProph" show-arrows :vertical="!$vuetify.breakpoint.xs">
-              <v-tab>Espionner</v-tab>
-              <v-tab>Infiltration</v-tab>
-              <v-tab>Prophétie</v-tab>
-              <v-tab>Oracles</v-tab>
-              <v-tab>Augures</v-tab>
-              <v-tab>Vision</v-tab>
-              <v-tab>Répartition</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.prophets.spy.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.prophets.infiltrate.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.prophets.prophecy.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.prophets.oracles.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.prophets.augurs.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.prophets.vision.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.prophets.redistribution.short")}}</v-tab>
               <v-tabs-items dark v-model="tabProph" :vertical="!$vuetify.breakpoint.xs">
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous invoquez le pouvoir des Oracles pour être certain(e) que vos alliés ne vous jouent pas des tours en ces temps troublés.</span>
-                  <ul class="mb-3">
+                  <div class="title">{{$t("rotg.content.ui.orderSheet.orders.prophets.spy.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.prophets.spy.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                     <li>
-                      Gains : Au tour suivant, vous pourrez voir les
-                      <v-icon small>fa-receipt</v-icon>&nbsp;Fiches d'Ordre de 2 joueurs, envoyées ce tour-ci :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}&nbsp;
+                      <span v-if="localeFR">
+                        Au tour suivant, vous pourrez voir les
+                        <v-icon small>fa-receipt</v-icon>&nbsp;Fiches d'Ordre de 2 joueurs, envoyées ce tour-ci :
+                      </span>
+                      <span v-else>
+                        Next turn, you will be able to read the
+                        <v-icon small>fa-receipt</v-icon>&nbsp;Order Sheets sent this turn by 2 players:
+                      </span>
                       <div style="width: 200px; display: inline-block">
                         <v-select
                           v-model="sheet.parameters.foreseeTargets"
@@ -427,6 +612,17 @@
                           outlined
                           solo
                           multiple
+                          v-if="localeFR"
+                        ></v-select>
+                        <v-select
+                          v-model="sheet.parameters.foreseeTargets"
+                          :items="selectedGamePlayers"
+                          item-value="_id"
+                          item-text="pantheon.nameVO"
+                          outlined
+                          solo
+                          multiple
+                          v-else
                         ></v-select>
                       </div>
                     </li>
@@ -436,7 +632,7 @@
                     color="amber darken-3"
                     icon="mdi-fire"
                     v-if="sheet.parameters.foreseeTargets.length != 2"
-                  >Veuillez choisir exactement 2 joueurs</v-alert>
+                  >{{$t("rotg.content.ui.orderSheet.orders.prophets.spy.error")}}</v-alert>
                   <v-btn
                     color="blue darken-4"
                     class="white--text"
@@ -444,20 +640,37 @@
                     @click="addOrder(16,2)"
                     block
                     :disabled="disableOrder(16) || currentPlayer.prophets < 2 || sheet.parameters.foreseeTargets.length != 2"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(16)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(16)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Les Augures vous donnent un aperçu de l'avenir proche et vous permettent d'infiltrer des plans contrôlés par les titans avant que ceux-ci ne soient attaqués par les autres panthéons.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.prophets.infiltrate.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.prophets.infiltrate.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>4</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                     <li>
-                      Gains : Tous les plans attaqués à la fin de ce tour voient leurs armées divines augmentées de 1 en votre nom. Ceci ne consomme pas de ressource
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée. Si aucune attaque n'est déclenchée ce tour-ci, votre dépense sera remboursée.
+                      {{$t("rotg.content.ui.orderSheet.gains")}}&nbsp;
+                      <span v-if="localeFR">
+                        Tous les plans attaqués à la fin de ce tour voient leurs armées divines augmentées de 1 en votre nom. Ceci ne consomme pas de ressource
+                        <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée. Si aucune attaque n'est déclenchée ce tour-ci, votre dépense sera remboursée.
+                      </span>
+                      <span v-else>
+                        All planes attacked at the end of this turn have their divine armies increased by 1 on your behalf. This does not consume an
+                        <v-icon small>fa-fist-raised</v-icon>&nbsp;Army resource. If no attack is triggered this turn, your expenses will be reimbursed.
+                      </span>
                     </li>
                   </ul>
                   <v-btn
@@ -467,18 +680,36 @@
                     @click="addOrder(15,4)"
                     block
                     :disabled="disableOrder(15) || currentPlayer.prophets < 4"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(15)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(15)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vos Prophètes plongent leurs regards dans la Toile du Destin pour prédire les déplacements de troupes des Titans.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.prophets.prophecy.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.prophets.prophecy.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>3</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
-                    <li>Gains : Au prochain tour, vous serez en mesure de voir les forces titaniques présentes sur les Plans contrôlés par les Titans.</li>
+                    <li>
+                      {{$t("rotg.content.ui.orderSheet.gains")}}&nbsp;
+                      <span
+                        v-if="localeFR"
+                      >Au tour suivant, vous pourrez voir les forces titaniques présentes sur les plans contrôlés par les Titans.</span>
+                      <span
+                        v-else
+                      >In the next turn, you will be able to see the titanic forces present on the Planes controlled by the Titans.</span>
+                    </li>
                   </ul>
                   <v-btn
                     color="blue darken-4"
@@ -487,21 +718,32 @@
                     @click="addOrder(14,3)"
                     block
                     :disabled="disableOrder(14) || currentPlayer.prophets < 3"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(14)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(14)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vos prêtres récoltent un peu d'argent auprès de vos fidèles.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.prophets.oracles.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.prophets.oracles.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                      <v-icon small>fa-gem</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.orichalcum")}}
                     </li>
                   </ul>
                   <v-btn
@@ -511,21 +753,32 @@
                     @click="addOrder(21,2)"
                     block
                     :disabled="disableOrder(21) || currentPlayer.prophets < 2"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(21)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(21)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Grâce à vos devins vos armées parviennent à rester plus en sécurité lorsqu'elles se déplacent. La plupart du temps en tout cas...</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.prophets.augurs.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.prophets.augurs.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>1</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophète
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>1D3 - 1</b>&nbsp;
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armées
+                      <v-icon small>fa-fist-raised</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.army")}}
                     </li>
                   </ul>
                   <v-btn
@@ -535,21 +788,38 @@
                     @click="addOrder(22,1)"
                     block
                     :disabled="disableOrder(22) || currentPlayer.prophets < 1"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(22)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(22)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vos oracles et autres mediums cherchent à tout prix à vous éviter les retours du Destin. Mais celui-ci est mystérieux et la situation peut parfois déraper.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.prophets.vision.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.prophets.vision.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>1</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophète
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                     <li>
-                      Gains : Une chance sur deux de gagner ou de perdre
-                      <b>1</b>&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.gains")}} Une chance sur deux de gagner ou de perdre
+                        <b>1</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.gains")}} One chance out of two to gain or lose
+                        <b>1</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Binding
+                      </span>
                     </li>
                   </ul>
                   <v-btn
@@ -559,23 +829,44 @@
                     @click="addOrder(23,1)"
                     block
                     :disabled="disableOrder(23) || currentPlayer.prophets < 1"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(23)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(23)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Les arcanes du Destin peuvent s'avérer dangereuses si elles ne sont pas maitrisées. Vos prêtres partagent un peu de vos Liens du Destin avec vos fidèles pour vous éviter des conséquences désastreuses.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.prophets.redistribution.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.prophets.redistribution.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>4</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                     <li>
-                      Gains : Vous gagnez
-                      <b>2</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population et vous perdez
-                      <b>1</b>&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.gains")}} Vous gagnez
+                        <b>2</b>&nbsp;
+                        <v-icon small>fa-user-friends</v-icon>
+                        &nbsp;{{$t("rotg.common.resources.population")}} et vous perdez
+                        <b>1</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.gains")}} You gain
+                        <b>2</b>&nbsp;
+                        <v-icon small>fa-user-friends</v-icon>
+                        &nbsp;{{$t("rotg.common.resources.population")}} and you lose
+                        <b>1</b>&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Binding
+                      </span>
                     </li>
                   </ul>
                   <v-btn
@@ -585,8 +876,13 @@
                     @click="addOrder(24,4)"
                     block
                     :disabled="disableOrder(24) || currentPlayer.prophets < 4"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(24)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(24)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -598,16 +894,20 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabPop" show-arrows :vertical="!$vuetify.breakpoint.xs">
-              <v-tab>Habiter</v-tab>
-              <v-tab>Recrutement</v-tab>
-              <v-tab>Informateurs</v-tab>
-              <v-tab>Civilisation</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.population.settle.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.population.recruitment.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.population.informants.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.population.civilization.short")}}</v-tab>
               <v-tabs-items dark v-model="tabPop" :vertical="!$vuetify.breakpoint.xs">
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous déplacez vos populations sur les plans contrôlés par vous et vos alliés</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.population.settle.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.population.settle.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <div style="width: 60px; display: inline-block">
                         <v-text-field
                           type="number"
@@ -620,13 +920,15 @@
                           outlined
                         ></v-text-field>
                       </div>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Populations
+                      <v-icon small>fa-user-friends</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.population")}}s
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <ul>
                         <li>
-                          Le contrôleur du plan
+                          <span v-if="localeFR">Le contrôleur du Plan</span>
+                          <span v-else>The owner of the Plane</span>
                           <div style="width: 200px; display: inline-block">
                             <v-select
                               v-model="sheet.parameters.populateTarget"
@@ -638,22 +940,32 @@
                               solo
                             >
                               <template v-slot:selection="{ item }">
-                                <span v-html="item.name"></span>
+                                <span v-html="localeFR ? item.name : item.nameVO"></span>
                               </template>
                               <template v-slot:item="{ item }">
-                                <span v-html="item.name"></span>
+                                <span v-html="localeFR ? item.name : item.nameVO"></span>
                               </template>
                             </v-select>
-                          </div>&nbsp;gagne
-                          <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.populationSent)/2)}}</b> de la
+                          </div>&nbsp;
+                          <span v-if="localeFR">gagne&nbsp;</span>
+                          <span v-else>gains&nbsp;</span>
+                          <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : Math.ceil(parseInt(sheet.parameters.populationSent)/2)}}</b>
+                          <span v-if="localeFR">&nbsp;de la&nbsp;</span>
+                          <span v-else>&nbsp;of the&nbsp;</span>
                           <v-btn text color="blue" @click="resourcesDialog = true">
-                            ressource associée au plan&nbsp;
+                            {{$t("rotg.content.ui.orderSheet.planesResources.title")}}&nbsp;
                             <v-icon small right>fa-info-circle</v-icon>
                           </v-btn>
                         </li>
                         <li>
-                          Vous gagnez
-                          <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : parseInt(sheet.parameters.populationSent)}}</b> de cette même ressource
+                          <span v-if="localeFR">
+                            Vous gagnez
+                            <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : parseInt(sheet.parameters.populationSent)}}</b> de cette même ressource
+                          </span>
+                          <span v-else>
+                            You gain
+                            <b>{{isNaN(parseInt(sheet.parameters.populationSent)) ? 0 : parseInt(sheet.parameters.populationSent)}}</b> of that same resource
+                          </span>
                         </li>
                       </ul>
                     </li>
@@ -665,22 +977,36 @@
                     @click="addOrder(8,sheet.parameters.populationSent)"
                     block
                     :disabled="disableOrder(8) || currentPlayer.population < sheet.parameters.populationSent || sheet.parameters.populationSent <= 0 || isNaN(sheet.parameters.populationSent)"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(8)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(8)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous vantez les mérites de la guerre contre les Titans à vos populations pour recruter des troupes.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.population.recruitment.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.population.recruitment.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                      <v-icon small>fa-user-friends</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.population")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>1</b>&nbsp;
                       <v-icon small>fa-fist-raised</v-icon>
-                      &nbsp;Armée + {{currentPlayer.territories.length}} (Plans que vous contrôlez ce tour-ci).
+                      &nbsp;{{$t("rotg.common.resources.army")}} + {{currentPlayer.territories.length}}&nbsp;
+                      <span
+                        v-if="localeFR"
+                      >(Plans que vous contrôlez ce tour-ci).</span>
+                      <span v-else>(Planes under your control this turn).</span>
                     </li>
                   </ul>
                   <v-btn
@@ -690,21 +1016,32 @@
                     @click.stop="addOrder(9,2)"
                     block
                     :disabled="disableOrder(9) || currentPlayer.population < 2"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(9)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(9)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Des agents dormants infiltrés dans les populations du cosmos vous envoient les dernières informations sur la guerre.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.population.informants.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.population.informants.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                      <v-icon small>fa-user-friends</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.population")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>1D4</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                   </ul>
                   <v-btn
@@ -714,25 +1051,42 @@
                     @click.stop="addOrder(10,2)"
                     block
                     :disabled="disableOrder(10) || currentPlayer.population < 2"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(10)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(10)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous menez votre population vers la grandeur en la guidant sur le chemin de la civilisation.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.population.civilization.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.population.civilization.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût :
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
                       <b>4</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                      <v-icon small>fa-user-friends</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.population")}}
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>1D3</b>&nbsp;
-                      <v-icon small>fa-user-friends</v-icon>&nbsp;Population,
+                      <v-icon small>fa-user-friends</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.population")}},
                       <b>1D3</b>&nbsp;
-                      <v-icon small>fa-gem</v-icon>&nbsp;Orichalque et
+                      <v-icon small>fa-gem</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.orichalcum")}}
+                      <span
+                        v-if="localeFR"
+                      >&nbsp;et&nbsp;</span>
+                      <span v-else>&nbsp;and&nbsp;</span>
                       <b>3</b>&nbsp;
-                      <v-icon small>fa-fist-raised</v-icon>&nbsp;Armées
+                      <v-icon small>fa-fist-raised</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.army")}}
                     </li>
                   </ul>
                   <v-btn
@@ -742,8 +1096,13 @@
                     @click.stop="addOrder(20,4)"
                     block
                     :disabled="disableOrder(20) || currentPlayer.population < 4"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(20)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(20)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -755,20 +1114,38 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-tabs dark v-model="tabFate" show-arrows :vertical="!$vuetify.breakpoint.xs">
-              <v-tab>Célébration</v-tab>
-              <v-tab>Destinée</v-tab>
-              <v-tab>Ragots</v-tab>
-              <v-tab>Alea</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.celebration.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.destiny.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.gossips.short")}}</v-tab>
+              <v-tab>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.alea.short")}}</v-tab>
               <v-tabs-items dark v-model="tabFate" :vertical="!$vuetify.breakpoint.xs">
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Alors que vous vous investissez de plus en plus dans cette guerre, vous organisez une célébration au sein du {{currentPlayer.pantheon.name}}, votre panthéon, pour oublier un peu cette période troublée l'espace d'un instant. Un mariage, une alliance politique, une naissance...vous prenez du recul par rapport au Destin...ou pas !</span>
-                  <ul class="mb-3">
-                    <li>Coût : Aucun</li>
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.fatebindings.celebration.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.celebration.description1")}} {{currentPlayer.pantheon.name}} {{$t("rotg.content.ui.orderSheet.orders.fatebindings.celebration.description2")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Gains :
-                      Vos&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin évoluent de
-                      <b>1D6 - 1D10</b>
+                      {{$t("rotg.content.ui.orderSheet.cost")}}
+                      <span
+                        v-if="localeFR"
+                      >&nbsp;Aucun&nbsp;</span>
+                      <span v-else>&nbsp;None&nbsp;</span>
+                    </li>
+                    <li>
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.gains")}}
+                        Vos&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin évoluent de
+                        <b>1D6 - 1D10</b>
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.gains")}}
+                        Your&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Bindings are increased (or decreased) of
+                        <b>1D6 - 1D10</b>
+                      </span>
                     </li>
                   </ul>
                   <v-btn
@@ -778,20 +1155,44 @@
                     @click.stop="addOrder(11,0)"
                     block
                     :disabled="disableOrder(11)"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(11)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(11)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Vous êtes {{currentPlayer.pantheon.leaderName}}, leader du mythique {{currentPlayer.pantheon.name}}. La Légende accumulée lors de cette guerre vous couvre de gloire...et vous met en valeur auprès du Destin.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.fatebindings.destiny.title")}}</div>
+                  <span>
+                    <span
+                      v-if="localeFR"
+                    >Vous êtes {{currentPlayer.pantheon.leaderName}}, leader du mythique {{currentPlayer.pantheon.name}}.</span>
+                    <span
+                      v-else
+                    >You are {{currentPlayer.pantheon.leaderName}}, leader of the mythical {{currentPlayer.pantheon.name}}.</span>
+                    {{$t("rotg.content.ui.orderSheet.orders.fatebindings.destiny.description")}}
+                  </span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût : Vous gagnez 1&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.cost")}} Vous gagnez 1&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.cost")}} You gain 1&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Binding
+                      </span>
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>2</b>&nbsp;
-                      <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                      <v-icon small>fa-jedi</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.heroism")}}
                     </li>
                   </ul>
                   <v-btn
@@ -801,20 +1202,36 @@
                     @click.stop="addOrder(12,1)"
                     block
                     :disabled="disableOrder(12)"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(12)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(12)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>Les murmures se propagent à travers la Légende et recèlent moultes informations pour qui sait tendre l'oreille vers le Destin.</span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.fatebindings.gossips.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.gossips.description")}}</span>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût : Vous gagnez 1&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.cost")}} Vous gagnez 1&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Lien du Destin
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.cost")}} You gain 1&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Binding
+                      </span>
                     </li>
                     <li>
-                      Gains :
+                      {{$t("rotg.content.ui.orderSheet.gains")}}
                       <b>1D3</b>&nbsp;
-                      <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                      <v-icon small>fa-eye</v-icon>
+                      &nbsp;{{$t("rotg.common.resources.prophets")}}
                     </li>
                   </ul>
                   <v-btn
@@ -824,26 +1241,51 @@
                     @click.stop="addOrder(13,1)"
                     block
                     :disabled="disableOrder(13)"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(13)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(13)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
                 <v-tab-item class="pa-2 subtitle-1 font-weight-thin">
-                  <span>
-                    Acculé(e), il vous reste toujours l'option de franchir le Rubicon.
-                    <br />
-                    <i>
-                      Cet ordre n'est disponible que si vous faites partie des 3 derniers joueurs en nombre de &nbsp;
-                      <v-icon small>fa-trophy</v-icon>Points de Victoire
-                    </i>
-                  </span>
-                  <ul class="mb-3">
+                  <div
+                    class="title"
+                  >{{$t("rotg.content.ui.orderSheet.orders.fatebindings.alea.title")}}</div>
+                  <span>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.alea.description")}}</span>
+                  <br />
+                  <i v-if="localeFR">
+                    Cet ordre n'est disponible que si vous faites partie des 3 derniers joueurs en nombre de &nbsp;
+                    <v-icon small>fa-trophy</v-icon>
+                    {{$t("rotg.common.resources.victoryPoints")}}
+                  </i>
+                  <i v-else>
+                    This order is only available if you are among the lowest amount of &nbsp;
+                    <v-icon small>fa-trophy</v-icon>
+                    {{$t("rotg.common.resources.victoryPoints")}}
+                  </i>
+                  <v-divider></v-divider>
+                  <ul class="mb-3 mt-3">
                     <li>
-                      Coût : Vous gagnez 4&nbsp;
-                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.cost")}} Vous gagnez 4&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.cost")}} You gain 4&nbsp;
+                        <v-icon small>fa-spider</v-icon>&nbsp;Fate Bindings
+                      </span>
                     </li>
                     <li>
-                      Gains :
-                      <b>2D3</b>&nbsp; de chaque autre ressource
+                      <span v-if="localeFR">
+                        {{$t("rotg.content.ui.orderSheet.gains")}}
+                        <b>2D3</b>&nbsp; de chaque autre ressource
+                      </span>
+                      <span v-else>
+                        {{$t("rotg.content.ui.orderSheet.gains")}}
+                        <b>2D3</b>&nbsp; of each other resource
+                      </span>
                     </li>
                   </ul>
                   <v-btn
@@ -853,8 +1295,13 @@
                     @click.stop="addOrder(2,4)"
                     block
                     :disabled="disableOrder(2) || !playerIsFlop3()"
-                  >Valider</v-btn>
-                  <v-btn block color="red darken-4" v-else @click.stop="removeOrder(2)">Annuler</v-btn>
+                  >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+                  <v-btn
+                    block
+                    color="red darken-4"
+                    v-else
+                    @click.stop="removeOrder(2)"
+                  >{{$t("rotg.common.buttons.cancel")}}</v-btn>
                 </v-tab-item>
               </v-tabs-items>
             </v-tabs>
@@ -865,16 +1312,35 @@
             <v-icon left :color="sheet.ordersSent.indexOf(19) > -1 ? 'teal' : 'white'">fa-bolt</v-icon>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pa-2 subtitle-1 font-weight-thin">
-            <span>Parfois le Destin a besoin de se faire un peu forcer la main...</span>
-            <br />
-            <span>
-              <u>NB:</u>&nbsp;Cet ordre est exécuté avant les attaques programmées sur les Plans Cosmiques aux mains des Titans.
+            <div class="title">
+              <span v-if="localeFR">Main du Destin</span>
+              <span v-else>Hand of Fate</span>
+            </div>
+            <span v-if="localeFR">
+              <span>Parfois le Destin a besoin de se faire un peu forcer la main...</span>
+              <br />
+              <span>
+                <u>NB:</u>&nbsp;Cet ordre est exécuté avant les attaques programmées sur les Plans Cosmiques aux mains des Titans.
+              </span>
             </span>
-            <ul class="mb-3">
+            <span v-else>
+              <span>Sometimes Fate needs to be forced a little...</span>
+              <br />
+              <span>
+                <u>NB:</u>&nbsp;This order is executed before the attacks planned on the Cosmic Planes in the hands of the Titans.
+              </span>
+            </span>
+            <v-divider></v-divider>
+            <ul class="mb-3 mt-3">
               <li>
-                Choisissez 3 Plans Cosmiques où faire baisser les forces titaniques de
+                <span
+                  v-if="localeFR"
+                >Choisissez 3 Plans Cosmiques où faire baisser les forces titaniques de</span>
+                <span v-else>Choose 3 Cosmic Planes where to lower the titanic forces of</span>
+                &nbsp;
                 <b>1</b>
-                <v-icon small>fa-fist-raised></v-icon>&nbsp;Armée :&nbsp;
+                <v-icon small>fa-fist-raised></v-icon>
+                &nbsp;{{$t("rotg.common.resources.army")}} :&nbsp;
                 <div style="width: 200px; display: inline-block">
                   <v-select
                     v-model="sheet.parameters.handBonusPlanes"
@@ -886,10 +1352,10 @@
                     multiple
                   >
                     <template v-slot:selection="{ item }">
-                      <span v-html="item.name"></span>
+                      <span v-html="localeFR ? item.name : item.nameVO"></span>
                     </template>
                     <template v-slot:item="{ item }">
-                      <span v-html="item.name"></span>
+                      <span v-html="localeFR ? item.name : item.nameVO"></span>
                     </template>
                   </v-select>
                 </div>
@@ -898,12 +1364,17 @@
                   color="amber darken-3"
                   icon="mdi-fire"
                   v-if="sheet.parameters.handBonusPlanes.length != 3"
-                >Veuillez choisir exactement 3 Plans Cosmiques</v-alert>
+                >{{$t("rotg.content.ui.orderSheet.fateHandError")}}</v-alert>
               </li>
               <li>
-                Choisissez un Plan Cosmique où faire augmenter les forces titaniques de
+                <span
+                  v-if="localeFR"
+                >Choisissez un Plan Cosmique où faire augmenter les forces titaniques de</span>
+                <span v-else>Choose a Cosmic Plan where to increase the titanium forces of</span>
+                &nbsp;
                 <b>3</b>
-                <v-icon small>fa-fist-raised></v-icon>&nbsp;Armées :&nbsp;
+                <v-icon small>fa-fist-raised></v-icon>
+                &nbsp;{{$t("rotg.common.resources.army")}} :&nbsp;
                 <div style="width: 200px; display: inline-block">
                   <v-select
                     v-model="sheet.parameters.handMalusPlane"
@@ -914,10 +1385,10 @@
                     solo
                   >
                     <template v-slot:selection="{ item }">
-                      <span v-html="item.name"></span>
+                      <span v-html="localeFR ? item.name : item.nameVO"></span>
                     </template>
                     <template v-slot:item="{ item }">
-                      <span v-html="item.name"></span>
+                      <span v-html="localeFR ? item.name : item.nameVO"></span>
                     </template>
                   </v-select>
                 </div>
@@ -930,8 +1401,13 @@
               @click.stop="addOrder(19,0)"
               block
               :disabled="disableOrder(19) || (sheet.parameters.handMalusPlane == '' || sheet.parameters.handBonusPlanes.length != 3)"
-            >Valider</v-btn>
-            <v-btn block color="red darken-4" v-else @click.stop="removeOrder(19)">Annuler</v-btn>
+            >{{$t("rotg.common.buttons.confirm")}}</v-btn>
+            <v-btn
+              block
+              color="red darken-4"
+              v-else
+              @click.stop="removeOrder(19)"
+            >{{$t("rotg.common.buttons.cancel")}}</v-btn>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -946,82 +1422,102 @@
             :loading="loadingSend"
             :disabled="sheet.ordersSent.length == 0"
           >
-            <v-icon left small>fa-paper-plane</v-icon>Envoyer ma feuille d'ordre
+            <v-icon left small>fa-paper-plane</v-icon>{{$t("rotg.common.buttons.sendOrderSheet")}}
           </v-btn>
         </v-col>
       </v-row>
     </div>
     <v-dialog v-model="resourcesDialog" max-width="500">
       <v-card>
-        <v-card-title class="blue darken-4 white--text">Ressources associées aux Plans Cosmiques</v-card-title>
+        <v-card-title class="blue darken-4 white--text">{{$t("rotg.content.ui.orderSheet.planesResources.title")}}</v-card-title>
         <v-card-text>
           <v-simple-table>
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left">Plan</th>
-                  <th class="text-left">Ressource</th>
+                  <th class="text-left">{{$t("rotg.content.ui.orderSheet.planesResources.plane")}}</th>
+                  <th class="text-left">{{$t("rotg.content.ui.orderSheet.planesResources.resource")}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Le Monde</td>
                   <td>
-                    <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin (diminution)
+                    <span v-if="localeFR">Le Monde</span>
+                    <span v-else>The World</span>
+                  </td>
+                  <td>
+                    <span v-if="localeFR">
+                      <v-icon small>fa-spider</v-icon>&nbsp;Liens du Destin (diminution)
+                    </span>
+                    <span v-else>
+                      <v-icon small>fa-spider</v-icon>&nbsp;Fate Bindings (decrease)
+                    </span>
                   </td>
                 </tr>
                 <tr>
                   <td>Fairie</td>
                   <td>
-                    <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                    <v-icon small>fa-gem</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.orichalcum")}}
                   </td>
                 </tr>
                 <tr>
                   <td>Shambhala</td>
                   <td>
-                    <v-icon small>fa-gem</v-icon>&nbsp;Orichalque
+                    <v-icon small>fa-gem</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.orichalcum")}}
                   </td>
                 </tr>
                 <tr>
                   <td>Aunu</td>
                   <td>
-                    <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée
+                    <v-icon small>fa-fist-raised</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.army")}}
                   </td>
                 </tr>
                 <tr>
                   <td>Aether</td>
                   <td>
-                    <v-icon small>fa-fist-raised</v-icon>&nbsp;Armée
+                    <v-icon small>fa-fist-raised</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.army")}}
                   </td>
                 </tr>
                 <tr>
-                  <td>Mont Olympe</td>
                   <td>
-                    <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                    <span v-if="localeFR">Mont Olympe</span>
+                    <span v-else>Mount Olympus</span>
+                  </td>
+                  <td>
+                    <v-icon small>fa-jedi</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.heroism")}}
                   </td>
                 </tr>
                 <tr>
                   <td>Kosmos</td>
                   <td>
-                    <v-icon small>fa-jedi</v-icon>&nbsp;Héroïsme
+                    <v-icon small>fa-jedi</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.heroism")}}
                   </td>
                 </tr>
                 <tr>
                   <td>Devaloka</td>
                   <td>
-                    <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                    <v-icon small>fa-eye</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.prophets")}}
                   </td>
                 </tr>
                 <tr>
                   <td>Nyx</td>
                   <td>
-                    <v-icon small>fa-eye</v-icon>&nbsp;Prophètes
+                    <v-icon small>fa-eye</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.prophets")}}
                   </td>
                 </tr>
                 <tr>
                   <td>Sheol</td>
                   <td>
-                    <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                    <v-icon small>fa-user-friends</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.population")}}
                   </td>
                 </tr>
               </tbody>
@@ -1037,17 +1533,17 @@
     <v-dialog v-model="sendSheetDialog" persistent max-width="500">
       <v-card>
         <v-card-title class="orange darken-4 white--text">
-          Attention
+          {{$t("rotg.content.ui.orderSheet.warningDialog.title")}}
           <v-spacer></v-spacer>
           <v-icon class="white--text">fa-radiation</v-icon>
         </v-card-title>
         <v-card-text
           class="mt-2"
-        >L'envoi de la fiche d'ordre pour ce tour est définitif. Êtes-vous sûr(e) de vouloir l'envoyer maintenant ?</v-card-text>
+        >{{$t("rotg.content.ui.orderSheet.warningDialog.text")}}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text @click="sendSheetDialog = false;">Annuler</v-btn>
-          <v-btn text color="blue" @click="sendOrderSheet">Envoyer</v-btn>
+          <v-btn text @click="sendSheetDialog = false;">{{$t("rotg.common.buttons.cancel")}}</v-btn>
+          <v-btn text color="blue" @click="sendOrderSheet">{{$t("rotg.common.buttons.send")}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -1150,6 +1646,9 @@ export default Vue.extend({
       return this.ordersFate.some(
         (r: number) => this.sheet.ordersSent.indexOf(r) >= 0
       );
+    },
+    localeFR: function() {
+      return this.$i18n.locale == "fr";
     }
   },
   watch: {

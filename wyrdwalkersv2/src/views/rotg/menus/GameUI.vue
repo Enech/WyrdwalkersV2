@@ -7,7 +7,7 @@
             <v-icon>arrow_back</v-icon>
           </v-btn>
         </template>
-        <span>Revenir aux parties</span>
+        <span>{{$t('rotg.content.ui.back')}}</span>
       </v-tooltip>
       <v-toolbar-title>
         {{selectedGame.name}}
@@ -20,7 +20,7 @@
             <v-icon>fa-handshake</v-icon>
           </v-btn>
         </template>
-        <span>Partie gagnée par les dieux</span>
+        <span>{{$t('rotg.content.ui.won')}}</span>
       </v-tooltip>
       <v-tooltip bottom v-if="!selectedGame.won && selectedGame.closed">
         <template v-slot:activator="{ on }">
@@ -28,7 +28,7 @@
             <v-icon>fa-skull-crossbones</v-icon>
           </v-btn>
         </template>
-        <span>Partie gagnée par les Titans</span>
+        <span>{{$t('rotg.content.ui.lost')}}</span>
       </v-tooltip>
       <v-spacer></v-spacer>
       <v-tooltip bottom v-if="selectedGame.turn > 1">
@@ -37,7 +37,7 @@
             <v-icon>fa-balance-scale</v-icon>
           </v-btn>
         </template>
-        <span>Afficher la résolution du tour précédent</span>
+        <span>{{$t('rotg.content.ui.lastTurn')}}</span>
       </v-tooltip>
       <v-tooltip bottom v-if="playerIsCreator && selectedGame.running && !selectedGame.timerMode">
         <template v-slot:activator="{ on }">
@@ -45,7 +45,7 @@
             <v-icon>alarm_on</v-icon>
           </v-btn>
         </template>
-        <span>Finir le tour</span>
+        <span>{{$t('rotg.common.buttons.endTurn')}}</span>
       </v-tooltip>
       <v-tooltip bottom v-if="selectedGame.running && selectedGame.timerMode">
         <template v-slot:activator="{ on }">
@@ -54,7 +54,9 @@
           </v-btn>
         </template>
         <div>
-          <div class="subtitle-2 text-center">Fin du tour {{selectedGame.turn}} dans :</div>
+          <div
+            class="subtitle-2 text-center"
+          >{{$t('rotg.content.ui.timerText1')}} {{selectedGame.turn}} {{$t('rotg.content.ui.timerText2')}}</div>
           <rotg-counter />
         </div>
       </v-tooltip>
@@ -64,7 +66,7 @@
             <v-icon>fa-dungeon</v-icon>
           </v-btn>
         </template>
-        <span>Rejoindre la partie</span>
+        <span>{{$t('rotg.common.buttons.joinGame')}}</span>
       </v-tooltip>
       <v-tooltip
         bottom
@@ -75,7 +77,7 @@
             <v-icon>play_arrow</v-icon>
           </v-btn>
         </template>
-        <span>Lancer la partie</span>
+        <span>{{$t('rotg.common.buttons.startGame')}}</span>
       </v-tooltip>
     </v-toolbar>
     <v-img
@@ -86,7 +88,7 @@
     >
       <div
         class="headline pa-3 bg-transparent-black white--text"
-      >Bienvenue, ô {{currentPlayer.pantheon.leaderName}} !</div>
+      >{{$t('rotg.content.ui.welcome')}} {{currentPlayer.pantheon.leaderName}} !</div>
     </v-img>
     <v-row class="mt-3" v-if="currentPlayer._id != '' && selectedGame.running">
       <v-col cols="4" sm="2">
@@ -103,10 +105,10 @@
                 >({{displayRhesus(-1 * resourcesSpent.orichalcum)}})</span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text class="pa-1 text-right">+2 / tour</v-card-text>
+              <v-card-text class="pa-1 text-right">+2 {{$t('rotg.common.resources.byTurn')}}</v-card-text>
             </v-card>
           </template>
-          <span>Orichalque</span>
+          <span>{{$t('rotg.common.resources.orichalcum')}}</span>
         </v-tooltip>
       </v-col>
       <v-col cols="4" sm="2">
@@ -123,10 +125,10 @@
                 >({{displayRhesus(-1 * resourcesSpent.army)}})</span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text class="pa-1 text-right">+0 / tour</v-card-text>
+              <v-card-text class="pa-1 text-right">+0 {{$t('rotg.common.resources.byTurn')}}</v-card-text>
             </v-card>
           </template>
-          <span>Armée</span>
+          <span>{{$t('rotg.common.resources.army')}}</span>
         </v-tooltip>
       </v-col>
       <v-col cols="4" sm="2">
@@ -143,10 +145,10 @@
                 >({{displayRhesus(-1 * resourcesSpent.heroism) }})</span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text class="pa-1 text-right">+1 / tour</v-card-text>
+              <v-card-text class="pa-1 text-right">+1 {{$t('rotg.common.resources.byTurn')}}</v-card-text>
             </v-card>
           </template>
-          <span>Héroïsme</span>
+          <span>{{$t('rotg.common.resources.heroism')}}</span>
         </v-tooltip>
       </v-col>
       <v-col cols="4" sm="2">
@@ -163,10 +165,10 @@
                 >({{displayRhesus(-1 * resourcesSpent.prophets)}})</span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text class="pa-1 text-right">+2 / tour</v-card-text>
+              <v-card-text class="pa-1 text-right">+2 {{$t('rotg.common.resources.byTurn')}}</v-card-text>
             </v-card>
           </template>
-          <span>Prophètes</span>
+          <span>{{$t('rotg.common.resources.prophets')}}</span>
         </v-tooltip>
       </v-col>
       <v-col cols="4" sm="2">
@@ -183,10 +185,10 @@
                 >({{displayRhesus(-1 * resourcesSpent.population)}})</span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text class="pa-1 text-right">+2 / tour</v-card-text>
+              <v-card-text class="pa-1 text-right">+2 {{$t('rotg.common.resources.byTurn')}}</v-card-text>
             </v-card>
           </template>
-          <span>Population</span>
+          <span>{{$t('rotg.common.resources.population')}}</span>
         </v-tooltip>
       </v-col>
       <v-col cols="4" sm="2">
@@ -203,24 +205,29 @@
                 >({{displayRhesus(resourcesSpent.fatebindings)}})</span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text class="pa-1 text-right">+0 / tour</v-card-text>
+              <v-card-text class="pa-1 text-right">+0 {{$t('rotg.common.resources.byTurn')}}</v-card-text>
             </v-card>
           </template>
-          <span>Liens du Destin</span>
+          <span>{{$t('rotg.common.resources.fatebindings')}}</span>
         </v-tooltip>
       </v-col>
     </v-row>
     <v-card class="mt-3 pa-3">
       <v-tabs v-model="tab" show-arrows grow>
         <v-tab>
-          <v-icon left>fa-chess-bishop</v-icon>Vue générale
+          <v-icon left>fa-chess-bishop</v-icon>
+          {{$t('rotg.content.ui.generalView.title')}}
         </v-tab>
         <v-tab v-if="userIsInGame && selectedGame.running">
-          <v-icon left>fa-receipt</v-icon>Feuille d'ordre
-          <span v-if="selectedGame.turn > 0">(T{{selectedGame.turn}})</span>
+          <v-icon left>fa-receipt</v-icon>
+          {{$t('rotg.content.ui.orderSheet.title')}}
+          <span
+            v-if="selectedGame.turn > 0"
+          >(T{{selectedGame.turn}})</span>
         </v-tab>
         <v-tab v-if="userIsInGame && selectedGame.running">
-          <v-icon left>fa-archive</v-icon>Archives
+          <v-icon left>fa-archive</v-icon>
+          {{$t('rotg.content.ui.archives.title')}}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
@@ -229,26 +236,27 @@
             <v-col cols="12" sm="6">
               <v-card class="pa-3" outlined>
                 <v-card-title>
-                  <v-icon small>fa-receipt</v-icon>&nbsp;Plans Cosmiques
+                  <v-icon small left>mdi-layers-triple</v-icon>
+                  &nbsp;{{$t('rotg.content.ui.planes')}}
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <span
                     class="subtitle-1"
                     v-if="selectedGameTerritories.length == 0"
-                  >Aucune donnée à afficher</span>
+                  >{{$t('rotg.content.ui.noData')}}</span>
                   <v-simple-table v-else>
                     <template v-slot:default>
                       <thead>
                         <tr>
-                          <th class="text-left">Plan</th>
-                          <th class="text-left">Propriétaire</th>
+                          <th class="text-left">{{$t('rotg.content.ui.generalView.plane')}}</th>
+                          <th class="text-left">{{$t('rotg.content.ui.generalView.owner')}}</th>
                           <th class="text-left">Forces</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="item in selectedGameTerritories" :key="item.name">
-                          <td v-html="item.name"></td>
+                          <td v-html="localeFR ? item.name : item.nameVO"></td>
                           <td>{{ item.ownerName != '' ? item.ownerName : 'Titans' }}</td>
                           <td>{{ displayPlanesForces(item) }}</td>
                         </tr>
@@ -267,14 +275,14 @@
                     <template v-slot:default>
                       <thead>
                         <tr>
-                          <th class="text-left">Panthéon</th>
-                          <th class="text-left">Joueur</th>
-                          <th class="text-left">Points de Victoire</th>
+                          <th class="text-left">{{$t('rotg.content.ui.generalView.pantheon')}}</th>
+                          <th class="text-left">{{$t('rotg.content.ui.generalView.player')}}</th>
+                          <th class="text-left">{{$t('rotg.content.ui.generalView.victoryPoints')}}</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(item,index) in rankings" :key="index">
-                          <td>{{ item.pantheon.name }}</td>
+                          <td>{{ localeFR ? item.pantheon.name : item.pantheon.nameVO }}</td>
                           <td>{{ item.user.name }}</td>
                           <td>
                             {{ item.victoryPoints }}&nbsp;
@@ -284,7 +292,7 @@
                       </tbody>
                     </template>
                   </v-simple-table>
-                  <span class="subtitle-1" v-else>Aucune donnée à afficher</span>
+                  <span class="subtitle-1" v-else>{{$t('rotg.content.ui.noData')}}</span>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -298,22 +306,26 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left">Tour</th>
-                  <th class="text-left">Envoyée le</th>
-                  <th class="text-left">Traitée</th>
-                  <th class="text-left">Détails</th>
+                  <th class="text-left">{{$t('rotg.content.ui.archives.turn')}}</th>
+                  <th class="text-left">{{$t('rotg.content.ui.archives.sent')}}</th>
+                  <th class="text-left">{{$t('rotg.content.ui.archives.processed')}}</th>
+                  <th class="text-left">{{$t('rotg.content.ui.archives.details')}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(item,index) in playerSheets" :key="index">
-                  <td>Tour {{ item.turn }}</td>
-                  <td>{{item.dayOfSubmit}} à {{item.timeOfSubmit}}</td>
+                  <td>{{$t('rotg.content.ui.archives.turn')}} {{ item.turn }}</td>
+                  <td>{{item.dayOfSubmit}} {{$t('rotg.content.ui.archives.timeSeparator')}} {{item.timeOfSubmit}}</td>
                   <td>
                     <v-icon color="green" v-if="item.processed">fa-check</v-icon>
                     <v-icon color="red" v-else>fa-times</v-icon>
                   </td>
                   <td>
-                    <v-btn color="blue" dark @click="openOrderSheetView(item)">Ouvrir</v-btn>
+                    <v-btn
+                      color="blue"
+                      dark
+                      @click="openOrderSheetView(item)"
+                    >{{$t('rotg.content.ui.archives.open')}}</v-btn>
                   </td>
                 </tr>
               </tbody>
@@ -325,7 +337,7 @@
     <v-dialog v-model="loading" persistent width="300" hide-overlay>
       <v-card color="primary" dark>
         <v-card-text>
-          Chargement...
+          {{$t('rotg.common.loading')}}
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
@@ -333,7 +345,7 @@
     <v-dialog v-model="registerGameDialog" max-width="1000" persistent scrollable>
       <v-card>
         <v-card-title class="blue darken-4 white--text">
-          <span class="headline">Rejoindre la partie {{selectedGame.name}}</span>
+          <span class="headline">{{$t('rotg.common.buttons.joinGame')}} {{selectedGame.name}}</span>
           <v-spacer></v-spacer>
           <v-btn text icon dark @click="closeDialog()">
             <v-icon>close</v-icon>
@@ -350,7 +362,7 @@
                     :dark="pantheonSelected(item.name)"
                     :color="pantheonSelected(item.name) ? 'light-blue' : 'white'"
                   >
-                    <v-card-title class="headline font-weight-medium">{{ item.name }}</v-card-title>
+                    <v-card-title class="headline font-weight-medium">{{ localeFR ? item.name : item.nameVO }}</v-card-title>
                     <v-divider></v-divider>
                     <v-list dense :color="pantheonSelected(item.name) ? 'light-blue' : 'white'">
                       <v-list-item>
@@ -360,7 +372,8 @@
                         >{{ item.leaderName }}</v-list-item-content>
                       </v-list-item>
                       <v-list-item>
-                        <v-list-item-content>{{ item.description }}</v-list-item-content>
+                        <v-list-item-content v-if="localeFR">{{ item.description }}</v-list-item-content>
+                        <v-list-item-content v-else>{{ item.descriptionVO }}</v-list-item-content>
                       </v-list-item>
                     </v-list>
                   </v-card>
@@ -371,15 +384,15 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="black" text @click="closeDialog()">Annuler</v-btn>
-          <v-btn color="blue" text @click="addPlayer()">Valider</v-btn>
+          <v-btn color="black" text @click="closeDialog()">{{$t('rotg.common.buttons.cancel')}}</v-btn>
+          <v-btn color="blue" text @click="addPlayer()">{{$t('rotg.common.buttons.confirm')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog v-model="resolutionDialog" max-width="1000" persistent scrollable>
       <v-card>
         <v-card-title class="black white--text">
-          <span class="headline">Résolution du tour {{selectedGame.turn-1}}</span>
+          <span class="headline">{{$t('rotg.content.ui.turnResult.title')}} {{selectedGame.turn-1}}</span>
           <v-spacer></v-spacer>
           <v-btn text icon dark @click="closeResolutionDialog();">
             <v-icon>close</v-icon>
@@ -387,7 +400,7 @@
         </v-card-title>
         <v-card-text :max-height="dialogHeight">
           <v-row align-content="center" justify="center" v-if="loadingFate">
-            <v-col class="subtitle-1 text-center" cols="12">Chargement...</v-col>
+            <v-col class="subtitle-1 text-center" cols="12">{{$t('rotg.common.loading')}}</v-col>
             <v-col cols="6">
               <v-progress-linear color="blue accent-4" indeterminate rounded height="6"></v-progress-linear>
             </v-col>
@@ -397,16 +410,17 @@
               <v-card class="pa-3" outlined>
                 <v-card-title>
                   <v-icon left>fa-spider</v-icon>
-                  &nbsp;{{currentFateConsequence.name}}
+                  &nbsp;{{localeFR ? currentFateConsequence.name : currentFateConsequence.nameVO}}
                 </v-card-title>
                 <v-divider></v-divider>
-                <v-card-text v-html="currentFateConsequence.text"></v-card-text>
+                <v-card-text v-html="localeFR ? currentFateConsequence.text : currentFateConsequence.textVO"></v-card-text>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6">
               <v-card class="pa-3" outlined>
                 <v-card-title>
-                  <v-icon left>fa-coins</v-icon>&nbsp;Gains en ressources
+                  <v-icon left>fa-coins</v-icon>
+                  &nbsp;{{$t('rotg.content.ui.turnResult.earnings')}}
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
@@ -414,50 +428,57 @@
                     <template v-slot:default>
                       <thead>
                         <tr>
-                          <th class="text-left">Ressource</th>
-                          <th class="text-left">Gain / Perte</th>
+                          <th class="text-left">{{$t('rotg.content.ui.turnResult.resource')}}</th>
+                          <th class="text-left">{{$t('rotg.content.ui.turnResult.gainLoss')}}</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>
-                            <v-icon small left>fa-gem</v-icon>&nbsp;Orichalque
+                            <v-icon small left>fa-gem</v-icon>
+                            &nbsp;{{$t('rotg.common.resources.orichalcum')}}
                           </td>
                           <td>{{ currentPlayer.orichalcum - previousPlayer.orichalcum }}</td>
                         </tr>
                         <tr>
                           <td>
-                            <v-icon small left>fa-fist-raised</v-icon>&nbsp;Armée
+                            <v-icon small left>fa-fist-raised</v-icon>
+                            &nbsp;{{$t('rotg.common.resources.army')}}
                           </td>
                           <td>{{ currentPlayer.army - previousPlayer.army }}</td>
                         </tr>
                         <tr>
                           <td>
-                            <v-icon small left>fa-jedi</v-icon>&nbsp;Héroïsme
+                            <v-icon small left>fa-jedi</v-icon>
+                            &nbsp;{{$t('rotg.common.resources.heroism')}}
                           </td>
                           <td>{{ currentPlayer.heroism - previousPlayer.heroism }}</td>
                         </tr>
                         <tr>
                           <td>
-                            <v-icon small left>fa-eye</v-icon>&nbsp;Prophètes
+                            <v-icon small left>fa-eye</v-icon>
+                            &nbsp;{{$t('rotg.common.resources.prophets')}}
                           </td>
                           <td>{{ currentPlayer.prophets - previousPlayer.prophets }}</td>
                         </tr>
                         <tr>
                           <td>
-                            <v-icon small left>fa-user-friends</v-icon>&nbsp;Population
+                            <v-icon small left>fa-user-friends</v-icon>
+                            &nbsp;{{$t('rotg.common.resources.population')}}
                           </td>
                           <td>{{ currentPlayer.population - previousPlayer.population }}</td>
                         </tr>
                         <tr>
                           <td>
-                            <v-icon small left>fa-spider</v-icon>&nbsp;Liens du Destin
+                            <v-icon small left>fa-spider</v-icon>
+                            &nbsp;{{$t('rotg.common.resources.fatebindings')}}
                           </td>
                           <td>{{ currentPlayer.fatebindings - previousPlayer.fatebindings }}</td>
                         </tr>
                         <tr>
                           <td>
-                            <v-icon small left>fa-trophy</v-icon>&nbsp;Points de Victoire
+                            <v-icon small left>fa-trophy</v-icon>
+                            &nbsp;{{$t('rotg.common.resources.victoryPoints')}}
                           </td>
                           <td>{{ currentPlayer.victoryPoints - previousPlayer.victoryPoints }}</td>
                         </tr>
@@ -470,13 +491,15 @@
             <v-col cols="12" sm="6">
               <v-card class="pa-3" outlined>
                 <v-card-title>
-                  <v-icon left>fa-spider</v-icon>&nbsp;Autres Informations
+                  <v-icon left>fa-spider</v-icon>
+                  &nbsp;{{$t('rotg.content.ui.turnResult.otherInformation')}}
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <v-row>
                     <v-col cols="12" class="mb-3">
-                      <v-icon small left>fa-receipt</v-icon>&nbsp;Fiches d'Ordres visibles :
+                      <v-icon small left>fa-receipt</v-icon>
+                      &nbsp;{{$t('rotg.content.ui.turnResult.sheetsVisible')}}
                       <span
                         v-if="currentPlayer.sheetsVisible.length == 0"
                       >/</span>
@@ -498,14 +521,16 @@
                       </div>
                     </v-col>
                     <v-col cols="12" class="mb-3">
-                      Forces des Titans visibles ce tour-ci :
+                      {{$t('rotg.content.ui.turnResult.titansVisible')}}
                       <span
                         v-if="currentPlayer.titanForcesVisible"
                       >
-                        <v-icon small left class="green--text">fa-check</v-icon>&nbsp; Oui
+                        <v-icon small left class="green--text">fa-check</v-icon>
+                        &nbsp; {{$t('rotg.common.yes')}}
                       </span>
                       <span v-else>
-                        <v-icon small class="red--text">fa-times</v-icon>&nbsp; Non
+                        <v-icon small class="red--text">fa-times</v-icon>
+                        &nbsp; {{$t('rotg.common.no')}}
                       </span>
                     </v-col>
                     <v-col cols="12">
@@ -513,21 +538,29 @@
                         <template v-slot:default>
                           <thead>
                             <tr>
-                              <th class="text-left">Plan attaqué</th>
-                              <th class="text-left">Joueurs attaquants</th>
-                              <th class="text-left">Résultat</th>
+                              <th
+                                class="text-left"
+                              >{{$t('rotg.content.ui.turnResult.attackedPlane')}}</th>
+                              <th
+                                class="text-left"
+                              >{{$t('rotg.content.ui.turnResult.attackingPlayers')}}</th>
+                              <th
+                                class="text-left"
+                              >{{$t('rotg.content.ui.turnResult.attackResult')}}</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr v-for="(attack,index) in attacksResults" :key="index">
-                              <td v-html="attack.name"></td>
+                              <td v-html="localeFR ? attack.name : attack.nameVO"></td>
                               <td>{{ attack.nbPlayers }}</td>
                               <td>
                                 <span v-if="attack.taken">
-                                  <v-icon small left>mdi-crown</v-icon>&nbsp;Victoire
+                                  <v-icon small left>mdi-crown</v-icon>
+                                  &nbsp;{{$t('rotg.content.ui.turnResult.victory')}}
                                 </span>
                                 <span v-else>
-                                  <v-icon small left>mdi-sword-cross</v-icon>&nbsp;Défaite
+                                  <v-icon small left>mdi-sword-cross</v-icon>
+                                  &nbsp;{{$t('rotg.content.ui.turnResult.defeat')}}
                                 </span>
                               </td>
                             </tr>
@@ -552,7 +585,7 @@
         <v-card-title class="blue darken-4 white--text">
           <span class="headline">
             <v-icon left dark>fa-receipt</v-icon>
-            Feuille d'Ordre de {{viewedOrderSheet.parameters.playerName}} (Tour {{viewedOrderSheet.turn}})
+            {{$t('rotg.content.ui.orderSheetDialog.title1')}} {{viewedOrderSheet.parameters.playerName}} ({{$t('rotg.content.ui.orderSheetDialog.title2')}} {{viewedOrderSheet.turn}})
           </span>
           <v-spacer></v-spacer>
           <v-btn text icon dark @click="closeOrderSheetView();">
@@ -563,7 +596,7 @@
           <v-row>
             <v-col cols="12" sm="6">
               <v-card outlined>
-                <v-card-title>Ordres envoyés</v-card-title>
+                <v-card-title>{{$t('rotg.content.ui.orderSheetDialog.sentOrders')}}</v-card-title>
                 <v-card-text>
                   <div v-for="(order,index) in viewedOrderSheet.ordersSent" :key="index">
                     <span class="subtitle-1" v-html="getOrderNameFromNumber(order)"></span>
@@ -573,70 +606,134 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-card outlined>
-                <v-card-title>Cibles des ordres</v-card-title>
+                <v-card-title>{{$t('rotg.content.ui.orderSheetDialog.ordersTargets')}}</v-card-title>
                 <v-card-text>
                   <div
                     class="subtitle-1"
                     v-if="viewedOrderSheet.parameters.armySent > 0 && viewedOrderSheet.parameters.attackTarget.length > 0"
                   >
-                    Attaque du Plan
-                    <span
-                      class="font-weight-bold"
-                      v-html="getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).name"
-                    ></span> avec
-                    <b>{{viewedOrderSheet.parameters.armySent}}</b>&nbsp;
-                    <v-icon small left>fa-fist-raised</v-icon>&nbsp;Armées
+                    <div v-if="localeFR">
+                      Attaque du Plan
+                      <span
+                        class="font-weight-bold"
+                        v-html="getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).name"
+                      ></span> avec
+                      <b>{{viewedOrderSheet.parameters.armySent}}</b>&nbsp;
+                      <v-icon small left>fa-fist-raised</v-icon>&nbsp;Armées
+                    </div>
+                    <div v-else>
+                      Attack of the Plane
+                      <span
+                        class="font-weight-bold"
+                        v-html="getObjectFromID(viewedOrderSheet.parameters.attackTarget,selectedGameTerritories).nameVO"
+                      ></span> with
+                      <b>{{viewedOrderSheet.parameters.armySent}}</b>&nbsp;
+                      <v-icon small left>fa-fist-raised</v-icon>&nbsp;Armies
+                    </div>
                   </div>
                   <div class="subtitle-1" v-if="viewedOrderSheet.parameters.populateTarget != ''">
-                    Habiter le Plan
-                    <span
-                      class="font-weight-bold"
-                      v-html="getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).name"
-                    ></span>
+                    <div v-if="localeFR">
+                      Habiter le Plan
+                      <span
+                        class="font-weight-bold"
+                        v-html="getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).name"
+                      ></span>
+                    </div>
+                    <div v-else>
+                      Settle the Plane
+                      <span
+                        class="font-weight-bold"
+                        v-html="getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).nameVO"
+                      ></span>
+                    </div>
                   </div>
                   <div class="subtitle-1" v-if="viewedOrderSheet.parameters.gambleTarget != ''">
-                    Anticipation de la
-                    <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'défaite' : 'victoire'}}</b>
-                    de l'attaque sur le Plan
-                    <span
-                      class="font-weight-bold"
-                      v-html="getObjectFromID(viewedOrderSheet.parameters.gambleTarget,selectedGameTerritories).name"
-                    ></span>
+                    <div v-if="localeFR">
+                      Anticipation de la
+                      <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'défaite' : 'victoire'}}</b>
+                      de l'attaque sur le Plan
+                      <span
+                        class="font-weight-bold"
+                        v-html="getObjectFromID(viewedOrderSheet.parameters.gambleTarget,selectedGameTerritories).name"
+                      ></span>
+                    </div>
+                    <div v-else>
+                      Anticipation of the
+                      <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'defeat' : 'victory'}}</b>
+                      of the attack over the Plane
+                      <span
+                        class="font-weight-bold"
+                        v-html="getObjectFromID(viewedOrderSheet.parameters.gambleTarget,selectedGameTerritories).nameVO"
+                      ></span>
+                    </div>
                   </div>
                   <div
                     class="subtitle-1"
                     v-if="viewedOrderSheet.parameters.foreseeTargets.length > 0"
                   >
-                    Demande de vue sur les Feuilles d'Ordre du tour {{viewedOrderSheet.turn-1}} des Panthéons :
-                    <ul>
-                      <li
-                        v-for="(target,index) in viewedOrderSheet.parameters.foreseeTargets"
-                        :key="index"
-                      >{{getObjectFromID(target,selectedGamePlayers).pantheon.name}}</li>
-                    </ul>
+                    <div v-if="localeFR">
+                      Demande de vue sur les Feuilles d'Ordre du tour {{viewedOrderSheet.turn-1}} des Panthéons :
+                      <ul>
+                        <li
+                          v-for="(target,index) in viewedOrderSheet.parameters.foreseeTargets"
+                          :key="index"
+                        >{{getObjectFromID(target,selectedGamePlayers).pantheon.name}}</li>
+                      </ul>
+                    </div>
+                    <div v-else>
+                      Request for viewing Order Sheets of turn {{viewedOrderSheet.turn-1}} for Pantheons :
+                      <ul>
+                        <li
+                          v-for="(target,index) in viewedOrderSheet.parameters.foreseeTargets"
+                          :key="index"
+                        >{{getObjectFromID(target,selectedGamePlayers).pantheon.nameVO}}</li>
+                      </ul>
+                    </div>
                   </div>
                   <div
                     class="subtitle-1"
                     v-if="viewedOrderSheet.parameters.handBonusPlanes.length > 0"
                   >
-                    Main du Destin sur les Plans suivants :
-                    <ul>
-                      <li
-                        v-for="(bonus,index) in viewedOrderSheet.parameters.handBonusPlanes"
-                        :key="index"
-                      >
-                        <span v-html="getObjectFromID(bonus,selectedGameTerritories).name"></span> (
-                        <b>-1</b>&nbsp;
-                        <v-icon small left>fa-fist-raised</v-icon>Armée)
-                      </li>
-                      <li>
-                        <span
-                          v-html="getObjectFromID(viewedOrderSheet.parameters.handMalusPlane,selectedGameTerritories).name"
-                        ></span> (
-                        <b>+3</b>&nbsp;
-                        <v-icon small left>fa-fist-raised</v-icon>Armées)
-                      </li>
-                    </ul>
+                    <div v-if="localeFR">
+                      Main du Destin sur les Plans suivants :
+                      <ul>
+                        <li
+                          v-for="(bonus,index) in viewedOrderSheet.parameters.handBonusPlanes"
+                          :key="index"
+                        >
+                          <span v-html="getObjectFromID(bonus,selectedGameTerritories).name"></span> (
+                          <b>-1</b>&nbsp;
+                          <v-icon small left>fa-fist-raised</v-icon>Armée)
+                        </li>
+                        <li>
+                          <span
+                            v-html="getObjectFromID(viewedOrderSheet.parameters.handMalusPlane,selectedGameTerritories).name"
+                          ></span> (
+                          <b>+3</b>&nbsp;
+                          <v-icon small left>fa-fist-raised</v-icon>Armées)
+                        </li>
+                      </ul>
+                    </div>
+                    <div v-else>
+                      Hand of Fate over the following Planes :
+                      <ul>
+                        <li
+                          v-for="(bonus,index) in viewedOrderSheet.parameters.handBonusPlanes"
+                          :key="index"
+                        >
+                          <span v-html="getObjectFromID(bonus,selectedGameTerritories).nameVO"></span> (
+                          <b>-1</b>&nbsp;
+                          <v-icon small left>fa-fist-raised</v-icon>Army)
+                        </li>
+                        <li>
+                          <span
+                            v-html="getObjectFromID(viewedOrderSheet.parameters.handMalusPlane,selectedGameTerritories).nameVO"
+                          ></span> (
+                          <b>+3</b>&nbsp;
+                          <v-icon small left>fa-fist-raised</v-icon>Armies)
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </v-card-text>
               </v-card>
@@ -653,9 +750,9 @@
       <v-card>
         <v-card-title class="blue darken-4 white--text">
           <span class="headline">
-            <span v-if="!selectedGame.running">Lancement de la partie</span>
-            <span v-else>Fin du tour {{selectedGame.turn}}</span>
-            - Êtes-vous prêt(e) ?
+            <span v-if="!selectedGame.running">{{$t('rotg.content.ui.readyDialog.launchTitle')}}</span>
+            <span v-else>{{$t('rotg.content.ui.readyDialog.endTurnTitle')}} {{selectedGame.turn}}</span>
+            - {{$t('rotg.content.ui.readyDialog.readyTitle')}}
           </span>
         </v-card-title>
         <v-card-text :max-height="dialogHeight">
@@ -663,7 +760,8 @@
             <v-list-item v-for="(player,index) in selectedGamePlayers" :key="index">
               <v-list-item-content>
                 <v-list-item-title>{{player.user.name}}</v-list-item-title>
-                <v-list-item-subtitle>{{player.pantheon.name}}</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="localeFR">{{player.pantheon.name}}</v-list-item-subtitle>
+                <v-list-item-subtitle v-else>{{player.pantheon.nameVO}}</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-chip
@@ -671,7 +769,7 @@
                   color="green"
                   text-color="white"
                   v-if="player.turnReady"
-                >Prêt(e)</v-chip>
+                >{{$t('rotg.content.ui.readyDialog.ready')}}</v-chip>
                 <v-chip class="ma-2" color="red" text-color="white" v-else>...</v-chip>
               </v-list-item-action>
             </v-list-item>
@@ -679,50 +777,48 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="unReadyPlayerOne()" :loading="loadingReadyButton">NON !</v-btn>
-          <v-btn color="green" text @click="readyPlayerOne()" :loading="loadingReadyButton">Prêt(e)</v-btn>
+          <v-btn color="red" text @click="unReadyPlayerOne()" :loading="loadingReadyButton">{{$t('rotg.content.ui.readyDialog.notReady')}}</v-btn>
+          <v-btn color="green" text @click="readyPlayerOne()" :loading="loadingReadyButton">{{$t('rotg.content.ui.readyDialog.ready')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog v-model="finalDialog" max-width="1000" persistent scrollable hide-overlay>
       <v-card>
         <v-card-title class="red darken-4 white--text" v-if="!selectedGame.won">
-          <v-icon left class="white--text">mdi-emoticon-sad</v-icon>&nbsp;Partie perdue !
+          <v-icon left class="white--text">mdi-emoticon-sad</v-icon>&nbsp;{{$t('rotg.content.ui.endgameDialog.lostTitle')}}
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
             <v-icon>fa-times</v-icon>
           </v-btn>
         </v-card-title>
         <v-card-title class="teal darken-4 white--text" v-else>
-          <v-icon left class="white--text">mdi-emoticon-happy</v-icon>&nbsp;Partie remportée !
+          <v-icon left class="white--text">mdi-emoticon-happy</v-icon>&nbsp;{{$t('rotg.content.ui.endgameDialog.winTitle')}}
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
             <v-icon>fa-times</v-icon>
           </v-btn>
         </v-card-title>
-        <v-divider></v-divider>
+        <v-divider class="mb-3"></v-divider>
         <v-card-text
           :max-height="dialogHeight"
           v-if="!selectedGame.won && selectedGame.closed"
           class="pt-3"
         >
-          Vous n'avez pas réussi à terminer la guerre à temps. Les Titans possèdent encore suffisamment de forces pour vous défier dans un futur proche et les humains n'ont jamais été autant en danger qu'en ce moment.
-          <br />Heureusement, un nouveau leader des dieux a émergé de cette situation :
+          <span v-html="$t('rotg.content.ui.endgameDialog.lostText1')"></span>&nbsp;
           <b>{{rankings[0].pantheon.leaderName}}</b>
-          , chef du {{rankings[0].pantheon.name}}. Puisse son leadership mener les dieux et les humains vers la paix et la sécurité.
+          , {{$t('rotg.content.ui.endgameDialog.lostText2')}} {{rankings[0].pantheon.name}}. {{$t('rotg.content.ui.endgameDialog.lostText3')}}
         </v-card-text>
         <v-card-text
           :max-height="dialogHeight"
           v-if="selectedGame.won && selectedGame.closed"
           class="pt-3"
         >
-          Grâce à vos efforts communs, vous êtes parvenus à terminer cette guerre une bonne fois pour toute. Kronus est enfermé au Tartare et le reste des Titans qui le suivaient se sont rendus devant votre domination commune.
-          <br />Les dieux sont dorénavant unis sous une seule bannière dans la lutte contre les Titans : celle de
+          <span v-html="$t('rotg.content.ui.endgameDialog.wonText1')"></span>&nbsp;
           <b>{{rankings[0].pantheon.leaderName}}</b>
-          et de son Panthéon le {{rankings[0].pantheon.name}}.
+          {{$t('rotg.content.ui.endgameDialog.wonText2')}} {{rankings[0].pantheon.name}}.
           <br />
           <br />
-          <span class="headline uppercase">Gloire aux dieux !</span>
+          <span class="headline uppercase">{{$t('rotg.content.ui.endgameDialog.wonText3')}}</span>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -840,6 +936,9 @@ export default Vue.extend({
         store.getters.currentPlayer.user._id ==
         store.getters.selectedGame.creatorUser
       );
+    },
+    localeFR: function() {
+      return this.$i18n.locale == "fr";
     }
   },
   watch: {
@@ -1033,49 +1132,109 @@ export default Vue.extend({
       var result = "";
       switch (order) {
         case ResourceOrders.ORI_PROSP:
-          result = "<i class='fa fa-gem'></i>&nbsp;Prospérité";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-gem'></i>&nbsp;Prospérité";
+          } else {
+            result = "<i class='fa fa-gem'></i>&nbsp;Prosperity";
+          }
           break;
         case ResourceOrders.ORI_INVEST:
-          result = "<i class='fa fa-gem'></i>&nbsp;Investissement";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-gem'></i>&nbsp;Investissement";
+          } else {
+            result = "<i class='fa fa-gem'></i>&nbsp;Investment";
+          }
           break;
         case ResourceOrders.ARMY_ATTACK:
-          result = "<i class='fa fa-fist-raised'></i>&nbsp;Attaquer";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-fist-raised'></i>&nbsp;Attaquer";
+          } else {
+            result = "<i class='fa fa-fist-raised'></i>&nbsp;Attack";
+          }
           break;
         case ResourceOrders.ARMY_STABI:
-          result = "<i class='fa fa-fist-raised'></i>&nbsp;Stabiliser";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-fist-raised'></i>&nbsp;Stabiliser";
+          } else {
+            result = "<i class='fa fa-fist-raised'></i>&nbsp;Stabilize";
+          }
           break;
         case ResourceOrders.HERO_GODBORN:
-          result = "<i class='fa fa-jedi'></i>&nbsp;Créer un Godborn";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-jedi'></i>&nbsp;Créer un Godborn";
+          } else {
+            result = "<i class='fa fa-jedi'></i>&nbsp;Make a Godborn";
+          }
           break;
         case ResourceOrders.HERO_EXPLO:
-          result = "<i class='fa fa-jedi'></i>&nbsp;Exploration Risquée";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-jedi'></i>&nbsp;Exploration Risquée";
+          } else {
+            result = "<i class='fa fa-jedi'></i>&nbsp;Risky Exploration";
+          }
           break;
         case ResourceOrders.HERO_TEAM:
-          result = "<i class='fa fa-jedi'></i>&nbsp;Equipée Héroïque";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-jedi'></i>&nbsp;Equipée Héroïque";
+          } else {
+            result = "<i class='fa fa-jedi'></i>&nbsp;Epic Call to Adventure";
+          }
           break;
         case ResourceOrders.POP_PLAN:
-          result = "<i class='fa fa-user-friends'></i>&nbsp;Habiter";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Habiter";
+          } else {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Settle";
+          }
           break;
         case ResourceOrders.POP_INFO:
-          result = "<i class='fa fa-user-friends'></i>&nbsp;Informateurs";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Informateurs";
+          } else {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Informants";
+          }
           break;
         case ResourceOrders.FATE_CELEB:
-          result = "<i class='fa fa-spider'></i>&nbsp;Célébration";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-spider'></i>&nbsp;Célébration";
+          } else {
+            result = "<i class='fa fa-spider'></i>&nbsp;Celebration";
+          }
           break;
         case ResourceOrders.FATE_RITUAL:
-          result = "<i class='fa fa-spider'></i>&nbsp;Destinée Epique";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-spider'></i>&nbsp;Destinée Epique";
+          } else {
+            result = "<i class='fa fa-spider'></i>&nbsp;Epic Destiny";
+          }
           break;
         case ResourceOrders.FATE_GOSSIP:
-          result = "<i class='fa fa-spider'></i>&nbsp;Ragots Cosmiques";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-spider'></i>&nbsp;Ragots Cosmiques";
+          } else {
+            result = "<i class='fa fa-spider'></i>&nbsp;Mythical Gossips";
+          }
           break;
         case ResourceOrders.PROPH_FORESEE:
-          result = "<i class='fa fa-eye'></i>&nbsp;Prophétie";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-eye'></i>&nbsp;Prophétie";
+          } else {
+            result = "<i class='fa fa-eye'></i>&nbsp;Prophecy";
+          }
           break;
         case ResourceOrders.PROPH_INFILT:
-          result = "<i class='fa fa-eye'></i>&nbsp;Infiltration";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-eye'></i>&nbsp;Infiltration";
+          } else {
+            result = "<i class='fa fa-eye'></i>&nbsp;Infiltrate";
+          }
           break;
         case ResourceOrders.PROPH_SPY:
-          result = "<i class='fa fa-eye'></i>&nbsp;Espionner";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-eye'></i>&nbsp;Espionner";
+          } else {
+            result = "<i class='fa fa-eye'></i>&nbsp;Spy";
+          }
           break;
         case ResourceOrders.ORI_GAMBLE:
           result = "<i class='fa fa-gem'></i>&nbsp;Anticipation";
@@ -1084,25 +1243,53 @@ export default Vue.extend({
           result = "<i class='fa fa-gem'></i>&nbsp;Opulence";
           break;
         case ResourceOrders.HAND_FATE:
-          result = "<i class='fa fa-bolt'></i>&nbsp;Main du Destin";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-bolt'></i>&nbsp;Main du Destin";
+          } else {
+            result = "<i class='fa fa-bolt'></i>&nbsp;Hand of Fate";
+          }
           break;
         case ResourceOrders.POP_RECRUIT:
-          result = "<i class='fa fa-user-friends'></i>&nbsp;Recrutement";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Recrutement";
+          } else {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Recruitment";
+          }
           break;
         case ResourceOrders.POP_CIVI:
-          result = "<i class='fa fa-user-friends'></i>&nbsp;Civilisation";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Civilisation";
+          } else {
+            result = "<i class='fa fa-user-friends'></i>&nbsp;Civilization";
+          }
           break;
         case ResourceOrders.PROPH_ORA:
-          result = "<i class='fa fa-eye'></i>&nbsp;Oracles prosélytes";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-eye'></i>&nbsp;Oracles prosélytes";
+          } else {
+            result = "<i class='fa fa-eye'></i>&nbsp;Proselytes Oracles";
+          }
           break;
         case ResourceOrders.PROPH_AUG:
-          result = "<i class='fa fa-eye'></i>&nbsp;Augures";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-eye'></i>&nbsp;Augures";
+          } else {
+            result = "<i class='fa fa-eye'></i>&nbsp;Augurs";
+          }
           break;
         case ResourceOrders.PROPH_FUTUR:
-          result = "<i class='fa fa-eye'></i>&nbsp;Vision du futur";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-eye'></i>&nbsp;Vision du futur";
+          } else {
+            result = "<i class='fa fa-eye'></i>&nbsp;Vision of the Future";
+          }
           break;
         case ResourceOrders.PROPH_LEGEND:
-          result = "<i class='fa fa-eye'></i>&nbsp;Répartition de Légende";
+          if (this.$i18n.locale == "fr") {
+            result = "<i class='fa fa-eye'></i>&nbsp;Répartition de Légende";
+          } else {
+            result = "<i class='fa fa-eye'></i>&nbsp;Legend Redistribution";
+          }
           break;
         case ResourceOrders.FATE_ALEA:
           result = "<i class='fa fa-spider'></i>&nbsp;Alea Jacta Est";
@@ -1294,7 +1481,7 @@ export default Vue.extend({
         description:
           "Les dieux chinois. Le nom du panthéon se suffit à lui seul. Oubliez l'individualisme avec ces dieux. Chaque membre du panthéon (et ils sont très nombreux !) est un maillon dans la chaïne. Véritable rouleau compresseur de la politique divine, rien ne lui résiste vraiment. Pas même le Destin...",
         descriptionVO:
-          "The Chinese Gods. Exactly what their name suggests. Forget individualism with these Gods. Each member of this Pantheon (and there are many of them!) is a link in the chain. Steamroller of divine politics, nothing really resists the Bureaucracy. Not even Fate...",
+          "The Chinese Gods. Exactly what their name suggests. Forget individualism with these Gods. Each member of this Pantheon (and there are many of them!) is a link in the chain. Steamroller of divine politics, nothing really resists the Bureaucracy. Not even Fate itself...",
         objective: -1,
         picture: "http://i.imgur.com/3Z4KfxG.jpg"
       },
@@ -1305,7 +1492,7 @@ export default Vue.extend({
         description:
           "Les dieux hindous. Créé par l'extrêmement puissant Trimurti (Brahma, Vishnu et Shiva), le Deva fait partie des plus vieux panthéons et contient donc les divinités les plus anciennes et les plus sages. En revanche, leur puissance les a amené à prendre de plus en plus de recul par rapport aux affaires du monde...",
         descriptionVO:
-          "The Hindu Gods. Created by the extremely powerful Trimurti (Brahma, Vishnu and Shiva), the Deva is among the oldest Pantheons and includes some of the eldest and wisest deities. However, their power has led them to take more and more distance from the World...",
+          "The Hindu Gods. Created by the extremely powerful Trimurti (Brahma, Vishnu and Shiva), the Deva is among the oldest Pantheons and includes some of the eldest and wisest deities. However, their power has led them to take more and more distance from world affairs...",
         objective: -1,
         picture: "http://i.imgur.com/pRXECKx.jpg"
       },
@@ -1348,9 +1535,9 @@ export default Vue.extend({
         nameVO: "Orisha",
         leaderName: "Olorun",
         description:
-          "Les dieux africains. Réunissant deux générations majeures de divinités et beaucoup plus concentrés sur les affaires du Monde et des humains, les Orishas font parti des dieux les moins belliqueux et ambitieux, même si leur force est reconnue à travers le cosmos. Leur pacifisme n'a pas été toujours présent et il y a quelques siècles encore, l'Orisha était considéré comme le panthéon le plus guerrier de l'univers pendant plusieurs millénaires.",
+          "Les dieux africains. A l'époque de la Seconde Titanomachie, les Orishas étaient sans conteste les dieux les plus guerriers et les plus féroces du Cosmos. Ne vivant que pour le combat et la guerre, ils étaient toutefois tempérés tant bien que mal par leur sage leader Olorun.",
         descriptionVO:
-          "The African gods. Bringing together two major generations of deities and much more focused on the affairs of the World and humans, the Orisha are among the least belligerent and ambitious gods, even if their strength is recognized throughout the Cosmos. Their pacifism was not always this way and until a few centuries ago, the Orisha was considered the most warlike pantheon in the universe for several millennia. It's the kind of thing that doesn't magically fade...",
+          "The African gods. At the time of the Second Titanomachy, the Orisha were without a doubt the most warlike and fierce gods in the entire Cosmos. Living only for combat and war, they were however tempered as much as possible by their wise leader Olorun.",
         objective: -1,
         picture: "http://i.imgur.com/xsjRnhT.jpg"
       },
