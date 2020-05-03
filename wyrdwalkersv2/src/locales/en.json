@@ -550,6 +550,9 @@
   },
   "rotg": {
     "common":{
+      "yes": "Oui",
+      "no": "Non",
+      "loading": "Chargement...",
       "ressources":{
         "orichalcum": "Orichalcum",
         "army": "Army",
@@ -569,7 +572,9 @@
         "sendOrderSheet": "Send my Order Sheet",
         "joinGame": "Join the game",
         "startGame": "Start the game",
-        "endTurn": "End turn"
+        "endTurn": "End turn",
+        "newGame": "New game",
+        "enterGame": "Enter"
       }
     },
     "menus":{
@@ -585,6 +590,31 @@
         "goal":{
           "title": "Game goal",
           "text": "It is simple : get a maximum of Victory Points in 7 game turns. Thos points are obtained by conquering cosmic planes occupied by the Titans. To conquer those occupied planes, you will need to spend your resources wisely through orders compiled into an <b><i class='fa fa-receipt'></i>&nbsp;Order Sheet</b>. It will especially be necessary to consult with the other players so your resources are spent judiciously ! The goal is not to win by yourself but to manage together to crush the titans while getting yourshare of the Cosmos."
+        }
+      },
+      "games":{
+        "title": "Active games",
+        "noData": "No new game has been created yet",
+        "accountError": "You must be signed in to play Rise of The Gods",
+        "search": "Search",
+        "players": "Players",
+        "started": "Started",
+        "closed": "Ended",
+        "mode": "Mode",
+        "newGame":{
+          "title": "New game",
+          "label": "Name of the game",
+          "boardgameMode": "Board game mode",
+          "timerMode": "Timer mode",
+          "randomName": "Random name",
+          "boardDescription": "<u>Board game mode :</u> The calculation of turns is triggered manually. Ideal for a board game-style time with friends.",
+          "timerDescription": "<u>Timer mode :</u> The calculation of turns is triggered automatically every day between 10.pm and 11pm GMT. Ideal for a game spread over time.",
+          "create": "Create"
+        },
+        "deleteGame": {
+          "title": "Delete game",
+          "text": "Warning, you are about to delete a game. This action is final and will delete all data related to this game: Order Sheets, Players and Territories.<br />Are you sure you want to continue ?",
+          "deleteButton": "Delete all"
         }
       }
     }

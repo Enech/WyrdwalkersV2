@@ -8,9 +8,9 @@
       width="100%"
       class="mb-3"
       v-if="currentUser._id == ''"
-    >Vous devez posséder un compte sur le site pour jouer à Rise of The Gods</v-alert>
+    >{{$t("rotg.content.games.accountError")}}</v-alert>
     <v-card class="pa-3">
-      <v-card-title>Parties en cours</v-card-title>
+      <v-card-title>{{$t("rotg.content.games.title")}}</v-card-title>
       <v-divider></v-divider>
       <div class="mt-3">
         <div v-if="rotgGames.length > 0">
@@ -31,7 +31,7 @@
                     flat
                     hide-details
                     prepend-inner-icon="search"
-                    label="Rechercher"
+                    :label="$t('rotg.content.games.search')"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -56,22 +56,41 @@
                     <v-divider></v-divider>
                     <v-list dense>
                       <v-list-item>
-                        <v-list-item-content>Joueurs :</v-list-item-content>
+                        <v-list-item-content>{{$t("rotg.content.games.players")}} :</v-list-item-content>
                         <v-list-item-content class="align-end">{{ item.playersIds.length }} / 12</v-list-item-content>
                       </v-list-item>
                       <v-list-item>
-                        <v-list-item-content>Démarrée :</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.running ? 'Oui' : 'Non' }}</v-list-item-content>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-content>Terminée :</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.closed ? 'Oui' : 'Non' }}</v-list-item-content>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-content>Mode :</v-list-item-content>
+                        <v-list-item-content>{{$t("rotg.content.games.started")}} :</v-list-item-content>
                         <v-list-item-content
                           class="align-end"
+                          v-if="$i18n.locale == 'fr'"
+                        >{{ item.running ? 'Oui' : 'Non' }}</v-list-item-content>
+                        <v-list-item-content
+                          class="align-end"
+                          v-else
+                        >{{ item.running ? 'Yes' : 'No' }}</v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>{{$t("rotg.content.games.closed")}} :</v-list-item-content>
+                        <v-list-item-content
+                          class="align-end"
+                          v-if="$i18n.locale == 'fr'"
+                        >{{ item.closed ? 'Oui' : 'Non' }}</v-list-item-content>
+                        <v-list-item-content
+                          class="align-end"
+                          v-else
+                        >{{ item.closed ? 'Yes' : 'No' }}</v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>{{$t("rotg.content.games.mode")}} :</v-list-item-content>
+                        <v-list-item-content
+                          class="align-end"
+                          v-if="$i18n.locale == 'fr'"
                         >{{ item.timerMode ? 'Chronomètre' : 'Plateau' }}</v-list-item-content>
+                        <v-list-item-content
+                          class="align-end"
+                          v-else
+                        >{{ item.timerMode ? 'Timer' : 'Board game' }}</v-list-item-content>
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-content class="align-center">
@@ -80,7 +99,7 @@
                             class="white--text"
                             :disabled="disableJoinButton(item)"
                             @click.stop="goToGamePage(item._id)"
-                          >Entrer</v-btn>
+                          >{{$t("rotg.common.buttons.enterGame")}}</v-btn>
                         </v-list-item-content>
                       </v-list-item>
                     </v-list>
@@ -97,22 +116,20 @@
             type="info"
             elevation="2"
             width="100%"
-          >Aucune nouvelle partie n'a été créée pour le moment</v-alert>
+          >{{$t("rotg.content.games.noData")}}</v-alert>
         </div>
         <v-dialog v-model="dialog" max-width="1000px" persistent>
           <template v-slot:activator="{ on }">
             <div class="text-center mt-3">
               <v-btn color="deep-purple darken-4 mr-1" class="white--text" v-on="on">
-                <v-icon left small>fa-plus</v-icon>Nouvelle partie
-              </v-btn>
-              <v-btn color="light-blue" class="white--text" @click.stop="fetchAndResetGames()" v-if="false">
-                <v-icon left small>fa-sync</v-icon>Rafraichir
+                <v-icon left small>fa-plus</v-icon>
+                {{$t("rotg.common.buttons.newGame")}}
               </v-btn>
             </div>
           </template>
           <v-card>
             <v-card-title class="black white--text">
-              <span class="headline">Nouvelle partie</span>
+              <span class="headline">{{$t("rotg.content.games.newGame.title")}}</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
                 <v-icon>close</v-icon>
@@ -122,35 +139,44 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="8">
-                    <v-text-field v-model="editedItem.name" label="Nom de la partie"></v-text-field>
-                    <v-btn @click="getRandomOperationName()">Nom aléatoire</v-btn>
+                    <v-text-field
+                      v-model="editedItem.name"
+                      :label="$t('rotg.content.games.newGame.label')"
+                    ></v-text-field>
+                    <v-btn
+                      @click="getRandomOperationName()"
+                    >{{$t("rotg.content.games.newGame.randomName")}}</v-btn>
                   </v-col>
                   <v-col cols="12" sm="4">
                     <v-radio-group v-model="editedItem.timerMode" column>
-                      <v-radio label="Mode plateau" :value="false" color="red"></v-radio>
-                      <v-radio label="Mode chronomètre" :value="true" color="black"></v-radio>
+                      <v-radio
+                        :label="$t('rotg.content.games.newGame.boardgameMode')"
+                        :value="false"
+                        color="red"
+                      ></v-radio>
+                      <v-radio
+                        :label="$t('rotg.content.games.newGame.timerMode')"
+                        :value="true"
+                        color="black"
+                      ></v-radio>
                     </v-radio-group>
                   </v-col>
                   <v-col cols="12">
-                    <div>
-                      <u>Mode plateau :</u> Le calcul des tours est déclenché manuellement. Idéal pour une partie ambiance jeu de plateau à plusieurs.
-                    </div>
-                    <div>
-                      <u>Mode chronomètre :</u> Le calcul des tours est déclenché automatiquement tous les jours entre 22h et 23h GMT. Idéal pour une partie étalée dans le temps.
-                    </div>
+                    <div v-html="$t('rotg.content.games.newGame.boardDescription')"></div>
+                    <div v-html="$t('rotg.content.games.newGame.timerDescription')"></div>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="black" text @click="closeDialog()">Annuler</v-btn>
+              <v-btn color="black" text @click="closeDialog()">{{$t('rotg.common.buttons.cancel')}}</v-btn>
               <v-btn
                 color="blue"
                 text
                 @click="addGame();"
                 :disabled="editedItem.name.split(' ').length < 2"
-              >Créer</v-btn>
+              >{{$t('rotg.content.games.newGame.create')}}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -159,22 +185,22 @@
     <v-dialog v-model="loading" hide-overlay persistent width="300">
       <v-card color="primary" dark>
         <v-card-text>
-          Chargement...
+          {{$t('rotg.common.loading')}}
           <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
         </v-card-text>
       </v-card>
     </v-dialog>
     <v-dialog v-model="deleteDialog" persistent max-width="500">
       <v-card>
-        <v-card-title class="red white--text">Suppression d'une partie - {{gameToDelete.name}}</v-card-title>
-        <v-card-text>
-          Attention, vous êtes sur le point de supprimer une partie. Cette action et définitive et supprimera toutes les données liées à cette partie : Feuilles d'Ordre, Joueurs et Territoires.
-          <br />Etes-vous sûr de vouloir continuer ?
-        </v-card-text>
+        <v-card-title
+          class="red white--text"
+        >{{$t('rotg.content.games.deleteGame.title')}} - {{gameToDelete.name}}</v-card-title>
+        <v-divider class="mb-3"></v-divider>
+        <v-card-text v-html="$t('rotg.content.games.deleteGame.text')"></v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="closeDeleteDialog();">Annuler</v-btn>
-          <v-btn color="blue" text @click="deleteGame();">Tout supprimer</v-btn>
+          <v-btn color="red" text @click="closeDeleteDialog();">{{$t('rotg.common.buttons.cancel')}}</v-btn>
+          <v-btn color="blue" text @click="deleteGame();">{{$t('rotg.content.games.deleteGame.deleteButton')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

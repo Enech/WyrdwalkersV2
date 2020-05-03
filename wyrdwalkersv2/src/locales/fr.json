@@ -550,6 +550,9 @@
   },
   "rotg": {
     "common":{
+      "yes": "Oui",
+      "no": "Non",
+      "loading": "Chargement...",
       "ressources":{
         "orichalcum": "Orichalque",
         "army": "Armée",
@@ -569,7 +572,9 @@
         "sendOrderSheet": "Envoyer ma Feuille d'Ordre",
         "joinGame": "Rejoindre la partie",
         "startGame": "Lancer la partie",
-        "endTurn": "Finir le tour"
+        "endTurn": "Finir le tour",
+        "newGame": "Nouvelle partie",
+        "enterGame": "Entrer"
       }
     },
     "menus":{
@@ -585,6 +590,31 @@
         "goal":{
           "title": "But du jeu",
           "text": "Il est simple : obtenir un maximum de Points de Victoire en 7 tours de jeu. Ces points sont obtenus en conquérant des plans cosmiques occupés par les titans. Pour conquérir ces plans occupés, vous devrez dépenser des ressources intelligemment à travers des ordres compilés dans une <b><i class='fa fa-receipt'></i>&nbsp;Fiche d’Ordre</b>. Il faudra surtout vous concerter avec les autres joueurs pour que vos rares ressources soient dépensées judicieusement ! Le but n'est pas de gagner seul.e mais de parvenir ensemble à écraser les titans, tout en vous taillant une part du gâteau."
+        }
+      },
+      "games":{
+        "title": "Parties en cours",
+        "noData": "Aucune nouvelle partie n'a été créée pour le moment",
+        "accountError": "Vous devez posséder un compte sur le site pour jouer à Rise of The Gods",
+        "search": "Rechercher",
+        "players": "Joueurs",
+        "started": "Démarrée",
+        "closed": "Terminée",
+        "mode": "Mode",
+        "newGame":{
+          "title": "Nouvelle partie",
+          "label": "Nom de la partie",
+          "boardgameMode": "Mode plateau",
+          "timerMode": "Mode chronomètre",
+          "randomName": "Nom aléatoire",
+          "boardDescription": "<u>Mode plateau :</u> Le calcul des tours est déclenché manuellement. Idéal pour une partie ambiance jeu de plateau à plusieurs.",
+          "timerDescription": "<u>Mode chronomètre :</u> Le calcul des tours est déclenché automatiquement tous les jours entre 22h et 23h GMT. Idéal pour une partie étalée dans le temps.",
+          "create": "Créer"
+        },
+        "deleteGame": {
+          "title": "Suppression d'une partie",
+          "text": "Attention, vous êtes sur le point de supprimer une partie. Cette action et définitive et supprimera toutes les données liées à cette partie : Feuilles d'Ordre, Joueurs et Territoires.<br />Etes-vous sûr de vouloir continuer ?",
+          "deleteButton": "Tout supprimer"
         }
       }
     }
