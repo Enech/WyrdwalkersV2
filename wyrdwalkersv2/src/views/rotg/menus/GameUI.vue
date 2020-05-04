@@ -792,7 +792,7 @@
           </v-btn>
         </v-card-title>
         <v-card-title class="teal darken-4 white--text" v-else>
-          <v-icon left class="white--text">mdi-emoticon-happy</v-icon>&nbsp;{{$t('rotg.content.ui.endgameDialog.winTitle')}}
+          <v-icon left class="white--text">mdi-emoticon-happy</v-icon>&nbsp;{{$t('rotg.content.ui.endgameDialog.wonTitle')}}
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
             <v-icon>fa-times</v-icon>

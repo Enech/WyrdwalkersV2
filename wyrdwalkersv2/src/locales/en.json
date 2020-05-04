@@ -707,7 +707,7 @@
               "anticipation":{
                 "title": "Anticipation",
                 "short": "Anticipation",
-                "description": "You place a bet on the victory (or defeat) of an attack declared this turn on a chosen Plane.<br /><i>If no attack is declared, you will be reimbursed of your expenditure.</i>"
+                "description": "You place a bet on the victory of an attack declared this turn on a chosen Plane.<br /><i>If no attack is declared, you will be reimbursed of your expenditure.</i>"
               }
             },
             "army":{

@@ -707,7 +707,7 @@
               "anticipation":{
                 "title": "Anticipation",
                 "short": "Anticipation",
-                "description": "Vous faites un pari sur la victoire (ou la défaite) d'une attaque déclarée ce tour-ci sur un plan choisi.<br /><i>Si aucune attaque n'est déclarée, vous serez remboursé(e) de votre dépense.</i>"
+                "description": "Vous faites un pari sur la victoire d'une attaque déclarée ce tour-ci sur un plan choisi.<br /><i>Si aucune attaque n'est déclarée, vous serez remboursé(e) de votre dépense.</i>"
               }
             },
             "army":{

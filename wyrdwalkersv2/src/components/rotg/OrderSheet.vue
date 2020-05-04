@@ -191,20 +191,8 @@
                   </ul>
                   <div class="mt-3">
                     <div style="display: inline-block; margin-right: 10px;">
-                      <v-switch
-                        v-model="sheet.parameters.gambleDefeat"
-                        :label="`Parier sur la ${sheet.parameters.gambleDefeat ? 'défaite' : 'victoire'} de l'attaque sur le Plan `"
-                        color="blue"
-                        class="title"
-                        v-if="localeFR"
-                      ></v-switch>
-                      <v-switch
-                        v-model="sheet.parameters.gambleDefeat"
-                        :label="`Bet on the ${sheet.parameters.gambleDefeat ? 'defeat' : 'victory'} of the attack on the Plane `"
-                        color="blue"
-                        class="title"
-                        v-else
-                      ></v-switch>
+                      <span v-if="localeFR">Parier sur la victoire de l'attaque sur le Plan</span>
+                      <span v-else>Bet on the victory of the attack on the Plane</span>
                     </div>
                     <div style="width: 200px; display: inline-block">
                       <v-select
@@ -1516,8 +1504,8 @@
                 <tr>
                   <td>Sheol</td>
                   <td>
-                    <v-icon small>fa-user-friends</v-icon>
-                    &nbsp;{{$t("rotg.common.resources.population")}}
+                    <v-icon small>fa-eye</v-icon>
+                    &nbsp;{{$t("rotg.common.resources.prophets")}}
                   </td>
                 </tr>
               </tbody>
