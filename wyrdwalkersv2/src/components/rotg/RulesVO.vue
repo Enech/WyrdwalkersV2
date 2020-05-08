@@ -740,7 +740,7 @@
                               </li>
                             </ul>
                             <i>
-                              <u>Example :</u>Trigger the order "Anticipation" with 7 Orichalcum by betting on the defeat of the attack on the Mount Olympus Plane you will cost 7 Orichalcum and will grant you 4 Victory Points if the attack on Mount Olympus has indeed failed, or you will win 7 Fate Bindings if the attack on Mount Olympus was successful.
+                              <u>Example :</u>Triggering the order "Anticipation" with 7 Orichalcum by betting on the defeat of the attack on the Mount Olympus Plane you will cost 7 Orichalcum and will grant you 4 Victory Points if the attack on Mount Olympus has indeed failed, or you will win 7 Fate Bindings if the attack on Mount Olympus was successful.
                             </i>
                             <p></p>
                           </content>

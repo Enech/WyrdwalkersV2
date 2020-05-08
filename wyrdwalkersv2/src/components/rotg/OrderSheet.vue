@@ -1244,7 +1244,7 @@
                   <span>{{$t("rotg.content.ui.orderSheet.orders.fatebindings.alea.description")}}</span>
                   <br />
                   <i v-if="localeFR">
-                    Cet ordre n'est disponible que si vous faites partie des 3 derniers joueurs en nombre de &nbsp;
+                    Cet ordre n'est disponible que si vous êtes le dernier joueur en nombre de &nbsp;
                     <v-icon small>fa-trophy</v-icon>
                     {{$t("rotg.common.resources.victoryPoints")}}
                   </i>

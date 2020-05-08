@@ -648,7 +648,7 @@
                           <tr>
                             <td>Sheol</td>
                             <td>
-                              <v-icon small>fa-user-friends</v-icon>&nbsp;Population
+                              <v-icon small>fa-eye</v-icon>&nbsp;Population
                             </td>
                           </tr>
                         </tbody>
@@ -740,7 +740,7 @@
                               </li>
                             </ul>
                             <i>
-                              <u>Exemple :</u> Déclencher l'ordre "Anticipation" avec 7 d'Orichalque en misant sur la défaite de l'attaque sur le Plan Mont Olympe vous coûtera 7 d'Orichalque et vous rapportera 4 Points de Victoire si l'attaque sur le Mont Olympe a effectivement échoué, ou bien vous fera gagner 7 Liens du Destin si l'attaque sur le Mont Olympe a réussi.
+                              <u>Exemple :</u> Déclencher l'ordre "Anticipation" avec 7 d'Orichalque en misant sur la victoire de l'attaque sur le Plan Mont Olympe vous coûtera 7 d'Orichalque et vous rapportera 4 Points de Victoire si l'attaque sur le Mont Olympe a réussi, ou bien vous fera gagner 7 Liens du Destin si l'attaque sur le Mont Olympe a échoué.
                             </i>
                             <p></p>
                           </content>
