@@ -247,7 +247,9 @@ export default Vue.extend({
     fetchGames: function() {
       store.dispatch("fetchAllROTGGames").then(() => {
         this.loading = false;
-        this.filteredGames = this.rotgGames;
+        this.filteredGames = this.rotgGames.filter((g: Game) => {
+          return !g.closed;
+        });
         this.numberOfPages = Math.ceil(
           this.filteredGames.length / this.itemsPerPage
         );
@@ -320,7 +322,9 @@ export default Vue.extend({
         });
         this.filteredGames = filteredArray;
       } else {
-        this.filteredGames = this.rotgGames;
+        this.filteredGames = this.rotgGames.filter((game: Game) => {
+          return !game.closed;
+        });
       }
     }
   },

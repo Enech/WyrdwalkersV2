@@ -815,7 +815,7 @@
         >
           <span v-html="$t('rotg.content.ui.endgameDialog.wonText1')"></span>&nbsp;
           <b>{{rankings[0].pantheon.leaderName}}</b>
-          {{$t('rotg.content.ui.endgameDialog.wonText2')}} {{rankings[0].pantheon.name}}.
+          {{$t('rotg.content.ui.endgameDialog.wonText2')}} {{rankings[0].pantheon.nameVO}}.
           <br />
           <br />
           <span class="headline uppercase">{{$t('rotg.content.ui.endgameDialog.wonText3')}}</span>
