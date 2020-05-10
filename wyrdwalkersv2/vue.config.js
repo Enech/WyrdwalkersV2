@@ -303,7 +303,8 @@ module.exports = {
           '/wiki/lore/les-marassa',
           '/wiki/lore/maman-brigitte',
           '/wiki/lore/ikole-orun',
-          '/wiki/lore/guinée'
+          '/wiki/lore/guinée',
+          '/rotg/home'
         ],
         renderer: new Renderer({
           ignoreJSErrors: true,

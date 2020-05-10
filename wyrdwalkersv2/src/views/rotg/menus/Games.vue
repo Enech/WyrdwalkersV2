@@ -142,6 +142,8 @@
                     <v-text-field
                       v-model="editedItem.name"
                       :label="$t('rotg.content.games.newGame.label')"
+                      :error="editedItem.name.length > 30"
+                      :error-messages="nameError"
                     ></v-text-field>
                     <v-btn
                       @click="getRandomOperationName()"
@@ -240,6 +242,17 @@ export default Vue.extend({
       },
       set: function(game: Game) {
         Object.assign(store.getters.selectedGame, game);
+      }
+    },
+    nameError: function(){
+      if(this.editedItem.name.length > 30){
+        if(this.$i18n.locale == "fr"){
+          return "Le nom de la partie ne doit pas contenir plus de 30 caractères";
+        } else {
+          return "The game's name must not contain more than 30 characters";
+        }
+      } else {
+        return "";
       }
     }
   },

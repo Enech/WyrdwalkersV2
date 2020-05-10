@@ -964,7 +964,7 @@
                     v-if="!orderInList(8)"
                     @click="addOrder(8,sheet.parameters.populationSent)"
                     block
-                    :disabled="disableOrder(8) || currentPlayer.population < sheet.parameters.populationSent || sheet.parameters.populationSent <= 0 || isNaN(sheet.parameters.populationSent)"
+                    :disabled="disableOrder(8) || currentPlayer.population < sheet.parameters.populationSent || sheet.parameters.populationSent <= 0 || isNaN(sheet.parameters.populationSent) || sheet.parameters.populateTarget == ''"
                   >{{$t("rotg.common.buttons.confirm")}}</v-btn>
                   <v-btn
                     block

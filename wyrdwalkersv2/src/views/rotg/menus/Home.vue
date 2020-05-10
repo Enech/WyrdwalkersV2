@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-3">
+  <div class="pa-3" id="app-content-custom">
     <v-card class="pa-3">
       <v-card-text>
         <div class="display-3 text-center">
@@ -91,7 +91,7 @@ export default Vue.extend({
         content:
           "Découvrez le premier jeu sur navigateur dans l'univers de Wyrdwalkers"
       },
-      { property: "og:image", content: "https://i.imgur.com/xSW0VL0.png" }
+      { property: "og:image", content: "https://i.imgur.com/GuuGCI5.png" }
     ]
   }
 });
