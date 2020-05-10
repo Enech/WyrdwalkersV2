@@ -29,7 +29,9 @@
         "login": "Pseudo",
         "email": "Email",
         "name": "Votre nom",
-        "password": "Mot de passe"
+        "password": "Mot de passe",
+        "confirmPassword": "Confirmez le mot de passe",
+        "confirmPasswordError": "Les mots de passe ne correspondent pas"
       },
       "signin": {
         "title": "Connexion",

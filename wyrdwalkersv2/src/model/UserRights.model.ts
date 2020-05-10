@@ -4,6 +4,6 @@ export default class UserRights {
 
     constructor() {
         this.isAdmin = false;
-        this.isUser = false;
+        this.isUser = true;
     }
 }

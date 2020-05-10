@@ -14,6 +14,7 @@ export default class User {
     public playerCampaigns: string[];
     public masterCampaigns: string[];
     public isActivated: boolean;
+    public fromUi: boolean;
 
     constructor(){
         this._id = '';
@@ -22,7 +23,8 @@ export default class User {
         this.login = '';
         this.mdp = '';
         this.email = '';
-        this.isActivated = false;
+        this.isActivated = true;
+        this.fromUi = true;
         this.campaignTypes = new Array<string>();
         this.characters = new Array<string>();
         this.looseNPC = new Array<string>();

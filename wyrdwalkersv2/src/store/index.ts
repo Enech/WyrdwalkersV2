@@ -1085,7 +1085,7 @@ const store = new Vuex.Store({
               newError.type = "red";
               context.commit("setErrorMessage", newError);
             } else {
-              newError.message = "Votre compte a bien été créé ! Un lien d'activation vous a été envoyé à l'adresse renseignée lors de votre inscription";
+              newError.message = "Votre compte a bien été créé ! Vous pouvez maintenant vous connecter sur le site";
               newError.type = "green";
               context.commit("setErrorMessage", newError);
             }

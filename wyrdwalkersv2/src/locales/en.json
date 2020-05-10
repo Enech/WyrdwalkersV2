@@ -29,7 +29,9 @@
         "login": "Login",
         "email": "E-mail",
         "name": "Your actual name",
-        "password": "Password"
+        "password": "Password",
+        "confirmPassword": "Confirm your password",
+        "confirmPasswordError": "The passwords do not match"
       },
       "signin": {
         "title": "Signing in",

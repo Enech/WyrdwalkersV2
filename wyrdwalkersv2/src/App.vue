@@ -48,11 +48,19 @@
         <v-divider class="mb-3"></v-divider>
         <v-card-text>
           <v-text-field v-model="login" :label="$t('general.dialogs.signin.login')"></v-text-field>
-          <v-text-field v-model="mdp" type="password" :label="$t('general.dialogs.signin.password')"></v-text-field>
+          <v-text-field
+            v-model="mdp"
+            type="password"
+            :label="$t('general.dialogs.signin.password')"
+          ></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text color="black" @click.stop="openLoginDialog = false;">{{$t("general.dialogs.common.cancel")}}</v-btn>
+          <v-btn
+            text
+            color="black"
+            @click.stop="openLoginDialog = false;"
+          >{{$t("general.dialogs.common.cancel")}}</v-btn>
           <v-btn
             text
             color="blue"
@@ -68,17 +76,34 @@
         <v-divider class="mb-3"></v-divider>
         <v-card-text>
           <v-text-field v-model="login" :label="$t('general.dialogs.register.login')"></v-text-field>
-          <v-text-field v-model="mdp" :label="$t('general.dialogs.register.password')"></v-text-field>
+          <v-text-field v-model="honey" name="city" v-show="false"></v-text-field>
+          <v-text-field
+            v-model="mdp"
+            :label="$t('general.dialogs.register.password')"
+            type="password"
+          ></v-text-field>
+          <v-text-field
+            v-model="confirmMDP"
+            :label="$t('general.dialogs.register.confirmPassword')"
+            type="password"
+            :error="passError"
+            :error-messages="passwordErrorMessage"
+            @blur="comparePasswords()"
+          ></v-text-field>
           <v-text-field v-model="email" :label="$t('general.dialogs.register.email')"></v-text-field>
           <v-text-field v-model="name" :label="$t('general.dialogs.register.name')"></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text color="black" @click.stop="openSigninDialog = false;">{{$t("general.dialogs.common.cancel")}}</v-btn>
+          <v-btn
+            text
+            color="black"
+            @click.stop="openSigninDialog = false;"
+          >{{$t("general.dialogs.common.cancel")}}</v-btn>
           <v-btn
             text
             color="blue"
-            :disabled="mdp.length == 0 || login.length == 0 || name.length == 0 || email.length == 0"
+            :disabled="mdp.length == 0 || login.length == 0 || name.length == 0 || email.length == 0 || passError"
             @click.stop="sendRegister();"
           >{{$t("general.dialogs.common.save")}}</v-btn>
         </v-card-actions>
@@ -91,7 +116,11 @@
         <v-card-text>
           <v-row>
             <v-col cols="12" md="6">
-              <v-text-field disabled v-model="currentUser.login" :label="$t('general.dialogs.user.login')"></v-text-field>
+              <v-text-field
+                disabled
+                v-model="currentUser.login"
+                :label="$t('general.dialogs.user.login')"
+              ></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
               <v-text-field v-model="currentUser.email" :label="$t('general.dialogs.user.email')"></v-text-field>
@@ -106,12 +135,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text color="black" @click.stop="openProfileDialog = false;">{{$t("general.dialogs.common.cancel")}}</v-btn>
           <v-btn
             text
-            color="blue"
-            @click.stop="updateUser()"
-          >{{$t("general.dialogs.common.edit")}}</v-btn>
+            color="black"
+            @click.stop="openProfileDialog = false;"
+          >{{$t("general.dialogs.common.cancel")}}</v-btn>
+          <v-btn text color="blue" @click.stop="updateUser()">{{$t("general.dialogs.common.edit")}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -136,7 +165,7 @@ export default Vue.extend({
   components: {
     "wyrd-appbar": AppBar
   },
-  beforeCreate: function(){
+  beforeCreate: function() {
     store.commit("initialiseStore");
   },
   computed: {
@@ -174,8 +203,15 @@ export default Vue.extend({
       get: function() {
         return store.getters.currentUser;
       },
-      set: function(user: User){
+      set: function(user: User) {
         store.commit("setCurrentUser", user);
+      }
+    },
+    passwordErrorMessage: function(){
+      if(this.passError){
+        return this.$t('general.dialogs.register.confirmPasswordError');
+      } else {
+        return '';
       }
     }
   },
@@ -192,18 +228,27 @@ export default Vue.extend({
       });
       this.openLoginDialog = false;
     },
-    sendRegister: function(){
-      var newUser = new User();
-      newUser.name = this.name;
-      newUser.login = this.login;
-      newUser.mdp = this.mdp;
-      newUser.email = this.email;
-      store.dispatch("registerUser", newUser);
-      this.openSigninDialog = false;
+    sendRegister: function() {
+      if (this.honey == "") {
+        var newUser = new User();
+        newUser.name = this.name;
+        newUser.login = this.login;
+        newUser.mdp = this.mdp;
+        newUser.email = this.email;
+        store.dispatch("registerUser", newUser);
+        this.openSigninDialog = false;
+      }
     },
-    updateUser: function(){
+    updateUser: function() {
       store.dispatch("updateUser", this.currentUser);
       this.openProfileDialog = false;
+    },
+    comparePasswords: function() {
+      if (this.mdp != this.confirmMDP) {
+        this.passError = true;
+      } else {
+        this.passError = false;
+      }
     }
   },
   data: () => ({
@@ -211,7 +256,10 @@ export default Vue.extend({
     mdp: "",
     email: "",
     name: "",
-    showError: false
+    showError: false,
+    passError: false,
+    confirmMDP: "",
+    honey: ""
   })
 });
 </script>
