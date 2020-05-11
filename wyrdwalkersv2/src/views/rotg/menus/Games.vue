@@ -266,6 +266,9 @@ export default Vue.extend({
         this.numberOfPages = Math.ceil(
           this.filteredGames.length / this.itemsPerPage
         );
+        setTimeout(function(context){
+          context.fetchGames();
+        },1000, this);
       });
     },
     addGame: function() {
