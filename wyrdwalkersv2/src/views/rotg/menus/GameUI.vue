@@ -832,6 +832,12 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-snackbar v-model="showTurnAllSent" dark color="blue" :timeout="0" :top="true">
+      {{ $t("rotg.content.ui.allPlayersSent") }}
+      <v-btn icon text @click="showTurnAllSent = false">
+        <v-icon small>clear</v-icon>
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -981,6 +987,13 @@ export default Vue.extend({
       if (newValue && !oldValue) {
         this.finalDialog = true;
       }
+    },
+    allPlayersOrdersSent: function(newValue: boolean, oldValue: boolean){
+      if(newValue && !oldValue){
+        this.showTurnAllSent = true;
+      } else {
+        this.showTurnAllSent = false;
+      }
     }
   },
   methods: {
@@ -1014,6 +1027,7 @@ export default Vue.extend({
               var player = this.selectedGamePlayers.filter((p: Player) => {
                 return p.user._id == this.currentUser._id;
               });
+              this.allPlayersOrdersSent = this.selectedGamePlayers.every((p: Player) => p.sheetSent);
               store.commit(
                 "setCurrentPlayer",
                 player[0] ? player[0] : new Player()
@@ -1464,6 +1478,8 @@ export default Vue.extend({
     loadingReadyButton: false,
     finalDialog: false,
     attacksResults: new Array<AttackResult>(),
+    showTurnAllSent: false,
+    allPlayersOrdersSent: false,
     allPantheonsAvailable: [
       {
         name: "Aesir",

@@ -627,6 +627,7 @@
         "name": "Nom"
       },
       "ui":{
+        "allPlayersSent": "Tous les joueurs ont envoyé leurs Feuilles d'Ordre pour ce tour",
         "noData": "Aucune donnée à afficher",
         "back": "Revenir aux parties",
         "won": "Partie gagnée par les dieux",

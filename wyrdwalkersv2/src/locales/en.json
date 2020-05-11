@@ -627,6 +627,7 @@
         "name": "Name"
       },
       "ui":{
+        "allPlayersSent": "All players sent their Order Sheets for this turn",
         "noData": "No data to display",
         "back": "Back to the games",
         "won": "Game won by the gods",
