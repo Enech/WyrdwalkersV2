@@ -240,6 +240,12 @@
                   &nbsp;{{$t('rotg.content.ui.planes')}}
                 </v-card-title>
                 <v-divider></v-divider>
+                <v-row class="pa-3">
+                  <v-col cols="12">
+                    <span class="green--text subtitle-1" v-if="nbGodsPlanes >= globalVictory()">{{$t("rotg.content.ui.generalView.globalVictory")}}</span>
+                    <span v-else class="subtitle-1"><b>{{globalVictory() - nbGodsPlanes}}</b>{{$t("rotg.content.ui.generalView.remainingPlanes")}}</span>
+                  </v-col>
+                </v-row>
                 <v-card-text>
                   <span
                     class="subtitle-1"
@@ -939,6 +945,9 @@ export default Vue.extend({
     },
     localeFR: function() {
       return this.$i18n.locale == "fr";
+    },
+    nbGodsPlanes: function(){
+      return store.getters.selectedGameTerritories.filter((plane: Territory) => plane.owner != "").length;
     }
   },
   watch: {
@@ -1418,6 +1427,21 @@ export default Vue.extend({
     backToGamesList: function() {
       clearInterval(this.intervalID);
       router.push({ name: "gamesROTG" });
+    },
+    globalVictory: function(){
+      var nbPlayers = this.selectedGamePlayers.length;
+
+      if (nbPlayers < 6) {
+            return nbPlayers + 2;
+        } else if (nbPlayers < 8) {
+            return nbPlayers + 1;
+        } else if (nbPlayers < 10) {
+            return nbPlayers;
+        } else if (nbPlayers < 12) {
+            return nbPlayers - 1;
+        } else {
+            return 10;
+        }
     }
   },
   data: () => ({

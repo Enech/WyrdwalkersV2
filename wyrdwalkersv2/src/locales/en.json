@@ -679,7 +679,9 @@
           "owner": "Owner",
           "pantheon": "Pantheon",
           "player": "Player",
-          "victoryPoints": "Victory Points"
+          "victoryPoints": "Victory Points",
+          "globalVictory": "Global victory achieved",
+          "remainingPlanes": " more Cosmic Planes to conquer for global victory"
         },
         "orderSheet":{
           "title": "Order Sheet",

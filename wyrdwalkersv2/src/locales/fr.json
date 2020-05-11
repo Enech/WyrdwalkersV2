@@ -679,7 +679,9 @@
           "owner": "Propriétaire",
           "pantheon": "Panthéon",
           "player": "Joueur",
-          "victoryPoints": "Points de Victoire"
+          "victoryPoints": "Points de Victoire",
+          "globalVictory": "Victoire globale atteinte",
+          "remainingPlanes": " Plans Cosmiques de plus à conquérir pour la victoire globale"
         },
         "orderSheet":{
           "title": "Feuille d'Ordre",
