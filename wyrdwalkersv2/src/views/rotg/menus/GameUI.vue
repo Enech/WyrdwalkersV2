@@ -31,7 +31,7 @@
         <span>{{$t('rotg.content.ui.lost')}}</span>
       </v-tooltip>
       <v-spacer></v-spacer>
-      <v-tooltip bottom v-if="selectedGame.turn > 1">
+      <v-tooltip bottom v-if="selectedGame.turn > 1 && !spectatorMode()">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" @click.stop="resolutionDialog = true;">
             <v-icon>fa-balance-scale</v-icon>
@@ -240,7 +240,7 @@
                   &nbsp;{{$t('rotg.content.ui.planes')}}
                 </v-card-title>
                 <v-divider></v-divider>
-                <v-row class="pa-3">
+                <v-row class="pa-3" v-if="selectedGame.running">
                   <v-col cols="12">
                     <span class="green--text subtitle-1" v-if="nbGodsPlanes >= globalVictory()">{{$t("rotg.content.ui.generalView.globalVictory")}}</span>
                     <span v-else class="subtitle-1"><b>{{globalVictory() - nbGodsPlanes}}</b>{{$t("rotg.content.ui.generalView.remainingPlanes")}}</span>
@@ -781,7 +781,7 @@
             </v-list-item>
           </v-list>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions v-if="!spectatorMode()">
           <v-spacer></v-spacer>
           <v-btn color="red" text @click="unReadyPlayerOne()" :loading="loadingReadyButton">{{$t('rotg.content.ui.readyDialog.notReady')}}</v-btn>
           <v-btn color="green" text @click="readyPlayerOne()" :loading="loadingReadyButton">{{$t('rotg.content.ui.readyDialog.ready')}}</v-btn>
@@ -826,7 +826,7 @@
           <br />
           <span class="headline uppercase">{{$t('rotg.content.ui.endgameDialog.wonText3')}}</span>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions v-if="!spectatorMode()">
           <v-spacer></v-spacer>
           <v-btn :color="selectedGame.won ? 'teal' : 'red'" text @click="finalDialog = false">OK</v-btn>
         </v-card-actions>
@@ -978,7 +978,7 @@ export default Vue.extend({
     "selectedGame.turn": function(newTurn: number, oldTurn: number) {
       if (newTurn > oldTurn) {
         this.loading = false;
-        if (oldTurn != 0) {
+        if (oldTurn != 0 && !this.spectatorMode()) {
           this.fetchFateConsequences();
         }
       }
@@ -1027,7 +1027,7 @@ export default Vue.extend({
               var player = this.selectedGamePlayers.filter((p: Player) => {
                 return p.user._id == this.currentUser._id;
               });
-              this.allPlayersOrdersSent = this.selectedGamePlayers.every((p: Player) => p.sheetSent);
+              this.allPlayersOrdersSent = this.selectedGame.running ? this.selectedGamePlayers.every((p: Player) => p.sheetSent) : false;
               store.commit(
                 "setCurrentPlayer",
                 player[0] ? player[0] : new Player()
@@ -1456,6 +1456,9 @@ export default Vue.extend({
         } else {
             return 10;
         }
+    },
+    spectatorMode: function(){
+      return !this.userIsInGame && this.selectedGame.running;
     }
   },
   data: () => ({

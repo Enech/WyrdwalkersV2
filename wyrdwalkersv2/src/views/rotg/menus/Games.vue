@@ -304,7 +304,7 @@ export default Vue.extend({
       this.itemsPerPage = number;
     },
     disableJoinButton: function(game: Game) {
-      return game.playersIds.length > 12 || this.currentUser._id == "" || game.running;
+      return game.playersIds.length > 12 || this.currentUser._id == "";
     },
     goToGamePage(gameId: string) {
       router.push({ name: "gameUI", params: { idGame: gameId } });
