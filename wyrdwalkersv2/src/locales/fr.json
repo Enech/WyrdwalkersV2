@@ -583,7 +583,8 @@
     "menus":{
       "home": "Accueil",
       "rules": "Règles du jeu",
-      "games": "Parties en cours"
+      "games": "Parties en cours",
+      "closedGames": "Parties terminées"
     },
     "content":{
       "home": {
@@ -619,6 +620,11 @@
           "text": "Attention, vous êtes sur le point de supprimer une partie. Cette action et définitive et supprimera toutes les données liées à cette partie : Feuilles d'Ordre, Joueurs et Territoires.<br />Etes-vous sûr de vouloir continuer ?",
           "deleteButton": "Tout supprimer"
         }
+      },
+      "closedGames": {
+        "title": "Parties terminées",
+        "noData": "Aucune donnée à afficher",
+        "name": "Nom"
       },
       "ui":{
         "noData": "Aucune donnée à afficher",

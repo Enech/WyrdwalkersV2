@@ -583,7 +583,8 @@
     "menus":{
       "home": "Home",
       "rules": "Game rules",
-      "games": "Active games"
+      "games": "Active games",
+      "closedGames": "Closed games"
     },
     "content":{
       "home": {
@@ -619,6 +620,11 @@
           "text": "Warning, you are about to delete a game. This action is final and will delete all data related to this game: Order Sheets, Players and Territories.<br />Are you sure you want to continue ?",
           "deleteButton": "Delete all"
         }
+      },
+      "closedGames": {
+        "title": "Closed games",
+        "noData": "No data to display",
+        "name": "Name"
       },
       "ui":{
         "noData": "No data to display",

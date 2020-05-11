@@ -250,6 +250,11 @@ const routes = [
         component: () => import('../views/rotg/menus/Games.vue')
       },
       {
+        path: 'closed-games',
+        name: 'closedGamesROTG',
+        component: () => import('../views/rotg/menus/ClosedGames.vue')
+      },
+      {
         path: 'game/:idGame',
         name: 'gameUI',
         component: () => import('../views/rotg/menus/GameUI.vue')

@@ -52,6 +52,12 @@
             <v-icon small>fa-gamepad</v-icon>
           </v-list-item-action>
         </v-list-item>
+        <v-list-item :to="{name:'closedGamesROTG'}">
+          <v-list-item-title>{{$t('rotg.menus.closedGames')}}</v-list-item-title>
+          <v-list-item-action>
+            <v-icon small>fa-database</v-icon>
+          </v-list-item-action>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </div>

@@ -216,7 +216,7 @@ import Game from "../../../model/rotg/Game.model";
 import router from "../../../router";
 
 export default Vue.extend({
-  name: "ROTGHome",
+  name: "ROTGGames",
   created: function() {
     this.loading = true;
     this.fetchGames();
