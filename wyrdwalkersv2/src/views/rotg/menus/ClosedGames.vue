@@ -51,7 +51,7 @@
             type="info"
             elevation="2"
             width="100%"
-          >{{$t("rotg.content.games.noData")}}</v-alert>
+          >{{$t("rotg.content.closedGames.noData")}}</v-alert>
         </div>
       </div>
     </v-card>
