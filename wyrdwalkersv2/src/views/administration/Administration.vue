@@ -59,6 +59,9 @@
         <v-list-item :to="{name:'backofficeUsers'}">
           <v-list-item-title>Utilisateurs</v-list-item-title>
         </v-list-item>
+        <v-list-item :to="{name:'rotgBO'}">
+          <v-list-item-title>Rise of the Gods</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </div>

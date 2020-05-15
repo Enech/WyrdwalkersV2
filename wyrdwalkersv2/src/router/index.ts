@@ -230,6 +230,11 @@ const routes = [
         path: 'origins',
         name: 'origins',
         component: () => import('../views/administration/menus/makers/Origins.vue')
+      },
+      {
+        path: 'rotg',
+        name: 'rotgBO',
+        component: () => import('../views/administration/menus/rotg/DashboardROTG.vue')
       }
     ]
   },
