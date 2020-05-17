@@ -848,6 +848,9 @@
           "processed": "Traitée",
           "details": "Détails",
           "open": "Ouvrir"
+        },
+        "stats":{
+          "title": "Progression"
         }
       }
     }

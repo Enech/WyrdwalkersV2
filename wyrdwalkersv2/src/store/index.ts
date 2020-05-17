@@ -1580,6 +1580,20 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGGamePlayersHistory(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}history/game/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = "Unable to fetch the players history for this game";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data);
+          });
+      });
+    },
     displayProxyError(context) {
       var newError = new ErrorMessage();
       newError.message = "Impossible de récupérer les données. Si vous utilisez un proxy, vérifiez qu'il est correctement configuré";

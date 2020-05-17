@@ -848,6 +848,9 @@
           "processed": "Processed",
           "details": "Details",
           "open": "Open"
+        },
+        "stats":{
+          "title": "Game Progression"
         }
       }
     }

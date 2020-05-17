@@ -11,7 +11,7 @@
       </v-tooltip>
       <v-toolbar-title>
         {{selectedGame.name}}
-        <span v-if="selectedGame.turn > 0">(T{{selectedGame.turn}})</span>
+        <span v-if="selectedGame.turn > 0 && selectedGame.turn < 8">(T{{selectedGame.turn}})</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-tooltip bottom v-if="selectedGame.won && selectedGame.closed">
@@ -214,6 +214,10 @@
     </v-row>
     <v-card class="mt-3 pa-3">
       <v-tabs v-model="tab" show-arrows grow>
+        <v-tab v-if="selectedGame.closed">
+          <v-icon left>fa-chart-area</v-icon>
+          {{$t('rotg.content.ui.stats.title')}}
+        </v-tab>
         <v-tab>
           <v-icon left>fa-chess-bishop</v-icon>
           {{$t('rotg.content.ui.generalView.title')}}
@@ -231,6 +235,9 @@
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
+        <v-tab-item>
+          <rotg-stats />
+        </v-tab-item>
         <v-tab-item>
           <v-row>
             <v-col cols="12" sm="6">
@@ -289,7 +296,7 @@
                       <tbody>
                         <tr v-for="(item,index) in rankings" :key="index">
                           <td>{{ localeFR ? item.pantheon.name : item.pantheon.nameVO }}</td>
-                          <td>{{ item.user.name }}</td>
+                          <td>{{ item.user.login }} / {{ item.user.name }}</td>
                           <td>
                             {{ item.victoryPoints }}&nbsp;
                             <v-icon small>fa-trophy</v-icon>
@@ -847,6 +854,7 @@ import store from "../../../store";
 import router from "../../../router";
 import ROTGCounter from "../../../components/rotg/Counter.vue";
 import ROTGOrderSheet from "../../../components/rotg/OrderSheet.vue";
+import ROTGStats from "../../../components/rotg/GameStats.vue";
 import Player from "../../../model/rotg/Player.model";
 import Pantheon from "../../../model/rotg/Pantheon.model";
 import Game from "../../../model/rotg/Game.model";
@@ -859,7 +867,8 @@ import AttackResult from "../../../model/rotg/AttackResult.model";
 export default Vue.extend({
   components: {
     "rotg-counter": ROTGCounter,
-    "rotg-ordersheet": ROTGOrderSheet
+    "rotg-ordersheet": ROTGOrderSheet,
+    "rotg-stats": ROTGStats
   },
   name: "GameUI",
   created() {
