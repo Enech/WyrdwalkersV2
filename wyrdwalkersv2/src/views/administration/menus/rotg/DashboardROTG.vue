@@ -254,7 +254,7 @@ export default Vue.extend({
     },
     reflowCharts: function() {
       for (var [key, value] of Object.entries(this.$refs)) {
-        this.$refs[key].$children[0].chart.reflow();
+        (this.$refs[key] as any).$children[0].chart.reflow();
       }
     },
     computeDistinctUsers: function() {
@@ -457,7 +457,7 @@ export default Vue.extend({
       };
     },
     buildOptionsResourcesDependency: function() {
-      var dependencyData = [];
+      var dependencyData = new Array<any>();
       var costs = {
         orichalcum: this.allResults.filter(
           (result: OrderResult) => result.resourceCost == ResourcesEnum.ORI
@@ -482,13 +482,13 @@ export default Vue.extend({
         )
       };
       for (var [key, value] of Object.entries(costs)) {
-        costs[key].forEach((result: OrderResult) => {
+        (costs as any)[key].forEach((result: OrderResult) => {
           var from = this.getResourceNameFromKey(result.resourceCost);
           var cost = parseInt(result.cost.toString(), 10);
           for (var i = 0; i < result.resourceGain.length; i++) {
             var to = this.getResourceNameFromKey(result.resourceGain[i]);
             var gain = parseInt(result.gains[i].toString(), 10);
-            var poids = Math.abs(cost - gain);
+            var poids = Math.abs(cost) + Math.abs(gain);
             if (from != to) {
               dependencyData.push([from, to, poids]);
             }
@@ -497,14 +497,14 @@ export default Vue.extend({
       }
       var noDuplicate = [];
       for (var j = 0; j < dependencyData.length; j++) {
-        var data = dependencyData[j];
+        var data = (dependencyData as any)[j];
         var from = data[0];
         var to = data[1];
         var poids = data[2];
         var dependencyPresent =
           noDuplicate.filter((e: any) => e[0] == from && e[1] == to).length > 0;
         if (!dependencyPresent) {
-          var all = dependencyData.filter(
+          var all = (dependencyData as any).filter(
             (e: any) => e[0] == from && e[1] == to
           );
           var finalPoids = 0;
@@ -601,14 +601,14 @@ export default Vue.extend({
       };
     },
     filterOrders: function() {
-      this.filteredOrders = this.ordersSelect.filter(
-        (order: any) => order.resource == this.selectedResource.value
+      this.filteredOrders = (this.ordersSelect as any).filter(
+        (order: any) => order.resource == (this.selectedResource as any).value
       );
     },
     loadOrdersData: function() {
       var targetSheets = this.allSheets.filter(
         (sheet: OrderSheet) =>
-          sheet.ordersSent.indexOf(this.selectedOrder.value) > -1
+          sheet.ordersSent.indexOf((this.selectedOrder as any).value) > -1
       );
       var dataToLoad = [];
 
@@ -617,9 +617,9 @@ export default Vue.extend({
           targetSheets.filter((sheet: OrderSheet) => sheet.turn == i).length
         );
       }
-      this.optionsOrdersByTurn.series.push({
-        name: this.selectedOrder.text,
-        color: this.selectedOrder.color,
+      (this.optionsOrdersByTurn as any).series.push({
+        name: (this.selectedOrder as any).text,
+        color: (this.selectedOrder as any).color,
         data: dataToLoad
       });
     },
@@ -643,13 +643,13 @@ export default Vue.extend({
       var woosh = document.createElement("div");
       woosh.innerHTML = targetPlanes[0].name;
       var planeName = woosh.innerText;
-      this.optionsPlanesConquests.series.push({
+      (this.optionsPlanesConquests as any).series.push({
         name: planeName,
         data: dataToLoad
       });
     },
     resetOrdersData: function() {
-      this.optionsOrdersByTurn.series = [];
+      (this.optionsOrdersByTurn as any).series = [];
       this.selectedOrder = {
         value: -1
       };
@@ -657,7 +657,7 @@ export default Vue.extend({
     },
     resetConquestsData: function() {
       this.selectedPlane = -1;
-      this.optionsPlanesConquests.series = [];
+      (this.optionsPlanesConquests as any).series = [];
     },
     getResourceNameFromKey: function(key: number) {
       var result = "";
@@ -698,7 +698,7 @@ export default Vue.extend({
       this.filterOrders();
     },
     "selectedOrder.value": function() {
-      if (this.selectedOrder.value != -1) {
+      if ((this.selectedOrder as any).value != -1) {
         this.loadOrdersData();
       }
     },
@@ -726,15 +726,15 @@ export default Vue.extend({
     distinctUsers: 0,
     conqueredPlanes: 0,
     averagePlanesPlayer: 0,
-    optionsVpStats: {},
-    optionsOrdersByTurn: {},
+    optionsVpStats: new Object(),
+    optionsOrdersByTurn: new Object(),
     loadingOrdersByTurn: true,
     loadingOrdersResults: true,
-    optionsPlanesConquests: {},
-    optionsResourcesDependency: {},
-    optionsPantheonsPlayed: {},
-    selectedResource: {},
-    selectedOrder: {},
+    optionsPlanesConquests: new Object(),
+    optionsResourcesDependency: new Object(),
+    optionsPantheonsPlayed: new Object(),
+    selectedResource: new Object(),
+    selectedOrder: new Object(),
     resourcesTypes: [
       {
         value: 0,
