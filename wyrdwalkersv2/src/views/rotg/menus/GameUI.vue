@@ -980,6 +980,8 @@ export default Vue.extend({
         this.loading = false;
         if (oldTurn != 0 && !this.spectatorMode()) {
           this.fetchFateConsequences();
+        } else if(this.spectatorMode()){
+          this.resolutionDialog = false;
         }
       }
     },

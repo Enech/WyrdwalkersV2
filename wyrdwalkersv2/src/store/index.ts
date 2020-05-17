@@ -1381,6 +1381,20 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGAllPlayers(context) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}players/all`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = response.data.message;
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data);
+          });
+      });
+    },
     fetchROTGGamePlayer(context, idPlayer: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}players/${idPlayer}`)
@@ -1459,6 +1473,20 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGAllTerritories(context) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}territories/all`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = "Unable to fetch the planes";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data);
+          });
+      });
+    },
     fetchROTGOrderSheet(context, id: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}orders/${id}`)
@@ -1484,6 +1512,20 @@ const store = new Vuex.Store({
               context.commit("setErrorMessage", newError);
             } else {
               context.commit("setGameSheets", response.data);
+            }
+            resolve(response.data);
+          });
+      });
+    },
+    fetchROTGAllOrderSheets(context) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}orders/all`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response) {
+              newError.message = "Unable to fetch the requested sheets";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
             }
             resolve(response.data);
           });
@@ -1521,6 +1563,20 @@ const store = new Vuex.Store({
               context.commit("setCurrentFateConsequence", response.data);
             }
             resolve(response);
+          });
+      });
+    },
+    fetchROTGOrdersResults(context) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}results/all`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = "Unable to fetch the orders results";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data);
           });
       });
     },
