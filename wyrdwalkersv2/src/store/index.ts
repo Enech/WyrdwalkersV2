@@ -1580,6 +1580,20 @@ const store = new Vuex.Store({
           });
       });
     },
+    fetchROTGGameOrdersResults(context, id: string) {
+      return new Promise((resolve) => {
+        return axios.get(`${process.env.VUE_APP_ROTGURL}results/game/${id}`)
+          .then((response: any) => {
+            var newError = new ErrorMessage();
+            if (!response.data) {
+              newError.message = "Unable to fetch the game's orders results";
+              newError.type = "red";
+              context.commit("setErrorMessage", newError);
+            }
+            resolve(response.data);
+          });
+      });
+    },
     fetchROTGGamePlayersHistory(context, id: string) {
       return new Promise((resolve) => {
         return axios.get(`${process.env.VUE_APP_ROTGURL}history/game/${id}`)

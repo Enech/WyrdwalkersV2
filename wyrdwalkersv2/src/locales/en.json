@@ -850,7 +850,12 @@
           "open": "Open"
         },
         "stats":{
-          "title": "Game Progression"
+          "title": "Game Progression",
+          "endTurn": "End",
+          "resourcesEvol": "Resources Evolution",
+          "quantity": "Quantity",
+          "cumulResources": "Repartition of gathered ressources",
+          "playersRelations": "Relations between players"
         }
       }
     }

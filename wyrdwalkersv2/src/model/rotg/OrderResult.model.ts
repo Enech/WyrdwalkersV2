@@ -12,6 +12,9 @@ export default class OrderResult {
     public gains: number[];
     public attackedPlaneID: string;
     public planeConquered: boolean;
+    public gambleTarget: string;
+    public settleTarget: string;
+    public sheetsSpied: string[];
 
     constructor(){
         this._id = "";
@@ -22,8 +25,11 @@ export default class OrderResult {
         this.resourceCost = -1;
         this.cost = -1;
         this.attackedPlaneID = "";
+        this.gambleTarget = "";
+        this.settleTarget = "";
         this.planeConquered = false;
         this.resourceGain = new Array<number>();
         this.gains = new Array<number>();
+        this.sheetsSpied = new Array<string>();
     }
 }

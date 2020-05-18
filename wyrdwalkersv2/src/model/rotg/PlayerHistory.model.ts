@@ -10,6 +10,7 @@ export default class PlayerHistory{
     public controlledPlanes: number;
     public playerID: string;
     public gameID: string;
+    public turn: number;
 
     constructor(){
         this._id = "";
@@ -23,5 +24,6 @@ export default class PlayerHistory{
         this.fatebindings = 0;
         this.victoryPoints = 0;
         this.controlledPlanes = 0;
+        this.turn = 0;
     }
 }

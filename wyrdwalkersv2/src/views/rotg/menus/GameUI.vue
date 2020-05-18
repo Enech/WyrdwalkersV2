@@ -214,7 +214,7 @@
     </v-row>
     <v-card class="mt-3 pa-3">
       <v-tabs v-model="tab" show-arrows grow>
-        <v-tab v-if="selectedGame.closed">
+        <v-tab v-show="selectedGame.closed">
           <v-icon left>fa-chart-area</v-icon>
           {{$t('rotg.content.ui.stats.title')}}
         </v-tab>
@@ -222,21 +222,21 @@
           <v-icon left>fa-chess-bishop</v-icon>
           {{$t('rotg.content.ui.generalView.title')}}
         </v-tab>
-        <v-tab v-if="userIsInGame && selectedGame.running">
+        <v-tab v-show="userIsInGame && selectedGame.running">
           <v-icon left>fa-receipt</v-icon>
           {{$t('rotg.content.ui.orderSheet.title')}}
           <span
-            v-if="selectedGame.turn > 0"
+            v-show="selectedGame.turn > 0"
           >(T{{selectedGame.turn}})</span>
         </v-tab>
-        <v-tab v-if="userIsInGame && selectedGame.running">
+        <v-tab v-show="userIsInGame && selectedGame.running">
           <v-icon left>fa-archive</v-icon>
           {{$t('rotg.content.ui.archives.title')}}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item>
-          <rotg-stats />
+          <rotg-stats v-on:opensheet="openOrderSheetView" />
         </v-tab-item>
         <v-tab-item>
           <v-row>
@@ -646,14 +646,14 @@
                   </div>
                   <div class="subtitle-1" v-if="viewedOrderSheet.parameters.populateTarget != ''">
                     <div v-if="localeFR">
-                      Habiter le Plan
+                      Habiter ({{viewedOrderSheet.parameters.populationSent}}) le Plan
                       <span
                         class="font-weight-bold"
                         v-html="getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).name"
                       ></span>
                     </div>
                     <div v-else>
-                      Settle the Plane
+                      Settle ({{viewedOrderSheet.parameters.populationSent}}) the Plane
                       <span
                         class="font-weight-bold"
                         v-html="getObjectFromID(viewedOrderSheet.parameters.populateTarget,selectedGameTerritories).nameVO"
@@ -662,7 +662,7 @@
                   </div>
                   <div class="subtitle-1" v-if="viewedOrderSheet.parameters.gambleTarget != ''">
                     <div v-if="localeFR">
-                      Anticipation de la
+                      Anticipation ({{viewedOrderSheet.parameters.gambleSent}}) de la
                       <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'défaite' : 'victoire'}}</b>
                       de l'attaque sur le Plan
                       <span
@@ -671,7 +671,7 @@
                       ></span>
                     </div>
                     <div v-else>
-                      Anticipation of the
+                      Anticipation ({{viewedOrderSheet.parameters.gambleSent}}) of the
                       <b>{{viewedOrderSheet.parameters.gambleDefeat ? 'defeat' : 'victory'}}</b>
                       of the attack over the Plane
                       <span
@@ -932,7 +932,8 @@ export default Vue.extend({
       }
     },
     rankings: function() {
-      var players = store.getters.selectedGamePlayers;
+      var players = new Array<Player>();
+      Object.assign(players, store.getters.selectedGamePlayers);
       var sortedPlayers = new Array<Player>();
       players.sort((a: Player, b: Player) => {
         return b.victoryPoints - a.victoryPoints;
@@ -1122,7 +1123,7 @@ export default Vue.extend({
     },
     displayPlanesForces: function(territory: Territory) {
       var result = "";
-      if (this.currentPlayer.titanForcesVisible && territory.owner == "") {
+      if (territory.owner == "" && (this.currentPlayer.titanForcesVisible || this.selectedGame.closed)) {
         result = territory.titanForces.toString();
       } else if (territory.owner != "") {
         result = "-";

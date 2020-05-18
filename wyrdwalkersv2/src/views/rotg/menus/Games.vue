@@ -202,7 +202,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red" text @click="closeDeleteDialog();">{{$t('rotg.common.buttons.cancel')}}</v-btn>
-          <v-btn color="blue" text @click="deleteGame();">{{$t('rotg.content.games.deleteGame.deleteButton')}}</v-btn>
+          <v-btn
+            color="blue"
+            text
+            @click="deleteGame();"
+          >{{$t('rotg.content.games.deleteGame.deleteButton')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -220,6 +224,16 @@ export default Vue.extend({
   created: function() {
     this.loading = true;
     this.fetchGames();
+    this.intervalID = window.setInterval(
+      function(context: any) {
+        context.fetchGames();
+      },
+      1000,
+      this
+    );
+  },
+  destroyed: function() {
+    window.clearInterval(this.intervalID);
   },
   computed: {
     rotgGames: {
@@ -244,9 +258,9 @@ export default Vue.extend({
         Object.assign(store.getters.selectedGame, game);
       }
     },
-    nameError: function(){
-      if(this.editedItem.name.length > 30){
-        if(this.$i18n.locale == "fr"){
+    nameError: function() {
+      if (this.editedItem.name.length > 30) {
+        if (this.$i18n.locale == "fr") {
           return "Le nom de la partie ne doit pas contenir plus de 30 caractères";
         } else {
           return "The game's name must not contain more than 30 characters";
@@ -258,18 +272,17 @@ export default Vue.extend({
   },
   methods: {
     fetchGames: function() {
-      store.dispatch("fetchAllROTGGames").then(() => {
-        this.loading = false;
-        this.filteredGames = this.rotgGames.filter((g: Game) => {
-          return !g.closed;
+      if (!this.$route.params.idGame) {
+        store.dispatch("fetchAllROTGGames").then(() => {
+          this.loading = false;
+          this.filteredGames = this.rotgGames.filter((g: Game) => {
+            return !g.closed;
+          });
+          this.numberOfPages = Math.ceil(
+            this.filteredGames.length / this.itemsPerPage
+          );
         });
-        this.numberOfPages = Math.ceil(
-          this.filteredGames.length / this.itemsPerPage
-        );
-        setTimeout(function(context){
-          context.fetchGames();
-        },1000, this);
-      });
+      }
     },
     addGame: function() {
       this.editedItem.startDate = new Date().toString();
@@ -345,6 +358,7 @@ export default Vue.extend({
     }
   },
   data: () => ({
+    intervalID: 0,
     filteredGames: new Array<Game>(),
     numberOfPages: 0,
     loading: false,
