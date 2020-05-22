@@ -35,7 +35,7 @@
       <v-spacer></v-spacer>
       <v-tooltip bottom v-if="selectedGame.closed">
         <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on" @click.stop="progressionDialog = true;">
+          <v-btn icon v-on="on" @click.stop="progressionDialog = true;" class="blob">
             <v-icon>fa-chart-line</v-icon>
           </v-btn>
         </template>
