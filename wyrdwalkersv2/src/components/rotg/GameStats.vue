@@ -116,6 +116,7 @@ import PlayerHistory from "../../model/rotg/PlayerHistory.model";
 import Game from "../../model/rotg/Game.model";
 import OrderResult from "../../model/rotg/OrderResult.model";
 import ResourceOrders from "../../model/rotg/enums/Orders.enum";
+import ResourcesEnum from "../../model/rotg/enums/Resources.enum";
 
 export default Vue.extend({
   name: "ROTGStats",
@@ -150,7 +151,7 @@ export default Vue.extend({
     },
     fetchOrdersResults: function() {
       store
-        .dispatch("fetchROTGGameOrdersResults")
+        .dispatch("fetchROTGGameOrdersResults", this.selectedGame._id)
         .then((results: OrderResult[]) => {
           this.ordersResults = results;
           this.resultsFetched = true;
@@ -245,7 +246,7 @@ export default Vue.extend({
     buildOptionsCumulativeResources: function() {
       var dataSeries = [];
       var totalCumulResources = this.computeCumulResourcesObject(
-        this.playersHistory
+        this.ordersResults
       );
       dataSeries.push({
         name: "Total",
@@ -259,11 +260,11 @@ export default Vue.extend({
         ]
       });
       this.rankings.forEach((player: Player) => {
-        var playerHistory = this.playersHistory.filter(
-          (h: PlayerHistory) => h.playerID == player._id
+        var playerResults = this.ordersResults.filter(
+          (h: OrderResult) => h.playerID == player._id
         );
         var playerCumulResources = this.computeCumulResourcesObject(
-          playerHistory
+          playerResults
         );
         dataSeries.push({
           name: player.user.login,
@@ -296,7 +297,6 @@ export default Vue.extend({
           ]
         },
         yAxis: {
-          min: 0,
           title: {
             text: this.$t("rotg.content.ui.stats.quantity")
           }
@@ -315,11 +315,11 @@ export default Vue.extend({
       return optionsCumulativeResources;
     },
     buildOptionsPlayersInteractions: function() {
-      var dataSeries = [];
+      var dataSeries = new Array<any>();
       var attackResults = this.ordersResults.filter(
         (r: OrderResult) => r.order == ResourceOrders.ARMY_ATTACK
       );
-      var spyResults = this.playersHistory.filter(
+      var spyResults = this.ordersResults.filter(
         (r: OrderResult) =>
           r.order == ResourceOrders.PROPH_SPY && r.sheetsSpied.length > 0
       );
@@ -329,13 +329,38 @@ export default Vue.extend({
           r.settleTarget != "" &&
           r.cost > 0
       );
+      var handsTargets = this.gameSheets
+        .map((sheet: OrderSheet) => {
+          return {
+            plane: sheet.parameters.handMalusPlane,
+            turn: sheet.turn,
+            player: sheet.parameters.playerID
+          };
+        })
+        .filter((id: string) => id != "");
       // Pour chaque tour, on récupère les attaques communes et on créé un lien entre les joueurs attaquants
       for (var i = 1; i <= 7; i++) {
         var turnAttacks = attackResults.filter((r: OrderResult) => r.turn == i);
-        var attackedPlanes = [];
+        var turnHandsTargets = handsTargets.filter(
+          (target: any) => target.turn == i
+        );
+        var attackedPlanes = new Array<any>();
         turnAttacks.forEach((attack: OrderResult) => {
           if (attackedPlanes.indexOf(attack.attackedPlaneID) < 0) {
             attackedPlanes.push(attack.attackedPlaneID);
+          }
+        });
+        turnHandsTargets.forEach((target: any) => {
+          if (attackedPlanes.indexOf(target.plane) > -1) {
+            var currentAttacks = turnAttacks.filter((r: OrderResult) => r.attackedPlaneID == target.plane);
+            var playersAttackers = currentAttacks.map((r: OrderResult) => r.playerID);
+            playersAttackers.forEach((playerAttacking: string) => {
+              dataSeries.push([
+                this.getPlayerLoginFromId(target.player),
+                this.getPlayerLoginFromId(playerAttacking),
+                1
+              ]);
+            })
           }
         });
         attackedPlanes.forEach((plane: string) => {
@@ -359,11 +384,13 @@ export default Vue.extend({
       spyResults.forEach((result: OrderResult) => {
         dataSeries.push([
           this.getPlayerLoginFromId(result.playerID),
-          this.getPlayerLoginFromId(result.sheetsSpied[0], 1)
+          this.getPlayerLoginFromId(result.sheetsSpied[0]),
+          1
         ]);
         dataSeries.push([
           this.getPlayerLoginFromId(result.playerID),
-          this.getPlayerLoginFromId(result.sheetsSpied[1], 1)
+          this.getPlayerLoginFromId(result.sheetsSpied[1]),
+          1
         ]);
       });
       // On rajoute le lien entre le joueur ayant lancé l'ordre Habiter et le joueur en bénéficiant
@@ -380,55 +407,54 @@ export default Vue.extend({
           }
         }
         if (from != to) {
-          dataSeries.push(from, to, 1);
+          dataSeries.push([from, to, 1]);
         }
       });
       // Dédoublonnage des données
-        var noDuplicate = [];
-        for (var j = 0; j < dataSeries.length; j++) {
-          var data = (dataSeries as any)[j];
-          var de = data[0];
-          var vers = data[1];
-          var poids = data[2];
-          var dependencyPresent =
-            noDuplicate.filter((e: any) => e[0] == de && e[1] == vers).length >
-            0;
-          if (!dependencyPresent) {
-            var all = (dataSeries as any).filter(
-              (e: any) => e[0] == de && e[1] == vers
-            );
-            var finalPoids = 0;
-            all.forEach((tab: any) => {
-              finalPoids += tab[2];
-            });
-            noDuplicate.push([de, vers, finalPoids]);
-          }
+      var noDuplicate = [];
+      for (var j = 0; j < dataSeries.length; j++) {
+        var data = (dataSeries as any)[j];
+        var de = data[0];
+        var vers = data[1];
+        var poids = data[2];
+        var dependencyPresent =
+          noDuplicate.filter((e: any) => e[0] == de && e[1] == vers).length > 0;
+        if (!dependencyPresent) {
+          var all = (dataSeries as any).filter(
+            (e: any) => e[0] == de && e[1] == vers
+          );
+          var finalPoids = 0;
+          all.forEach((tab: any) => {
+            finalPoids += tab[2];
+          });
+          noDuplicate.push([de, vers, finalPoids]);
         }
-        var options = {
-          title: {
-            text: this.$t("rotg.content.ui.stats.playersRelations")
-          },
-          series: [
-            {
-              keys: ["from", "to", "weight"],
-              data: noDuplicate,
-              type: "dependencywheel",
-              name: "Relations",
-              dataLabels: {
-                color: "#333",
-                textPath: {
-                  enabled: true,
-                  attributes: {
-                    dy: 5
-                  }
-                },
-                distance: 10
-              }
+      }
+      var options = {
+        title: {
+          text: this.$t("rotg.content.ui.stats.playersRelations")
+        },
+        series: [
+          {
+            keys: ["from", "to", "weight"],
+            data: noDuplicate,
+            type: "dependencywheel",
+            name: "Relations",
+            dataLabels: {
+              color: "#333",
+              textPath: {
+                enabled: true,
+                attributes: {
+                  dy: 5
+                }
+              },
+              distance: 10
             }
-          ]
-        };
+          }
+        ]
+      };
 
-        return options;
+      return options;
     },
     getPlayerSheets: function(player: Player) {
       var playerSheets = this.gameSheets.filter(
@@ -478,23 +504,37 @@ export default Vue.extend({
 
       return cumul;
     },
-    computeCumulResourcesObject: function(history: PlayerHistory[]) {
+    computeCumulResourcesObject: function(results: OrderResult[]) {
       var result = {
         orichalcum: this.computeCumulArray(
-          history.map((h: PlayerHistory) => h.orichalcum)
+          results
+            .filter((r: OrderResult) => r.resourceCost == ResourcesEnum.ORI)
+            .map((h: OrderResult) => Math.abs(h.cost))
         ),
-        army: this.computeCumulArray(history.map((h: PlayerHistory) => h.army)),
+        army: this.computeCumulArray(
+          results
+            .filter((r: OrderResult) => r.resourceCost == ResourcesEnum.ARMY)
+            .map((h: OrderResult) => Math.abs(h.cost))
+        ),
         heroism: this.computeCumulArray(
-          history.map((h: PlayerHistory) => h.heroism)
+          results
+            .filter((r: OrderResult) => r.resourceCost == ResourcesEnum.HERO)
+            .map((h: OrderResult) => Math.abs(h.cost))
         ),
         prophets: this.computeCumulArray(
-          history.map((h: PlayerHistory) => h.prophets)
+          results
+            .filter((r: OrderResult) => r.resourceCost == ResourcesEnum.PROPH)
+            .map((h: OrderResult) => Math.abs(h.cost))
         ),
         population: this.computeCumulArray(
-          history.map((h: PlayerHistory) => h.population)
+          results
+            .filter((r: OrderResult) => r.resourceCost == ResourcesEnum.POP)
+            .map((h: OrderResult) => Math.abs(h.cost))
         ),
         fatebindings: this.computeCumulArray(
-          history.map((h: PlayerHistory) => h.fatebindings)
+          results
+            .filter((r: OrderResult) => r.resourceCost == ResourcesEnum.FATE)
+            .map((h: OrderResult) => h.cost)
         )
       };
 
@@ -532,7 +572,7 @@ export default Vue.extend({
 
       return player.user.login;
     },
-    openOrderSheet: function(sheet: OrderSheet){
+    openOrderSheet: function(sheet: OrderSheet) {
       this.$emit("opensheet", sheet);
     }
   },

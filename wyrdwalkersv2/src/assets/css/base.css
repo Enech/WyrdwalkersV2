@@ -223,3 +223,7 @@ bloc-5>titre {
 .highcharts-container, .highcharts-root {
     width: 100% !important;
 }
+
+.v-dialog--fullscreen{
+    overflow-x: hidden;
+  }

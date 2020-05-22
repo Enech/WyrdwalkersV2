@@ -854,7 +854,7 @@
           "endTurn": "Fin",
           "resourcesEvol": "Evolution des ressources",
           "quantity": "Quantité", 
-          "cumulResources": "Repartition des ressources cumulées",
+          "cumulResources": "Dépenses cumulées des ressources",
           "playersRelations": "Relations entre joueurs"
         }
       }

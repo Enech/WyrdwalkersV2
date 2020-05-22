@@ -11,7 +11,9 @@
       </v-tooltip>
       <v-toolbar-title>
         {{selectedGame.name}}
-        <span v-if="selectedGame.turn > 0 && selectedGame.turn < 8">(T{{selectedGame.turn}})</span>
+        <span
+          v-if="selectedGame.turn > 0 && selectedGame.turn < 8"
+        >(T{{selectedGame.turn}})</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-tooltip bottom v-if="selectedGame.won && selectedGame.closed">
@@ -31,6 +33,14 @@
         <span>{{$t('rotg.content.ui.lost')}}</span>
       </v-tooltip>
       <v-spacer></v-spacer>
+      <v-tooltip bottom v-if="selectedGame.closed">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on" @click.stop="progressionDialog = true;">
+            <v-icon>fa-chart-line</v-icon>
+          </v-btn>
+        </template>
+        <span>{{$t('rotg.content.ui.stats.title')}}</span>
+      </v-tooltip>
       <v-tooltip bottom v-if="selectedGame.turn > 1 && !spectatorMode()">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" @click.stop="resolutionDialog = true;">
@@ -214,30 +224,23 @@
     </v-row>
     <v-card class="mt-3 pa-3">
       <v-tabs v-model="tab" show-arrows grow>
-        <v-tab v-show="selectedGame.closed">
-          <v-icon left>fa-chart-area</v-icon>
-          {{$t('rotg.content.ui.stats.title')}}
-        </v-tab>
         <v-tab>
           <v-icon left>fa-chess-bishop</v-icon>
           {{$t('rotg.content.ui.generalView.title')}}
         </v-tab>
-        <v-tab v-show="userIsInGame && selectedGame.running">
+        <v-tab v-if="userIsInGame && selectedGame.running">
           <v-icon left>fa-receipt</v-icon>
           {{$t('rotg.content.ui.orderSheet.title')}}
           <span
-            v-show="selectedGame.turn > 0"
+            v-if="selectedGame.turn > 0"
           >(T{{selectedGame.turn}})</span>
         </v-tab>
-        <v-tab v-show="userIsInGame && selectedGame.running">
+        <v-tab v-if="userIsInGame && selectedGame.running">
           <v-icon left>fa-archive</v-icon>
           {{$t('rotg.content.ui.archives.title')}}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
-        <v-tab-item>
-          <rotg-stats v-on:opensheet="openOrderSheetView" />
-        </v-tab-item>
         <v-tab-item>
           <v-row>
             <v-col cols="12" sm="6">
@@ -249,8 +252,14 @@
                 <v-divider></v-divider>
                 <v-row class="pa-3" v-if="selectedGame.running">
                   <v-col cols="12">
-                    <span class="green--text subtitle-1" v-if="nbGodsPlanes >= globalVictory()">{{$t("rotg.content.ui.generalView.globalVictory")}}</span>
-                    <span v-else class="subtitle-1"><b>{{globalVictory() - nbGodsPlanes}}</b>{{$t("rotg.content.ui.generalView.remainingPlanes")}}</span>
+                    <span
+                      class="green--text subtitle-1"
+                      v-if="nbGodsPlanes >= globalVictory()"
+                    >{{$t("rotg.content.ui.generalView.globalVictory")}}</span>
+                    <span v-else class="subtitle-1">
+                      <b>{{globalVictory() - nbGodsPlanes}}</b>
+                      {{$t("rotg.content.ui.generalView.remainingPlanes")}}
+                    </span>
                   </v-col>
                 </v-row>
                 <v-card-text>
@@ -375,7 +384,9 @@
                     :dark="pantheonSelected(item.name)"
                     :color="pantheonSelected(item.name) ? 'light-blue' : 'white'"
                   >
-                    <v-card-title class="headline font-weight-medium">{{ localeFR ? item.name : item.nameVO }}</v-card-title>
+                    <v-card-title
+                      class="headline font-weight-medium"
+                    >{{ localeFR ? item.name : item.nameVO }}</v-card-title>
                     <v-divider></v-divider>
                     <v-list dense :color="pantheonSelected(item.name) ? 'light-blue' : 'white'">
                       <v-list-item>
@@ -426,7 +437,9 @@
                   &nbsp;{{localeFR ? currentFateConsequence.name : currentFateConsequence.nameVO}}
                 </v-card-title>
                 <v-divider></v-divider>
-                <v-card-text v-html="localeFR ? currentFateConsequence.text : currentFateConsequence.textVO"></v-card-text>
+                <v-card-text
+                  v-html="localeFR ? currentFateConsequence.text : currentFateConsequence.textVO"
+                ></v-card-text>
               </v-card>
             </v-col>
             <v-col cols="12" sm="6">
@@ -790,22 +803,34 @@
         </v-card-text>
         <v-card-actions v-if="!spectatorMode()">
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="unReadyPlayerOne()" :loading="loadingReadyButton">{{$t('rotg.content.ui.readyDialog.notReady')}}</v-btn>
-          <v-btn color="green" text @click="readyPlayerOne()" :loading="loadingReadyButton">{{$t('rotg.content.ui.readyDialog.ready')}}</v-btn>
+          <v-btn
+            color="red"
+            text
+            @click="unReadyPlayerOne()"
+            :loading="loadingReadyButton"
+          >{{$t('rotg.content.ui.readyDialog.notReady')}}</v-btn>
+          <v-btn
+            color="green"
+            text
+            @click="readyPlayerOne()"
+            :loading="loadingReadyButton"
+          >{{$t('rotg.content.ui.readyDialog.ready')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog v-model="finalDialog" max-width="1000" persistent scrollable hide-overlay>
       <v-card>
         <v-card-title class="red darken-4 white--text" v-if="!selectedGame.won">
-          <v-icon left class="white--text">mdi-emoticon-sad</v-icon>&nbsp;{{$t('rotg.content.ui.endgameDialog.lostTitle')}}
+          <v-icon left class="white--text">mdi-emoticon-sad</v-icon>
+          &nbsp;{{$t('rotg.content.ui.endgameDialog.lostTitle')}}
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
             <v-icon>fa-times</v-icon>
           </v-btn>
         </v-card-title>
         <v-card-title class="teal darken-4 white--text" v-else>
-          <v-icon left class="white--text">mdi-emoticon-happy</v-icon>&nbsp;{{$t('rotg.content.ui.endgameDialog.wonTitle')}}
+          <v-icon left class="white--text">mdi-emoticon-happy</v-icon>
+          &nbsp;{{$t('rotg.content.ui.endgameDialog.wonTitle')}}
           <v-spacer></v-spacer>
           <v-btn text class="white--text" @click="finalDialog = false;">
             <v-icon>fa-times</v-icon>
@@ -837,6 +862,19 @@
           <v-spacer></v-spacer>
           <v-btn :color="selectedGame.won ? 'teal' : 'red'" text @click="finalDialog = false">OK</v-btn>
         </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="progressionDialog" persistent fullscreen internal-activator>
+      <v-card>
+        <v-card-title class="black white--text">
+          <v-icon left class="white--text">fa-chart-line</v-icon>
+          {{$t('rotg.content.ui.stats.title')}}
+          <v-spacer></v-spacer>
+          <v-btn text class="white--text" @click="progressionDialog = false;">
+            <v-icon>fa-times</v-icon>
+          </v-btn>
+        </v-card-title>
+        <rotg-stats v-on:opensheet="openOrderSheetView" />
       </v-card>
     </v-dialog>
     <v-snackbar v-model="showTurnAllSent" dark color="blue" :timeout="0" :top="true">
@@ -962,8 +1000,10 @@ export default Vue.extend({
     localeFR: function() {
       return this.$i18n.locale == "fr";
     },
-    nbGodsPlanes: function(){
-      return store.getters.selectedGameTerritories.filter((plane: Territory) => plane.owner != "").length;
+    nbGodsPlanes: function() {
+      return store.getters.selectedGameTerritories.filter(
+        (plane: Territory) => plane.owner != ""
+      ).length;
     }
   },
   watch: {
@@ -990,7 +1030,7 @@ export default Vue.extend({
         this.loading = false;
         if (oldTurn != 0 && !this.spectatorMode()) {
           this.fetchFateConsequences();
-        } else if(this.spectatorMode()){
+        } else if (this.spectatorMode()) {
           this.resolutionDialog = false;
         }
       }
@@ -1000,8 +1040,8 @@ export default Vue.extend({
         this.finalDialog = true;
       }
     },
-    allPlayersOrdersSent: function(newValue: boolean, oldValue: boolean){
-      if(newValue && !oldValue){
+    allPlayersOrdersSent: function(newValue: boolean, oldValue: boolean) {
+      if (newValue && !oldValue) {
         this.showTurnAllSent = true;
       } else {
         this.showTurnAllSent = false;
@@ -1039,7 +1079,9 @@ export default Vue.extend({
               var player = this.selectedGamePlayers.filter((p: Player) => {
                 return p.user._id == this.currentUser._id;
               });
-              this.allPlayersOrdersSent = this.selectedGame.running ? this.selectedGamePlayers.every((p: Player) => p.sheetSent) : false;
+              this.allPlayersOrdersSent = this.selectedGame.running
+                ? this.selectedGamePlayers.every((p: Player) => p.sheetSent)
+                : false;
               store.commit(
                 "setCurrentPlayer",
                 player[0] ? player[0] : new Player()
@@ -1123,7 +1165,10 @@ export default Vue.extend({
     },
     displayPlanesForces: function(territory: Territory) {
       var result = "";
-      if (territory.owner == "" && (this.currentPlayer.titanForcesVisible || this.selectedGame.closed)) {
+      if (
+        territory.owner == "" &&
+        (this.currentPlayer.titanForcesVisible || this.selectedGame.closed)
+      ) {
         result = territory.titanForces.toString();
       } else if (territory.owner != "") {
         result = "-";
@@ -1454,22 +1499,22 @@ export default Vue.extend({
       clearInterval(this.intervalID);
       router.push({ name: "gamesROTG" });
     },
-    globalVictory: function(){
+    globalVictory: function() {
       var nbPlayers = this.selectedGamePlayers.length;
 
       if (nbPlayers < 6) {
-            return nbPlayers + 2;
-        } else if (nbPlayers < 8) {
-            return nbPlayers + 1;
-        } else if (nbPlayers < 10) {
-            return nbPlayers;
-        } else if (nbPlayers < 12) {
-            return nbPlayers - 1;
-        } else {
-            return 10;
-        }
+        return nbPlayers + 2;
+      } else if (nbPlayers < 8) {
+        return nbPlayers + 1;
+      } else if (nbPlayers < 10) {
+        return nbPlayers;
+      } else if (nbPlayers < 12) {
+        return nbPlayers - 1;
+      } else {
+        return 10;
+      }
     },
-    spectatorMode: function(){
+    spectatorMode: function() {
       return !this.userIsInGame && this.selectedGame.running;
     }
   },
@@ -1488,6 +1533,7 @@ export default Vue.extend({
     viewedOrderSheet: new OrderSheet(),
     orderSheetDialog: false,
     readyPlayersDialog: false,
+    progressionDialog: false,
     parallaxHeight: 300,
     loadingButton: false,
     loadingReadyButton: false,
