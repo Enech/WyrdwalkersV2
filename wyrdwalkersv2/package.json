@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "staging": "vue-cli-service build --mode 'staging'",
+    "staging": "env-cmd -f .env.staging vue-cli-service build --mode 'staging'",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
@@ -21,6 +21,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "dotenv-webpack": "^1.7.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "flatted": "^2.0.2",
     "highcharts": "^8.1.0",
