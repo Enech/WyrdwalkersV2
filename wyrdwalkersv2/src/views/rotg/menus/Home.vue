@@ -3,7 +3,7 @@
     <v-card class="pa-3">
       <v-card-text>
         <div class="display-3 text-center">
-          <v-badge color="blue" content="BETA">Rise of The Gods</v-badge>
+          <v-badge color="teal" content="1.1">Rise of The Gods</v-badge>
         </div>
         <div class="display-1 font-weight-thin text-center">{{$t("rotg.content.home.subtitle")}}</div>
       </v-card-text>
@@ -47,6 +47,11 @@
           </v-col>
         </v-row>
       </v-card-subtitle>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <span class="subtitle-1">Version 1.1</span>
+        <v-spacer></v-spacer>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
