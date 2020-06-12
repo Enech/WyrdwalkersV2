@@ -283,6 +283,7 @@ export default Vue.extend({
           var isInTimelines = false;
           var isinFactions = false;
           var isInTeams = false;
+          var isInTags = false;
           var condition =
             element.titleVF.toLowerCase().includes(searchValue) ||
             element.titleVO.toLowerCase().includes(searchValue);
@@ -310,8 +311,17 @@ export default Vue.extend({
               break;
             }
           }
+          
+          var tags = element.tags.split(";");
+          for (var l = 0; l < tags.length; l++) {
+            var tag = tags[l].toLowerCase();
+            if (tag.includes(searchValue)) {
+              isInTags = true;
+              break;
+            }
+          }
 
-          condition = condition || isInTimelines || isinFactions || isInTeams;
+          condition = condition || isInTimelines || isinFactions || isInTeams || isInTags;
 
           if (condition) {
             result.push(element);

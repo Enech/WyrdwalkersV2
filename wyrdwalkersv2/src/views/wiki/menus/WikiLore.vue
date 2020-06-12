@@ -1,12 +1,11 @@
 <template>
   <div class="pa-3 ck-content">
     <v-card class="pa-3 lore" v-if="!loading" id="app-content-custom">
-      <v-card-title class="headline">{{$i18n.locale.toLowerCase() == 'fr' ? page.title.titleVF : page.title.titleVO}}</v-card-title>
+      <v-card-title
+        class="headline"
+      >{{$i18n.locale.toLowerCase() == 'fr' ? page.title.titleVF : page.title.titleVO}}</v-card-title>
       <v-tabs grow show-arrows>
-        <v-tab
-          v-if="generalDefined"
-          href="#tab-general"
-        >{{$t("wiki.contents.lore.general")}}</v-tab>
+        <v-tab v-if="generalDefined" href="#tab-general">{{$t("wiki.contents.lore.general")}}</v-tab>
         <v-tab v-if="mythDefined" href="#tab-myth">{{$t("wiki.contents.lore.myth")}}</v-tab>
         <v-tab
           v-for="(content,index) in page.content"
@@ -65,7 +64,11 @@
               </v-col>
             </v-row>
             <v-row dense>
-              <v-col cols="12" md="9" v-html="$i18n.locale.toLowerCase() == 'fr' ? computeLinks(page.myth.vf) : computeLinks(page.myth.vo)"></v-col>
+              <v-col
+                cols="12"
+                md="9"
+                v-html="$i18n.locale.toLowerCase() == 'fr' ? computeLinks(page.myth.vf) : computeLinks(page.myth.vo)"
+              ></v-col>
               <v-col cols="12" md="3">
                 <v-img :src="page.content[0].picture" eager></v-img>
                 <v-list-item class="blue mb-1" dark v-if="page.content[0].picture != ''">
@@ -185,20 +188,23 @@ export default Vue.extend({
       var videoId = urlTab[urlTab.length - 1];
       return `https://www.youtube.com/embed/${videoId}`;
     },
-    computeLinks(html: string){
+    computeLinks(html: string) {
       var container = document.createElement("div");
       container.innerHTML = html;
       var linkElements = container.querySelectorAll("a");
-      
-      for(var i = 0; i < linkElements.length; i++){
+
+      for (var i = 0; i < linkElements.length; i++) {
         var link = linkElements[i];
         var url = link.href;
+        var urlTab = url.split("/wiki/lore/");
 
-        if(!url.includes("/wiki/lore/") && !url.includes("http://") && !url.includes("https://")){
-          var targetTab = url.split("/");
-          var target = targetTab[targetTab.length - 1];
-          link.href = "/wiki/lore/" + target.toLowerCase().replace(" ", "-");
-        }
+        if (urlTab.length > 1) {
+          var startUrl = urlTab[0];
+          var endUrl = urlTab[1];
+          var endTab = endUrl.split("/");
+          var target = endTab[endTab.length-1];
+          link.href = `/wiki/lore/${target}`;
+        } // sinon on a un lien extérieur
       }
       return container.innerHTML;
     },
@@ -207,7 +213,10 @@ export default Vue.extend({
       var factionCrumb = {};
       var teamCrumb = {};
       var nameCrumb = {
-        text: this.$i18n.locale.toLowerCase() == "fr" ? this.page.title.titleVF : this.page.title.titleVO,
+        text:
+          this.$i18n.locale.toLowerCase() == "fr"
+            ? this.page.title.titleVF
+            : this.page.title.titleVO,
         disabled: true
       };
       result.push({
@@ -219,7 +228,10 @@ export default Vue.extend({
         switch (content.faction) {
           case "dieux":
             result.push({
-              text: this.$i18n.locale.toLowerCase() == "fr" ? "Panthéons" : "Pantheons",
+              text:
+                this.$i18n.locale.toLowerCase() == "fr"
+                  ? "Panthéons"
+                  : "Pantheons",
               href: "/wiki/lore/panthéons"
             });
             break;
@@ -234,7 +246,10 @@ export default Vue.extend({
             break;
           case "otherworld":
             result.push({
-              text: this.$i18n.locale.toLowerCase() == "fr" ? "Outres-Mondes" : "Otherworlds",
+              text:
+                this.$i18n.locale.toLowerCase() == "fr"
+                  ? "Outres-Mondes"
+                  : "Otherworlds",
               href: "/wiki/lore/outres-mondes"
             });
             break;
@@ -250,8 +265,16 @@ export default Vue.extend({
         }
 
         if (content.team !== "empty" && content.team !== "") {
+          var team = content.team;
+          if (this.$i18n.locale != "fr") {
+            if (content.team == "Cercle de Merlin") {
+              team = "Circle of Merlin";
+            } else if (content.team == "Ordre du Poing de Jade") {
+              team = "Order of the Jade Fist";
+            }
+          }
           result.push({
-            text: content.team,
+            text: team,
             href: `/wiki/lore/${content.team}`
           });
         }

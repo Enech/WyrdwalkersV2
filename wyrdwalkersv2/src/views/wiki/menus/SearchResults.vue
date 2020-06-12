@@ -94,7 +94,7 @@ export default Vue.extend({
     getRenderText: function(page: WikiPage) {
       var text = "";
       // A décommenter quand le wiki sera traduit
-      /*if (!page.generalInfos) {
+      if (!page.generalInfos) {
         if (this.$i18n.locale == "fr") {
           text = page.content[0].textVF;
         } else {
@@ -114,12 +114,12 @@ export default Vue.extend({
             text = page.content[0].textVO;
           }
         }
-      }*/
-      if(page.generalInfos){
+      }
+      /*if(page.generalInfos && page.generalInfos.vf != ""){
         text = page.generalInfos.vf;
       } else {
         text = page.content[0].textVF;
-      }
+      }*/
       var node = document.createElement("div");
       node.innerHTML = text;
       var innerText = node.innerText;
@@ -137,6 +137,9 @@ export default Vue.extend({
   }),
   metaInfo: {
     title: "Recherches",
+    link: [
+      { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
+    ],
     meta: [
       { name: "description", content: "Pages de résultats des recherches" },
       {

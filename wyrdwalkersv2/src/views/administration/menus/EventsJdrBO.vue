@@ -12,10 +12,7 @@
           </template>
           <v-card>
             <v-card-title class="black white--text">
-              <span
-                class="headline"
-                v-if="editedItem._id != ''"
-              >JDR - {{editedItem.nameVF}}</span>
+              <span class="headline" v-if="editedItem._id != ''">JDR - {{editedItem.nameVF}}</span>
               <span class="headline" v-else>Nouveau JDR</span>
               <v-spacer></v-spacer>
               <v-btn text icon dark @click="dialog = false;">
@@ -26,23 +23,46 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.nameVF" label="Nom (VF)"></v-text-field>
+                    <v-text-field v-model="editedItem.nameVF" label="Nom (VF)" outlined></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field v-model="editedItem.nameVO" label="Name (VO)"></v-text-field>
+                    <v-text-field v-model="editedItem.nameVO" label="Name (VO)" outlined></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="6">
-                    <v-text-field v-model="editedItem.picture" label="URL de l'image"></v-text-field>
-                    <v-text-field v-model="editedItem.pictureAuthor" label="Auteur de l'image"></v-text-field>
+                  <v-col cols="4">
+                    <v-textarea v-model="charactersString" outlined label="Personnages" placeholder="Séparer par des ;"></v-textarea>
+                    <v-menu open-on-hover>
+                      <template v-slot:activator="{ on }">
+                        <v-btn color="indigo" dark v-on="on">
+                          <v-icon left small>fa-user-friends</v-icon> Liste
+                        </v-btn>
+                      </template>
+                      <v-list>
+                        <v-list-item
+                          v-for="(character, index) in editedItem.characters"
+                          :key="index"
+                        >
+                          <v-list-item-title>{{ character }}</v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-text-field v-model="editedItem.picture" label="URL de l'image" outlined></v-text-field>
+                    <v-text-field
+                      v-model="editedItem.pictureAuthor"
+                      label="Auteur de l'image"
+                      outlined
+                    ></v-text-field>
                     <v-text-field
                       v-model="editedItem.pictureAuthorLink"
                       label="URL de la page de l'auteur"
+                      outlined
                     ></v-text-field>
-                    <v-text-field v-model="editedItem.music" label="URL musique (YouTube)"></v-text-field>
+                    <v-text-field v-model="editedItem.music" label="URL musique (YouTube)" outlined></v-text-field>
                   </v-col>
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <v-img
                       :src="editedItem.picture"
                       v-if="editedItem.picture.length > 0"
@@ -59,10 +79,10 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12" sm="6">
-                    <v-textarea v-model="editedItem.captionVF" label="Caption (VF)"></v-textarea>
+                    <v-textarea v-model="editedItem.captionVF" label="Caption (VF)" outlined></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-textarea v-model="editedItem.captionVO" label="Caption (VO)"></v-textarea>
+                    <v-textarea v-model="editedItem.captionVO" label="Caption (VO)" outlined></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="6">
                     <div class="subtitle-1">Version française</div>
@@ -82,7 +102,7 @@
                     ></v-select>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-text-field type="number" v-model="editedItem.year" label="Année"></v-text-field>
+                    <v-text-field type="number" v-model="editedItem.year" label="Année" outlined></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -204,12 +224,19 @@ export default Vue.extend({
     },
     openDialog: function(event: EventJdr) {
       Object.assign(this.editedItem, event);
+      this.charactersString = event.characters.join(";");
       this.dialog = true;
     },
     closeDialog: function() {
       Object.assign(this.editedItem, new EventJdr());
       this.dialog = false;
+      this.charactersString = "";
       this.fetchEvents();
+    }
+  },
+  watch: {
+    charactersString: function(){
+      this.editedItem.characters = this.charactersString.split(";");
     }
   },
   data: () => ({
@@ -217,6 +244,8 @@ export default Vue.extend({
     deleteDialog: false,
     editedItem: new EventJdr(),
     loading: false,
+    fab: false,
+    charactersString: "",
     headers: [
       { text: "Nom", value: "nameVF" },
       { text: "Personnages", value: "characters", sortable: false },
@@ -227,10 +256,8 @@ export default Vue.extend({
   }),
   metaInfo: function() {
     return {
-      title:"Backoffice JDR",
-      link: [
-        { rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }
-      ]
+      title: "Backoffice JDR",
+      link: [{ rel: "icon", href: "https://wyrdwalkers.com/faviconWW.ico" }]
     };
   }
 });

@@ -19,8 +19,17 @@
           <v-text-field v-model="search" clearable @keyup.enter="goToResultPage();"></v-text-field>
         </v-card-text>
         <v-card-actions>
-            <v-btn text color="black" @click="openDialog = false">{{$t('general.dialogs.common.cancel')}}</v-btn>
-            <v-btn text color="blue" :disabled="search.length == 0" :href="`/wiki/search/${search}`">{{$t('wiki.contents.search.bar.button')}}</v-btn>
+          <v-btn
+            text
+            color="black"
+            @click="openDialog = false"
+          >{{$t('general.dialogs.common.cancel')}}</v-btn>
+          <v-btn
+            text
+            color="blue"
+            :disabled="search.length == 0"
+            :href="`/wiki/search/${search}`"
+          >{{$t('wiki.contents.search.bar.button')}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -40,9 +49,11 @@ export default Vue.extend({
     }
   },
   methods: {
-      goToResultPage: function(){
-          window.location.href = `/wiki/search/${this.search}`;
-      }
+    goToResultPage: function() {
+      var searchTab = this.search.split(" ");
+      var searchQuery = searchTab.join("+");
+      window.location.href = `/wiki/search/${searchQuery}`;
+    }
   },
   data: () => ({
     search: "",
