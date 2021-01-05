@@ -16,7 +16,7 @@
     "@ckeditor/ckeditor5-horizontal-line": "^16.0.0",
     "@ckeditor/ckeditor5-link": "^16.0.0",
     "@types/leaflet": "^1.5.12",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "dotenv-webpack": "^1.7.0",
